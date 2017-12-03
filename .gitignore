@@ -1,0 +1,10 @@
+manage*
+models*
+psmate_nginx*
+settings*
+test*
+uwsgi_params*
+/static
+/media
+/psmate/settings.py
+.env
