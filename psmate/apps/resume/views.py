@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("RESUME INDEX")
+    return render(request, 'index.html')

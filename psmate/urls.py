@@ -18,7 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^resume/', include('resume.urls')),
+    url(r'^', include('psmate.apps.resume.urls')),
 ]
 
 
