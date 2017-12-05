@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+
+    <meta charset="utf-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PSmate</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'datepicker/css/bootstrap-datepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.multiselect.css' %}">
+    
+      
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>      
+    <script type="text/javascript" src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datepicker/locales/bootstrap-datepicker.ru.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>  
+    <!--<script type="text/javascript" src="{% static 'js/jquery.multiselect.js' %}"></script> -->
+   
+
+      
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+    /* navbar */
+#sp-top {
+    background-color: #0173c1;
+    color: #fff;
+    padding: 10px 0
+}
+#sp-top .name {
+    text-align: right;
+    padding-right: 150px
+}
+#sp-top .name a {
+    color: #fff
+}
+    .navbar-nav {
+      flex-direction: row;
+    }
+    
+    .nav-link {
+      padding-right: .5rem !important;
+      padding-left: .5rem !important;
+    }
+ 
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    } 
+ 
+    
+    </style>
+
+  </head>
+
+  <body>
+ 
+
+    <!-- Top Navigation -->
+
+<div class="row">
+
+   
+     <div class="col-md-12">
+     
+         <nav class="navbar navbar-expand-sm fixed-top" id="sp-top" >
+
+           <div class="col-md-10 col-sm-10 col-xs-9 name">
+          
+                   <a class="nav-link"><h4 ><strong>    
+<!--           
+@auth
+{{Auth::user()->FL_fam .' '.  Auth::user()->FL_name .' '.  Auth::user()->FL_otch  %}
+@endauth 
+-->
+AUTHORIZATION NAME SURNAME
+</strong></h4></a>
+  
+           </div>    
+      
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 language-block">
+                <a class="nav-link dropdown-toggle " id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i><span class="caret"></span>
+                </a>
+
+  
+          </div>
+              
+
+        </nav>    
+
+	</div>
+
+</div> 
+
+
+<!-- 
+4 - Navbar with brand and links left and toggler right
+    The links collapse into the mobile menu
+-->
+
+<nav class="navbar navbar-expand-md bg-white bg-info">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar4">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar4">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="#">Новости</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Блог</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Документы</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Создать резюме</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">О проекте</a></li>
+         </ul>
+        <ul class="navbar-nav">
+<!-- 
+            <li class="nav-item"; style="font-size: 23px"><a class="nav-link" href="{{Auth::check() ? route('cabinetfl.index',  Auth::user()->id) : url('auth/login' %}"><i class="fa fa-lock"></i>Личный кабинет</a></li>
+            @auth  
+            <li class="nav-item"; style="font-size: 23px"><a class="nav-link" href="{{ url('auth/logout')  %}" class="btn btn-primary" ><i class="fa fa-sign-in"></i>Выход</a></li>
+            @endauth   
+              
+        </ul>
+    </div>
+</nav>
+
+ -->
+
+    <nav class="navbar navbar-expand-md navbar-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+         <form class="ml-3 d-inline w-50">
+            <div class="input-group">
+              <input type="text" class="form-control border-right-0" placeholder="..." id="searchInput"> 
+              <span class="input-group-btn">
+                <button class="btn btn-outline-primary border-left-0">Поиск</button>
+              </span>
+            </div>
+        </form>
+        </div>
+    </nav>
+
+
+
+    <!-- Page Content -->
+
+
+  </body>
+
+</html>
