@@ -1,1 +1,187 @@
+<!DOCTYPE html>
+    
 {% extends "layouts/layout.html" %}
+{% load static %}
+{% block content %}
+
+    <header>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide One - Set the background image for this slide in the line below -->
+          <div class="carousel-item active" style="background-image:url('{% static 'images/1900x1080.png' %}')">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>First Slide</h3>
+              <p>This is a description for the first slide.</p>
+            </div>
+          </div>
+          <!-- Slide Two - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image:url('{% static 'images/1900x1080.png' %}')">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Second Slide</h3>
+              <p>This is a description for the second slide.</p>
+            </div>
+          </div> 
+          <!-- Slide Three - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image:url('{% static 'images/1900x1080.png' %}')">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Third Slide</h3>
+              <p>This is a description for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- News Section -->
+      <h2 class="my-4">Новости</h2>
+
+      <div class="row">
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="#"><img class="card-img-top" src="{% static 'images/700x400.png' %}" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#">Новость 1</a>
+              </h4>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="#"><img class="card-img-top" src="{% static 'images/700x400.png' %}" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#">Новость 2</a>
+              </h4>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="#"><img class="card-img-top" src="{% static 'images/700x400.png' %}" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#">Новость 3</a>
+              </h4>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <a class="btn btn-lg btn-secondary btn-block" href="#">Перейти ко всем новостям в ленте</a>
+        </div>
+      </div>
+      <!-- /.row -->
+
+
+      <h1 class="my-4">Работа с профстандартами</h1>
+
+      <!-- Marketing Icons Section -->
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h4 class="card-header">Генератор резюме</h4>
+            <div class="card-body">
+              <p class="card-text">Позволяет сгенерировать резюме по профстандарту с необходимыми знаниями, умениями, действиями. Экспорт в Microsoft Word, PDF.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Перейти</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h4 class="card-header">Профстандарты</h4>
+            <div class="card-body">
+              <p class="card-text">Поиск по профстандартам, возможность сгенерировать собственный профстандарт, экспорт во внешние файлы.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Перейти</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h4 class="card-header">Учебные заведения</h4>
+            <div class="card-body">
+              <p class="card-text">Рекомендации по обучению в получении желаемой квалификации. ФГОСы. ПОиск по региональным ВУЗам.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Перейти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <!-- Features Section -->
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Psmate</h2>
+          <p>С помощью сервиса PSmate вы можете:</p>
+          <ul>
+            <li>
+              <strong>Получить информацию из существующих профстандартов</strong>
+            </li>
+            <li>Составить резюме в терминах профстандартов</li>
+            <li>Сгенерировать собственный профстандарт</li>
+            <li>Получить рекомендации по обучению желаемой квалификации</li>
+            <li>Оставаться в курсе новостей внедрения профстандартов</li>
+          </ul>
+          <p>PSmate использует современные алгоритмы обработки данных и самые свежие данные профстандартов с сайтов:</p>
+          <ul>
+            <li><a href='http://rosmintrud.ru/'>Министерство труда и социальной защиты</a></li>
+            <li><a href='http://www.edu.ru'>Российское образование. Федеральный образовательный портал</a> </li>
+
+          </ul>          
+          
+          
+        </div>
+        <div class="col-lg-6">
+          <img class="img-fluid rounded" src="{% static 'images/700x450.png' %}" alt="">
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <hr>
+
+      <!-- Call to Action Section -->
+      <div class="row mb-4">
+        <div class="col-md-8">
+          <p>PSmate - помощник в области внедрения профстандартов. Используйте регистрацию, чтобы сохранять данные, загружать их на свой компьютер и оперировать ими в дальнейшем. Также с регистрацией вы получаете возможность комментировать записи в блоге PSmate.</p>
+        </div>
+        <div class="col-md-4">
+          <a class="btn btn-lg btn-secondary btn-block" href="#">Зарегестрироваться</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; PSmate 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+{% endblock %}
