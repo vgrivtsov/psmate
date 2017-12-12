@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<body>
+
+IT'S A USER CABINET INDEX.HTML PAGE
+
+
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
+
+
+</body>
