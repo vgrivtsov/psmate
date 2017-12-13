@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.views.generic.edit import FormView
 
-from psmate.apps.usercabinet.forms import UserRegisterForm
+from psmate.apps.usercabinet.forms import UserRegisterForm, ProfileForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.views.generic.base import View
@@ -11,8 +11,8 @@ from django.contrib.auth import login
 
 
 class RegisterFormView(FormView):
-    form_class = UserRegisterForm
-
+    form_class = ProfileForm
+    second_form_class = ProfileForm
     # enter to cabinet
     success_url = "/cabinet/"
 
@@ -20,14 +20,20 @@ class RegisterFormView(FormView):
 
     def form_valid(self, form):
         # create user
+        
         form.save()
-
+        
+        udata = super(RegisterFormView, self).form_valid(form)
+        udata2 = super(RegisterFormView, self).form_valid(form)
         # call base class method
-        return super(RegisterFormView, self).form_valid(form)
-    
+        return udata, udata2
+ 
+
+
+   
   
 class LoginFormView(FormView):
-    form_class = AuthenticationForm
+    form_class = UserRegisterForm
    
     template_name = "loginform.html"
     
