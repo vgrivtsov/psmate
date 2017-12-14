@@ -6,8 +6,7 @@ from psmate.apps.usercabinet.forms import UserRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.views.generic.base import View
-from django.contrib.auth import logout
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login, logout
 
 
 class RegisterFormView(FormView):
@@ -21,6 +20,13 @@ class RegisterFormView(FormView):
     def form_valid(self, form):
         # create user
         form.save()
+        
+        email = self.request.POST['email']
+        password = self.request.POST['password1']
+        #authenticate user then login
+        user = authenticate(username=email, password=password)
+        login(self.request, user)
+
 
         # call base class method
         return super(RegisterFormView, self).form_valid(form)
