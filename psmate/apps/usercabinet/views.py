@@ -20,13 +20,12 @@ class RegisterFormView(FormView):
     def form_valid(self, form):
         # create user
         form.save()
-        
+        # get email-password
         email = self.request.POST['email']
         password = self.request.POST['password1']
         #authenticate user then login
         user = authenticate(username=email, password=password)
         login(self.request, user)
-
 
         # call base class method
         return super(RegisterFormView, self).form_valid(form)
@@ -61,5 +60,8 @@ class LogoutView(View):
     
 def usercabinet(request):
     return render(request, 'usercabinet/index.html')
+
+def settings(request):
+    return render(request, 'usercabinet/settings.html')
 
 

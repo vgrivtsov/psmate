@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+    
+{% extends "layouts/layout.html" %}
+{% load static %}
+{% block content %}
+
+<section id="flsettings">
+
+<style type="text/css">
+    .form-one{
+  margin-top: 15px;
+  margin-bottom: 15px;
+   
+}
+
+input[type=checkbox], input[type=radio] {
+  vertical-align: middle;
+  position: relative;
+  bottom: 1px;
+}
+
+input[type=radio] {
+  bottom: 2px;
+}
+
+
+.card-body{
+    max-width: 1500px;
+    margin: auto;
+    border:2px solid DodgerBlue;
+
+}
+
+#info{
+    margin: auto;
+    padding: 5px;
+   
+}
+
+
+.spacer{
+    height: 43%;
+}
+
+</style>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center text-white mb-4">Bootstrap 4 Login Form</h2>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <span class="anchor" id="formLogin"></span>
+
+                    <!-- form card login -->
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0">Login</h3>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" autocomplete="off" id="formLogin">
+                                <div class="form-group">
+                                    <label for="uname1">Username</label>
+                                    <input type="text" class="form-control form-control-lg rounded-0" name="uname1" id="uname1" required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control form-control-lg rounded-0" id="pwd1" required="" autocomplete="new-password">
+                                </div>
+                                <div>
+                                    <label class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input">
+                                      <span class="custom-control-indicator"></span>
+                                      <span class="custom-control-description small">Remember me on this computer</span>
+                                    </label>
+                                </div>
+                                <button type="button" class="btn btn-success btn-lg float-right">Login</button>
+                            </form>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card login -->
+
+                </div>
+
+
+            </div>
+            <!--/row-->
+
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+
+
+<!--
+<div class="container">
+<h4 align="center">Персональная информация</h4>
+<div ng-app="edit_set" ng-controller="edit_set_ctrl">     
+
+
+        <form id="flregdata" class="form-horizontal" role="form">
+
+            
+            <div class="row">   -->             
+<!-- Coloumn #1  -->                        
+ <!--               <div class="col">                    
+                       <div class="form-group row">
+                            <label for="name-input" class="col-4 col-form-label">Фамилия</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_fam" type="text" placeholder="Фамилия" id="FL_fam" value="$uservalues->FL_fam" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="rukvod-input" class="col-4 col-form-label">Имя</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_name" type="text" placeholder="Имя" id="FL_name" value="$uservalues->FL_name" >
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label for="inn-input" class="col-4 col-form-label">Отчество</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_otch" type="text" placeholder="Отчество" id="FL_otch" value="$uservalues->FL_otch" >
+                            </div>
+                        </div> 
+                         <div class="form-group row">
+                            <label for="kpp-input" class="col-4 col-form-label">СНИЛС</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_snils" type="text" placeholder="СНИЛС" id="FL_snils"  value="$uservalues->FL_snils" >
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label for="type-input" class="col-4 col-form-label">Пол</label>
+                            <div class="col-7">
+                            <select class="form-control form-control-sm" name="FL_pol" type="text" id="FL_pol"  value="$uservalues->FL_pol" >
+                                <option>Мужской</option>
+                                <option>Женский</option>
+                            </select> 
+                            </div>
+                        </div>           
+                        <div class="form-group row">
+                             <label for="okved-input" class="col-4 col-form-label">Дата рождения</label>
+                            <div class="col-7">
+                            <input type="text" class="form-control form-control-sm" name="FL_data" placeholder="MM/DD/YYYY" id="FL_data" value="$uservalues->FL_data" >
+                            </div>
+                        </div>
+                          
+                        <div class="form-group row">
+                            <label for="adress_pos-input" class="col-4 col-form-label">Телефон моб.</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_tlph_mob" type="text" placeholder="Телефон моб." id="FL_tlph_mob" value="$uservalues->FL_tlph_mob" >
+                            </div>
+                        </div>                           
+                        <div class="form-group row">
+                            <label for="adress_pos-input" class="col-4 col-form-label">Телефон раб.</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_tlph_work" type="text" placeholder="Телефон раб." id="FL_tlph_work" value="$uservalues->FL_tlph_work" >
+                            </div>
+                        </div>  
+                         <div class="form-group row">
+                            <label for="adress_pos-input" class="col-4 col-form-label">Телефон дом.</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_tlph_home" type="text" placeholder="Телефон дом." value="$uservalues->FL_tlph_home" id="FL_tlph_home" >
+                            </div>
+                        </div>  
+                        <div class="form-group row">
+                            <label for="adress_pos-input" class="col-4 col-form-label">Электронная почта</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="email" type="text" placeholder="Электронная почта" value="$uservalues->email" id="email" >
+                            </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label for="adress_real-input" class="col-4 col-form-label">Адрес места регистрации</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_adress_reg" type="text" placeholder="Адрес места регистрации" id="FL_adress_reg" value="$uservalues->FL_adress_reg" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="psunion-input" class="col-4 col-form-label">Адрес места проживания</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_adress_real" type="text" placeholder="Адрес места жительства" id="FL_adress_real" value="$uservalues->FL_adress_real" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="adress_pos-input" class="col-4 col-form-label">Профсоюз</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_prfsz" type="text" placeholder="Профсоюз" id="FL_prfsz" value="$uservalues->FL_prfsz" >
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label for="adress_pos-input" class="col-4 col-form-label">Профсообщество</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_ps_name" type="text" placeholder="Профсообщество" id="FL_ps_name" value="$uservalues->FL_ps_name" >
+                            </div>
+                        </div>
+                 
+                </div>-->
+<!-- Coloumn #2  -->
+  <!--              <div class="col">                    
+                
+                         <div class="form-group row">
+                            <label for="adress_pos-input" class="col-5 col-form-label">Текущее место работы, ИНН/КПП</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_work_inn" type="text" placeholder="Место работы ИНН/КПП" id="FL_work_inn" value="$uservalues->FL_work_inn" >
+                            </div>
+                        </div> 
+                         <div class="form-group row">
+                            <label for="adress_pos-input" class="col-5 col-form-label">Текущее место обучения, ИНН/КПП</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_educ_inn" type="text" placeholder="ИНН УЗ" id="FL_educ_inn" value="$uservalues->FL_educ_inn" >
+                            </div>
+                        </div> 
+                         <div class="form-group row">
+                            <label for="adress_pos-input" class="col-5 col-form-label">Наличие подтвержденных квалификаций</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_test_Q" type="text" placeholder="Наличие подтвержденных квалификаций" id="FL_test_Q" value="$uservalues->FL_test_Q" >
+                            </div>
+                        </div>
+                         <div class="form-group row">
+                            <label for="adress_pos-input" class="col-5 col-form-label">Образование. Уровень</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_educ_level" type="text" placeholder="Образование. Уровень" id="FL_educ_level" value="$uservalues->FL_educ_level" >
+                            </div>
+                        </div> 
+                         <div class="form-group row">
+                            <label for="adress_pos-input" class="col-5 col-form-label">Специальность по образованию, ОКСО</label>
+                            <div class="col-7">
+                            <input class="form-control form-control-sm" name="FL_educ_spec_okso" type="text" placeholder="Образование. Специальность УЗ (ОКСО)" id="FL_educ_spec_okso" value="$uservalues->FL_educ_spec_okso" >
+                            </div>      
+                        </div> 
+                        <div class="spacer"></div>                             
+                         <div class="form-group row"">
+                            <label for="password" class="col-2 col-form-label">Пароль</label>
+                            <div class="col-7">
+                            <input type="hidden" name="_token" value=" csrf_token() "> 
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Пароль" value=" bcrypt($uservalues->password)" >
+                            </div>
+                        </div> 
+                         <div class="form-group row"">
+                            <label for="soglas-input" class="col-auto col-form-label">Согласие на обработку перс. данных</label>
+                            <div class="col-auto">
+                            <input class="form-check-input" type="checkbox" ng-model="soglas" id="soglas-input">
+                            <button type="submit" class="btn btn-primary btn-lg" ng-disabled="soglas != true"><i class="fa fa-user" ></i>Сохранить</button> 
+                            </div>
+                        </div>                    
+                </div>
+            </div>
+     
+
+</form>     
+</div>
+</div>
+
+<script>
+angular.module("edit_set",[]).controller("edit_set_ctrl",function($scope){});  
+</script>   
+
+-->
+{% endblock %}
