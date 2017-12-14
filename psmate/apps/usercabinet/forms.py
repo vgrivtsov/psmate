@@ -26,4 +26,7 @@ class UserRegisterForm(UserCreationForm):
 
         if commit:
             user.save()
-
+        # fill users table
+        user.users.email= self.cleaned_data["email"]
+        user.users.resume = '[]'
+        user.users.save()
