@@ -28,5 +28,7 @@ class UserRegisterForm(UserCreationForm):
             user.save()
         # fill users table
         user.users.email= self.cleaned_data["email"]
+        user.users.fl_name= self.cleaned_data["first_name"]
+        user.users.fl_fam= self.cleaned_data["last_name"]
         user.users.resume = '[]'
         user.users.save()

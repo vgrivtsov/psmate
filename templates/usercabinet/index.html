@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 
+<!DOCTYPE html>
+  
+{% extends "layouts/layout.html" %}
+{% load static %}
+{% block content %}
+
 <body>
 
 IT'S A USER CABINET INDEX.HTML PAGE
 
 
 {% if user.is_authenticated %}
-    <p>Welcome, {{ user.users.fl_fam }}. Thanks for logging in.</p>
+    <p>Welcome, {{ user.users.get_full_name }}. Thanks for logging in.</p>
 {% else %}
     <p>Welcome, new user. Please log in.</p>
 {% endif %}
 
 
 </body>
+
+
+{% endblock %}
