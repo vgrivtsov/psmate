@@ -6,19 +6,104 @@
 {% load static %}
 {% block content %}
 
-<body>
+<style>
+body, html {
+    height: 100%;
+}
 
-IT'S A USER CABINET INDEX.HTML PAGE
+#sidebar {
+    min-width: 130px;
+}
+.cabinet_sb[data-toggle].collapsed:after {
+    content: "▾";
+}
+.cabinet_sb[data-toggle]:not(.collapsed):after {
+    content: "▴";
+}
+</style>
+
+
+<body>
 
 
 {% if user.is_authenticated %}
-    <p>Welcome, {{ user.users.get_full_name }}. Thanks for logging in.</p>
+
+
+
+
+
+<link rel="stylesheet" href="{% static 'css/simple-sidebar.css' %}">
+
+    <p>{{ user.users.get_full_name }}, Добро пожаловать!</p>
+
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <div class="col-2 collapse d-md-flex bg-light pt-2 h-100" id="sidebar">
+            <ul class="nav flex-column flex-nowrap">
+                <li class="nav-item"><a class="cabinet_sb" href="#">Overview</a></li>
+                <li class="nav-item">
+                    <a class="cabinet_sb collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Reports</a>
+                    <div class="collapse" id="submenu1" aria-expanded="false">
+                        <ul class="flex-column pl-2 nav">
+                            <li class="nav-item"><a class="cabinet_sb py-0" href="">Orders</a></li>
+                            <li class="nav-item">
+                                <a class="cabinet_sb collapsed py-0" href="#submenu1sub1" data-toggle="collapse" data-target="#submenu1sub1">Customers</a>
+                                <div class="collapse small" id="submenu1sub1" aria-expanded="false">
+                                    <ul class="flex-column nav pl-4">
+                                        <li class="nav-item">
+                                            <a class="cabinet_sb p-0" href="">
+                                                <i class="fa fa-fw fa-clock-o"></i> Daily
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="cabinet_sb p-0" href="">
+                                                <i class="fa fa-fw fa-dashboard"></i> Dashboard
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="cabinet_sb p-0" href="">
+                                                <i class="fa fa-fw fa-bar-chart"></i> Charts
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="cabinet_sb p-0" href="">
+                                                <i class="fa fa-fw fa-compass"></i> Areas
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="cabinet_sb" href="#">Analytics</a></li>
+                <li class="nav-item"><a class="cabinet_sb" href="#">Export</a></li>
+            </ul>
+        </div>
+        <div class="col pt-2">
+            <h2>
+                <a href="" data-target="#sidebar" data-toggle="collapse" class="d-md-none"><i class="fa fa-bars"></i></a>
+                Content
+            </h2>
+            <h6 class="hidden-sm-down">Shrink page width to see sidebar collapse</h6>
+            <p>THERE IS NEED PLACED CARDS</p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    
+</script>   
+    
 {% else %}
-    <p>Welcome, new user. Please log in.</p>
+    <p>Для входа в личный кабинет, пожалуйста зарегестрируйтесь</p>
+    <a href="/register/">Регистрация</a>
 {% endif %}
 
 
-</body>
 
+</body>
 
 {% endblock %}
