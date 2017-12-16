@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views.generic.edit import FormView
 
 from psmate.apps.usercabinet.forms import UserRegisterForm
+from psmate.apps.usercabinet.forms import ProfileSettingsForm
+from django.views.generic.edit import UpdateView
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.views.generic.base import View
@@ -55,13 +57,35 @@ class LogoutView(View):
         # redirect to  index.html after logout
         return HttpResponseRedirect("/")
 
+ 
+class SettingsFormView(UpdateView):
+    
+   
+    form_class = ProfileSettingsForm
+   
+    template_name = "usercabinet/settings.html"
+    
+    success_url = "/cabinet/"
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        # Get user object
+        self.user = form.get_object()
+        form.save(commit=False)
+
+        return super(SettingsFormView, self).form_valid(form)  
   
   
     
 def usercabinet(request):
     return render(request, 'usercabinet/index.html')
 
-def settings(request):
-    return render(request, 'usercabinet/settings.html')
+
+
+
+# def settings(request):
+#     return render(request, 'usercabinet/settings.html')
 
 

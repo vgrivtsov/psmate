@@ -3,27 +3,6 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<!--
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-  </form>-->
-  
-  
-
 <div class="container py-5">
     <div class="row">
         <div class="col-md-12">
@@ -52,11 +31,14 @@
                                {% render_field field class="form-control form-control-lg rounded-0" %}
                                
                                {% if field.help_text %}
-                                 {% autoescape off %}
+                               
+                                 {% autoescape off %} <!-- escape html chars -->
                                    <small class="form-text text-muted">{{field.help_text}}</small>
                                   {% endautoescape %}
+                                  
                                {% endif %}
                              </div>
+                             
                            {% endfor %}
                          
                            <button type="submit" class="btn btn-secondary">Зарегестрироваться</button>
@@ -79,9 +61,5 @@
 </div>
 <!--/container-->  
   
-  
-  
-  
-  
-  
+
 {% endblock %}
