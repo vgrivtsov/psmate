@@ -157,21 +157,14 @@
 
     <!-- Page Content -->
     
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>      
-    <script type="text/javascript" src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'datepicker/locales/bootstrap-datepicker.ru.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>
-    
 
+
+
+  </body>
+  
   {% block content %}
   {% endblock %}
-    
-  </body>
-
+  
   <!-- Footer -->
 <footer class="bg-dark text-white py-4">
     <div class="container">
@@ -206,9 +199,17 @@
                 Copyright &copy; PSmate 2018
             </div>
         </div>
-    </div>
+
 </footer>
-    <!-- /.container -->
-  </footer>
+
+    <!--core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>      
+    <script type="text/javascript" src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datepicker/locales/bootstrap-datepicker.ru.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>
+    
 
 </html>

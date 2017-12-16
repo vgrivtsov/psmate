@@ -30,13 +30,6 @@ body, html {
 
 
 
-
-
-<link rel="stylesheet" href="{% static 'css/simple-sidebar.css' %}">
-
-    <p>{{ user.users.get_full_name }}, Добро пожаловать!</p>
-
-
 <div class="container-fluid h-100">
     <div class="row h-100">
         <div class="col-2 collapse d-md-flex bg-light pt-2 h-100" id="sidebar">
@@ -98,8 +91,12 @@ body, html {
 </script>   
     
 {% else %}
+
+<div class="container-fluid h-100">
     <p>Для входа в личный кабинет, пожалуйста зарегестрируйтесь</p>
     <a href="/register/">Регистрация</a>
+</div>    
+    
 {% endif %}
 
 
