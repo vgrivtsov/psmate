@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^login/$', views.LoginFormView.as_view()),
     url(r'^logout/$', views.LogoutView.as_view()),
     url(r'^cabinet/$', views.usercabinet, name='usercabinet'),
-    url(r'^settings/$', views.SettingsFormView.as_view()),
+    url(r'^settings/$', views.settings, name='settings'),
     
 ]

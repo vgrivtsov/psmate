@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import UpdateView
-#from psmate.models import Users
+from django.forms import ModelForm
+from psmate.models import Users
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -35,16 +35,15 @@ class UserRegisterForm(UserCreationForm):
         user.users.save()
 
 
-class ProfileSettingsForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(max_length=30, required=True,label="Имя")
-    last_name = forms.CharField(max_length=30, required=True, label="Фамилия")    
-    fl_otch = forms.CharField(max_length=30, required=True, label="Фамилия")
+class ProfileSettingsForm(ModelForm):
+
     fl_otch = forms.CharField(max_length=30, required=True, label="Отчество")     
 
     class Meta:
         model = User
-        fields = ( 'last_name', 'first_name', 'fl_otch', 'email', 'password1', 'password2')
+    
+        
+        fields = ( 'email', 'last_name', 'first_name', 'fl_otch')
 
     def __init__(self, *args, **kwargs):
         super(ProfileSettingsForm, self).__init__(*args, **kwargs)

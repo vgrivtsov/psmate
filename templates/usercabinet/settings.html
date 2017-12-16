@@ -2,22 +2,71 @@
     
 {% extends "layouts/layout.html" %}
 {% load static %}
+{% load widget_tweaks %}
 {% block content %}
 
 {% if user.is_authenticated %}
 
-</style>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <span class="anchor" id="formLogin"></span>
+
+                    <!-- form card login -->
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0">Изменить персональные данные</h3>
+                        </div>
+                        <div class="card-body">
+                          <form method="post">
+                           {% csrf_token %}
+                         
+                           {% for field in form %}
+                             <div class="form-group">
+                               {{ field.label_tag }}
+                               
+                               {% render_field field class="form-control form-control-lg rounded-0" %}
+
+                             </div>
+                             
+                           {% endfor %}
+                            <input type="reset" class="btn btn-secondary" value="Отмена">
+                            <input type="submit" class="btn btn-primary" value="Сохранить">
+
+                         </form>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card login -->
+
+                </div>
+
+
+            </div>
+            <!--/row-->
+
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->  
+<!--
 
 <div class="container py-3">
     <div class="row">
         <div class="mx-auto col-sm-10">
-                    <!-- form user info -->
+               
                     <div class="card">
                         <div class="card-header">
                             <h4 class="mb-0">Настройки профиля</h4>
                         </div>
                         <div class="card-body">
-                            <form class="form" role="form" autocomplete="off">
+                            <form method="post">
+                              {% csrf_token %}
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Фамилия</label>
                                     <div class="col-lg-9">
@@ -131,7 +180,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+<!--                                <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Пароль</label>
                                     <div class="col-lg-9">
                                         <input  class="form-control form-control-lg rounded-0" type="password" value="user.password">
@@ -142,21 +191,7 @@
                                     <div class="col-lg-9">
                                         <input  class="form-control form-control-lg rounded-0" type="password" value="">
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label"></label>
-                                    <div class="col-lg-9">
-                                        <input type="reset" class="btn btn-secondary" value="Отмена">
-                                        <input type="submit" class="btn btn-primary" value="Сохранить">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /form user info -->
-        </div>
-    </div>
-</div>
+                                </div>-->
 
 {% else %}
 

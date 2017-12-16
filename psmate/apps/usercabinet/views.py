@@ -9,7 +9,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.contrib.auth import authenticate, login, logout
-
+#from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.forms import inlineformset_factory
 
 class RegisterFormView(FormView):
     form_class = UserRegisterForm
@@ -58,25 +60,31 @@ class LogoutView(View):
         return HttpResponseRedirect("/")
 
  
-class SettingsFormView(UpdateView):
-    
-   
-    form_class = ProfileSettingsForm
-   
-    template_name = "usercabinet/settings.html"
-    
-    success_url = "/cabinet/"
+# class SettingsFormView(UpdateView):
+#     model = User 
+#    
+#     form_class = ProfileSettingsForm
+#    
+#     template_name = "usercabinet/settings.html"
+#     
+#     success_url = "/cabinet/"
+# 
+# 
+#     def get_object(self, request):
+#            form = PasswordChangeForm(user=request.user, data=request.POST)
+#            if form.is_valid():
+#                form.save()
+#                update_session_auth_hash(request, form.user)
+#         return self.request.user
 
-    def get_object(self, queryset=None):
-        return self.request.user
 
-    def form_valid(self, form):
-        # Get user object
-        self.user = form.get_object()
-        form.save(commit=False)
-
-        return super(SettingsFormView, self).form_valid(form)  
-  
+    # def form_valid(self, form):
+    #     # Get user object
+    #     self.user = get_object()
+    #     form.save(commit=False)
+    # 
+    #     return super(SettingsFormView, self).form_valid(form)  
+    # 
   
     
 def usercabinet(request):
@@ -87,5 +95,41 @@ def usercabinet(request):
 
 # def settings(request):
 #     return render(request, 'usercabinet/settings.html')
+
+@login_required
+def settings(request):
+    
+    if request.method == 'POST':
+        
+        form = ProfileSettingsForm(request.POST, instance=request.user)
+        #update = form.save(commit=False)
+       # update.user = request.user
+        if form.is_valid:
+           
+            form.save()       
+        
+        
+    else:
+        form = ProfileSettingsForm(instance=request.user)
+
+    return render(request, 'usercabinet/settings.html', {'form': form})
+
+
+
+# def home(request):
+#     user = request.user # or ...
+#     if request.POST:
+#         userform = UserForm(request.POST, instance=user)
+#         profileform = ProfileForm(request.POST, instance=user.get_profile())
+#         if userform.is_valid() and profileform.is_valid():
+#             # save
+#     else:
+#         userform = UserForm(instance=user)
+#         profileform = ProfileForm(instance=user.get_profile())
+#     return render_to_response('home.html', {
+#         'userform': userform,
+#         'profileform': profileform
+#     })        
+
 
 
