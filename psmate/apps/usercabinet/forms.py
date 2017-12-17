@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
-from psmate.models import Users
+
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -45,7 +45,20 @@ class ProfileSettingsForm(ModelForm):
         
         fields = ( 'email', 'last_name', 'first_name', 'fl_otch')
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
+        
+        
+        # get values from current user extended model to form field
+        self.user = user
+            
+        instance = kwargs.get('instance', None)
+        
+        kwargs.update(initial={
+             'fl_otch': user.users.fl_otch
+           
+        })        
+        
+        
         super(ProfileSettingsForm, self).__init__(*args, **kwargs)
 
 
@@ -65,3 +78,5 @@ class ProfileSettingsForm(ModelForm):
         user.users.fl_otch= self.cleaned_data["fl_otch"]
         user.users.resume = '[]'
         user.users.save()
+    
+        

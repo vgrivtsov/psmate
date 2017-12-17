@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from django.views.generic.edit import FormView
-
+from django.contrib.auth.models import User
 from psmate.apps.usercabinet.forms import UserRegisterForm
 from psmate.apps.usercabinet.forms import ProfileSettingsForm
 from django.views.generic.edit import UpdateView
@@ -59,33 +59,16 @@ class LogoutView(View):
         # redirect to  index.html after logout
         return HttpResponseRedirect("/")
 
- 
+#  
 # class SettingsFormView(UpdateView):
-#     model = User 
-#    
 #     form_class = ProfileSettingsForm
-#    
 #     template_name = "usercabinet/settings.html"
 #     
-#     success_url = "/cabinet/"
+#     success_url = "/settings/"  # You should be using reverse here
 # 
-# 
-#     def get_object(self, request):
-#            form = PasswordChangeForm(user=request.user, data=request.POST)
-#            if form.is_valid():
-#                form.save()
-#                update_session_auth_hash(request, form.user)
-#         return self.request.user
-
-
-    # def form_valid(self, form):
-    #     # Get user object
-    #     self.user = get_object()
-    #     form.save(commit=False)
-    # 
-    #     return super(SettingsFormView, self).form_valid(form)  
-    # 
-  
+#     def get_object(self):
+#         return User.objects.get(email=self.request.user)
+#   
     
 def usercabinet(request):
     return render(request, 'usercabinet/index.html')
@@ -101,35 +84,20 @@ def settings(request):
     
     if request.method == 'POST':
         
-        form = ProfileSettingsForm(request.POST, instance=request.user)
-        #update = form.save(commit=False)
-       # update.user = request.user
-        if form.is_valid:
-           
-            form.save()       
+        # get current user to form - see ProfileSettingsForm __init__
+        form = ProfileSettingsForm(request.user, request.POST, instance=request.user)
         
+
+        if form.is_valid():
+
+            form.save()
+            context = {'form': form}
+
+            return render(request, 'usercabinet/settings.html', context)
+
         
     else:
-        form = ProfileSettingsForm(instance=request.user)
+        form = ProfileSettingsForm(request.user, instance=request.user)
 
     return render(request, 'usercabinet/settings.html', {'form': form})
-
-
-
-# def home(request):
-#     user = request.user # or ...
-#     if request.POST:
-#         userform = UserForm(request.POST, instance=user)
-#         profileform = ProfileForm(request.POST, instance=user.get_profile())
-#         if userform.is_valid() and profileform.is_valid():
-#             # save
-#     else:
-#         userform = UserForm(instance=user)
-#         profileform = ProfileForm(instance=user.get_profile())
-#     return render_to_response('home.html', {
-#         'userform': userform,
-#         'profileform': profileform
-#     })        
-
-
 
