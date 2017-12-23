@@ -1,11 +1,12 @@
-manage*
+manage.py
 models*
 /media
-psmate_nginx*
-settings.py
 /psmate/settings
-test*
-uwsgi_params*
 /static
 /media
+/psmate/migrations
+psmate_nginx*
+settings.py
+test*
+uwsgi_params*
 .env
