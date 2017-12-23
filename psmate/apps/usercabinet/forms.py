@@ -27,17 +27,17 @@ class UserRegisterForm(UserCreationForm):
 
         if commit:
             user.save()
-        # fill users table
-        user.users.email= self.cleaned_data["email"]
-        user.users.fl_name= self.cleaned_data["first_name"]
-        user.users.fl_fam= self.cleaned_data["last_name"]
-        user.users.resume = '[]'
-        user.users.save()
+        # fill profiles table
+        user.profiles.email= self.cleaned_data["email"]
+        user.profiles.fl_name= self.cleaned_data["first_name"]
+        user.profiles.fl_fam= self.cleaned_data["last_name"]
+        user.profiles.resume = '[]'
+        user.profiles.save()
 
 
 class ProfileSettingsForm(ModelForm):
 
-    fl_otch = forms.CharField(max_length=30, required=True, label="Отчество")     
+    fl_otch = forms.CharField(max_length=30, required=False, label="Отчество")     
 
     class Meta:
         model = User
@@ -54,7 +54,7 @@ class ProfileSettingsForm(ModelForm):
         instance = kwargs.get('instance', None)
         
         kwargs.update(initial={
-             'fl_otch': user.users.fl_otch
+             'fl_otch': user.profiles.fl_otch
            
         })        
         
@@ -71,12 +71,12 @@ class ProfileSettingsForm(ModelForm):
 
         if commit:
             user.save()
-        # fill users table
-        user.users.email= self.cleaned_data["email"]
-        user.users.fl_name= self.cleaned_data["first_name"]
-        user.users.fl_fam= self.cleaned_data["last_name"]
-        user.users.fl_otch= self.cleaned_data["fl_otch"]
-        user.users.resume = '[]'
-        user.users.save()
+        # fill profiles table
+        user.profiles.email= self.cleaned_data["email"]
+        user.profiles.fl_name= self.cleaned_data["first_name"]
+        user.profiles.fl_fam= self.cleaned_data["last_name"]
+        user.profiles.fl_otch= self.cleaned_data["fl_otch"]
+        user.profiles.resume = '[]'
+        user.profiles.save()
     
         

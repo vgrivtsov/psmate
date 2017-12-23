@@ -68,10 +68,29 @@ class LogoutView(View):
 # 
 #     def get_object(self):
 #         return User.objects.get(email=self.request.user)
-#   
-    
+#
+
+@login_required    
 def usercabinet(request):
-    return render(request, 'usercabinet/index.html')
+    
+    if request.method == 'POST':
+        
+        # get current user to form - see ProfileSettingsForm __init__
+        form = ProfileSettingsForm(request.user, request.POST, instance=request.user)
+        
+
+        if form.is_valid():
+
+            form.save()
+            context = {'form': form}
+
+            return render(request, 'usercabinet/index.html', context)
+
+        
+    else:
+        form = ProfileSettingsForm(request.user, instance=request.user)
+
+    return render(request, 'usercabinet/index.html', {'form': form})
 
 
 

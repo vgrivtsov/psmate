@@ -1,5 +1,6 @@
 manage*
 models*
+/media
 psmate_nginx*
 settings.py
 /psmate/settings
