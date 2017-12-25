@@ -2,11 +2,10 @@
     
 {% extends "layouts/layout.html" %}
 
+{# Don't forget that one ! #}
 {% load static %}
 {% load widget_tweaks %}
 {% block content %}
-
-{% if user.is_authenticated %}
 
 <div class="container py-5">
     <div class="row">
@@ -19,10 +18,10 @@
                     <!-- form card login -->
                     <div class="card rounded-0">
                         <div class="card-header">
-                            <h6 class="mb-0">Персональные данные</h6>
+                            <h6 class="mb-0">Поиск ПС</h6>
                         </div>
                         <div class="card-body">
-                          <form method="post" action='/cabinet/'>
+                          <form method="post" action=''>
                            {% csrf_token %}
                          
                            {% for field in form %}
@@ -34,8 +33,8 @@
                              </div>
                              
                            {% endfor %}
-                            <input type="reset" class="btn btn-secondary" onclick="location.href='/cabinet/';" value="Отмена">
-                            <input type="submit" class="btn btn-primary" value="Сохранить">
+                            
+                            <input type="submit" class="btn btn-primary" value="Поиск">
 
                          </form>
                         </div>
@@ -54,16 +53,7 @@
     </div>
     <!--/row-->
 </div>
-<!--/container-->  
-
-
-{% else %}
-
-<div class="container-fluid h-100">
-    <p>Для входа в личный кабинет, пожалуйста зарегестрируйтесь</p>
-    <a href="/register/">Регистрация</a>
-</div> 
-
-{% endif %}
-
+<!--/container-->
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+{{ form.media }}
 {% endblock %}

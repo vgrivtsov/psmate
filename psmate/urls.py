@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^', include('psmate.apps.resume.urls')),
     url(r'^', include('psmate.apps.usercabinet.urls')),
+    url(r'^', include('psmate.apps.services.urls')),
 ]
 
 
