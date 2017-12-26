@@ -7,17 +7,25 @@ except ImportError:
 from django.shortcuts import render
 from django.views.generic import UpdateView
 from dal import autocomplete
-from psmate.models import Eks
+from psmate.models import *
 from psmate.apps.services.forms import SearchPsForm
+###
+from django.contrib.auth.models import User
+from .filters import PSFilter
 
 # Create your views here.
+# def search(request):
+#     ps_list = Psinfo.objects.filter(psregnum=204)
+#     ps_filter = PSFilter(request.GET, queryset=ps_list)
+#     return render(request, 'services/user_list.html', {'filter': ps_filter})
+
 
     
 class SearchPsAuto(autocomplete.Select2QuerySetView):
      def get_queryset(self):
          # if not self.request.user.is_authenticated(): 
          #       return User.objects.none() 
-        qs = Eks.objects.all()
+        qs = Psinfo.objects.all()
 
         if self.q:
 
@@ -27,11 +35,12 @@ class SearchPsAuto(autocomplete.Select2QuerySetView):
     
 
 class SearchPs(UpdateView):
-    model = Eks
+    model = Psinfo
     form_class = SearchPsForm
     template_name = 'services/search-profstandart.html'
     success_url = reverse_lazy('search-profstandart')
 
     def get_object(self):
-        return Eks.objects.first()
+        return Psinfo.objects.first()
     
+
