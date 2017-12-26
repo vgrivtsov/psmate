@@ -1,35 +1,37 @@
 from dal import autocomplete
 from django import forms
-from psmate.models import OtraslList
+from psmate.models import Eks
 
 
-# class SearchPsForm(forms.ModelForm):
-#     model = Profiles
-#   
-#     
-#     class Meta:
-#         widgets = {
-#                 'email': autocomplete.ModelSelect2(url='search-profstandart')
-#         }
-        
 
 # class SearchPsForm(forms.ModelForm):
-#     name = forms.ModelChoiceField(
-#         queryset=OtraslList.objects.all(),
-#         widget=autocomplete.ModelSelect2(url='profstandart-autocomplete')
+#     nameeks = forms.ModelChoiceField(
+#         queryset=Eks.objects.all(),
+#         widget=autocomplete.ModelSelect2(url='profstandart-autocomplete',
+#                                          attrs={'data-minimum-input-length': 2})
 #     )
 # 
 #     class Meta:
-#         model = OtraslList
-#         fields = ('name', )
+#         model = Eks
+#         fields = ('nameeks', )
 
-class SearchPsForm(autocomplete.FutureModelForm):
+class SearchPsForm(forms.ModelForm):
     
     #first_name = forms.CharField(max_length=30, required=True,label="Имя")
     
     class Meta:
-        model = OtraslList
-        fields = ('__all__')
+        model = Eks
+        fields = ('nameeks', )
         widgets = {
-            'name': autocomplete.ListSelect2('profstandart-autocomplete')
+            'nameeks': autocomplete.Select2('profstandart-autocomplete',
+                                                attrs={
+                                                # Set some placeholder
+                                                'data-placeholder': 'Название должности по ЕКС',
+                                                #autfocus
+                                                'autofocus':'autofocus',
+                                                # Only trigger autocompletion after 2 characters have been typed
+                                                #'data-minimum-input-length': 2,
+
+                                            },                                 
+                                                )
         }

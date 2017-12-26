@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru">
-{% load material_form %}  
+<html lang="ru-RU">
+
   <head>
 
     <meta charset="utf-8">
@@ -16,17 +16,14 @@
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'datepicker/css/bootstrap-datepicker.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.multiselect.css' %}">
+   <link rel="stylesheet" href="{% static 'css/select2-bootstrap.min.css' %}">
+    
     <!-- Material Design Bootstrap -->
-<!--    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}"-->
-    <!-- Font Awesome -->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">   --> 
-      
+<!-- <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}"-->
+
 
     <!--<script type="text/javascript" src="{% static 'js/jquery.multiselect.js' %}"></script> -->
    
-
-      
-    <!-- Custom styles for this template -->
     <style>
     body {
       padding-top: 54px;
@@ -91,11 +88,11 @@
                 Сервисы
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="search-profstandart">Поиск ПС</a>
-                <a class="dropdown-item" href="generator-cv-resume">Генератор резюме</a>
-                <a class="dropdown-item" href="generator-staff-table">Генератор штатного расписания</a>
-                <a class="dropdown-item" href="education-recomendations">Рекомендации по обучению</a>
-                <a class="dropdown-item" href="from-cv-to-profstandart">Резюме в профстандарт</a>
+                <a class="dropdown-item" href="/search-profstandart/">Поиск ПС</a>
+                <a class="dropdown-item" href="/generator-cv-resume/">Генератор резюме</a>
+                <a class="dropdown-item" href="/generator-staff-table/">Генератор штатного расписания</a>
+                <a class="dropdown-item" href="/education-recomendations/">Рекомендации по обучению</a>
+                <a class="dropdown-item" href="/from-cv-to-profstandart/">Резюме в профстандарт</a>
               </div>
             </li>
             <li class="nav-item">
@@ -204,9 +201,7 @@
 </footer>
 
     <!--core JavaScript -->
-    {% include 'material/includes/material_css.html' %}
-    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    {% include 'material/includes/material_js.html' %}
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>    
     <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
