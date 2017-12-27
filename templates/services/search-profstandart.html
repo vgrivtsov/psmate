@@ -50,21 +50,15 @@
 
 
 <div class="container py-5">
-    <div class="row">
-        <div class="col-md-12">
 
-            <div class="row">
-                <div class="col-md-6 mx-auto">
-                    <span class="anchor" id="formLogin"></span>
 
                     <!-- form card login -->
-                    <div class="card rounded-0">
-                        <div class="card-header">
-                            <h6 class="mb-0">Поиск ПС</h6>
-                        </div>
-                        <div class="card-body">
-                          <form method="post" action=''>
+                         <h6 class="mb-0">Поиск ПС</h6>
+
+
+                          <form method="get" action='/searchps/'>
                            {% csrf_token %}
+                           <input type="hidden" name="next" value="request.GET.next">
                          
                            {% for field in form %}
                              <div class="form-group">
@@ -78,24 +72,40 @@
                             <input type="submit" class="btn btn-secondary" value="Поиск">
 
                          </form>
-                        </div>
-                        <!--/card-block-->
-                    </div>
-                    <!-- /form card login -->
-
-                </div>
 
 
-            </div>
-            <!--/row-->
-
-        </div>
-        <!--/col-->
-    </div>
-    <!--/row-->
 </div>
 <!--/container-->
 
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Название профстандарта</th>
+        <th>Регистрационный номер</th>
+        <th>Дата регистрации</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% if form.is_bound %}
+        <!--{{ data.filtered_set }}-->
+      {% for value in psinfo %}
+        <tr>
+          <td>{{ value.nameps }}}</td>
+          <td>{{ value.psregnum }}</td>
+          <td>{{ value.psdateappr }}</td>
+
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No data</td>
+        </tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
+
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
 {{ form.media }}
-{% endblock %}
+{% endblock %}  
+

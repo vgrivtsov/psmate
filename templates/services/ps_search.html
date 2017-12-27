@@ -1,34 +1,12 @@
 <!DOCTYPE html>
     
-{% extends "layouts/layout.html" %}
+{% extends "services/search-profstandart.html" %}
 {% load static %}
 {% load widget_tweaks %}
 
 {% block content %}
-  <form method="get">
-    <div class="well">
-      <h4 style="margin-top: 0">Filter</h4>
-      <div class="row">
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.nameps.label_tag }}
-          {% render_field filter.form.nameps class="form-control" %}
-        </div>
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.psregnum.label_tag }}
-          {% render_field filter.form.psregnum class="form-control" %}
-        </div>
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.psdateappr.label_tag }}
-          {% render_field filter.form.psdateappr class="form-control" %}
-        </div>
 
-      </div>
-      <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-search"></span> Search
-      </button>
-    </div>
-  </form>
-
+<div class="container py-5">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -38,13 +16,12 @@
       </tr>
     </thead>
     <tbody>
-        {% if filter.is_bound %}
-        <!--{{ data.filtered_set }}-->
-      {% for psinfo in filter.qs %}
+
+      {% for value in psinfo %}
         <tr>
-          <td>{{ psinfo.nameps }}</td>
-          <td>{{ psinfo.psregnum }}</td>
-          <td>{{ psinfo.psdateappr }}</td>
+          <td>{{ value.nameps }}</td>
+          <td>{{ value.psregnum }}</td>
+          <td>{{ value.psdateappr }}</td>
 
         </tr>
       {% empty %}
@@ -52,7 +29,9 @@
           <td colspan="5">No data</td>
         </tr>
       {% endfor %}
-      {% endif %}
+
     </tbody>
   </table>
+<!--/container-->
+
 {% endblock %}
