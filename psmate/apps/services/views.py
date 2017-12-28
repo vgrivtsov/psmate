@@ -5,7 +5,7 @@ except ImportError:
 
 
 from django.shortcuts import render
-from django.views.generic import UpdateView
+from django.views.generic import FormView
 from dal import autocomplete
 from psmate.models import *
 from psmate.apps.services.forms import SearchPsForm
@@ -13,17 +13,6 @@ from psmate.apps.services.forms import SearchPsForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import redirect
-
-# def searchps(request):
-#     ps_list = Psinfo.objects.all() # .objects.filter(psregnum=204)
-#     ps_filter = PSFilter(request.GET, queryset=ps_list)
-#     
-#     return render(request, 'services/search-profstandart.html', {'filter': ps_filter})
-
-
-
-
-
 
 ### Search PS ###
 
@@ -35,12 +24,12 @@ class SearchPsAuto(autocomplete.Select2QuerySetView):
 
         if self.q:
 
-            qs = qs.filter(nameps__istartswith=self.q)
+            qs = qs.filter(nameps__icontains=self.q) # icontains - Case-insensitive
 
         return qs
     
 
-class SearchPs(UpdateView):
+class SearchPs(FormView):
     model = Psinfo
     form_class = SearchPsForm
     template_name = 'services/search-profstandart.html'
@@ -48,35 +37,23 @@ class SearchPs(UpdateView):
 
     def get_object(self):
         return Psinfo.objects.first()
- 
-    # def get_queryset(self):
-    #     queryset = Psinfo.objects.all()
-    # 
-    #     if self.request.GET.get('nameps'):
-    #         queryset = queryset.filter(nameps=self.request.GET.get('nameps'))
-    #     return queryset
-    
-    
-def searchps(request):
-    if request.method == 'GET':
-        search_ps = request.GET.get('nameps', None)
-        print("NAME_PS",search_ps)
-        try:
-            ps = Psinfo.objects.filter(id=search_ps)
-            #for i in nameofps:
-            
-                #print("",i.psregnum)
-                
-                #do something with user
-                #html = ("<H1>%s</H1>" % i.psregnum)
-            psinfo = {'psinfo': ps}
-            return render(request, 'search-profstandart', psinfo)
-        except Psinfo.DoesNotExist:
-            return HttpResponse("Нет такого профстандарта")  
-    else:
-        return render(request, 'services/search-profstandart.html')    
-        
-    
+
+
+class SearchPSView(FormView):
+    model = Psinfo
+    form_class = SearchPsForm
+    template_name = 'services/search-profstandart.html'    
+    success_url = None
+
+    def get(self, request, *args, **kwargs):
+
+        form=SearchPsForm
+        data = self.request.GET.get('nameps', None)
+        if data != None:
+            psinfo = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
+            return render(request, self.template_name, {'psinfo': psinfo,'form': form})
+        return render(request, self.template_name, {'form': form})
+
 
 
 

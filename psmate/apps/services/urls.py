@@ -6,10 +6,8 @@ from . import views
 
 urlpatterns = [
     url(r'^profstandart-autocomplete/$', views.SearchPsAuto.as_view(), name='profstandart-autocomplete'),
-    url(r'^search-profstandart/$', views.SearchPs.as_view(), name='search-profstandart'),
-    url(r'^searchps/$', views.searchps, name='searchps'),
+    url(r'^search-profstandart/$', views.SearchPSView.as_view(), name='search-profstandart'),
     # url(r'^search-profstandart/$', FilterView.as_view(filterset_class=PSFilter,
     #     template_name='services/search-profstandart.html'), name='search-profstandart'),
-    # 
-    # 
+
 ]

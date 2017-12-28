@@ -53,12 +53,12 @@
 
 
                     <!-- form card login -->
-                         <h6 class="mb-0">Поиск ПС</h6>
+                         <h6 class="mb-0">Поиск профстандарта по названию</h6>
 
 
-                          <form method="get" action='/searchps/'>
-                           {% csrf_token %}
-                           <input type="hidden" name="next" value="request.GET.next">
+                          <form method="get" action=''>
+                           <!--{% csrf_token %}-->
+                          <!-- <input type="hidden" name="next" value="request.GET.next">-->
                          
                            {% for field in form %}
                              <div class="form-group">
@@ -69,7 +69,7 @@
                              
                            {% endfor %}
                             
-                            <input type="submit" class="btn btn-secondary" value="Поиск">
+                            <input type="submit" class="btn btn-secondary" value="Показать профстандарт">
 
                          </form>
 
@@ -86,21 +86,25 @@
       </tr>
     </thead>
     <tbody>
-        {% if form.is_bound %}
+        
         <!--{{ data.filtered_set }}-->
+        
       {% for value in psinfo %}
         <tr>
-          <td>{{ value.nameps }}}</td>
+          <td>{{ value.nameps }}</td>
           <td>{{ value.psregnum }}</td>
           <td>{{ value.psdateappr }}</td>
 
         </tr>
+        
       {% empty %}
+      {% if form.is_bound %}
         <tr>
-          <td colspan="5">No data</td>
+          <td colspan="5">Нет данных</td>
         </tr>
+       {% endif %} 
       {% endfor %}
-      {% endif %}
+      
     </tbody>
   </table>
 
