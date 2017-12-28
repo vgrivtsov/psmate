@@ -50,8 +50,19 @@ class SearchPSView(FormView):
         form=SearchPsForm
         data = self.request.GET.get('nameps', None)
         if data != None:
-            psinfo = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
-            return render(request, self.template_name, {'psinfo': psinfo,'form': form})
+            ps_get = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
+            psinfo = ps_get[0]
+            psregnum = ps_get[0].psregnum
+            tfinfo = Tfinfo.objects.filter(psregnum=psregnum)
+            okzinfo = Okz.objects.filter(psregnum=psregnum).distinct('codeokz')
+            okvedinfo = Okved.objects.filter(psregnum=psregnum).distinct('codeokved')
+            
+            
+            return render(request, self.template_name, {'psinfo': psinfo,
+                                                        'tfinfo': tfinfo,
+                                                        'okzinfo': okzinfo,
+                                                        'okvedinfo': okvedinfo,
+                                                        'form': form})
         return render(request, self.template_name, {'form': form})
 
 
