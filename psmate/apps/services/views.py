@@ -53,13 +53,30 @@ class SearchPSView(FormView):
             ps_get = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
             psinfo = ps_get[0]
             psregnum = ps_get[0].psregnum
-            tfinfo = Tfinfo.objects.filter(psregnum=psregnum)
+            tfinfo = Tfinfo.objects.filter(psregnum=psregnum).distinct('codetf')
+            otfinfo = Gtfinfo.objects.filter(psregnum=psregnum).distinct('codeotf')
             okzinfo = Okz.objects.filter(psregnum=psregnum).distinct('codeokz')
             okvedinfo = Okved.objects.filter(psregnum=psregnum).distinct('codeokved')
             
+            mixed_tf_otf = []
+            
+            # for OTF -TF dividing in table used nex list:
+            # [[otf1,[tf1, tf2]],[otf2,[tf1, tf2]]]
+            for otf in otfinfo:
+                mixed_tf = []
+                
+                for tf in tfinfo:
+                    if tf.nameotf == otf.nameotf:
+                        mixed_tf.append(tf)
+                
+                mixed_tf_otf.append([otf, mixed_tf])
+            
+            print(mixed_tf_otf)
+            
             
             return render(request, self.template_name, {'psinfo': psinfo,
-                                                        'tfinfo': tfinfo,
+                                                        'mixed_tf_otf': mixed_tf_otf,
+                                                        #'otfinfo': otfinfo,
                                                         'okzinfo': okzinfo,
                                                         'okvedinfo': okvedinfo,
                                                         'form': form})

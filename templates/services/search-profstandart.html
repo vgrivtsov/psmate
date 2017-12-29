@@ -409,332 +409,60 @@
 			(подуровень) квалификации</FONT></FONT></CENTER>
 		</TD>
 	</TR>
+   
+   {% for x in mixed_tf_otf %}
+       
+   
    <TR>
 
- 		<TD ROWSPAN="2" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>A</p><BR>
-			</center></P>
+ 		<TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none;">
+			<P><center><p>{{ x.0.codeotf }}</p><BR></center></P>
 		</TD>
 
-		<TD ROWSPAN="2" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P> <p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67589&amp;CODE=67589'>Выполнение регламентных работ по поддержанию АТС в исправном состоянии</a></p>    <BR>
+		<TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
+			<P> <p>{{ x.0.nameotf }}</p><BR>
 			</P>
 		</TD>
         
-        		<TD ROWSPAN="2" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>3</p><BR>
-			</center></P>
-		</TD>
-        
-<!--/TR--> 
-		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67590&amp;CODE=67590'>Предпродажная подготовка АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>A/01.3</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>3</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67591&amp;CODE=67591'>Техническое обслуживание АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>A/02.3</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>3</p>			</center></P>
-		</TD>
-	</TR>
-	 <TR>
-
- 		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>B</p><BR>
-			</center></P>
-		</TD>
-
-		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P> <p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67592&amp;CODE=67592'>Ремонт АТС</a></p>    <BR>
-			</P>
-		</TD>
-        
-        		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>5</p><BR>
-			</center></P>
-		</TD>
-        
-<!--/TR--> 
-		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67593&amp;CODE=67593'>Ремонт узлов, агрегатов и механических систем АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>B/01.5</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>5</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67594&amp;CODE=67594'>Диагностика мехатронных систем АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>B/02.5</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>5</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67595&amp;CODE=67595'>Устранение неисправностей в мехатронных системах АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>B/03.5</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>5</p>			</center></P>
-		</TD>
-	</TR>
-	 <TR>
-
- 		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>C</p><BR>
-			</center></P>
-		</TD>
-
-		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P> <p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67596&amp;CODE=67596'>Коммуникации с потребителем по вопросам сервиса АТС</a></p>    <BR>
-			</P>
-		</TD>
-        
-        		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>5</p><BR>
-			</center></P>
-		</TD>
-        
-<!--/TR--> 
-		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67597&amp;CODE=67597'>Консультирование потребителей по вопросам сервиса АТС и оформления документов, связанных с сервисным обслуживанием АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>C/01.5</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>5</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67598&amp;CODE=67598'>Приемка АТС на техническое обслуживание (ТО), ремонт и сдача АТС потребителю</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>C/02.5</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>5</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67599&amp;CODE=67599'>Контроль сроков и объемов ремонтных работ</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>C/03.5</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>5</p>			</center></P>
-		</TD>
-	</TR>
-	 <TR>
-
- 		<TD ROWSPAN="2" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>D</p><BR>
-			</center></P>
-		</TD>
-
-		<TD ROWSPAN="2" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P> <p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67600&amp;CODE=67600'>Руководство выполнением работ по ТО и ремонту АТС и их компонентов</a></p>    <BR>
-			</P>
-		</TD>
-        
-        		<TD ROWSPAN="2" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>6</p><BR>
-			</center></P>
-		</TD>
-        
-<!--/TR--> 
-		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67601&amp;CODE=67601'>Материальное обеспечение процесса ТО и ремонта АТС и их компонентов</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>D/01.6</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>6</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67602&amp;CODE=67602'>Организация работ по ТО и ремонту АТС и их компонентов в соответствии с требованиями организации-изготовителя АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>D/02.6</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>6</p>			</center></P>
-		</TD>
-	</TR>
-	 <TR>
-
- 		<TD ROWSPAN="4" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>E</p><BR>
-			</center></P>
-		</TD>
-
-		<TD ROWSPAN="4" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P> <p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67603&amp;CODE=67603'>Организация деятельности по выполнению гарантийных обязательств организации-изготовителя АТС и сервисного центра АТС</a></p>    <BR>
-			</P>
-		</TD>
-        
-        		<TD ROWSPAN="4" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>6</p><BR>
-			</center></P>
-		</TD>
-        
-<!--/TR--> 
-		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67604&amp;CODE=67604'>Прием и обработка рекламаций от потребителя АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>E/01.6</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>6</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67605&amp;CODE=67605'>Ведение гарантийного учета АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>E/02.6</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>6</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67606&amp;CODE=67606'>Ведение документооборота по гарантийному ремонту АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>E/03.6</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>6</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67607&amp;CODE=67607'>Учет движения запасных частей, используемых при гарантийном ремонте АТС и их компонентов</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>E/04.6</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>6</p>			</center></P>
-		</TD>
-	</TR>
-	 <TR>
-
- 		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>F</p><BR>
-			</center></P>
-		</TD>
-
-		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P> <p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67608&amp;CODE=67608'>Управление деятельностью по ТО и ремонту АТС в сервисном центре</a></p>    <BR>
-			</P>
-		</TD>
-        
-        		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>7</p><BR>
-			</center></P>
-		</TD>
-        
-<!--/TR--> 
-		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67609&amp;CODE=67609'>Формирование стратегии развития сервиса АТС и их компонентов</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>F/01.7</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>7</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67610&amp;CODE=67610'>Организация деятельности сервисного центра по ТО и ремонту АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>F/02.7</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>7</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67611&amp;CODE=67611'>Анализ эффективности деятельности сервисного центра</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>F/03.7</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>7</p>			</center></P>
-		</TD>
-	</TR>
-	 <TR>
-
- 		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>G</p><BR>
-			</center></P>
-		</TD>
-
-		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P> <p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67612&amp;CODE=67612'>Управление деятельностью по ТО и ремонту АТС в сервисной сети</a></p>    <BR>
-			</P>
-		</TD>
-        
-        		<TD ROWSPAN="3" STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>7</p><BR>
-			</center></P>
-		</TD>
-        
-<!--/TR--> 
-		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67613&amp;CODE=67613'>Формирование стратегии развития фирменного сервиса организации-изготовителя АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>G/01.7</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>7</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67614&amp;CODE=67614'>Формирование требований к сервисной сети и контроль их выполнения со стороны организации-изготовителя АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>G/02.7</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>7</p>			</center></P>
-		</TD>
-	</TR>
-	<TR>		<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
-			<P><p><a href='/obshchiy-informatsionnyy-blok/natsionalnyy-reestr-professionalnykh-standartov/reestr-trudovyh-funkcij/index.php?ELEMENT_ID=67615&amp;CODE=67615'>Обеспечение выполнения гарантийных обязательств организации-изготовителя АТС</a></p>			</P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
-			<P><center><p>G/03.7</p>			</center></P>
-		</TD>
-		<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
-			<P><center><p>7</p>			</center></P>
-		</TD>
-	</TR>
+        		<TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none;">
+			<P><center><p>{{ x.0.levelofquali }}</p><BR></center></P>
+		</TD>
+  
+           
+	   <TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
+	   	<P><p>{{ x.1.0.nametf }}</p></P>
+	   </TD>
+	   <TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
+	   	<P><center><p>{{ x.1.0.codetf }}</p></center></P>
+	   </TD>
+	   <TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
+	   	<P><center><p>{{ x.1.0.subquali }}</p></center></P>
+	   </TD>
+           
+	</TR>    
+ 
+   
+      {% for tf in x.1|slice:"1:" %}
+          {{tf}}
+           
+           <TR>
+           
+	        	<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
+	        		<P><p>{{ tf.nametf }}</p></P>
+	        	</TD>
+	        	<TD WIDTH=4% STYLE="border: 1px solid; border-top: none; border-right: none;">
+	        		<P><center><p>{{ tf.codetf }}</p></center></P>
+	        	</TD>
+	        	<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
+	        		<P><center><p>{{ tf.subquali }}</p></center></P>
+	        	</TD>
+           
+	        </TR>           
+           
+      {% endfor %}
+   
+   {% endfor %}
+   
 
 </TABLE>
 
