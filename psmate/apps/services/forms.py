@@ -16,7 +16,7 @@ class SearchPsForm(forms.ModelForm):
                                                 #autfocus
                                                 'autofocus':'autofocus',
                                                 # Only trigger autocompletion after 2 characters have been typed
-                                                #'data-minimum-input-length': 2,
+                                                #'data-minimum-input-length': 2,                                                
         
                                             },                                 
                                             )

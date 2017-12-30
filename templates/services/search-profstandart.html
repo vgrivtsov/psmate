@@ -6,6 +6,11 @@
 {% block content %}
 
 <style>
+   
+/*div. {
+    height:100vh;
+}   
+   */
     .select2-container .select2-selection--single {
         height: auto;
     }
@@ -48,7 +53,8 @@
     
 </style>
 
-
+<div ng-app="ps_search" ng-controller="ps_search_ctrl" style="height:100vh; display:block; overflow:auto;">
+   
 <div class="container py-5">
 
 
@@ -74,7 +80,9 @@
                          </form>
 
 
+</div>
 
+<div class="container py-5" ng-show="{{ngshow}}" id="showps">
 
    <table width=100%>
    <tr>
@@ -124,8 +132,6 @@
 		</TR>
         </table>
         <table>
-
-
 
    <tr>
    <td>
@@ -356,9 +362,6 @@
 	</TBODY>
 </TABLE>
 
-
-
-
 <TABLE WIDTH=100% CELLPADDING=7 CELLSPACING=0>
 	<COL WIDTH=22*>
 	<COL WIDTH=54*>
@@ -465,9 +468,6 @@
 
 </TABLE>
 
-
-
-
 <TABLE>
 <P STYLE="margin-bottom: 0.14in"><TABLE DIR="LTR" ALIGN=LEFT WIDTH=100% HSPACE=4 CELLPADDING=7 CELLSPACING=0>
 	<COL WIDTH=13*>
@@ -508,8 +508,14 @@
 
 </div>
 <!--/container-->
+</div> <!--/angfular app-->
 
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+
+<script>
+angular.module("ps_search",[]).controller("ps_search_ctrl",function($scope){});  
+</script>
 
 {{ form.media }}
 {% endblock %}  

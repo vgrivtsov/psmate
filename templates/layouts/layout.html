@@ -4,19 +4,24 @@
   <head>
 
     <meta charset="utf-8">
-    {% load static %}
+   {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>PSmate</title>
 
+
+   <!-- Angular core -->
+    <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>  
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'datepicker/css/bootstrap-datepicker.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.multiselect.css' %}">
-   <link rel="stylesheet" href="{% static 'css/select2-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2-bootstrap.min.css' %}">
     
     <!-- Material Design Bootstrap -->
 <!-- <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}"-->
@@ -201,15 +206,14 @@
 </footer>
 
     <!--core JavaScript -->
+  
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>    
     <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>
+
     <!-- MDB core JavaScript -->
 <!--    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>-->
 
-    <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'datepicker/locales/bootstrap-datepicker.ru.min.js' %}"></script>
     

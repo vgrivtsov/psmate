@@ -29,16 +29,6 @@ class SearchPsAuto(autocomplete.Select2QuerySetView):
         return qs
     
 
-class SearchPs(FormView):
-    model = Psinfo
-    form_class = SearchPsForm
-    template_name = 'services/search-profstandart.html'
-    #success_url = reverse_lazy('search-profstandart')
-
-    def get_object(self):
-        return Psinfo.objects.first()
-
-
 class SearchPSView(FormView):
     model = Psinfo
     form_class = SearchPsForm
@@ -53,7 +43,7 @@ class SearchPSView(FormView):
             ps_get = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
             psinfo = ps_get[0]
             psregnum = ps_get[0].psregnum
-            tfinfo = Tfinfo.objects.filter(psregnum=psregnum).distinct('codetf')
+            tfinfo = Tfinfo.objects.filter(psregnum=psregnum).distinct('codetf') # dinstinct delete doubles
             otfinfo = Gtfinfo.objects.filter(psregnum=psregnum).distinct('codeotf')
             okzinfo = Okz.objects.filter(psregnum=psregnum).distinct('codeokz')
             okvedinfo = Okved.objects.filter(psregnum=psregnum).distinct('codeokved')
@@ -70,20 +60,13 @@ class SearchPSView(FormView):
                         mixed_tf.append(tf)
                 
                 mixed_tf_otf.append([otf, mixed_tf])
-            
-            print(mixed_tf_otf)
-            
-            
+
             return render(request, self.template_name, {'psinfo': psinfo,
                                                         'mixed_tf_otf': mixed_tf_otf,
-                                                        #'otfinfo': otfinfo,
                                                         'okzinfo': okzinfo,
                                                         'okvedinfo': okvedinfo,
+                                                        'ngshow' : 'true', # ng-show for id="showps
                                                         'form': form})
         return render(request, self.template_name, {'form': form})
-
-
-
-
 
 ##################
