@@ -37,13 +37,13 @@ class UserRegisterForm(UserCreationForm):
 
 class ProfileSettingsForm(ModelForm):
 
-    fl_otch = forms.CharField(max_length=30, required=False, label="Отчество")     
+    fl_otch = forms.CharField(max_length=30, required=False, label="Отчество")
+    fl_tlph_mob = forms.CharField(max_length=30, required=False, label="Моб. номер") 
 
     class Meta:
         model = User
-    
-        
-        fields = ( 'email', 'last_name', 'first_name', 'fl_otch')
+
+        fields = ( 'email', 'last_name', 'first_name', 'fl_otch', 'fl_tlph_mob')
 
     def __init__(self, user, *args, **kwargs):
         
@@ -54,7 +54,8 @@ class ProfileSettingsForm(ModelForm):
         instance = kwargs.get('instance', None)
         
         kwargs.update(initial={
-             'fl_otch': user.profiles.fl_otch
+             'fl_otch': user.profiles.fl_otch,
+             'fl_tlph_mob': user.profiles.fl_tlph_mob
            
         })        
         
@@ -76,6 +77,7 @@ class ProfileSettingsForm(ModelForm):
         user.profiles.fl_name= self.cleaned_data["first_name"]
         user.profiles.fl_fam= self.cleaned_data["last_name"]
         user.profiles.fl_otch= self.cleaned_data["fl_otch"]
+        user.profiles.fl_tlph_mob= self.cleaned_data["fl_tlph_mob"]
         user.profiles.resume = '[]'
         user.profiles.save()
     

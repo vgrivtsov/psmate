@@ -6,56 +6,305 @@
 {% block content %}
 
 
-<div class="container py-5" style="height:100vh; display:block; overflow:auto;">
+
+<style type="text/css">
+
+.remove {
+  text-align: right;
+  
+}
 
 
-                    <!-- form card login -->
-                         <h6 class="mb-0">Поиск профстандарта по названию</h6>
+.modal-tf {
+  width: auto;
+  margin: auto;
+}
+
+input[type=number]{
+    width: 50px;
+}
+
+#jumboclose {position:absolute; top:5px; right:5px;}
+
+</style>
 
 
-                          <form method="get" action=''>
-                           <!--{% csrf_token %}-->
-                          <!-- <input type="hidden" name="next" value="request.GET.next">-->
-                         
-                           {% for field in form %}
-                             <div class="form-group">
-                                                    
-                               {% render_field field class="form-control form-control-lg rounded-0" %}
-
-                             </div>
-                             
-                           {% endfor %}
-                            
-                            <input type="submit" class="btn btn-secondary" value="Показать профстандарт">
-
-                         </form>
-
-<strong>USER:</strong> <br>
-{% for xx in user %}
-    {{ xx.first_name }} <br>
-{% endfor %}
 
 
-<strong>PROFSTANART:</strong> <br>
+<div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
+
+
+<div ng-app="resume_form">
+
+<div ng-controller="ResumeItems" >
+
+
+<div ng-form  id="resumeeditform" class="form-group" name="resumeeditform" data-ng-repeat="item in items">
+
+
+ <div class="form-group">  
+
+      <button  type="button "class="close pull-right"  ng-click="removeWorkPos(item)" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      
+
+        
+ <!--static inputs -->   
  
-{% for yy in psinfo %}
-    {{ yy.nameps }} {{ yy.psregnum }} <br>
-{% endfor %} 
+      <div class="row">
+
+      <label class="colcol-form-label">Компания ИНН/КПП</label>
+      <div class="col">  
+      <input type="text" class="form-control" ng-model="item.FL_cv_companyName" name="FL_cv_companyName" placeholder="Компания" required>
+      <!--<span ng-show="resumeform.FL_cv_companyName.$touched && resumeform.FL_cv_companyName.$invalid">The name is required.</span>-->
+      </div>
+
+      <div class="col">         
+      <input type="text" class="form-control" ng-model="item.FL_cv_INN" name="" placeholder="ИНН" required> 
+      </div>
  
-<strong>EKS:</strong> <br>
+      <div class="col">             
+      <input type="text" class="form-control" ng-model="item.FL_cv_KPP" name="" placeholder="КПП" required>
+      </div>
+      
+      </div>
+ </div>
+  
+ <div class="form-group">       
+      <div class="row">
+      <label class="col col-form-label">Начало работы:</label>
+      <div class="col">  
+      <div class="input-group date" data-provide="datepicker">
+          <input type="text"  class="form-control" ng-model="item.FL_cv_Period_b" required>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+      </div> 
+      </div>
+            
+      <label class="col col-form-label">Окончание:</label>
+      <div class="col">
+      <div class="input-group date" data-provide="datepicker">
+      <input type="text" class="form-control" ng-model="item.FL_cv_Period_f" required>
+      <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+      </div>
+      </div> 
+      </div>  
 
-{% for zz in eks %}
-    {{ zz.nameeks }} <br>
-{% endfor %} 
+ </div>
+  
+ <!--dynamic inputs -->
+ 
+ 
+ <input type="hidden" ng-model="item.Quali" value="@{{item.Quali}}">
+  
+ 
+<div class="container-fluid" ng-show="quali" id="qualiseditform" class="form-horizontal" name="qualiseditform" data-ng-repeat="quali in item.Quali" >
 
-<strong>JOBTITLES:</strong> <br>
-
-{% for zz in jobtitles %}
-    {{ zz.jobtitle }} <br>
-{% endfor %}
-
+<div class="col-12 text-right"> 
+    <button type="button" id="jumboclose" ng-click="removeQuali(item.id, quali)"  class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button> 
 </div>
 
+<div class="jumbotron" class="ng-cloak">
 
 
+ <h3 ng-show="quali.FL_cv_PS">@{{quali.FL_cv_PS.nameprofessionalstandart}}. Рег. № @{{quali.FL_cv_PS.registrationnumber}}</h3>
+      
+ <div class="form-group" >
+ <p>Выберите название отрасли: </p>
+  <select class="form-control"   ng-model="quali.FL_cv_Otrasl" ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
+    
+   <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="@{{quali.FL_cv_Otrasl}}">  
+  </select>
+ </div>
+ 
+  <div class="form-group" ng-show="quali.FL_cv_Otrasl">
+ <p>Выберите название профстандарта: </p>
+  <select class="form-control" ng-model="quali.FL_cv_PS" ng-change="changedPS(quali.FL_cv_PS.id, item.id, quali.id)" ng-options="ps as ps.nameprofessionalstandart for ps in selectps[quali.id]">
+
+   <input type="hidden" ng-model="quali.FL_cv_PS" value="@{{quali.FL_cv_PS}}">
+ 
+  </select>
+ </div>
+  
+<div class="form-group" ng-show="quali.FL_cv_PS">  
+ <input type="hidden" ng-model="quali.FL_cv_PS_target" value="@{{quali.FL_cv_PS_target}}">
+
+ <p ng-cloak>Основная цель вида проф. деятельности: @{{quali.FL_cv_PS_target }}</p> 
+
+<h4>Группа занятий (код ОКЗ)</h4>
+
+
+ <div class="form-group" >
+ <input type="hidden" ng-model="quali.FL_cv_OKZ" value="@{{quali.FL_cv_OKZ}}"> 
+<!-- <input type="text" value="pdata.NameOKZ">-->
+ 
+  <table> <!--if used array-->
+    <tr ng-repeat="okz in quali.FL_cv_OKZ" >     
+      <td ng-cloak>@{{ okz.CodeOKZ}}</td>
+      <td ng-cloak>@{{ okz.NameOKZ }}</td>
+    </tr>
+  </table> 
+ </div>
+  
+<h4>Вид эконом. деятельности (код ОКВЭД)</h4>
+
+ <div class="form-group">
+ <input type="hidden" ng-model="quali.FL_cv_OKVED" value="@{{quali.FL_cv_OKVED}}"> 
+  <table>
+    <tr ng-repeat="okved in quali.FL_cv_OKVED"> <!--if used array of objects-->
+      <td ng-cloak>@{{ okved.CodeOKVED }}</td>
+      <td ng-cloak>@{{ okved.NameOKVED }}</td>
+    </tr>
+  </table>
+ </div>
+
+ 
+ <div class="form-group">
+ 
+<!-- Button to Open the WF Modal -->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tfmodal_@{{item.id}}_@{{quali.id}}">
+  Трудовые функции
+</button>
+ 
+ </div> 
+
+<div class="form-group">  
+ 
+ <h4>Необходимые умения</h4>
+ <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
+  <div class="form-control" ng-repeat="nk in quali.FL_cv_NK" >
+      <label class="checkbox">
+      <input type="checkbox"  ng-model="nk.selected" value="@{{ nk }}" ng-cloak/>@{{ nk.NameNK }}
+      </label> 
+  </div>
+ </div> 
+
+ 
+ <h4>Необходимые знания</h4>
+ <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
+  <div class="form-control" ng-repeat="rs in quali.FL_cv_RS" >
+      <label class="checkbox">
+      <input type="checkbox"  ng-model="rs.selected" value="@{{ rs }}" ng-cloak/>@{{ rs.NameRS }}
+      </label> 
+  </div>
+ </div>
+
+
+ 
+ <h4>Необходимые навыки</h4>
+ <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
+  <div class="form-control" ng-repeat="la in quali.FL_cv_LA" >
+      <label class="checkbox">
+      <input type="checkbox"  ng-model="la.selected" value="@{{ la }}" ng-cloak/>@{{ la.NameLA }}
+      </label> 
+  </div>
+ </div> 
+
+
+<div class="form-group" ng-show="quali.FL_cv_OC != None">   
+ <h4>Другие характеристики</h4>
+ <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
+  <div class="form-control" ng-repeat="oc in quali.FL_cv_OC | unique: 'NameOC'" >
+      <label class="checkbox">
+      <input type="checkbox"  ng-model="oc.selected" value="@{{ oc }}" ng-cloak/>@{{ oc.NameOC}}
+      </label> 
+  </div>
+ </div> 
+</div>
+<div class="col-12 text-right">  
+    <button class="btn btn-primary btn-md" ng-click="removeQuali(item.id, quali)">Удалить квалификацию</button>
+</div> 
+</div> 
+
+ </div> 
+ 
+
+<!-- WF Modal -->
+<div class="modal fade modal-tf" id="tfmodal_@{{item.id}}_@{{quali.id}}">
+  <div class="modal-dialog modal-lg">
+<div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Трудовые функции</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+
+ <div class="form-group">
+<input type="hidden" ng-model="quali.FL_cv_TF" value="@{{quali.FL_cv_TF}}">  <!--save to DB-->
+<table>
+  <th>Название трудовой функции</th><th>Код квалификации</th><th>Месяцы</th>
+  <tr ng-repeat="wf in quali.FL_cv_TF"><!--if used array of objects-->
+      <td ng-cloak>@{{ wf.NameTF}}</td>
+      <td ng-cloak>@{{wf.CodeTF}}</td>
+      <td><input type="number" ng-model="wf.month"> <!--month numbers--></td>
+      
+  </tr>  
+</table>
+</div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+ 
+
+ </div> <!-- jumbotron end -->
+
+</div>  <!-- div container Qualification-->
+  
+<button class="btn btn-primary btn-md" ng-click="addnewQuali(item.id)">Добавить квалификацию</button> 
+
+  
+</div>
+ 
+
+ <div class="form-group"> 
+   <button class="btn btn-primary btn-md" ng-click="addnewWorkPos()">Добавить место работы</button>
+   <button class="btn btn-primary btn-md" ng-click="addNewEdu()">Добавить место учёбы</button>
+ </div>
+  
+
+<!--<input type="hidden" name="getresume"  placeholder="getresume" id="getresume" value="@verbatim{{cvitems}}@endverbatim">-->
+ <div class="form-group">
+ 
+<input type="hidden" name="resume"  placeholder="putresume" id="resume" value="@verbatim{{items}}@endverbatim">
+<button class="btn btn-primary btn-md" id="resumesubmit" >Сохранить резюме</button>
+ 
+ </div>
+
+<button type="submit" class="btn btn-success btn-md" ng-click="getitems()">Get items</button>
+</div>
+</div>
+</div>
+
+ 
+ 
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+    $('.input-group.date').datepicker({
+    format: "mm-yyyy",
+    startView: "year", 
+    minViewMode: "months",
+    language: "ru" 
+    });
+   
+    
+});
+
+
+</script>
+
+
+</div>
 {% endblock %}  

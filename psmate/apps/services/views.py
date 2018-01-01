@@ -73,12 +73,20 @@ class SearchPSView(FormView):
 
 ###CV generator###
 
-class CvEditView(ListView):
+class CvEditView(FormView):
 
-    #form_class = SearchPsForm
+    form_class = SearchPsForm
     template_name = 'services/generator-cv-resume.html'
-    queryset = User.objects.filter(id=1)
     success_url = None
+    queryset = User.objects.filter()
+    
+
+    def dispatch(self, *args, **kwargs):
+        """Use this to check for 'user'."""
+        if self.request.session.get('user'):
+            return redirect('/')
+        return super(CvEditView, self).dispatch(*args, **kwargs)
+
 
     def get_context_data(self, **kwargs):
         context = super(CvEditView, self).get_context_data(**kwargs)
@@ -88,34 +96,4 @@ class CvEditView(ListView):
         context['jobtitles'] = Jobtitles.objects.filter(psregnum=204)
         return context
 
-        # form=SearchPsForm
-        # data = self.request.GET.get('nameps', None)
-        # if data != None:
-        #     ps_get = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
-        #     psinfo = ps_get[0]
-        #     psregnum = ps_get[0].psregnum
-        #     tfinfo = Tfinfo.objects.filter(psregnum=psregnum).distinct('codetf') # dinstinct delete doubles
-        #     otfinfo = Gtfinfo.objects.filter(psregnum=psregnum).distinct('codeotf')
-        #     okzinfo = Okz.objects.filter(psregnum=psregnum).distinct('codeokz')
-        #     okvedinfo = Okved.objects.filter(psregnum=psregnum).distinct('codeokved')
-        #     
-        #     mixed_tf_otf = []
-        #     
-        #     # for OTF -TF dividing in table used nex list:
-        #     # [[otf1,[tf1, tf2]],[otf2,[tf1, tf2]]]
-        #     for otf in otfinfo:
-        #         mixed_tf = []
-        #         
-        #         for tf in tfinfo:
-        #             if tf.nameotf == otf.nameotf:
-        #                 mixed_tf.append(tf)
-        #         
-        #         mixed_tf_otf.append([otf, mixed_tf])
-        # 
-        #     return render(request, self.template_name, {'psinfo': psinfo,
-        #                                                 'mixed_tf_otf': mixed_tf_otf,
-        #                                                 'okzinfo': okzinfo,
-        #                                                 'okvedinfo': okvedinfo,
-        #                                                 'ngshow' : 'true', # ng-show for id="showps
-        #                                                 'form': form})
-        #return render(request, self.template_name, {'form': form})
+
