@@ -50,10 +50,18 @@
     .select2-container--default {
         width: 100%!important;
     }    
+
+.parentelement::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+style="min-height: 100vh; overflow-y: hidden;"
     
 </style>
 
-<div ng-app="ps_search" ng-controller="ps_search_ctrl" style="height:100vh; display:block; overflow:auto;">
+<div ng-app="ps_search" ng-controller="ps_search_ctrl" style="min-height: 100vh; overflow-y: hidden;">
    
 <div class="container py-5">
 
@@ -82,7 +90,7 @@
 
 </div>
 
-<div class="container py-5" ng-show="{{ngshow}}" id="showps">
+<div class="container py-5" ng-show="{{ngshow}}" id="showps"">
 
    <table width=100%>
    <tr>

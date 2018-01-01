@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+    
+{% extends "layouts/layout.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div class="container py-5" style="height:100vh; display:block; overflow:auto;">
+
+
+                    <!-- form card login -->
+                         <h6 class="mb-0">Поиск профстандарта по названию</h6>
+
+
+                          <form method="get" action=''>
+                           <!--{% csrf_token %}-->
+                          <!-- <input type="hidden" name="next" value="request.GET.next">-->
+                         
+                           {% for field in form %}
+                             <div class="form-group">
+                                                    
+                               {% render_field field class="form-control form-control-lg rounded-0" %}
+
+                             </div>
+                             
+                           {% endfor %}
+                            
+                            <input type="submit" class="btn btn-secondary" value="Показать профстандарт">
+
+                         </form>
+
+<strong>USER:</strong> <br>
+{% for xx in user %}
+    {{ xx.first_name }} <br>
+{% endfor %}
+
+
+<strong>PROFSTANART:</strong> <br>
+ 
+{% for yy in psinfo %}
+    {{ yy.nameps }} {{ yy.psregnum }} <br>
+{% endfor %} 
+ 
+<strong>EKS:</strong> <br>
+
+{% for zz in eks %}
+    {{ zz.nameeks }} <br>
+{% endfor %} 
+
+<strong>JOBTITLES:</strong> <br>
+
+{% for zz in jobtitles %}
+    {{ zz.jobtitle }} <br>
+{% endfor %}
+
+</div>
+
+
+
+{% endblock %}  
