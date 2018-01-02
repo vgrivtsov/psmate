@@ -96,4 +96,15 @@ class CvEditView(FormView):
         context['jobtitles'] = Jobtitles.objects.filter(psregnum=204)
         return context
 
+class LoadPS(ListView):
+    
+    queryset = User.objects.filter()
+    
+    def get_context_data(self, **kwargs):
+        context = super(CvEditView, self).get_context_data(**kwargs)
+        context['user'] = self.queryset
+        context['psinfo'] = Psinfo.objects.filter(psregnum=204)
+
+        return context    
+    
 

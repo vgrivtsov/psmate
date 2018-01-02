@@ -24,7 +24,7 @@ class SearchPsForm(forms.ModelForm):
         
 
 
-class ProfileSettingsForm(ModelForm):
+class CvEditForm(forms.ModelForm):
 
     fl_otch = forms.CharField(max_length=30, required=False, label="Отчество")
     fl_tlph_mob = forms.CharField(max_length=30, required=False, label="Моб. номер") 
