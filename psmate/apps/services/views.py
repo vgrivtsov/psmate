@@ -3,16 +3,16 @@ try:
 except ImportError:
     from django.core.urlresolvers import reverse_lazy
 
-
+import json
 from django.shortcuts import render
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, View
 from dal import autocomplete
 from psmate.models import *
 from psmate.apps.services.forms import SearchPsForm
 ###
 from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 
 ### Search PS ###
 
@@ -96,15 +96,39 @@ class CvEditView(FormView):
         context['jobtitles'] = Jobtitles.objects.filter(psregnum=204)
         return context
 
-class LoadPS(ListView):
-    
-    queryset = User.objects.filter()
-    
-    def get_context_data(self, **kwargs):
-        context = super(CvEditView, self).get_context_data(**kwargs)
-        context['user'] = self.queryset
-        context['psinfo'] = Psinfo.objects.filter(psregnum=204)
 
-        return context    
+
+class LoadPS(View):
+
+    def get(self, request, *args, **kwargs):
+
+        data = self.request.GET.get('id', None)
+        
+        if data != None:
+            ps_get = Psinfo.objects.filter(otraslid_id=data) # id=num of autocomplete element. Need to rewrite to psregnum
+            
+            psresult = []
+            for x in ps_get:
+                psresult.append({ 'id' : x.psregnum, 'nameps' : x.nameps})
+            print(psresult)
+            
+            #psregnum = ps_get[0].psregnum
+            
+            #json_context = json.dumps(list(psresult))
+            #print(json_context)
+            #print(json_context)
+        
+            return JsonResponse(psresult, safe=False) 
+        #return None
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super(LoadPS, self).get_context_data(**kwargs)
+    #     context['user'] = self.queryset
+    #     context['psinfo'] = Psinfo.objects.filter(psregnum=204).values('id', 'nameps')
+    #     
+    #     json_context = json.dumps(list(context))
+    #     #print(json_context)
+    #     
+    #     return json_context  
     
 
