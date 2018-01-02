@@ -105,30 +105,41 @@ class LoadPS(View):
         data = self.request.GET.get('id', None)
         
         if data != None:
-            ps_get = Psinfo.objects.filter(otraslid_id=data) # id=num of autocomplete element. Need to rewrite to psregnum
+            ps_get = Psinfo.objects.filter(otraslid_id=data)
             
             psresult = []
-            for x in ps_get:
-                psresult.append({ 'id' : x.psregnum, 'nameps' : x.nameps})
-            print(psresult)
             
-            #psregnum = ps_get[0].psregnum
+            jtresult = []
             
-            #json_context = json.dumps(list(psresult))
-            #print(json_context)
-            #print(json_context)
-        
-            return JsonResponse(psresult, safe=False) 
-        #return None
-    
-    # def get_context_data(self, **kwargs):
-    #     context = super(LoadPS, self).get_context_data(**kwargs)
-    #     context['user'] = self.queryset
-    #     context['psinfo'] = Psinfo.objects.filter(psregnum=204).values('id', 'nameps')
-    #     
-    #     json_context = json.dumps(list(context))
-    #     #print(json_context)
-    #     
-    #     return json_context  
-    
+            for ps in ps_get:
+                
+                jt_get = Jobtitles.objects.filter(psregnum=ps.psregnum).distinct('jobtitle')
+                
+                for jt in jt_get:
+
+                    jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameps' : ps.nameps, 'psregnum' : ps.psregnum})
+
+            print(jtresult)
+            
+            return JsonResponse(jtresult, safe=False) 
+
+
+
+
+# class LoadJobTitles(View):
+# 
+#     def get(self, request, *args, **kwargs):
+# 
+#         data = self.request.GET.get('id', None)
+#         
+#         if data != None:
+#             jt_get = Jobtitles.objects.filter(psregnum=data)
+#             
+#             jtresult = []
+#             for x in ps_get:
+#                 jtresult.append({ 'id' : x.id, 'jobtitle' : x.jobtitle})
+#             
+#             print(jtresult)
+#             
+#             return JsonResponse(jtresult, safe=False) 
 
