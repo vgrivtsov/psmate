@@ -98,17 +98,15 @@ class CvEditView(FormView):
 
 
 
-class LoadPS(View):
+class LoadPS(autocomplete.Select2QuerySetView):
 
     def get(self, request, *args, **kwargs):
 
         data = self.request.GET.get('id', None)
         
         if data != None:
-            ps_get = Psinfo.objects.filter(otraslid_id=data)
-            
-            psresult = []
-            
+            ps_get = Psinfo.objects.filter(otraslid_id=data)            
+            psresult = []            
             jtresult = []
             
             for ps in ps_get:
@@ -118,28 +116,7 @@ class LoadPS(View):
                 for jt in jt_get:
 
                     jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameps' : ps.nameps, 'psregnum' : ps.psregnum})
-
-            print(jtresult)
-            
+  
             return JsonResponse(jtresult, safe=False) 
 
-
-
-
-# class LoadJobTitles(View):
-# 
-#     def get(self, request, *args, **kwargs):
-# 
-#         data = self.request.GET.get('id', None)
-#         
-#         if data != None:
-#             jt_get = Jobtitles.objects.filter(psregnum=data)
-#             
-#             jtresult = []
-#             for x in ps_get:
-#                 jtresult.append({ 'id' : x.id, 'jobtitle' : x.jobtitle})
-#             
-#             print(jtresult)
-#             
-#             return JsonResponse(jtresult, safe=False) 
 

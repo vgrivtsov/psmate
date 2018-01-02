@@ -120,9 +120,9 @@ input[type=number]{
  </div>
  
   <div class="form-group" ng-show="quali.FL_cv_Otrasl">
- <p>Выберите название профстандарта: </p>
+ <p>Выберите название должности: </p>
  
-  <select class="form-control" ng-model="quali.FL_cv_PS" ng-change="changedPS(quali.FL_cv_PS.id, item.id, quali.id)" ng-options="ps as ps.jobtitle + ' : ' + ps.psregnum + ' - ' + ps.nameps for ps in selectps[quali.id]">
+  <select class="form-control" ng-model="quali.FL_cv_PS" ng-change="changedPS(quali.FL_cv_PS.id, item.id, quali.id)" ng-options="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id]">
 
    <input type="hidden" ng-model="quali.FL_cv_PS" value="@{{quali.FL_cv_PS}}">
  
