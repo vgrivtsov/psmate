@@ -81,24 +81,24 @@ class CvEditView(FormView):
     queryset = User.objects.filter()
     
 
-    def dispatch(self, *args, **kwargs):
-        """Use this to check for 'user'."""
-        if self.request.session.get('user'):
-            return redirect('/')
-        return super(CvEditView, self).dispatch(*args, **kwargs)
+    # def dispatch(self, *args, **kwargs):
+    #     """Use this to check for 'user'."""
+    #     if self.request.session.get('user'):
+    #         return redirect('/')
+    #     return super(CvEditView, self).dispatch(*args, **kwargs)
 
 
-    def get_context_data(self, **kwargs):
-        context = super(CvEditView, self).get_context_data(**kwargs)
-        context['user'] = self.queryset
-        context['psinfo'] = Psinfo.objects.filter(psregnum=204)
-        context['eks'] = Eks.objects.filter(psregnum=204)
-        context['jobtitles'] = Jobtitles.objects.filter(psregnum=204)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(CvEditView, self).get_context_data(**kwargs)
+    #     context['user'] = self.queryset
+    #     context['psinfo'] = Psinfo.objects.filter(psregnum=204)
+    #     context['eks'] = Eks.objects.filter(psregnum=204)
+    #     context['jobtitles'] = Jobtitles.objects.filter(psregnum=204)
+    #     return context
 
 
 
-class LoadPS(autocomplete.Select2QuerySetView):
+class LoadPS(View):
 
     def get(self, request, *args, **kwargs):
 
@@ -106,7 +106,6 @@ class LoadPS(autocomplete.Select2QuerySetView):
         
         if data != None:
             ps_get = Psinfo.objects.filter(otraslid_id=data)            
-            psresult = []            
             jtresult = []
             
             for ps in ps_get:
