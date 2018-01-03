@@ -26,6 +26,12 @@ input[type=number]{
 
 #jumboclose {position:absolute; top:5px; right:5px;}
 
+
+#scrollable-dropdown-menu .dropdown-menu {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
 </style>
 
 
@@ -121,12 +127,13 @@ input[type=number]{
  
   <div class="form-group" ng-show="quali.FL_cv_Otrasl">
  <p>Выберите название должности: </p>
- 
-  <select class="form-control" ng-model="quali.FL_cv_PS" ng-change="changedPS(quali.FL_cv_PS.id, item.id, quali.id)" ng-options="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id] | orderBy:'jobtitle'">
+ <div id="scrollable-dropdown-menu">
+ <!--ng-change="changedPS(quali.FL_cv_PS.id, item.id, quali.id)" ng-options="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id] | orderBy:'jobtitle'">-->
+  <input type="text" class="form-control" id="psdropdown" ng-model="quali.FL_cv_PS" uib-typeahead="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue" typeahead-focus> 
 
    <input type="hidden" ng-model="quali.FL_cv_PS" value="@{{quali.FL_cv_PS}}">
+  </div>
  
-  </select>
  </div>
   
 <div class="form-group" ng-show="quali.FL_cv_PS">  
