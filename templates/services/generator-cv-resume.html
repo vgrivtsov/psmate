@@ -29,6 +29,8 @@
     
 }    
 
+#removequali {position:absolute; top:5px; right:5px;}
+
 
 </style>
 
@@ -43,59 +45,81 @@
 <div ng-controller="ResumeItems" >
 
 
+{% if user.is_authenticated %}
+
+<!--Panel-->
+<div class="card card-body">
+    <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
+    <p class="card-text">Город</p>
+    <div class="flex-row">
+        <p>{{ user.profiles.fl_tlph_mob }}<p/>
+
+    </div>
+</div>
+<!--/.Panel-->
+{% else %}                
+                    
+<div class="card card-body">
+    <h4 class="card-title">Anonymous</h4>
+    <p class="card-text">homeless</p>
+    <div class="flex-row">
+        <p>no phone<p/>
+
+    </div>
+</div>
+<!--/.Panel-->
+{% endif %} 
+
+
+
+
 <div ng-form  id="resumeeditform" class="form-group" name="resumeeditform" data-ng-repeat="item in items">
 
 
- <div class="form-group">  
 
-      <button  type="button "class="close pull-right"  ng-click="removeWorkPos(item)" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      </button>
-      
+<!--close workposition button --> 
+   <button  type="button "class="close pull-right"  ng-click="removeWorkPos(item)" aria-label="Close">
+   <span aria-hidden="true">&times;</span>
+   </button>
+   
+   
+<!--static inputs -->     
+    
 
-        
- <!--static inputs -->   
- 
-      <div class="row">
+   <div class="md-form py-5">
 
-      <label class="colcol-form-label">Компания ИНН/КПП</label>
-      <div class="col">  
-      <input type="text" class="form-control" ng-model="item.FL_cv_companyName" name="FL_cv_companyName" placeholder="Компания" required>
-      <!--<span ng-show="resumeform.FL_cv_companyName.$touched && resumeform.FL_cv_companyName.$invalid">The name is required.</span>-->
-      </div>
+     
+     <div class="col">  
+       <input type="text" id="cvcompany" class="form-control" ng-model="item.FL_cv_companyName"
+              name="FL_cv_companyName"  required>
+<label class="" for="cvcompany">Название компании</label>
+     </div>
+     
+     
+   </div>
 
-      <div class="col">         
-      <input type="text" class="form-control" ng-model="item.FL_cv_INN" name="" placeholder="ИНН" required> 
-      </div>
- 
-      <div class="col">             
-      <input type="text" class="form-control" ng-model="item.FL_cv_KPP" name="" placeholder="КПП" required>
-      </div>
-      
-      </div>
- </div>
+
+
+    
+<!--
+<div class="md-form">
+    <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
+    <label for="date-picker-example">Try me...</label>
+</div>-->
+
   
- <div class="form-group">       
-      <div class="row">
-      <label class="col col-form-label">Начало работы:</label>
-      <div class="col">  
-      <div class="input-group date" data-provide="datepicker">
-          <input type="text"  class="form-control" ng-model="item.FL_cv_Period_b" required>
-          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-      </div> 
-      </div>
-            
-      <label class="col col-form-label">Окончание:</label>
-      <div class="col">
-      <div class="input-group date" data-provide="datepicker">
-      <input type="text" class="form-control" ng-model="item.FL_cv_Period_f" required>
-      <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-      </div>
-      </div> 
-      </div>  
+<!--  <div class="md-form py-5">        
+    <label class="col-2 col-form-label">Окончание:</label>
+    <div class="col">
+    <div class="input-group date" data-provide="datepicker">
+    <input type="text" class="form-control" ng-model="item.FL_cv_Period_f" required>
 
- </div>
+    </div>
+    </div>
+  </div>-->
   
+
+
  <!--dynamic inputs -->
 {% verbatim %} 
  
@@ -105,15 +129,16 @@
 <div ng-show="quali" id="qualiseditform" class="form-horizontal" name="qualiseditform" data-ng-repeat="quali in item.Quali" >
 
 <div class="col-12 text-right"> 
-    <button type="button" id="jumboclose" ng-click="removeQuali(item.id, quali)"  class="close" aria-label="Close">
-
+    <button type="button" id="removequali" ng-click="removeQuali(item.id, quali)"  class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
     </button> 
 </div>
 
       
  <div class="form-group" >
  <p>Выберите название отрасли: </p>
-  <select class="form-control" id="otraslselect"  ng-model="quali.FL_cv_Otrasl" ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
+  <select class="form-control mdb-select colorful-select dropdown-штащ" id="otraslselect"  ng-model="quali.FL_cv_Otrasl"
+          ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
     
    <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="@{{quali.FL_cv_Otrasl}}">  
   </select>
@@ -125,29 +150,19 @@
  
  <div id="scrollable-dropdown-menu" >
 
-  <input type="search" id="psdropdown" name="psdropdown" class="form-control" aria-haspopup="true" aria-expanded="true"
+  <input type="search" id="psdropdown" name="psdropdown" class="form-control form-control-lg" dropdown-danger
+
          ng-model="quali.FL_cv_PS"
-         uib-typeahead="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue"
+         uib-typeahead="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]'
+         for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue"
          typeahead-focus
-         typeahead-no-results="noResults"         
          >
-  <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
   
  </div>
  
    <input type="hidden" ng-model="quali.FL_cv_PS" value="@{{quali.FL_cv_PS}}">
    
-
-
-
-   <div ng-if="noResults">
-     Совпадений не найдено!
-   </div> 
- 
  </div>
-
-
-
   
 <div class="form-group" ng-show="quali.FL_cv_PS">  
  <input type="hidden" ng-model="quali.FL_cv_PS_target" value="@{{quali.FL_cv_PS_target}}">
@@ -235,7 +250,7 @@
  </div> 
 </div>
 <div class="col-12 text-right">  
-    <button class="btn btn-primary btn-md" ng-click="removeQuali(item.id, quali)">Удалить квалификацию</button>
+    <button class="btn btn-blue-grey btn-md" ng-click="removeQuali(item.id, quali)">Удалить квалификацию</button>
 </div> 
 </div> 
 
@@ -268,8 +283,8 @@
 </div>
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Сохранить</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Сохранить</button>
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Отменить</button>
         
       </div>
 
@@ -278,19 +293,19 @@
 </div>
  
 
- <!--</div>--> <!-- jumbotron end -->
 
 </div>  <!-- div container Qualification-->
   
-<button class="btn btn-primary btn-md" ng-click="addnewQuali(item.id)">Добавить квалификацию</button> 
+
+<button class="btn btn-info btn-md btn-block" ng-click="addnewQuali(item.id)">Добавить квалификацию</button> 
 
   
 </div>
  
 
  <div class="form-group"> 
-   <button class="btn btn-primary btn-md" ng-click="addnewWorkPos()">Добавить место работы</button>
-   <button class="btn btn-primary btn-md" ng-click="addNewEdu()">Добавить место учёбы</button>
+   <button class="btn btn-blue-grey btn-md btn-block" ng-click="addnewWorkPos()">Добавить место работы</button>
+   <button class="btn btn-blue-grey btn-md btn-block" ng-click="addNewEdu()">Добавить место учёбы</button>
  </div>
   
 
@@ -298,11 +313,11 @@
  <div class="form-group">
  
 <input type="hidden" name="resume"  placeholder="putresume" id="resume" value="@verbatim{{items}}@endverbatim">
-<button class="btn btn-primary btn-md" id="resumesubmit" >Сохранить резюме</button>
+<button class="btn btn-blue-grey btn-md" id="resumesubmit" >Сохранить резюме</button>
  
  </div>
 
-<button type="submit" class="btn btn-success btn-md" ng-click="getitems()">Get items</button>
+<button type="submit" class="btn btn-blue-grey btn-md" ng-click="getitems()">Get items</button>
 </div>
 </div>
 </div>
@@ -310,23 +325,12 @@
 
 {% endverbatim %} 
 
-</div>
+
+
+
 <script>
- 
 
  
-//$(document).ready(function(e) {
-//    function customwidth()
-//        {
-//            var formwidth = $('.form-group').width();       
-//            $('.form-control').width(formwidth);   
-//        }
-//
-//        customwidth();
-//        $(window).resize(function(e) {
-//            customwidth();
-//        });
-//    });
 </script>
 
 {% endblock %}  
