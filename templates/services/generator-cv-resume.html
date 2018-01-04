@@ -44,10 +44,11 @@
 
 <div ng-controller="ResumeItems" >
 
-
+<div class="form-group py-5" >
 {% if user.is_authenticated %}
 
 <!--Panel-->
+
 <div class="card card-body">
     <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
     <p class="card-text">Город</p>
@@ -69,36 +70,39 @@
 </div>
 <!--/.Panel-->
 {% endif %} 
+</div>
 
 
 
+<div ng-form  id="resumeeditform" class="jumbotron py-3" name="resumeeditform" data-ng-repeat="item in items">
 
-<div ng-form  id="resumeeditform" class="form-group" name="resumeeditform" data-ng-repeat="item in items">
+<!--close workposition button -->
 
-
-
-<!--close workposition button --> 
-   <button  type="button "class="close pull-right"  ng-click="removeWorkPos(item)" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
+   <button  type="button" class="close pull-right" ng-click="removeWorkPos(item)" aria-label="Close">
+   <span >&times;</span>
    </button>
-   
+
    
 <!--static inputs -->     
     
 
-   <div class="md-form py-5">
+   <div class="form-group py-3">
 
      
-     <div class="col">  
+     <div class="col">
+       <label class="" for="cvcompany">Название компании</label>
        <input type="text" id="cvcompany" class="form-control" ng-model="item.FL_cv_companyName"
               name="FL_cv_companyName"  required>
-<label class="" for="cvcompany">Название компании</label>
+
      </div>
      
      
    </div>
 
-
+<div class="dateDropdown">
+      <label for="dateField1">Please enter the date:</label>
+      <input class="form-control" id="dateField1" type="text" placeholder="dd.mm.yyyy"/>
+    </div>
 
     
 <!--
