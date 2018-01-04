@@ -7,7 +7,7 @@
 
 
 
-<style type="text/css">
+<style>
 
 .remove {
   text-align: right;
@@ -20,17 +20,15 @@
   margin: auto;
 }
 
-input[type=number]{
-    width: 50px;
-}
-
-#jumboclose {position:absolute; top:5px; right:5px;}
-
 
 #scrollable-dropdown-menu .dropdown-menu {
-    max-height: 150px;
+    max-height: 250px;
     overflow-y: auto;
-}
+    white-space: normal;
+    
+    
+}    
+
 
 </style>
 
@@ -99,42 +97,57 @@ input[type=number]{
  </div>
   
  <!--dynamic inputs -->
- 
+{% verbatim %} 
  
  <input type="hidden" ng-model="item.Quali" value="@{{item.Quali}}">
   
  
-<div class="container-fluid" ng-show="quali" id="qualiseditform" class="form-horizontal" name="qualiseditform" data-ng-repeat="quali in item.Quali" >
+<div ng-show="quali" id="qualiseditform" class="form-horizontal" name="qualiseditform" data-ng-repeat="quali in item.Quali" >
 
 <div class="col-12 text-right"> 
     <button type="button" id="jumboclose" ng-click="removeQuali(item.id, quali)"  class="close" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
+
     </button> 
 </div>
 
-<div class="jumbotron" class="ng-cloak">
-
-
- <h3 ng-show="quali.FL_cv_PS">@{{quali.FL_cv_PS.nameprofessionalstandart}}. Рег. № @{{quali.FL_cv_PS.registrationnumber}}</h3>
       
  <div class="form-group" >
  <p>Выберите название отрасли: </p>
-  <select class="form-control"   ng-model="quali.FL_cv_Otrasl" ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
+  <select class="form-control" id="otraslselect"  ng-model="quali.FL_cv_Otrasl" ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
     
    <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="@{{quali.FL_cv_Otrasl}}">  
   </select>
  </div>
  
-  <div class="form-group" ng-show="quali.FL_cv_Otrasl">
+ <div class="form-group" ng-show="quali.FL_cv_Otrasl" >
+   
  <p>Выберите название должности: </p>
- <div id="scrollable-dropdown-menu">
- <!--ng-change="changedPS(quali.FL_cv_PS.id, item.id, quali.id)" ng-options="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id] | orderBy:'jobtitle'">-->
-  <input type="text" class="form-control" id="psdropdown" ng-model="quali.FL_cv_PS" uib-typeahead="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue" typeahead-focus> 
+ 
+ <div id="scrollable-dropdown-menu" >
 
+  <input type="search" id="psdropdown" name="psdropdown" class="form-control" aria-haspopup="true" aria-expanded="true"
+         ng-model="quali.FL_cv_PS"
+         uib-typeahead="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]' for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue"
+         typeahead-focus
+         typeahead-no-results="noResults"         
+         >
+  <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+  
+ </div>
+ 
    <input type="hidden" ng-model="quali.FL_cv_PS" value="@{{quali.FL_cv_PS}}">
-  </div>
+   
+
+
+
+   <div ng-if="noResults">
+     Совпадений не найдено!
+   </div> 
  
  </div>
+
+
+
   
 <div class="form-group" ng-show="quali.FL_cv_PS">  
  <input type="hidden" ng-model="quali.FL_cv_PS_target" value="@{{quali.FL_cv_PS_target}}">
@@ -265,7 +278,7 @@ input[type=number]{
 </div>
  
 
- </div> <!-- jumbotron end -->
+ <!--</div>--> <!-- jumbotron end -->
 
 </div>  <!-- div container Qualification-->
   
@@ -294,25 +307,26 @@ input[type=number]{
 </div>
 </div>
 
- 
- 
-<script type="text/javascript">
 
-
-//$(document).ready(function() {
-//    $('.input-group.date').datepicker({
-//    format: "mm-yyyy",
-//    startView: "year", 
-//    minViewMode: "months",
-//    language: "ru" 
-//    });
-//   
-//    
-//});
-
-
-</script>
-
+{% endverbatim %} 
 
 </div>
+<script>
+ 
+
+ 
+//$(document).ready(function(e) {
+//    function customwidth()
+//        {
+//            var formwidth = $('.form-group').width();       
+//            $('.form-control').width(formwidth);   
+//        }
+//
+//        customwidth();
+//        $(window).resize(function(e) {
+//            customwidth();
+//        });
+//    });
+</script>
+
 {% endblock %}  
