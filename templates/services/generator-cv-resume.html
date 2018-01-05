@@ -31,10 +31,18 @@
 
 #removequali {position:absolute; top:5px; right:5px;}
 
+.overlay-x{
+  position:absolute;
+  top:10px;
+  right:10px;
+  cursor:pointer;
+}
+#scrollable-dropdown-menu{
+  position:relative;
+}
+
 
 </style>
-
-
 
 
 <div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
@@ -71,7 +79,6 @@
 <!--/.Panel-->
 {% endif %} 
 </div>
-
 
 
 <div ng-form  id="resumeeditform" class="jumbotron py-3" name="resumeeditform" data-ng-repeat="item in items">
@@ -127,7 +134,7 @@
  <!--dynamic inputs -->
 {% verbatim %} 
  
- <input type="hidden" ng-model="item.Quali" value="@{{item.Quali}}">
+ <input type="hidden" ng-model="item.Quali" value="{{item.Quali}}">
   
  
 <div ng-show="quali" id="qualiseditform" class="form-horizontal" name="qualiseditform" data-ng-repeat="quali in item.Quali" >
@@ -144,7 +151,7 @@
   <select class="form-control mdb-select colorful-select dropdown-штащ" id="otraslselect"  ng-model="quali.FL_cv_Otrasl"
           ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
     
-   <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="@{{quali.FL_cv_Otrasl}}">  
+   <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="{{quali.FL_cv_Otrasl}}">  
   </select>
  </div>
  
@@ -152,38 +159,43 @@
    
  <p>Выберите название должности: </p>
  
- <div id="scrollable-dropdown-menu" >
+<div class='input-group' id="scrollable-dropdown-menu" >
+<!--<span class="overlay-x" ng-click="quali.FL_cv_PS=''">X</span>-->
 
-  <input type="search" id="psdropdown" name="psdropdown" class="form-control form-control-lg" dropdown-danger
+  <input type="text" id="psdropdown" name="psdropdown" class="form-control" dropdown-danger
 
          ng-model="quali.FL_cv_PS"
          uib-typeahead="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]'
          for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue"
          typeahead-focus
          >
-  
- </div>
+<span class="input-group-addon" ng-click="quali.FL_cv_PS=''">
+<button class="btn btn-blue-grey btn-md" type="button" style="font-size:20px">&times;</button> 
+</span>
+</div>
+
  
-   <input type="hidden" ng-model="quali.FL_cv_PS" value="@{{quali.FL_cv_PS}}">
+ 
+   <input type="hidden" ng-model="quali.FL_cv_PS" value="{{quali.FL_cv_PS}}">
    
  </div>
   
-<div class="form-group" ng-show="quali.FL_cv_PS">  
- <input type="hidden" ng-model="quali.FL_cv_PS_target" value="@{{quali.FL_cv_PS_target}}">
+<div class="form-group" ng-show="quali.FL_cv_PSS">  
+ <input type="hidden" ng-model="quali.FL_cv_PS_target" value="{{quali.FL_cv_PS_target}}">
 
- <p ng-cloak>Основная цель вида проф. деятельности: @{{quali.FL_cv_PS_target }}</p> 
+ <p ng-cloak>Основная цель вида проф. деятельности: {{quali.FL_cv_PS_target }}</p> 
 
 <h4>Группа занятий (код ОКЗ)</h4>
 
 
  <div class="form-group" >
- <input type="hidden" ng-model="quali.FL_cv_OKZ" value="@{{quali.FL_cv_OKZ}}"> 
+ <input type="hidden" ng-model="quali.FL_cv_OKZ" value="{{quali.FL_cv_OKZ}}"> 
 <!-- <input type="text" value="pdata.NameOKZ">-->
  
   <table> <!--if used array-->
     <tr ng-repeat="okz in quali.FL_cv_OKZ" >     
-      <td ng-cloak>@{{ okz.CodeOKZ}}</td>
-      <td ng-cloak>@{{ okz.NameOKZ }}</td>
+      <td ng-cloak>{{ okz.CodeOKZ}}</td>
+      <td ng-cloak>{{ okz.NameOKZ }}</td>
     </tr>
   </table> 
  </div>
@@ -191,11 +203,11 @@
 <h4>Вид эконом. деятельности (код ОКВЭД)</h4>
 
  <div class="form-group">
- <input type="hidden" ng-model="quali.FL_cv_OKVED" value="@{{quali.FL_cv_OKVED}}"> 
+ <input type="hidden" ng-model="quali.FL_cv_OKVED" value="{{quali.FL_cv_OKVED}}"> 
   <table>
     <tr ng-repeat="okved in quali.FL_cv_OKVED"> <!--if used array of objects-->
-      <td ng-cloak>@{{ okved.CodeOKVED }}</td>
-      <td ng-cloak>@{{ okved.NameOKVED }}</td>
+      <td ng-cloak>{{ okved.CodeOKVED }}</td>
+      <td ng-cloak>{{ okved.NameOKVED }}</td>
     </tr>
   </table>
  </div>
@@ -204,7 +216,7 @@
  <div class="form-group">
  
 <!-- Button to Open the WF Modal -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tfmodal_@{{item.id}}_@{{quali.id}}">
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tfmodal_{{item.id}}_{{quali.id}}">
   Трудовые функции
 </button>
  
@@ -216,7 +228,7 @@
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
   <div class="form-control" ng-repeat="nk in quali.FL_cv_NK" >
       <label class="checkbox">
-      <input type="checkbox"  ng-model="nk.selected" value="@{{ nk }}" ng-cloak/>@{{ nk.NameNK }}
+      <input type="checkbox"  ng-model="nk.selected" value="{{ nk }}" ng-cloak/>{{ nk.NameNK }}
       </label> 
   </div>
  </div> 
@@ -226,7 +238,7 @@
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
   <div class="form-control" ng-repeat="rs in quali.FL_cv_RS" >
       <label class="checkbox">
-      <input type="checkbox"  ng-model="rs.selected" value="@{{ rs }}" ng-cloak/>@{{ rs.NameRS }}
+      <input type="checkbox"  ng-model="rs.selected" value="{{ rs }}" ng-cloak/>{{ rs.NameRS }}
       </label> 
   </div>
  </div>
@@ -237,7 +249,7 @@
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
   <div class="form-control" ng-repeat="la in quali.FL_cv_LA" >
       <label class="checkbox">
-      <input type="checkbox"  ng-model="la.selected" value="@{{ la }}" ng-cloak/>@{{ la.NameLA }}
+      <input type="checkbox"  ng-model="la.selected" value="{{ la }}" ng-cloak/>{{ la.NameLA }}
       </label> 
   </div>
  </div> 
@@ -248,7 +260,7 @@
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
   <div class="form-control" ng-repeat="oc in quali.FL_cv_OC | unique: 'NameOC'" >
       <label class="checkbox">
-      <input type="checkbox"  ng-model="oc.selected" value="@{{ oc }}" ng-cloak/>@{{ oc.NameOC}}
+      <input type="checkbox"  ng-model="oc.selected" value="{{ oc }}" ng-cloak/>{{ oc.NameOC}}
       </label> 
   </div>
  </div> 
@@ -262,7 +274,7 @@
  
 
 <!-- WF Modal -->
-<div class="modal fade modal-tf" id="tfmodal_@{{item.id}}_@{{quali.id}}">
+<div class="modal fade modal-tf" id="tfmodal_{{item.id}}_{{quali.id}}">
   <div class="modal-dialog modal-lg">
 <div class="modal-content">
       <!-- Modal Header -->
@@ -274,12 +286,12 @@
       <!-- Modal body -->
 
  <div class="form-group">
-<input type="hidden" ng-model="quali.FL_cv_TF" value="@{{quali.FL_cv_TF}}">  <!--save to DB-->
+<input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">  <!--save to DB-->
 <table>
   <th>Название трудовой функции</th><th>Код квалификации</th><th>Месяцы</th>
   <tr ng-repeat="wf in quali.FL_cv_TF"><!--if used array of objects-->
-      <td ng-cloak>@{{ wf.NameTF}}</td>
-      <td ng-cloak>@{{wf.CodeTF}}</td>
+      <td ng-cloak>{{ wf.NameTF}}</td>
+      <td ng-cloak>{{wf.CodeTF}}</td>
       <td><input type="number" ng-model="wf.month"> <!--month numbers--></td>
       
   </tr>  
@@ -333,7 +345,6 @@
 
 
 <script>
-
  
 </script>
 
