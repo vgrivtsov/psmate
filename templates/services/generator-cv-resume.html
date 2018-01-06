@@ -42,6 +42,12 @@
 }
 
 
+.ui-datepicker-calendar {
+  display: none;
+
+}​
+
+
 </style>
 
 
@@ -52,7 +58,7 @@
 
 <div ng-controller="ResumeItems" >
 
-<div class="form-group py-5" >
+<div class="form-group py-3" >
 {% if user.is_authenticated %}
 
 <!--Panel-->
@@ -93,25 +99,46 @@
 <!--static inputs -->     
     
 
-   <div class="form-group py-3">
+<div class="form-group py-3">
 
-     
-     <div class="col">
-       <label class="" for="cvcompany">Название компании</label>
-       <input type="text" id="cvcompany" class="form-control" ng-model="item.FL_cv_companyName"
-              name="FL_cv_companyName"  required>
+  
 
-     </div>
-     
-     
-   </div>
+    <label>Название компании</label>
+    <input type="text" id="cvcompany" class="form-form-control form-control-1 input-sm" ng-model="item.FL_cv_companyName"
+           name="FL_cv_companyName"  required>
 
-<div class="dateDropdown">
-      <label for="dateField1">Please enter the date:</label>
-      <input class="form-control" id="dateField1" type="text" placeholder="dd.mm.yyyy"/>
-    </div>
 
-    
+    <label>Начало работы</label>
+    <input type="text" class="form-control form-control-1 input-sm datepicker" placeholder="мм/гггг" >
+    <label>Окончание</label>
+    <input type="text" class="form-control form-control-1 input-sm datepicker" placeholder="мм/гггг" >
+
+</div>
+
+<script>
+
+var startDate = new Date();
+var FromEndDate = new Date();
+var ToEndDate = new Date();
+
+$(document).ready(function() {
+
+$.datepicker.setDefaults( $.datepicker.regional[ "ru" ] );
+
+
+$('.datepicker').datepicker({
+    autoclose: true,
+    minViewMode: 1,
+    format: 'mm/yyyy'
+})
+
+});
+
+
+</script>
+
+
+
 <!--
 <div class="md-form">
     <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
@@ -170,7 +197,7 @@
          typeahead-focus
          >
 <span class="input-group-addon" ng-click="quali.FL_cv_PS=''">
-<button class="btn btn-outline-blue-grey waves-effect btn-sm" type="button" style="font-size : 15px;">&times;</button> 
+<button class="mdb-autocomplete-clear"  style="font-size : 15px;">&times;</button> 
 </span>
 </div>
 
@@ -342,10 +369,5 @@
 {% endverbatim %} 
 
 
-
-
-<script>
- 
-</script>
 
 {% endblock %}  
