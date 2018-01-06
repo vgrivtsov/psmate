@@ -99,27 +99,25 @@
 <!--static inputs -->     
     
 
-<div class="form-group py-3">
+<div class="form-group py-3 px-4">
 
-  
-
-    <label>Название компании</label>
+    
     <input type="text" id="cvcompany" class="form-form-control form-control-1 input-sm" ng-model="item.FL_cv_companyName"
            name="FL_cv_companyName"  required>
+    <label>Название компании</label>
 
-
+    
+    <input type="text" class="form-control form-control-1 input-sm datepicker"
+           ng-model="item.FL_cv_WorkStartDate" placeholder="мм/гггг" >
     <label>Начало работы</label>
-    <input type="text" class="form-control form-control-1 input-sm datepicker" placeholder="мм/гггг" >
+    
+    <input type="text" class="form-control form-control-1 input-sm datepicker"
+           ng-model="item.FL_cv_WorkEndtDate" placeholder="мм/гггг" >
     <label>Окончание</label>
-    <input type="text" class="form-control form-control-1 input-sm datepicker" placeholder="мм/гггг" >
 
 </div>
 
 <script>
-
-var startDate = new Date();
-var FromEndDate = new Date();
-var ToEndDate = new Date();
 
 $(document).ready(function() {
 
@@ -139,24 +137,6 @@ $('.datepicker').datepicker({
 
 
 
-<!--
-<div class="md-form">
-    <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
-    <label for="date-picker-example">Try me...</label>
-</div>-->
-
-  
-<!--  <div class="md-form py-5">        
-    <label class="col-2 col-form-label">Окончание:</label>
-    <div class="col">
-    <div class="input-group date" data-provide="datepicker">
-    <input type="text" class="form-control" ng-model="item.FL_cv_Period_f" required>
-
-    </div>
-    </div>
-  </div>-->
-  
-
 
  <!--dynamic inputs -->
 {% verbatim %} 
@@ -165,29 +145,32 @@ $('.datepicker').datepicker({
   
  
 <div ng-show="quali" id="qualiseditform" class="form-horizontal" name="qualiseditform" data-ng-repeat="quali in item.Quali" >
-
+ 
+ <div class="card form-group py-2 px-4">
+ 
 <div class="col-12 text-right"> 
     <button type="button" id="removequali" ng-click="removeQuali(item.id, quali)"  class="close" aria-label="Close">
     <span aria-hidden="true">&times;</span>
     </button> 
 </div>
 
-      
+
+  
  <div class="form-group" >
- <p>Выберите название отрасли: </p>
-  <select class="form-control mdb-select colorful-select dropdown-штащ" id="otraslselect"  ng-model="quali.FL_cv_Otrasl"
+  <label>Отрасль</label> 
+  <select class="form-control mdb-select colorful-select dropdown-info" id="otraslselect"  ng-model="quali.FL_cv_Otrasl"
           ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
     
    <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="{{quali.FL_cv_Otrasl}}">  
   </select>
- </div>
+
  
- <div class="form-group" ng-show="quali.FL_cv_Otrasl" >
+ 
+ <div class="form-group " ng-show="quali.FL_cv_Otrasl" >
    
- <p>Выберите название должности: </p>
  
+<label>Должность по профстандарту</label> 
 <div class='input-group' id="scrollable-dropdown-menu" >
-<!--<span class="overlay-x" ng-click="quali.FL_cv_PS=''">X</span>-->
 
   <input type="text" id="psdropdown" name="psdropdown" class="form-control" dropdown-danger
 
@@ -196,11 +179,13 @@ $('.datepicker').datepicker({
          for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue"
          typeahead-focus
          >
+  
 <span class="input-group-addon" ng-click="quali.FL_cv_PS=''">
 <button class="mdb-autocomplete-clear"  style="font-size : 15px;">&times;</button> 
 </span>
-</div>
 
+</div>
+</div>
  
  
    <input type="hidden" ng-model="quali.FL_cv_PS" value="{{quali.FL_cv_PS}}">
@@ -338,7 +323,7 @@ $('.datepicker').datepicker({
 
 
 </div>  <!-- div container Qualification-->
-  
+ </div>  
 
 <button class="btn btn-info btn-md btn-block" ng-click="addnewQuali(item.id)">Добавить квалификацию</button> 
 
