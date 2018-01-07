@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^search-profstandart/$', views.SearchPSView.as_view(), name='search-profstandart'),
     url(r'^generator-cv-resume/$', views.CvEditView.as_view(), name='generator-cv-resume'),
     url(r'^load_ps/$', views.LoadPS.as_view(), name='load_ps'),
+    url(r'^load_compt/$', views.LoadCompt.as_view(), name='load_compt'),
     
     # url(r'^search-profstandart/$', FilterView.as_view(filterset_class=PSFilter,
     #     template_name='services/search-profstandart.html'), name='search-profstandart'),

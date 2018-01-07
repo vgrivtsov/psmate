@@ -42,7 +42,7 @@ class SearchPSView(FormView):
         if data != None:
             ps_get = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
             psinfo = ps_get[0]
-            psregnum = ps_get[0].psregnum
+            
             tfinfo = Tfinfo.objects.filter(psregnum=psregnum).distinct('codetf') # dinstinct delete doubles
             otfinfo = Gtfinfo.objects.filter(psregnum=psregnum).distinct('codeotf')
             okzinfo = Okz.objects.filter(psregnum=psregnum).distinct('codeokz')
@@ -114,8 +114,26 @@ class LoadPS(View):
                 
                 for jt in jt_get:
 
-                    jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameps' : ps.nameps, 'psregnum' : ps.psregnum})
+                    jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle,
+                                     # 'pspurposekind' : ps.pspurposekind,
+                                     'nameps' : ps.nameps, 'psregnum' : ps.psregnum})
   
             return JsonResponse(jtresult, safe=False) 
 
+class LoadCompt(View):
 
+    def get(self, request, *args, **kwargs):
+
+        data = self.request.GET.get('id', None)
+        
+        if data != None:
+            la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')           
+            laresult = []
+
+            for la in la_get_raw:
+                la_obj = dict(laboraction = la.laboraction)
+                laresult.append(la_obj)
+ 
+            #laresult = [x for x in laresult if x is not None]
+
+            return JsonResponse(laresult, safe=False) 

@@ -164,8 +164,7 @@ $('.datepicker').datepicker({
    <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="{{quali.FL_cv_Otrasl}}">  
   </select>
 
- 
- 
+
  <div class="form-group " ng-show="quali.FL_cv_Otrasl" >
    
  
@@ -180,7 +179,7 @@ $('.datepicker').datepicker({
          typeahead-focus
          >
   
-<span class="input-group-addon" ng-click="quali.FL_cv_PS=''">
+<span class="input-group-addon" ng-click="quali.FL_cv_PS=''; selectcompt[quali.id]=''">
 <button class="mdb-autocomplete-clear"  style="font-size : 15px;">&times;</button> 
 </span>
 
@@ -192,22 +191,21 @@ $('.datepicker').datepicker({
    
  </div>
   
-<div class="form-group" ng-show="quali.FL_cv_PSS">  
- <input type="hidden" ng-model="quali.FL_cv_PS_target" value="{{quali.FL_cv_PS_target}}">
+<div class="form-group" ng-show="quali.FL_cv_PS">  
+ <input type="hidden" ng-model="quali.FL_cv_PS_target" value="{{ pspurposekind }}">
 
- <p ng-cloak>Основная цель вида проф. деятельности: {{quali.FL_cv_PS_target }}</p> 
+ <p ng-cloak>Основная цель вида проф. деятельности: {{ pspurposekind }}</p> 
 
 <h4>Группа занятий (код ОКЗ)</h4>
 
 
  <div class="form-group" >
  <input type="hidden" ng-model="quali.FL_cv_OKZ" value="{{quali.FL_cv_OKZ}}"> 
-<!-- <input type="text" value="pdata.NameOKZ">-->
  
   <table> <!--if used array-->
     <tr ng-repeat="okz in quali.FL_cv_OKZ" >     
-      <td ng-cloak>{{ okz.CodeOKZ}}</td>
-      <td ng-cloak>{{ okz.NameOKZ }}</td>
+      <td ng-cloak>{{ okzinfo.codeokz}}</td>
+      <td ng-cloak>{{ okzinfo.nameokz }}</td>
     </tr>
   </table> 
  </div>
@@ -218,8 +216,8 @@ $('.datepicker').datepicker({
  <input type="hidden" ng-model="quali.FL_cv_OKVED" value="{{quali.FL_cv_OKVED}}"> 
   <table>
     <tr ng-repeat="okved in quali.FL_cv_OKVED"> <!--if used array of objects-->
-      <td ng-cloak>{{ okved.CodeOKVED }}</td>
-      <td ng-cloak>{{ okved.NameOKVED }}</td>
+      <td ng-cloak>{{ okvedinfo.codeokved }}</td>
+      <td ng-cloak>{{ okvedinfo.nameokved }}</td>
     </tr>
   </table>
  </div>
@@ -228,25 +226,38 @@ $('.datepicker').datepicker({
  <div class="form-group">
  
 <!-- Button to Open the WF Modal -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tfmodal_{{item.id}}_{{quali.id}}">
+<!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tfmodal_{{item.id}}_{{quali.id}}">
   Трудовые функции
-</button>
+</button>-->
  
  </div> 
 
 <div class="form-group">  
+
+<button class="btn btn-outline-info btn-md btn-block" ng-model="quali.FL_cv_LA" ng-click="loadCompt(quali.FL_cv_PS.psregnum, quali.id)">Выбрать компетенции</button> 
+
+
+ <div class="form-group" ng-show="selectcompt[quali.id]">
+  <label>Трудовые умения</label> 
+  <select class="form-control mdb-select colorful-select dropdown-info" id="laselect"  ng-model="quali.FL_cv_LA"
+           ng-options="la as la.laboraction for la in selectcompt[quali.id] | orderBy:'laboraction'">
+    
+   <input type="hidden" ng-model="quali.FL_cv_LA" value="{{quali.FL_cv_LA}}">  
+  </select>
+  
+ </div> 
  
- <h4>Необходимые умения</h4>
+<!-- <h4>Трудовые умения</h4>
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
   <div class="form-control" ng-repeat="nk in quali.FL_cv_NK" >
       <label class="checkbox">
       <input type="checkbox"  ng-model="nk.selected" value="{{ nk }}" ng-cloak/>{{ nk.NameNK }}
       </label> 
   </div>
- </div> 
+ </div> -->
 
  
- <h4>Необходимые знания</h4>
+<!-- <h4>Необходимые знания</h4>
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
   <div class="form-control" ng-repeat="rs in quali.FL_cv_RS" >
       <label class="checkbox">
@@ -276,7 +287,8 @@ $('.datepicker').datepicker({
       </label> 
   </div>
  </div> 
-</div>
+</div>-->
+
 <div class="col-12 text-right">  
     <button class="btn btn-blue-grey btn-md" ng-click="removeQuali(item.id, quali)">Удалить квалификацию</button>
 </div> 
