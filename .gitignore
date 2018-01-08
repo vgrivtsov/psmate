@@ -2,7 +2,6 @@ manage.py
 models*
 /media
 /psmate/settings
-/static
 /media
 /psmate/migrations
 psmate_nginx*
