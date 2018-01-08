@@ -58,6 +58,7 @@
 
 <div ng-controller="ResumeItems" >
 
+
 <div class="form-group py-3" >
 {% if user.is_authenticated %}
 
@@ -157,20 +158,21 @@ $('.datepicker').datepicker({
 
   
  <div class="form-group" >
+ <!--Select Otrasl -->  
   <label>Отрасль</label> 
   <select class="form-control mdb-select colorful-select dropdown-info" id="otraslselect"  ng-model="quali.FL_cv_Otrasl"
-          ng-change="loadPS(quali.FL_cv_Otrasl.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
+          ng-change="loadPS(quali.FL_cv_Otrasl.id, item.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
     
    <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="{{quali.FL_cv_Otrasl}}">  
   </select>
-
+  <!-- -->
 
  <div class="form-group " ng-show="quali.FL_cv_Otrasl" >
    
  
 <label>Должность по профстандарту</label> 
 <div class='input-group' id="scrollable-dropdown-menu" >
-
+ <!--Select PS autocomplete -->  
   <input type="text" id="psdropdown" name="psdropdown" class="form-control" dropdown-danger
 
          ng-model="quali.FL_cv_PS"
@@ -182,7 +184,7 @@ $('.datepicker').datepicker({
 <span class="input-group-addon" ng-click="quali.FL_cv_PS=''; selectcompt[quali.id]=''">
 <button class="mdb-autocomplete-clear"  style="font-size : 15px;">&times;</button> 
 </span>
-
+  <!-- -->
 </div>
 </div>
  
@@ -192,60 +194,111 @@ $('.datepicker').datepicker({
  </div>
   
 <div class="form-group" ng-show="quali.FL_cv_PS">  
- <input type="hidden" ng-model="quali.FL_cv_PS_target" value="{{ pspurposekind }}">
+<!-- <input type="hidden" ng-model="quali.FL_cv_PS_target" value="{{ pspurposekind }}">-->
 
- <p ng-cloak>Основная цель вида проф. деятельности: {{ pspurposekind }}</p> 
+<!-- <p ng-cloak>Основная цель вида проф. деятельности: {{ pspurposekind }}</p> 
 
-<h4>Группа занятий (код ОКЗ)</h4>
-
-
- <div class="form-group" >
- <input type="hidden" ng-model="quali.FL_cv_OKZ" value="{{quali.FL_cv_OKZ}}"> 
- 
-  <table> <!--if used array-->
-    <tr ng-repeat="okz in quali.FL_cv_OKZ" >     
-      <td ng-cloak>{{ okzinfo.codeokz}}</td>
-      <td ng-cloak>{{ okzinfo.nameokz }}</td>
-    </tr>
-  </table> 
- </div>
-  
-<h4>Вид эконом. деятельности (код ОКВЭД)</h4>
-
- <div class="form-group">
- <input type="hidden" ng-model="quali.FL_cv_OKVED" value="{{quali.FL_cv_OKVED}}"> 
-  <table>
-    <tr ng-repeat="okved in quali.FL_cv_OKVED"> <!--if used array of objects-->
-      <td ng-cloak>{{ okvedinfo.codeokved }}</td>
-      <td ng-cloak>{{ okvedinfo.nameokved }}</td>
-    </tr>
-  </table>
- </div>
-
+-->
  
  <div class="form-group">
  
-<!-- Button to Open the WF Modal -->
-<!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tfmodal_{{item.id}}_{{quali.id}}">
-  Трудовые функции
-</button>-->
  
  </div> 
 
 <div class="form-group">  
 
-<button class="btn btn-outline-info btn-md btn-block" ng-model="quali.FL_cv_LA" ng-click="loadCompt(quali.FL_cv_PS.psregnum, quali.id)">Выбрать компетенции</button> 
+  <!--Show competences block -->
+<button class="btn btn-outline-info btn-md btn-block" ng-click="loadCompt(quali.FL_cv_PS.psregnum, item.id, quali.id)">Выбрать компетенции</button> 
 
 
- <div class="form-group" ng-show="selectcompt[quali.id]">
-  <label>Трудовые умения</label> 
-  <select class="form-control mdb-select colorful-select dropdown-info" id="laselect"  ng-model="quali.FL_cv_LA"
-           ng-options="la as la.laboraction for la in selectcompt[quali.id] | orderBy:'laboraction'">
-    
-   <input type="hidden" ng-model="quali.FL_cv_LA" value="{{quali.FL_cv_LA}}">  
-  </select>
+ <div class="form-control" ng-show="quali.FL_cv_LA">
+
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#lamodal_{{item.id}}_{{quali.id}}">Трудовые умения</button>
+
+
+<!-- LA Modal -->
+<div class="modal fade modal-la" id="lamodal_{{item.id}}_{{quali.id}}">
+  <div class="modal-dialog modal-lg">
+<div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Трудовые умения</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+
+ <div class="form-group">
+<input type="hidden" ng-model="quali.FL_cv_LA" value="{{quali.FL_cv_LA}}">  <!--save to DB-->
+
+  <table class="table table-striped">
+    <tr ng-repeat="la in quali.FL_cv_LA" ng-switch on="$index % 3">
+      <td ng-switch-when="0"><label class="checkbox">
+        <input type="checkbox"  ng-model="quali.FL_cv_LA[$index].selected" value="{{ la.laboraction}}"/>{{quali.FL_cv_LA[$index].laboraction}}
+      </label></td>
+      <td ng-switch-when="0"><label class="checkbox">
+        <span ng-show="quali.FL_cv_LA[$index+1]">
+          <input type="checkbox"  ng-model="quali.FL_cv_LA[$index+1].selected" value="{{ la.laboraction}}"/>{{quali.FL_cv_LA[$index+1].laboraction}}
+        </span>
+      </label></td>
+      <td ng-switch-when="0"><label class="checkbox">
+        <span ng-show="quali.FL_cv_LA[$index+2]">    
+          <input type="checkbox"  ng-model="quali.FL_cv_LA[$index+2].selected" value="{{ la.laboraction}}"/>{{quali.FL_cv_LA[$index+2].laboraction}}
+        </span>
+      </label></td>
+    </tr>
+  </table>
+
+<!--<table>
+
+  <tr ng-repeat="la in selectcompt[quali.id]">
+      <td><label class="checkbox">
+      <input type="checkbox"  ng-model="la.selected" value="{{ la.laboraction}}"/>{{ la.laboraction}}
+      </label></td>
+
+      
+  </tr>  
+</table>-->
+</div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Сохранить</button>
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Отменить</button>
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+ 
+<input type="hidden" ng-model="quali.FL_cv_LA" value="{{quali.FL_cv_LA}}">
+
+
+<!-- <label>Трудовые умения</label> 
+  <select class="form-control selectpicker" id="laselect"   multiple=""
+
+           ng-model="quali.FL_cv_LA"
+
+           ng-options="la as la.laboraction for la in selectcompt[quali.id]"
+           >
+
+  </select>-->
   
- </div> 
+ 
+ 
+
+  
+
+ 
+ 
  
 <!-- <h4>Трудовые умения</h4>
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
@@ -297,40 +350,7 @@ $('.datepicker').datepicker({
  </div> 
  
 
-<!-- WF Modal -->
-<div class="modal fade modal-tf" id="tfmodal_{{item.id}}_{{quali.id}}">
-  <div class="modal-dialog modal-lg">
-<div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Трудовые функции</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
 
-      <!-- Modal body -->
-
- <div class="form-group">
-<input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">  <!--save to DB-->
-<table>
-  <th>Название трудовой функции</th><th>Код квалификации</th><th>Месяцы</th>
-  <tr ng-repeat="wf in quali.FL_cv_TF"><!--if used array of objects-->
-      <td ng-cloak>{{ wf.NameTF}}</td>
-      <td ng-cloak>{{wf.CodeTF}}</td>
-      <td><input type="number" ng-model="wf.month"> <!--month numbers--></td>
-      
-  </tr>  
-</table>
-</div>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Сохранить</button>
-        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Отменить</button>
-        
-      </div>
-
-    </div>
-  </div>
-</div>
  
 
 

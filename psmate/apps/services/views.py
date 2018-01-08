@@ -97,7 +97,6 @@ class CvEditView(FormView):
     #     return context
 
 
-
 class LoadPS(View):
 
     def get(self, request, *args, **kwargs):
@@ -120,6 +119,7 @@ class LoadPS(View):
   
             return JsonResponse(jtresult, safe=False) 
 
+
 class LoadCompt(View):
 
     def get(self, request, *args, **kwargs):
@@ -131,8 +131,8 @@ class LoadCompt(View):
             laresult = []
 
             for la in la_get_raw:
-                la_obj = dict(laboraction = la.laboraction)
-                laresult.append(la_obj)
+
+                laresult.append({'id' : la.id, 'laboraction' : la.laboraction })
  
             #laresult = [x for x in laresult if x is not None]
 
