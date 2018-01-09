@@ -115,7 +115,8 @@ class LoadPS(View):
 
                     jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle,
                                      # 'pspurposekind' : ps.pspurposekind,
-                                     'nameps' : ps.nameps, 'psregnum' : ps.psregnum})
+                                     'nameps' : ps.nameps, 'psregnum' : ps.psregnum,
+                                     'pspurposekind' : ps.pspurposekind})
   
             return JsonResponse(jtresult, safe=False) 
 
@@ -136,18 +137,35 @@ class LoadCompt(View):
             
 
             for tf in tf_get_raw:
+                # laboractions, necessary knowleges, required skills, other characteristics
                 laresult = []
-               # tfresult.append({'codetf' : tf.codetf, 'nametf' : tf.nametf })
+                nkresult = []
+                rsresult = []
+                ocresult = []
+
                 la_get_raw = Tf_la.objects.filter(nametf=tf.nametf)
+                nk_get_raw = Tf_rs.objects.filter(nametf=tf.nametf)
+                rs_get_raw = Tf_nk.objects.filter(nametf=tf.nametf)
+                oc_get_raw = Tf_oc.objects.filter(nametf=tf.nametf)
                                 
                 for la in la_get_raw:
-                    laresult.append({'id' : la.id, 'laboraction' : la.laboraction})    
+                    laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
+                    
+                for nk in nk_get_raw:
+                    nkresult.append({'id' : nk.id, 'necessaryknowledge' : nk.requiredskill}) # !!!Swap with RS becouse rosmintrud edition!!!
+                    
+                for rs in rs_get_raw:
+                    rsresult.append({'id' : rs.id, 'requiredskill' : rs.necessaryknowledge}) #  # !!!Swap with NK becouse rosmintrud edition!!!                     
+                    
+                for oc in oc_get_raw:
+                    ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
                     
                 maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf, 'nametf' : tf.nametf,
-                                     'laboractions' : laresult
+                                     'laboractions' : laresult,
+                                     'necessaryknowledges' : nkresult,
+                                     'requiredskills' : rsresult,
+                                     'othercharacteristics' : ocresult,
+
                                      })
-
-
-
 
             return JsonResponse(maintfresult, safe=False) 

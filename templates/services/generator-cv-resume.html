@@ -201,15 +201,14 @@ $('.datepicker').datepicker({
  </div>
   
 <div class="form-group" ng-show="quali.FL_cv_PS">  
-<!-- <input type="hidden" ng-model="quali.FL_cv_PS_target" value="{{ pspurposekind }}">-->
 
-<!-- <p ng-cloak>Основная цель вида проф. деятельности: {{ pspurposekind }}</p> 
-
--->
  
  <div class="form-group">
  
- 
+<input type="hidden" ng-model="quali.FL_cv_PS.pspurposekind" value="{{ quali.FL_cv_PS.pspurposekind }}">
+
+<p>Основная цель вида проф. деятельности:</p>  
+<h5 ng-cloak>{{ quali.FL_cv_PS.pspurposekind }}</h5> 
  </div> 
 
 <div class="form-group">  
@@ -225,49 +224,148 @@ $('.datepicker').datepicker({
     <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
       <td ng-switch-when="0" ><label class="tflabel checkbox" style="height: 20vh;">
         <input type="checkbox"  ng-model="quali.FL_cv_TF[$index].selected"/>
-        {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}} )
+        {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}})
       </label>
 
       <span class="competencesbutton pull-right" >
         <button type="button" class="btn btn-outline-blue-grey btn-sm"
                 data-toggle="modal" ng-if="quali.FL_cv_TF[$index].nametf"
-        data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">Компетенции</button>
+        data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">Компетенции </button>
       </span>
       
 <!-- Competences Modal_1 -->
 <!-- Competences Modal_1 -->
+
 
 <div class="modal fade modal-la" id="tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">
   <div class="modal-dialog modal-lg">
 <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Трудовые функции</h4>
+        <h4 class="modal-title">{{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}})</h4>
+
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
 
- <div class="form-group">
-<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  <!--save to DB-->
+ <div class="form-group modal-body">
+  
+  
+  <div role="tabpanel">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li class="nav-item active">
+           <a class="nav-link" href="#laboractionsTab_{{quali.FL_cv_TF[$index].id}}" aria-controls="laboractionsTab_{{quali.FL_cv_TF[$index].id}}"
+              role="tab" data-toggle="tab">Трудовые действия</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#necessaryknowlegesTab_{{quali.FL_cv_TF[$index].id}}" aria-controls="necessaryknowlegesTab_{{quali.FL_cv_TF[$index].id}}"
+              role="tab" data-toggle="tab">Знания</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#requiredskillsTab_{{quali.FL_cv_TF[$index].id}}" aria-controls="requiredskillsTab_{{quali.FL_cv_TF[$index].id}}"
+              role="tab" data-toggle="tab">Опыт практической работы</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#othercharacteristicsTab_{{quali.FL_cv_TF[$index].id}}" aria-controls="othercharacteristicsTab_{{quali.FL_cv_TF[$index].id}}"
+              role="tab" data-toggle="tab">Прочие характеристики</a>
+          </li>          
+          
+      </ul>
+      <!-- Tab panes -->
+            
+      <div class="tab-content">
+       
+       <!-- Labouractions -->
+          <div role="tabpanel" class="tab-pane fade in show active" id="laboractionsTab_{{quali.FL_cv_TF[$index].id}}">
+           
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="la in quali.FL_cv_TF[$index].laboractions" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.laboractions">
+                    <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.laboractions">    
+                    <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                </label></td>
+              </tr>
+            </table>           
 
-  <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
-    <tr ng-repeat="la in quali.FL_cv_TF[$index].laboractions" ng-switch on="$index % 3">
-      <td ng-switch-when="0"><label class="checkbox">
-        <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
-      </label></td>
-      <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF.laboractions[$index+1]">
-          <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
-        </span>
-      </label></td>
-      <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF.laboractions[$index+2]">    
-          <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
-      </label></td>
-    </tr>
-  </table>
+          </div>
+       <!-- necessaryknowleges -->          
+          <div role="tabpanel" class="tab-pane fade" id="necessaryknowlegesTab_{{quali.FL_cv_TF[$index].id}}">
+          
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="nk in quali.FL_cv_TF[$index].necessaryknowledges" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.necessaryknowledges">
+                    <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.necessaryknowledges">    
+                    <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                </label></td>
+              </tr>
+            </table>             
+          </div>
+          
+       <!-- requiredskills -->          
+          <div role="tabpanel" class="tab-pane fade" id="requiredskillsTab_{{quali.FL_cv_TF[$index].id}}">         
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="rs in quali.FL_cv_TF[$index].requiredskills" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.requiredskills">
+                    <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.requiredskills">    
+                    <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                </label></td>
+              </tr>
+            </table>   
 
+          </div> 
+       <!-- othercharacteristics -->          
+          <div role="tabpanel" class="tab-pane fade" id="othercharacteristicsTab_{{quali.FL_cv_TF[$index].id}}">         
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="oc in quali.FL_cv_TF[$index].othercharacteristics" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.othercharacteristics">
+                    <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.othercharacteristics">    
+                    <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                </label></td>
+              </tr>
+            </table>   
+
+          </div>
+          
+      </div>
+  </div>  
+  
 </div>
       <!-- Modal footer -->
       <div class="modal-footer">
@@ -281,13 +379,14 @@ $('.datepicker').datepicker({
 </div> 
 
       </td> 
-<!-- Competences Modal_1 end --> 
+<!-- Competences Modal_1 end ------------------------------------------------------------> 
 <!-- Competences Modal_1 end -->
+
 
       <td ng-switch-when="0"><label class="checkbox" style="height: 20vh;">
         <span ng-show="quali.FL_cv_TF[$index+1]">
           <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>
-          {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}} )
+          {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}})
         </span>
       </label>
       <span class="pull-right">
@@ -303,32 +402,130 @@ $('.datepicker').datepicker({
 <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Трудовые функции</h4>
+        <h4 class="modal-title">{{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}})</h4>
+
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
 
- <div class="form-group">
-<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  <!--save to DB-->
+ <div class="form-group modal-body">
+  
+  
+  <div role="tabpanel">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li class="nav-item active">
+           <a class="nav-link" href="#laboractionsTab_{{quali.FL_cv_TF[$index+1].id}}" aria-controls="laboractionsTab_{{quali.FL_cv_TF[$index+1].id}}"
+              role="tab" data-toggle="tab">Трудовые действия</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#necessaryknowlegesTab_{{quali.FL_cv_TF[$index+1].id}}" aria-controls="necessaryknowlegesTab_{{quali.FL_cv_TF[$index+1].id}}"
+              role="tab" data-toggle="tab">Знания</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#requiredskillsTab_{{quali.FL_cv_TF[$index+1].id}}" aria-controls="requiredskillsTab_{{quali.FL_cv_TF[$index+1].id}}"
+              role="tab" data-toggle="tab">Опыт практической работы</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#othercharacteristicsTab_{{quali.FL_cv_TF[$index+1].id}}" aria-controls="othercharacteristicsTab_{{quali.FL_cv_TF[$index+1].id}}"
+              role="tab" data-toggle="tab">Прочие характеристики</a>
+          </li>          
+          
+      </ul>
+      <!-- Tab panes -->
+            
+      <div class="tab-content">
+       
+       <!-- Labouractions -->
+          <div role="tabpanel" class="tab-pane fade in show active" id="laboractionsTab_{{quali.FL_cv_TF[$index+1].id}}">
+           
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="la in quali.FL_cv_TF[$index+1].laboractions" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.laboractions">
+                    <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.laboractions">    
+                    <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                </label></td>
+              </tr>
+            </table>           
 
-  <table class="table table-striped">
-    <tr ng-repeat="la in quali.FL_cv_TF.laboractions" ng-switch on="$index % 3">
-      <td ng-switch-when="0"><label class="checkbox">
-        <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index].selected"/>{{quali.FL_cv_TF.laboractions[$index].laboraction}}
-      </label></td>
-      <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF.laboractions[$index+1]">
-          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+1].selected"/>{{quali.FL_cv_TF.laboractions[$index+1].laboraction}}
-        </span>
-      </label></td>
-      <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF.laboractions[$index+2]">    
-          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+2].selected"/>{{quali.FL_cv_TF.laboractions[$index+2].laboraction}}
-      </label></td>
-    </tr>
-  </table>
+          </div>
+       <!-- necessaryknowleges -->          
+          <div role="tabpanel" class="tab-pane fade" id="necessaryknowlegesTab_{{quali.FL_cv_TF[$index+1].id}}">
+          
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="nk in quali.FL_cv_TF[$index+1].necessaryknowledges" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.necessaryknowledges">
+                    <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.necessaryknowledges">    
+                    <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                </label></td>
+              </tr>
+            </table>             
+          </div>
+          
+       <!-- requiredskills -->          
+          <div role="tabpanel" class="tab-pane fade" id="requiredskillsTab_{{quali.FL_cv_TF[$index+1].id}}">         
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="rs in quali.FL_cv_TF[$index+1].requiredskills" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.requiredskills">
+                    <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.requiredskills">    
+                    <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                </label></td>
+              </tr>
+            </table>   
 
+          </div> 
+       <!-- othercharacteristics -->          
+          <div role="tabpanel" class="tab-pane fade" id="othercharacteristicsTab_{{quali.FL_cv_TF[$index+1].id}}">         
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="oc in quali.FL_cv_TF[$index+1].othercharacteristics" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.othercharacteristics">
+                    <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.othercharacteristics">    
+                    <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                </label></td>
+              </tr>
+            </table>   
+
+          </div>
+          
+      </div>
+  </div>  
+  
 </div>
       <!-- Modal footer -->
       <div class="modal-footer">
@@ -340,15 +537,15 @@ $('.datepicker').datepicker({
     </div>
   </div>
 </div> 
- 
- 
-<!-- Competences Modal_2 end --> 
+
+      </td> 
+<!-- Competences Modal_2 end ------------------------------------------------------------------> 
 <!-- Competences Modal_2 end -->
-      </td>
+      
       <td ng-switch-when="0"><label class="checkbox" style="height: 20vh;">
         <span ng-show="quali.FL_cv_TF[$index+2]">    
           <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>
-          {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}} )
+          {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}})
         </span>
       </label>
       <span class="pull-right">
@@ -364,31 +561,129 @@ $('.datepicker').datepicker({
 <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Трудовые функции</h4>
+        <h4 class="modal-title">{{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}})</h4>
+
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
 
- <div class="form-group">
-<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  <!--save to DB-->
+ <div class="form-group modal-body">
+  
+  
+  <div role="tabpanel">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li class="nav-item active">
+           <a class="nav-link" href="#laboractionsTab_{{quali.FL_cv_TF[$index+2].id}}" aria-controls="laboractionsTab_{{quali.FL_cv_TF[$index+2].id}}"
+              role="tab" data-toggle="tab">Трудовые действия</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#necessaryknowlegesTab_{{quali.FL_cv_TF[$index+2].id}}" aria-controls="necessaryknowlegesTab_{{quali.FL_cv_TF[$index+2].id}}"
+              role="tab" data-toggle="tab">Знания</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#requiredskillsTab_{{quali.FL_cv_TF[$index+2].id}}" aria-controls="requiredskillsTab_{{quali.FL_cv_TF[$index+2].id}}"
+              role="tab" data-toggle="tab">Опыт практической работы</a>
+          </li>
+          
+          <li class="nav-item">
+           <a class="nav-link" href="#othercharacteristicsTab_{{quali.FL_cv_TF[$index+2].id}}" aria-controls="othercharacteristicsTab_{{quali.FL_cv_TF[$index+2].id}}"
+              role="tab" data-toggle="tab">Прочие характеристики</a>
+          </li>          
+          
+      </ul>
+      <!-- Tab panes -->
+            
+      <div class="tab-content">
+       
+       <!-- Labouractions -->
+          <div role="tabpanel" class="tab-pane fade in show active" id="laboractionsTab_{{quali.FL_cv_TF[$index+2].id}}">
+           
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="la in quali.FL_cv_TF[$index+2].laboractions" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.laboractions">
+                    <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.laboractions">    
+                    <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
+                </label></td>
+              </tr>
+            </table>           
 
-  <table class="table table-striped">
-    <tr ng-repeat="la in quali.FL_cv_TF.laboractions" ng-switch on="$index % 3">
-      <td ng-switch-when="0"><label class="checkbox">
-        <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index].selected"/>{{quali.FL_cv_TF.laboractions[$index].laboraction}}
-      </label></td>
-      <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF.laboractions[$index+1]">
-          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+1].selected"/>{{quali.FL_cv_TF.laboractions[$index+1].laboraction}}
-        </span>
-      </label></td>
-      <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF.laboractions[$index+2]">    
-          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+2].selected"/>{{quali.FL_cv_TF.laboractions[$index+2].laboraction}}
-      </label></td>
-    </tr>
-  </table>
+          </div>
+       <!-- necessaryknowleges -->          
+          <div role="tabpanel" class="tab-pane fade" id="necessaryknowlegesTab_{{quali.FL_cv_TF[$index+2].id}}">
+          
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="nk in quali.FL_cv_TF[$index+2].necessaryknowledges" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.necessaryknowledges">
+                    <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.necessaryknowledges">    
+                    <input type="checkbox"  ng-model="nk.selected"/>{{nk.necessaryknowledge}}
+                </label></td>
+              </tr>
+            </table>             
+          </div>
+          
+       <!-- requiredskills -->          
+          <div role="tabpanel" class="tab-pane fade" id="requiredskillsTab_{{quali.FL_cv_TF[$index+2].id}}">         
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="rs in quali.FL_cv_TF[$index+2].requiredskills" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.requiredskills">
+                    <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.requiredskills">    
+                    <input type="checkbox"  ng-model="rs.selected"/>{{rs.requiredskill}}
+                </label></td>
+              </tr>
+            </table>   
+
+          </div> 
+       <!-- othercharacteristics -->          
+          <div role="tabpanel" class="tab-pane fade" id="othercharacteristicsTab_{{quali.FL_cv_TF[$index+2].id}}">         
+            <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+              <tr ng-repeat="oc in quali.FL_cv_TF[$index+2].othercharacteristics" ng-switch on="$index % 3">
+                <td ng-switch-when="0"><label class="checkbox">
+                  <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.othercharacteristics">
+                    <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                  </span>
+                </label></td>
+                <td ng-switch-when="0"><label class="checkbox">
+                  <span ng-show="quali.FL_cv_TF.othercharacteristics">    
+                    <input type="checkbox"  ng-model="oc.selected"/>{{oc.othercharacteristic}}
+                </label></td>
+              </tr>
+            </table>   
+
+          </div>
+          
+      </div>
+  </div>  
 
 </div>
       <!-- Modal footer -->
@@ -401,15 +696,22 @@ $('.datepicker').datepicker({
     </div>
   </div>
 </div> 
- 
- 
-<!-- Competences Modal_3 end --> 
+
+      </td> 
+<!-- Competences Modal_3 end -----------------------------------------------------------------------> 
 <!-- Competences Modal_3 end -->
-      </td>
+      
     </tr>
   </table>
 
 
+
+<!--save-->
+<!--<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  
+<input type="hidden" ng-model="quali.FL_cv_LA.necessaryknowledges" value="{{quali.FL_cv_LA.necessaryknowledges}}">
+<input type="hidden" ng-model="quali.FL_cv_LA.requiredskills" value="{{quali.FL_cv_LA.requiredskills}}">
+<input type="hidden" ng-model="quali.FL_cv_LA.othercharacteristics" value="{{quali.FL_cv_LA.othercharacteristics}}">
+-->
 
 <input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">
 
