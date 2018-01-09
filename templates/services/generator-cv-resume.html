@@ -48,14 +48,12 @@
 }​
 
 /*.tflabel {
-  display: block;
-  text-align: left;
-  vertical-align: top;
+  position: relative;
+  height: 100%;
 }
 .competencesbutton {
-  display: block;
-  text-align: left;
-  vertical-align: bottom;
+  bottom: 0;
+  position: absolute;
 }*/
 </style>
 
@@ -223,25 +221,19 @@ $('.datepicker').datepicker({
  <div class="form-control" ng-show="quali.FL_cv_TF">
 
 
-  <table class="table background-color: white">
-   
+  <table class="table table-striped">
     <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
-     
-      <td ng-switch-when="0">
-          <div class="card card-body">
+      <td ng-switch-when="0" ><label class="tflabel checkbox" style="height: 20vh;">
+        <input type="checkbox"  ng-model="quali.FL_cv_TF[$index].selected"/>
+        {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}} )
+      </label>
 
-              <label class="checkbox">   
-               <input type="checkbox"  ng-model="quali.FL_cv_TF[$index].selected"/>
-               {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}} )
-              </label>
-              <span class="competencesbutton">
-                <button type="button" class="btn btn-outline-blue-grey" data-toggle="modal"
-                data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">Компетенции</button>
-              </span>   
-
-          </div>
-
-
+      <span class="competencesbutton pull-right" >
+        <button type="button" class="btn btn-outline-blue-grey btn-sm"
+                data-toggle="modal" ng-if="quali.FL_cv_TF[$index].nametf"
+        data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">Компетенции</button>
+      </span>
+      
 <!-- Competences Modal_1 -->
 <!-- Competences Modal_1 -->
 
@@ -288,26 +280,21 @@ $('.datepicker').datepicker({
   </div>
 </div> 
 
-      
+      </td> 
 <!-- Competences Modal_1 end --> 
 <!-- Competences Modal_1 end -->
-      </td> 
 
-      <td ng-switch-when="0">
-
-          <div class="card card-body">
-
-              <label class="checkbox">   
-               <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>
-               {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}} )
-              </label>
-              <span class="competencesbutton">
-                <button type="button" class="btn btn-outline-blue-grey" data-toggle="modal"
-                data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+1].id}}">Компетенции</button>
-              </span>   
-
-          </div>
-
+      <td ng-switch-when="0"><label class="checkbox" style="height: 20vh;">
+        <span ng-show="quali.FL_cv_TF[$index+1]">
+          <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>
+          {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}} )
+        </span>
+      </label>
+      <span class="pull-right">
+        <button type="button" class="btn btn-outline-blue-grey btn-sm"
+                data-toggle="modal" ng-if="quali.FL_cv_TF[$index+1].nametf"
+        data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+1].id}}">Компетенции</button>
+      </span>  
 <!-- Competences Modal_2 -->
 <!-- Competences Modal_2 -->
 
@@ -354,27 +341,21 @@ $('.datepicker').datepicker({
   </div>
 </div> 
  
-      
-      
+ 
 <!-- Competences Modal_2 end --> 
 <!-- Competences Modal_2 end -->
       </td>
-
-      <td ng-switch-when="0">
-
-          <div class="card card-body">
-
-              <label class="checkbox">   
-               <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>
-               {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}} )
-              </label>
-              <span class="competencesbutton">
-                <button type="button" class="btn btn-outline-blue-grey" data-toggle="modal"
-                data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+2].id}}">Компетенции</button>
-              </span>   
-
-          </div>
-
+      <td ng-switch-when="0"><label class="checkbox" style="height: 20vh;">
+        <span ng-show="quali.FL_cv_TF[$index+2]">    
+          <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>
+          {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}} )
+        </span>
+      </label>
+      <span class="pull-right">
+        <button type="button" class="btn btn-outline-blue-grey btn-sm"
+                data-toggle="modal" ng-if="quali.FL_cv_TF[$index+2].nametf"
+        data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+2].id}}">Компетенции</button>
+      </span>  
 <!-- Competences Modal_3 -->
 <!-- Competences Modal_3 -->
 
@@ -421,10 +402,10 @@ $('.datepicker').datepicker({
   </div>
 </div> 
  
-     
+ 
 <!-- Competences Modal_3 end --> 
 <!-- Competences Modal_3 end -->
-     </td>
+      </td>
     </tr>
   </table>
 
