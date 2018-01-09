@@ -122,8 +122,14 @@ console.log($scope.items)
     }).then(function SelectPS(response) {
 
         $scope.selectps[qualiid] = response.data;
-        //console.log(response.data)
-        
+       //console.log(response.data)
+
+       //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_PS_target = $scope.PSdata.PurposeKindProfessionalActivity;
+       //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OKZ = $scope.PSdata.ListOKZ;
+       //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OKVED = $scope.PSdata.ListOKVED;
+
+
+     
     }, function PSerror(response) {
         $scope.selectps = response.statusText;
     });
@@ -140,14 +146,12 @@ console.log($scope.items)
       
     }).then(function SelectCompt(response) {
     
-        $scope.selectcompt[qualiid] = response.data;
+        //$scope.selectcompt[qualiid] = response.data;
+        $scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_TF = response.data;
 
-        //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_PS_target = $scope.PSdata.PurposeKindProfessionalActivity;
-        //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OKZ = $scope.PSdata.ListOKZ;
-        //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OKVED = $scope.PSdata.ListOKVED;
         //
         //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_TF = $scope.PSdata.WF_code_name;
-        $scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_LA = $scope.selectcompt[qualiid];
+        
         //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_RS = $scope.PSdata.RequiredSkills;
         //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_NK = $scope.PSdata.NecessaryKnowledges;
         //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OC = $scope.PSdata.OtherCharacteristics;        

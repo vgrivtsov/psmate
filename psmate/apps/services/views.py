@@ -127,13 +127,18 @@ class LoadCompt(View):
         data = self.request.GET.get('id', None)
         
         if data != None:
-            la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')           
-            laresult = []
+            tf_get_raw = Tfinfo.objects.filter(psregnum=data).distinct('nametf')
+            # la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')
+            # la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')
+            # la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')
+            
+            
+            tfresult = []
 
-            for la in la_get_raw:
+            for tf in tf_get_raw:
 
-                laresult.append({'id' : la.id, 'laboraction' : la.laboraction })
+                tfresult.append({'codetf' : tf.codetf, 'nametf' : tf.nametf })
  
-            #laresult = [x for x in laresult if x is not None]
 
-            return JsonResponse(laresult, safe=False) 
+
+            return JsonResponse(tfresult, safe=False) 
