@@ -47,7 +47,16 @@
 
 }​
 
-
+/*.tflabel {
+  display: block;
+  text-align: left;
+  vertical-align: top;
+}
+.competencesbutton {
+  display: block;
+  text-align: left;
+  vertical-align: bottom;
+}*/
 </style>
 
 
@@ -207,17 +216,36 @@ $('.datepicker').datepicker({
 
 <div class="form-group">  
 
-  <!--Show competences block -->
-<button class="btn btn-outline-info btn-md btn-block" ng-click="loadCompt(quali.FL_cv_PS.psregnum, item.id, quali.id)">Выбрать компетенции</button> 
+  <!----------------------------------------Show competences block --------------------------------------------------->
+<button class="btn btn-outline-info btn-md btn-block" ng-click="loadCompt(quali.FL_cv_PS.psregnum, item.id, quali.id)">Выбрать трудовые функции</button> 
 
 
  <div class="form-control" ng-show="quali.FL_cv_TF">
 
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#lamodal_{{item.id}}_{{quali.id}}">Трудовые функции</button>
+
+  <table class="table background-color: white">
+   
+    <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
+     
+      <td ng-switch-when="0">
+          <div class="card card-body">
+
+              <label class="checkbox">   
+               <input type="checkbox"  ng-model="quali.FL_cv_TF[$index].selected"/>
+               {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}} )
+              </label>
+              <span class="competencesbutton">
+                <button type="button" class="btn btn-outline-blue-grey" data-toggle="modal"
+                data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">Компетенции</button>
+              </span>   
+
+          </div>
 
 
-<!-- LA Modal -->
-<div class="modal fade modal-la" id="lamodal_{{item.id}}_{{quali.id}}">
+<!-- Competences Modal_1 -->
+<!-- Competences Modal_1 -->
+
+<div class="modal fade modal-la" id="tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">
   <div class="modal-dialog modal-lg">
 <div class="modal-content">
       <!-- Modal Header -->
@@ -229,36 +257,25 @@ $('.datepicker').datepicker({
       <!-- Modal body -->
 
  <div class="form-group">
-<input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">  <!--save to DB-->
+<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  <!--save to DB-->
 
-  <table class="table table-striped">
-    <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
+  <table class="table table-striped">  <!-- Data split to 3  table coloumns-->
+    <tr ng-repeat="la in quali.FL_cv_TF[$index].laboractions" ng-switch on="$index % 3">
       <td ng-switch-when="0"><label class="checkbox">
-        <input type="checkbox"  ng-model="quali.FL_cv_TF[$index].selected"/>{{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}} )
+        <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
       </label></td>
       <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF[$index+1]">
-          <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>{{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}} )
+        <span ng-show="quali.FL_cv_TF.laboractions[$index+1]">
+          <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
         </span>
       </label></td>
       <td ng-switch-when="0"><label class="checkbox">
-        <span ng-show="quali.FL_cv_TF[$index+2]">    
-          <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>{{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}} )
-        </span>
+        <span ng-show="quali.FL_cv_TF.laboractions[$index+2]">    
+          <input type="checkbox"  ng-model="la.selected"/>{{la.laboraction}}
       </label></td>
     </tr>
   </table>
 
-<!--<table>
-
-  <tr ng-repeat="la in selectcompt[quali.id]">
-      <td><label class="checkbox">
-      <input type="checkbox"  ng-model="la.selected" value="{{ la.laboraction}}"/>{{ la.laboraction}}
-      </label></td>
-
-      
-  </tr>  
-</table>-->
 </div>
       <!-- Modal footer -->
       <div class="modal-footer">
@@ -269,36 +286,160 @@ $('.datepicker').datepicker({
 
     </div>
   </div>
+</div> 
+
+      
+<!-- Competences Modal_1 end --> 
+<!-- Competences Modal_1 end -->
+      </td> 
+
+      <td ng-switch-when="0">
+
+          <div class="card card-body">
+
+              <label class="checkbox">   
+               <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>
+               {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}} )
+              </label>
+              <span class="competencesbutton">
+                <button type="button" class="btn btn-outline-blue-grey" data-toggle="modal"
+                data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+1].id}}">Компетенции</button>
+              </span>   
+
+          </div>
+
+<!-- Competences Modal_2 -->
+<!-- Competences Modal_2 -->
+
+<div class="modal fade modal-la" id="tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+1].id}}">
+  <div class="modal-dialog modal-lg">
+<div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Трудовые функции</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+
+ <div class="form-group">
+<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  <!--save to DB-->
+
+  <table class="table table-striped">
+    <tr ng-repeat="la in quali.FL_cv_TF.laboractions" ng-switch on="$index % 3">
+      <td ng-switch-when="0"><label class="checkbox">
+        <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index].selected"/>{{quali.FL_cv_TF.laboractions[$index].laboraction}}
+      </label></td>
+      <td ng-switch-when="0"><label class="checkbox">
+        <span ng-show="quali.FL_cv_TF.laboractions[$index+1]">
+          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+1].selected"/>{{quali.FL_cv_TF.laboractions[$index+1].laboraction}}
+        </span>
+      </label></td>
+      <td ng-switch-when="0"><label class="checkbox">
+        <span ng-show="quali.FL_cv_TF.laboractions[$index+2]">    
+          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+2].selected"/>{{quali.FL_cv_TF.laboractions[$index+2].laboraction}}
+      </label></td>
+    </tr>
+  </table>
+
 </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Сохранить</button>
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Отменить</button>
+        
+      </div>
 
-
-
-
-
-
-
-</div>
+    </div>
+  </div>
+</div> 
  
+      
+      
+<!-- Competences Modal_2 end --> 
+<!-- Competences Modal_2 end -->
+      </td>
+
+      <td ng-switch-when="0">
+
+          <div class="card card-body">
+
+              <label class="checkbox">   
+               <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>
+               {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}} )
+              </label>
+              <span class="competencesbutton">
+                <button type="button" class="btn btn-outline-blue-grey" data-toggle="modal"
+                data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+2].id}}">Компетенции</button>
+              </span>   
+
+          </div>
+
+<!-- Competences Modal_3 -->
+<!-- Competences Modal_3 -->
+
+<div class="modal fade modal-la" id="tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index+2].id}}">
+  <div class="modal-dialog modal-lg">
+<div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Трудовые функции</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+
+ <div class="form-group">
+<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  <!--save to DB-->
+
+  <table class="table table-striped">
+    <tr ng-repeat="la in quali.FL_cv_TF.laboractions" ng-switch on="$index % 3">
+      <td ng-switch-when="0"><label class="checkbox">
+        <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index].selected"/>{{quali.FL_cv_TF.laboractions[$index].laboraction}}
+      </label></td>
+      <td ng-switch-when="0"><label class="checkbox">
+        <span ng-show="quali.FL_cv_TF.laboractions[$index+1]">
+          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+1].selected"/>{{quali.FL_cv_TF.laboractions[$index+1].laboraction}}
+        </span>
+      </label></td>
+      <td ng-switch-when="0"><label class="checkbox">
+        <span ng-show="quali.FL_cv_TF.laboractions[$index+2]">    
+          <input type="checkbox"  ng-model="quali.FL_cv_TF.laboractions[$index+2].selected"/>{{quali.FL_cv_TF.laboractions[$index+2].laboraction}}
+      </label></td>
+    </tr>
+  </table>
+
+</div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Сохранить</button>
+        <button type="button" class="btn btn-blue-grey" data-dismiss="modal">Отменить</button>
+        
+      </div>
+
+    </div>
+  </div>
+</div> 
+ 
+     
+<!-- Competences Modal_3 end --> 
+<!-- Competences Modal_3 end -->
+     </td>
+    </tr>
+  </table>
+
+
+
 <input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">
 
 
-<!-- <label>Трудовые умения</label> 
-  <select class="form-control selectpicker" id="laselect"   multiple=""
-
-           ng-model="quali.FL_cv_TF"
-
-           ng-options="la as la.laboraction for la in selectcompt[quali.id]"
-           >
-
-  </select>-->
-  
+</div>
  
  
+  <!----------------------------------------Show competences block END --------------------------------------------------->
 
-  
 
- 
- 
+
  
 <!-- <h4>Трудовые умения</h4>
  <div class="form-group" style="height:300px; overflow:auto; border:solid 1px #C3E4FE;">
