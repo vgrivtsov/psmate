@@ -47,10 +47,10 @@
 
 }​
 
-/*.purpletext {
-    color: #f3e5f5; 
-}*/
-
+.form-control.purpletext {
+    color: blue ; 
+}
+/*#f3e5f5*/
 
 
 </style>
@@ -215,26 +215,28 @@ $('.datepicker').datepicker({
         ng-click="loadCompt(quali.FL_cv_PS.psregnum, quali.FL_cv_PS.jobtitle, item.id, quali.id)">Выбрать трудовые функции</button> 
 
   <!----------------------------------------Show competences block --------------------------------------------------->
-
+  <!--content split by 3 coloumns by $index of quali.FL_cv_TF model -->
+  <!--competences show in modals with ID's = quali.FL_cv_TF[$index].id  -->
 
 
  <div class="form-control" ng-show="quali.FL_cv_TF">
-
+  <h5><span class="badge badge-default">Синим цветом выделены трудовые функции для выбранного названия должности</span></h5>
 
   <table class="table table-striped">
     <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
-      <td ng-switch-when="0" ><label class="tflabel checkbox"  style="height: 20vh;">
+      <td ng-switch-when="0" >
+       <div class="{{quali.FL_cv_TF[$index].tfsel}}"> <!-- tfsel - mdb card class -->
+       <label class="checkbox"  style="height: 20vh;">
 
         <input type="checkbox"  ng-model="quali.FL_cv_TF[$index].selected"/>
-        <p ng-class="{indigo-text : tf.tfsel}">
         {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}})
-        </p>
-      </label>
+       </label>
+       </div>
 
       <span class="competencesbutton pull-right" >
-        <button type="button" class="btn btn-outline-blue-grey btn-sm"
+        <button type="button" class="btn btn-outline-blue-grey btn-sm" 
                 data-toggle="modal" ng-if="quali.FL_cv_TF[$index].nametf"
-        data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">Компетенции </button>
+        data-target="#tfmodal_{{item.id}}_{{quali.id}}_{{quali.FL_cv_TF[$index].id}}">Компетенции</button>
       </span>
       
 <!-- Competences Modal_1 -->
@@ -387,12 +389,15 @@ $('.datepicker').datepicker({
 <!-- Competences Modal_1 end -->
 
 
-      <td ng-switch-when="0"><label class="checkbox" style="height: 20vh;" ng-class="{green : tf.tfsel}">
-        <span ng-show="quali.FL_cv_TF[$index+1]">
-          <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>
-          {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}})
-        </span>
-      </label>
+      <td ng-switch-when="0">
+       <div class="{{quali.FL_cv_TF[$index+1].tfsel}}">
+       <label class="checkbox"  style="height: 20vh;">
+
+        <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>
+        {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}})
+       </label>
+       </div>
+       
       <span class="pull-right">
         <button type="button" class="btn btn-outline-blue-grey btn-sm"
                 data-toggle="modal" ng-if="quali.FL_cv_TF[$index+1].nametf"
@@ -546,12 +551,16 @@ $('.datepicker').datepicker({
 <!-- Competences Modal_2 end ------------------------------------------------------------------> 
 <!-- Competences Modal_2 end -->
       
-      <td ng-switch-when="0"><label class="checkbox" style="height: 20vh;" ng-class="{green : tf.tfsel}">
-        <span ng-show="quali.FL_cv_TF[$index+2]">    
-          <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>
-          {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}})
-        </span>
-      </label>
+      <td ng-switch-when="0">
+       
+       <div class="{{quali.FL_cv_TF[$index+2].tfsel}}" ng-if="quali.FL_cv_TF[$index+2].nametf">
+       <label class="checkbox" style="height: 20vh;">
+
+        <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>
+        {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}})
+       </label>
+       </div>       
+       
       <span class="pull-right">
         <button type="button" class="btn btn-outline-blue-grey btn-sm"
                 data-toggle="modal" ng-if="quali.FL_cv_TF[$index+2].nametf"

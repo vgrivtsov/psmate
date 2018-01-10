@@ -42,7 +42,7 @@ class SearchPSView(FormView):
         if data != None:
             ps_get = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
             psinfo = ps_get[0]
-            
+            psregnum = ps_get[0].psregnum
             tfinfo = Tfinfo.objects.filter(psregnum=psregnum).distinct('codetf') # dinstinct delete doubles
             otfinfo = Gtfinfo.objects.filter(psregnum=psregnum).distinct('codeotf')
             okzinfo = Okz.objects.filter(psregnum=psregnum).distinct('codeokz')
@@ -81,22 +81,6 @@ class CvEditView(FormView):
     queryset = User.objects.filter()
     
 
-    # def dispatch(self, *args, **kwargs):
-    #     """Use this to check for 'user'."""
-    #     if self.request.session.get('user'):
-    #         return redirect('/')
-    #     return super(CvEditView, self).dispatch(*args, **kwargs)
-
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(CvEditView, self).get_context_data(**kwargs)
-    #     context['user'] = self.queryset
-    #     context['psinfo'] = Psinfo.objects.filter(psregnum=204)
-    #     context['eks'] = Eks.objects.filter(psregnum=204)
-    #     context['jobtitles'] = Jobtitles.objects.filter(psregnum=204)
-    #     return context
-
-
 class LoadPS(View):
 
     def get(self, request, *args, **kwargs):
@@ -126,21 +110,20 @@ class LoadCompt(View):
     def get(self, request, *args, **kwargs):
 
         data = self.request.GET.getlist('psvars', None)
-        print(data)
+        
         if data != None:
+            
             tf_get_raw = Tfinfo.objects.filter(psregnum=data[0])
             otf_get_raw = Jobtitles.objects.filter(jobtitle=data[1]) # get OTF by jobtitle
-
+            otflist = []
             maintfresult = []
+            
+            for otf in otf_get_raw:
+                
+                otflist.append(otf.nameotf)
 
             for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
-                
-                for otf in otf_get_raw:
-                
-                    if tf.nameotf == otf.nameotf:
-                        tfsel = True
-                    else:
-                        tfsel = False
+                print(tf.nametf)
 
                 laresult = []
                 nkresult = []
@@ -151,9 +134,7 @@ class LoadCompt(View):
                 nk_get_raw = Tf_rs.objects.filter(nametf=tf.nametf)
                 rs_get_raw = Tf_nk.objects.filter(nametf=tf.nametf)
                 oc_get_raw = Tf_oc.objects.filter(nametf=tf.nametf)
-
-                
-                                
+               
                 for la in la_get_raw:
                     laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
                     
@@ -165,7 +146,19 @@ class LoadCompt(View):
                     
                 for oc in oc_get_raw:
                     ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
+
+                #dynamic  mdbootstrap class for TF matched of JT:
+                
+
+                tfsel = ''
+                if tf.nameotf in otflist: 
                     
+                    print( 'OKOKOKOKO', tf.nametf)
+                    tfsel = 'card info-color white-text mb-0 z-depth-2'
+
+                
+                print(tfsel)
+
                 maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf,
                                      'nametf' : tf.nametf, 'tfsel' : tfsel, # tfcell use for color ligth of jobtitels tf's
                                      'laboractions' : laresult,
@@ -175,4 +168,5 @@ class LoadCompt(View):
 
                                      })
 
+                
             return JsonResponse(maintfresult, safe=False) 
