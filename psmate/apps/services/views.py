@@ -125,19 +125,23 @@ class LoadCompt(View):
 
     def get(self, request, *args, **kwargs):
 
-        data = self.request.GET.get('id', None)
-        
+        data = self.request.GET.getlist('psvars', None)
+        print(data)
         if data != None:
-            tf_get_raw = Tfinfo.objects.filter(psregnum=data)
-            # la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')
-            # la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')
-            # la_get_raw = Tf_la.objects.filter(psregnum=data).distinct('laboraction')
-            
-            maintfresult = []
-            
+            tf_get_raw = Tfinfo.objects.filter(psregnum=data[0])
+            otf_get_raw = Jobtitles.objects.filter(jobtitle=data[1]) # get OTF by jobtitle
 
-            for tf in tf_get_raw:
-                # laboractions, necessary knowleges, required skills, other characteristics
+            maintfresult = []
+
+            for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
+                
+                for otf in otf_get_raw:
+                
+                    if tf.nameotf == otf.nameotf:
+                        tfsel = True
+                    else:
+                        tfsel = False
+
                 laresult = []
                 nkresult = []
                 rsresult = []
@@ -147,6 +151,8 @@ class LoadCompt(View):
                 nk_get_raw = Tf_rs.objects.filter(nametf=tf.nametf)
                 rs_get_raw = Tf_nk.objects.filter(nametf=tf.nametf)
                 oc_get_raw = Tf_oc.objects.filter(nametf=tf.nametf)
+
+                
                                 
                 for la in la_get_raw:
                     laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
@@ -160,7 +166,8 @@ class LoadCompt(View):
                 for oc in oc_get_raw:
                     ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
                     
-                maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf, 'nametf' : tf.nametf,
+                maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf,
+                                     'nametf' : tf.nametf, 'tfsel' : tfsel, # tfcell use for color ligth of jobtitels tf's
                                      'laboractions' : laresult,
                                      'necessaryknowledges' : nkresult,
                                      'requiredskills' : rsresult,

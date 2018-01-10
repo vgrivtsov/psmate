@@ -8,8 +8,6 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
     app.controller('ResumeItems', function($scope, $http) {
 
 
-
-    
     //$scope.cvitems = JSON.parse(ucvval); // make object from json string
     
     //console.log($scope.cvitems)
@@ -63,11 +61,13 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
     };    
     
     
+    
 $scope.getitems = function(){
-   
+ 
 console.log($scope.items)
 
-}
+}     
+
 
     $scope.selectitems = [
                      {id : "32", name : "Авиастроение" },
@@ -107,10 +107,6 @@ console.log($scope.items)
                 ];    
 
 
-
-
-
-
     //-------------PS----------------------------------  
     $scope.selectps = []; // select PS
     $scope.loadPS = function (selectedOtrasl, itemid, qualiid){
@@ -123,47 +119,31 @@ console.log($scope.items)
 
         $scope.selectps[qualiid] = response.data;
        //console.log(response.data)
-
-       //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_PS_target = $scope.PSdata.PurposeKindProfessionalActivity;
-       //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OKZ = $scope.PSdata.ListOKZ;
-       //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OKVED = $scope.PSdata.ListOKVED;
-
-
      
     }, function PSerror(response) {
         $scope.selectps = response.statusText;
     });
     }
-    
 
     //------------Load competence---------------------------
     $scope.selectcompt = []; // select PS
-    $scope.loadCompt = function (selectedPS, itemid,qualiid){
+    $scope.loadCompt = function (selectedPS, selectedJT, itemid,qualiid){
     $http({
       url: '/load_compt',
     	method: 'GET',
-    	params: {id: selectedPS}
+    	params: {psvars: [selectedPS, selectedJT]}
       
     }).then(function SelectCompt(response) {
     
         //$scope.selectcompt[qualiid] = response.data;
         $scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_TF = response.data;
-
-        //
-        //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_TF = $scope.PSdata.WF_code_name;
-        
-        //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_RS = $scope.PSdata.RequiredSkills;
-        //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_NK = $scope.PSdata.NecessaryKnowledges;
-        //$scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_OC = $scope.PSdata.OtherCharacteristics;        
-        
-        
         
     }, function Comptterror(response) {
         $scope.selectcompt = response.statusText;
     });
     }
 
-    
+  
 
 });
 
