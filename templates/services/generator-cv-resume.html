@@ -178,9 +178,10 @@ $('.datepicker').datepicker({
 <label>Должность по профстандарту</label> 
 <div class='input-group' id="scrollable-dropdown-menu" >
  <!--Select PS autocomplete -->  
-  <input type="text" id="psdropdown" name="psdropdown" class="form-control" dropdown-danger
+  <input type="text" id="psdropdown" name="psdropdown" class="form-control"
 
          ng-model="quali.FL_cv_PS"
+         typeahead-wait-ms="50"
          uib-typeahead="ps as ps.jobtitle + ' [ ПС № ' + ps.psregnum + ' - ' + ps.nameps + ' ]'
          for ps in selectps[quali.id] | orderBy:'jobtitle' | filter:$viewValue"
          typeahead-focus
@@ -220,7 +221,7 @@ $('.datepicker').datepicker({
 
 
  <div class="form-control" ng-show="quali.FL_cv_TF">
-  <h5><span class="badge badge-default">Синим цветом выделены трудовые функции для выбранного названия должности</span></h5>
+  <h5><span class="badge badge-default">Синим цветом выделены трудовые функции установленные профстандартом для выбранной должности</span></h5>
 
   <table class="table table-striped">
     <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
@@ -750,13 +751,10 @@ $('.datepicker').datepicker({
   
 <div class="form-group">
   <label for="keyskills"><h5>Ключевые навыки</h5></label>
-  <textarea class="form-control" id="keyskills" style="resize:none; height: 30vh;"></textarea>
+  <textarea class="form-control" id="keyskills" ng-model="item.KeySkills" style="resize:none; height: 30vh;"></textarea>
 </div>   
 
 
-                           
-  
-  
 </div> <!-- Jumbotron end-->
 
 
@@ -765,15 +763,25 @@ $('.datepicker').datepicker({
    <button class="btn btn-blue-grey btn-md btn-block" ng-click="addnewWorkPos()">Добавить место работы</button>
    <button class="btn btn-blue-grey btn-md btn-block" ng-click="addNewEdu()">Добавить место учёбы</button>
  </div>
-  
 
-<!--<input type="hidden" name="getresume"  placeholder="getresume" id="getresume" value="@verbatim{{cvitems}}@endverbatim">-->
- <div class="form-group">
+
  
-<input type="hidden" name="resume"  placeholder="putresume" id="resume" value="@verbatim{{items}}@endverbatim">
-<button class="btn btn-blue-grey btn-md" id="resumesubmit" >Сохранить резюме</button>
- 
- </div>
+{% endverbatim %}  
+
+<!--------POST form----------------------------->
+<form method="post" action=''>
+  {% csrf_token %}
+  
+  {% for field in form.hidden_fields %}
+                           
+      {% render_field field value="{{items}}" %}
+  
+  {% endfor %} 
+  
+  <input type="submit" class="btn btn-blue-grey btn-md" id="resumesubmit" value="Сохранить резюме" >
+
+</form> 
+<!----------------------------------------------->
 
 <button type="submit" class="btn btn-success btn-md" ng-click="getitems()">Get items</button>
 </div>
@@ -781,7 +789,7 @@ $('.datepicker').datepicker({
 </div>
 
 
-{% endverbatim %} 
+
 
 
 

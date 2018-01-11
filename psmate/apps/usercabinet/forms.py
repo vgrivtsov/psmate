@@ -41,8 +41,8 @@ class ProfileSettingsForm(ModelForm):
     fl_tlph_mob = forms.CharField(max_length=30, required=False, label="Моб. номер") 
 
     class Meta:
+        
         model = User
-
         fields = ( 'email', 'last_name', 'first_name', 'fl_otch', 'fl_tlph_mob')
 
     def __init__(self, user, *args, **kwargs):

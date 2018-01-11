@@ -5,10 +5,10 @@ except ImportError:
 
 import json
 from django.shortcuts import render
-from django.views.generic import FormView, ListView, View
+from django.views.generic import FormView, ListView, View, UpdateView
 from dal import autocomplete
 from psmate.models import *
-from psmate.apps.services.forms import SearchPsForm
+from psmate.apps.services.forms import SearchPsForm, CvGenForm 
 ###
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
@@ -73,13 +73,26 @@ class SearchPSView(FormView):
 
 ###CV generator###
 
-class CvEditView(FormView):
+class CvEditView(UpdateView):
 
-    form_class = SearchPsForm
+    form_class = CvGenForm
     template_name = 'services/generator-cv-resume.html'
-    success_url = None
-    queryset = User.objects.filter()
-    
+    model = User
+    # success_url = None
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(CvEditView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(CvEditView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('generator-cv-resume')    
 
 class LoadPS(View):
 
@@ -152,12 +165,8 @@ class LoadCompt(View):
 
                 tfsel = ''
                 if tf.nameotf in otflist: 
-                    
-                    print( 'OKOKOKOKO', tf.nametf)
-                    tfsel = 'card info-color white-text mb-0 z-depth-2'
 
-                
-                print(tfsel)
+                    tfsel = 'card info-color white-text mb-0 z-depth-2'
 
                 maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf,
                                      'nametf' : tf.nametf, 'tfsel' : tfsel, # tfcell use for color ligth of jobtitels tf's
@@ -170,3 +179,5 @@ class LoadCompt(View):
 
                 
             return JsonResponse(maintfresult, safe=False) 
+
+

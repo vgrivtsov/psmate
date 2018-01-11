@@ -9,7 +9,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.contrib.auth import authenticate, login, logout
-#from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 
@@ -70,6 +69,8 @@ class LogoutView(View):
 #         return User.objects.get(email=self.request.user)
 #
 
+###############!!!!! need rewrite to CBV ####################!!!!!
+
 @login_required    
 def usercabinet(request):
     
@@ -92,11 +93,6 @@ def usercabinet(request):
 
     return render(request, 'usercabinet/index.html', {'form': form})
 
-
-
-
-# def settings(request):
-#     return render(request, 'usercabinet/settings.html')
 
 @login_required
 def settings(request):
