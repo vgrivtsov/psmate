@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+    
+{% extends "layouts/layout.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+<style>
+
+
+</style>
+
+
+<div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
+
+<h3>RESUME PRESENTATION</h3>
+<div class="form-group py-3" >
+{% if user.is_authenticated %}
+
+<!--Panel-->
+
+<div class="card card-body">
+    <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
+    <p class="card-text">Город</p>
+    <div class="flex-row">
+        <p>{{ user.profiles.fl_tlph_mob }}<p/>
+
+    </div>
+</div>
+
+{% for item in cv %}
+
+    <h4>Название компании:</h4> <p>{{ item.FL_cv_companyName }}</p>
+    
+    <h4>Период работы:</h4> <p>{{ item.FL_cv_WorkStartDate }}</p> <p>{{ item.FL_cv_WorkEndDate }}</p>
+    
+    <h4>Ключевые навыки:</h4> <p>{{ item.KeySkills }}</p>
+
+    {% for quali in item.Quali %}
+
+    
+
+    <h4>Дожность № {{ forloop.counter }}:</h4> <p>{{ quali.FL_cv_PS.jobtitle }}</p>
+    
+    <h4>Отрасль:</h4> <p>{{ quali.FL_cv_Otrasl.name }}</p>
+    
+    <h4>Основная цель вида проф. деятельности::</h4> <p>{{ quali.FL_cv_PS.pspurposekind }}</p>
+
+    <h4>Профстандарт:</h4> <p>{{ quali.FL_cv_PS.nameps }} № {{ quali.FL_cv_PS.psregnum }}</p>
+<!--
+
+    <h3>Компетенции:</h3>
+        -->
+          
+        <h4>Трудовые функции:</h4> 
+        {% for tf in quali.FL_cv_TF %}
+            
+            {% if tf.selected %}
+            
+             {{tf.nametf}}<br>
+            
+            {% endif %}
+
+        {% endfor %}
+        
+    {% endfor %} 
+
+{% endfor %} 
+<!--/.Panel-->
+{% else %}                
+                    
+<div class="card card-body">
+    <h4 class="card-title">Anonymous</h4>
+    <a class="nav-link" href="/login/">Необходима авторизация</a>
+    
+
+</div>
+<!--/.Panel-->
+{% endif %} 
+</div>
+</div>
+
+{% endblock %}  

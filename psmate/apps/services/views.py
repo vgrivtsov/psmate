@@ -94,6 +94,7 @@ class CvEditView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('generator-cv-resume')    
 
+
 class LoadPS(View):
 
     def get(self, request, *args, **kwargs):
@@ -179,5 +180,31 @@ class LoadCompt(View):
 
                 
             return JsonResponse(maintfresult, safe=False) 
+
+##################
+
+###CV Presentation###
+
+class CvPresentView(ListView):
+
+    template_name = 'services/presentation-cv-resume.html'
+    model = User
+    
+    def get_context_data(self, **kwargs):
+
+        udata = super(CvPresentView, self).get_context_data(**kwargs)
+        user = self.request.user
+        
+        cv = json.loads(user.profiles.resume)
+
+        # companynames = [ i['FL_cv_companyName'] for i in cv ]  
+        # startdates = [ i['FL_cv_WorkStartDate'] for i  in cv]     
+        # enddates = [ i['FL_cv_WorkEndDate'] for i in cv] 
+        # keyskills = [ i['KeySkills'] for i in cv ]
+
+      
+        return {'udata' :udata, 'cv' : cv} 
+
+
 
 

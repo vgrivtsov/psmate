@@ -118,7 +118,7 @@
     <label>Начало работы</label>
     
     <input type="text" class="form-control form-control-1 input-sm datepicker"
-           ng-model="item.FL_cv_WorkEndtDate" placeholder="мм/гггг" >
+           ng-model="item.FL_cv_WorkEndDate" placeholder="мм/гггг" >
     <label>Окончание</label>
 
 </div>
@@ -221,7 +221,7 @@ $('.datepicker').datepicker({
 
 
  <div class="form-control" ng-show="quali.FL_cv_TF">
-  <h5><span class="badge badge-default">Синим цветом выделены трудовые функции установленные профстандартом для выбранной должности</span></h5>
+  <h5><span class="badge badge-default">Цветом выделены трудовые функции установленные профстандартом для выбранной должности</span></h5>
 
   <table class="table table-striped">
     <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
