@@ -197,12 +197,17 @@ class CvPresentView(ListView):
         
         cv = json.loads(user.profiles.resume)
 
+
         # companynames = [ i['FL_cv_companyName'] for i in cv ]  
         # startdates = [ i['FL_cv_WorkStartDate'] for i  in cv]     
         # enddates = [ i['FL_cv_WorkEndDate'] for i in cv] 
         # keyskills = [ i['KeySkills'] for i in cv ]
 
-      
+        qualis = [ i['Quali'] for i in cv ]
+   
+        for q in qualis:
+            print(q)
+         
         return {'udata' :udata, 'cv' : cv} 
 
 

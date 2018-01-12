@@ -21,11 +21,14 @@
 
 <!--Panel-->
 
+
 <div class="card card-body">
     <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
-    <p class="card-text">Город</p>
+  
     <div class="flex-row">
-        <p>{{ user.profiles.fl_tlph_mob }}<p/>
+        <p class="card-text">Город</p>
+        <p class="card-text"> Моб. телефон: {{ user.profiles.fl_tlph_mob | phone2numeric}} <p/>
+        <p class="card-text"> Электронная почта: {{ user.email }}<p/>  
 
     </div>
 </div>
@@ -36,7 +39,7 @@
     
     <h4>Период работы:</h4> <p>{{ item.FL_cv_WorkStartDate }}</p> <p>{{ item.FL_cv_WorkEndDate }}</p>
     
-    <h4>Ключевые навыки:</h4> <p>{{ item.KeySkills }}</p>
+    <h4>Ключевые навыки:</h4> <p>{{ item.KeySkills | linebreaks }}</p>
 
     {% for quali in item.Quali %}
 
@@ -51,19 +54,76 @@
     <h4>Профстандарт:</h4> <p>{{ quali.FL_cv_PS.nameps }} № {{ quali.FL_cv_PS.psregnum }}</p>
 <!--
 
+
+
     <h3>Компетенции:</h3>
         -->
-          
-        <h4>Трудовые функции:</h4> 
-        {% for tf in quali.FL_cv_TF %}
-            
-            {% if tf.selected %}
-            
-             {{tf.nametf}}<br>
-            
-            {% endif %}
 
+        <h4>Трудовые функции:</h4>
+
+        {% for tf in quali.FL_cv_TF %}
+        <ul>
+            {% if tf.selected %}
+
+              <li>{{tf.nametf}}  (Код: {{tf.codetf}}) </li>
+
+              <ul>
+                 <strong>Трудовые действия</strong>
+                 {% for la in tf.laboractions %}
+                    
+                     {% if la.selected %}
+                 
+                         <li>{{la.laboraction}}</li>
+            
+                     {% endif %}
+                     
+                 {% endfor %}
+              </ul>        
+
+              <ul>
+                 <strong>Практические навыки</strong>
+                 {% for rs in tf.requiredskills %}
+                    
+                     {% if rs.selected %}
+                 
+                         <li>{{rs.requiredskill}}</li>
+            
+                     {% endif %}
+                     
+                 {% endfor %}
+              </ul>  
+
+              <ul>
+                 <strong>Знания</strong>
+                 {% for nk in tf.necessaryknowledges %}
+                    
+                     {% if nk.selected %}
+                 
+                         <li>{{nk.necessaryknowledge}}</li>
+            
+                     {% endif %}
+                     
+                 {% endfor %}
+              </ul> 
+
+              <ul>
+                 <strong>Другие характеристики</strong>
+                 {% for oc in tf.othercharacteristics %}
+                    
+                     {% if oc.selected %}
+                 
+                         <li>{{oc.othercharacteristic}}</li>
+            
+                     {% endif %}
+                     
+                 {% endfor %}
+              </ul> 
+
+              
+            {% endif %}
+        </ul> 
         {% endfor %}
+        
         
     {% endfor %} 
 
