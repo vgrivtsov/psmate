@@ -67,8 +67,18 @@
 
               <li>{{tf.nametf}}  (Код: {{tf.codetf}}) </li>
 
+            {% endif %}
+        </ul> 
+        {% endfor %} 
+
+        <strong><h5>Трудовые действия</h5></strong>
+        {% for tf in quali.FL_cv_TF %}
+
+            {% if tf.selected %}
+
+
               <ul>
-                 <strong>Трудовые действия</strong>
+                 
                  {% for la in tf.laboractions %}
                     
                      {% if la.selected %}
@@ -78,10 +88,11 @@
                      {% endif %}
                      
                  {% endfor %}
-              </ul>        
-
+              </ul>
+              
+              <strong><h5>Практические навыки</h5></strong>
               <ul>
-                 <strong>Практические навыки</strong>
+                 
                  {% for rs in tf.requiredskills %}
                     
                      {% if rs.selected %}
@@ -93,8 +104,10 @@
                  {% endfor %}
               </ul>  
 
+
+              <strong><h5>Знания</h5></strong>
               <ul>
-                 <strong>Знания</strong>
+                 
                  {% for nk in tf.necessaryknowledges %}
                     
                      {% if nk.selected %}
@@ -106,8 +119,9 @@
                  {% endfor %}
               </ul> 
 
+              <strong><h5>Другие характеристики</h5></strong>
               <ul>
-                 <strong>Другие характеристики</strong>
+
                  {% for oc in tf.othercharacteristics %}
                     
                      {% if oc.selected %}
@@ -120,12 +134,11 @@
               </ul> 
 
               
-            {% endif %}
-        </ul> 
+        {% endif %}    
         {% endfor %}
         
-        
-    {% endfor %} 
+     
+{% endfor %}             
 
 {% endfor %} 
 <!--/.Panel-->

@@ -206,7 +206,12 @@ class CvPresentView(ListView):
         qualis = [ i['Quali'] for i in cv ]
    
         for q in qualis:
-            print(q)
+            for s in q:
+                print(s)
+                # if s['selected'] == 'true':
+                #     print(s['nametf'])
+         
+         
          
         return {'udata' :udata, 'cv' : cv} 
 
