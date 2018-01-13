@@ -8,6 +8,240 @@
 
 
 <style>
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
+border:0;
+font:inherit;
+font-size:100%;
+margin:0;
+padding:0;
+vertical-align:baseline;
+}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+display:block;
+}
+
+html, body {background: white; font-family: 'Lato', helvetica, arial, sans-serif; font-size: 16px; color: #222;}
+
+.clear {clear: both;}
+
+p {
+	font-size: 1em;
+	line-height: 1.4em;
+	margin-bottom: 20px;
+	color: #444;
+}
+
+#cv {
+	width: 90%;
+	max-width: 800px;
+	background: #f3f3f3;
+	margin: 30px auto;
+}
+
+.mainDetails {
+	padding: 25px 35px;
+	border-bottom: 2px solid #cf8a05;
+	background: #ededed;
+}
+
+#name h1 {
+	font-size: 2.5em;
+	font-weight: 700;
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	margin-bottom: -6px;
+}
+
+#name h2 {
+	font-size: 2em;
+	margin-left: 2px;
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+}
+
+#mainArea {
+	padding: 0 40px;
+}
+
+#headshot {
+	width: 12.5%;
+	float: left;
+	margin-right: 30px;
+}
+
+#headshot img {
+	width: 100%;
+	height: auto;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+#name {
+	float: left;
+}
+
+#contactDetails {
+	float: right;
+}
+
+#contactDetails ul {
+	list-style-type: none;
+	font-size: 0.9em;
+	margin-top: 2px;
+}
+
+#contactDetails ul li {
+	margin-bottom: 3px;
+	color: #444;
+}
+
+#contactDetails ul li a, a[href^=tel] {
+	color: #444; 
+	text-decoration: none;
+	-webkit-transition: all .3s ease-in;
+	-moz-transition: all .3s ease-in;
+	-o-transition: all .3s ease-in;
+	-ms-transition: all .3s ease-in;
+	transition: all .3s ease-in;
+}
+
+#contactDetails ul li a:hover { 
+	color: #cf8a05;
+}
+
+
+section {
+	border-top: 1px solid #dedede;
+	padding: 20px 0 0;
+}
+
+section:first-child {
+	border-top: 0;
+}
+
+section:last-child {
+	padding: 20px 0 10px;
+}
+
+.sectionTitle {
+	float: left;
+	width: 25%;
+}
+
+.sectionContent {
+	float: right;
+	width: 72.5%;
+}
+
+.sectionTitle h1 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-size: 1.5em;
+	color: #cf8a05;
+}
+
+.sectionContent h2 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-size: 1.5em;
+	margin-bottom: -2px;
+}
+
+.subDetails {
+	font-size: 0.8em;
+	font-style: italic;
+	margin-bottom: 3px;
+}
+
+.keySkills {
+	list-style-type: none;
+	-moz-column-count:3;
+	-webkit-column-count:3;
+	column-count:3;
+	margin-bottom: 20px;
+	font-size: 1em;
+	color: #444;
+}
+
+.keySkills ul li {
+	margin-bottom: 3px;
+}
+
+@media all and (min-width: 602px) and (max-width: 800px) {
+	#headshot {
+		display: none;
+	}
+	
+	.keySkills {
+	-moz-column-count:2;
+	-webkit-column-count:2;
+	column-count:2;
+	}
+}
+
+@media all and (max-width: 601px) {
+	#cv {
+		width: 95%;
+		margin: 10px auto;
+		min-width: 280px;
+	}
+	
+	#headshot {
+		display: none;
+	}
+	
+	#name, #contactDetails {
+		float: none;
+		width: 100%;
+		text-align: center;
+	}
+	
+	.sectionTitle, .sectionContent {
+		float: none;
+		width: 100%;
+	}
+	
+	.sectionTitle {
+		margin-left: -2px;
+		font-size: 1.25em;
+	}
+	
+	.keySkills {
+		-moz-column-count:2;
+		-webkit-column-count:2;
+		column-count:2;
+	}
+}
+
+@media all and (max-width: 480px) {
+	.mainDetails {
+		padding: 15px 15px;
+	}
+	
+	section {
+		padding: 15px 0 0;
+	}
+	
+	#mainArea {
+		padding: 0 25px;
+	}
+
+	
+	.keySkills {
+	-moz-column-count:1;
+	-webkit-column-count:1;
+	column-count:1;
+	}
+	
+	#name h1 {
+		line-height: .8em;
+		margin-bottom: 4px;
+	}
+}
+
+@media print {
+    #cv {
+        width: 100%;
+    }
+}
 
 
 </style>
@@ -15,132 +249,145 @@
 
 <div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
 
-<h3>RESUME PRESENTATION</h3>
 <div class="form-group py-3" >
 {% if user.is_authenticated %}
 
-<!--Panel-->
+
+<div id="cv">
+	<div class="mainDetails">
+		<div id="headshot">
+			<img src="{% static 'images/headshot.jpg' %}" alt="User" />
+		</div>
+		
+		<div id="name">
+			<h1 >{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h1>
+			<h2 >{{ user.profiles.fl_pd_date }}</h2>
+		</div>
+		
+		<div id="contactDetails">
+			<ul>
+				<li>Электронная почта: <a href="mailto:{{ user.email }}" target="_blank">{{ user.email }}</a></li>
+				<li>Мобильный телефон: {{ user.profiles.fl_tlph_mob | phone2numeric}} </li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	<div id="mainArea">
+			<div class="sectionTitle">
+				<h1>Опыт работы</h1>
+			</div>		
+        
+{% for item in cvcleared %}
 
 
-<div class="card card-body">
-    <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
-  
-    <div class="flex-row">
-        <p class="card-text">Город</p>
-        <p class="card-text"> Моб. телефон: {{ user.profiles.fl_tlph_mob | phone2numeric}} <p/>
-        <p class="card-text"> Электронная почта: {{ user.email }}<p/>  
+            
+		
 
-    </div>
+				
+			<div class="sectionContent">
+                <h2>{{ item.companyname }}</h2>
+                <p class="subDetails">{{ item.startdate }} - {{ item.enddate }}</p>
+			</div>
+		
+
+	
+
+ {% for quali in item.quali %} 		
+		<section>
+
+			<div class="sectionContent">
+
+					<h2>{{ forloop.counter }}. {{ quali.PS.jobtitle }}</h2>
+					
+                    
+                    <h4>Отрасль</h4> <p>{{ quali.Otrasl.name }}</p>
+                    
+                    <h4>Основная цель вида проф. деятельности</h4> <p>{{ quali.PS.pspurposekind }}</p>
+                    
+                    <h4>Профстандарт</h4> <p>{{ quali.PS.nameps }}. № {{ quali.PS.psregnum }}</p>                    
+
+                <article>
+
+                    <div class="form-group py-1">
+				    <h5 class="py-1">Трудовые функции:</h5>
+                    {% for tf in quali.tf %}
+                    <ul class="list-group">
+                        <li class="list-group-item">{{tf.nametf}} (Код: {{tf.codetf}}) </li>
+                    </ul>                    
+                    {% endfor %}
+                    </div>
+                    
+                    <div class="form-group py-1">    
+                    <h5 class="py-2">Должностные обязанности:</h5>                    
+                    {% for la in quali.la %}                    
+                    <ul class="list-group">
+                        <li class="list-group-item">{{la.laboraction}}</li>
+                    </ul>
+                    {% endfor %}
+                    </div>
+                    
+
+                    <div class="form-group py-1">    
+                    <h5 class="py-2">Практические навыки:</h5>                    
+                    {% for rs in quali.rs %}
+                    <ul class="list-group">
+                        <li class="list-group-item">{{rs.requiredskill}}</li>
+                    </ul>
+                    {% endfor %}                    
+                    </div> 
+
+                    <div class="form-group py-1">    
+                    <h5 class="py-2">Знания:</h5>                    
+                    {% for nk in quali.nk %}
+                    <ul class="list-group">
+                        <li class="list-group-item">{{nk.necessaryknowledge}}</li>
+                    </ul>
+                    {% endfor %}  
+                    </div> 
+
+                    <div class="form-group py-1">    
+                    <h5 class="py-2">Другие характеристики:</h5>                    
+                    {% for oc in quali.oc %}
+                    <ul class="list-group">
+                        <li class="list-group-item">{{oc.othercharacteristic}}</li>
+                    </ul>
+                    {% endfor %}
+                    </div>
+                    
+				
+				
+			</div>
+	            
+                <div class="clear"></div>
+               </article> 
+		</section>
+{% endfor %}
+	
+		
+		<section>
+			<div class="sectionTitle">
+				<h1>Ключевые навыки</h1>
+			</div>
+			
+			<div class="sectionContent">
+				<ul class="keySkills">
+					<li>{{ item.keyskills | linebreaks }}</li>
+				</ul>
+			</div>
+           <div class="clear"></div>
+		</section>
+		
+
+
+
+{% endfor %}
+</div>	
 </div>
 
-{% for item in cv %}
-
-    <h4>Название компании:</h4> <p>{{ item.FL_cv_companyName }}</p>
-    
-    <h4>Период работы:</h4> <p>{{ item.FL_cv_WorkStartDate }}</p> <p>{{ item.FL_cv_WorkEndDate }}</p>
-    
-    <h4>Ключевые навыки:</h4> <p>{{ item.KeySkills | linebreaks }}</p>
-
-    {% for quali in item.Quali %}
-
-    
-
-    <h4>Дожность № {{ forloop.counter }}:</h4> <p>{{ quali.FL_cv_PS.jobtitle }}</p>
-    
-    <h4>Отрасль:</h4> <p>{{ quali.FL_cv_Otrasl.name }}</p>
-    
-    <h4>Основная цель вида проф. деятельности::</h4> <p>{{ quali.FL_cv_PS.pspurposekind }}</p>
-
-    <h4>Профстандарт:</h4> <p>{{ quali.FL_cv_PS.nameps }} № {{ quali.FL_cv_PS.psregnum }}</p>
-<!--
 
 
 
-    <h3>Компетенции:</h3>
-        -->
-
-        <h4>Трудовые функции:</h4>
-
-        {% for tf in quali.FL_cv_TF %}
-        <ul>
-            {% if tf.selected %}
-
-              <li>{{tf.nametf}}  (Код: {{tf.codetf}}) </li>
-
-            {% endif %}
-        </ul> 
-        {% endfor %} 
-
-        <strong><h5>Трудовые действия</h5></strong>
-        {% for tf in quali.FL_cv_TF %}
-
-            {% if tf.selected %}
-
-
-              <ul>
-                 
-                 {% for la in tf.laboractions %}
-                    
-                     {% if la.selected %}
-                 
-                         <li>{{la.laboraction}}</li>
-            
-                     {% endif %}
-                     
-                 {% endfor %}
-              </ul>
-              
-              <strong><h5>Практические навыки</h5></strong>
-              <ul>
-                 
-                 {% for rs in tf.requiredskills %}
-                    
-                     {% if rs.selected %}
-                 
-                         <li>{{rs.requiredskill}}</li>
-            
-                     {% endif %}
-                     
-                 {% endfor %}
-              </ul>  
-
-
-              <strong><h5>Знания</h5></strong>
-              <ul>
-                 
-                 {% for nk in tf.necessaryknowledges %}
-                    
-                     {% if nk.selected %}
-                 
-                         <li>{{nk.necessaryknowledge}}</li>
-            
-                     {% endif %}
-                     
-                 {% endfor %}
-              </ul> 
-
-              <strong><h5>Другие характеристики</h5></strong>
-              <ul>
-
-                 {% for oc in tf.othercharacteristics %}
-                    
-                     {% if oc.selected %}
-                 
-                         <li>{{oc.othercharacteristic}}</li>
-            
-                     {% endif %}
-                     
-                 {% endfor %}
-              </ul> 
-
-              
-        {% endif %}    
-        {% endfor %}
-        
-     
-{% endfor %}             
-
-{% endfor %} 
 <!--/.Panel-->
 {% else %}                
                     

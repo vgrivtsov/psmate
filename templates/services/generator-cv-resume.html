@@ -61,7 +61,7 @@
 
 <div ng-app="resume_form">
 
-<div ng-controller="ResumeItems" >
+<div ng-controller="ResumeItems" > 
 
 
 <div class="form-group py-3" >
@@ -71,11 +71,16 @@
 
 <div class="card card-body">
     <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
-    <p class="card-text">Город</p>
+    <h5>{{ user.profiles.fl_pd_date }}</h5>
+    <p class="card-text">{{ user.profiles.fl_adress_real }}</p>
     <div class="flex-row">
-        <p>{{ user.profiles.fl_tlph_mob }}<p/>
+        <h6>{{ user.profiles.fl_tlph_mob }}</h6>
+        <h6>{{ user.email }}</h6>
 
     </div>
+    
+    
+    
 </div>
 <!--/.Panel-->
 {% else %}                

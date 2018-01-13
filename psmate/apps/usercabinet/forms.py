@@ -38,12 +38,14 @@ class UserRegisterForm(UserCreationForm):
 class ProfileSettingsForm(ModelForm):
 
     fl_otch = forms.CharField(max_length=30, required=False, label="Отчество")
-    fl_tlph_mob = forms.CharField(max_length=30, required=False, label="Моб. номер") 
+    fl_tlph_mob = forms.CharField(max_length=30, required=False, label="Моб. номер")
+    fl_adress_real = forms.CharField(max_length=30, required=False, label="Город")
+    fl_pd_date = forms.CharField(max_length=30, required=False, label="Желаемая должность")
 
     class Meta:
         
         model = User
-        fields = ( 'email', 'last_name', 'first_name', 'fl_otch', 'fl_tlph_mob')
+        fields = ( 'email', 'last_name', 'first_name', 'fl_otch', 'fl_tlph_mob', 'fl_adress_real', 'fl_pd_date')
 
     def __init__(self, user, *args, **kwargs):
         
@@ -55,7 +57,9 @@ class ProfileSettingsForm(ModelForm):
         
         kwargs.update(initial={
              'fl_otch': user.profiles.fl_otch,
-             'fl_tlph_mob': user.profiles.fl_tlph_mob
+             'fl_tlph_mob': user.profiles.fl_tlph_mob,
+             'fl_adress_real': user.profiles.fl_adress_real,
+             'fl_pd_date': user.profiles.fl_pd_date
            
         })        
         
@@ -78,6 +82,8 @@ class ProfileSettingsForm(ModelForm):
         user.profiles.fl_fam= self.cleaned_data["last_name"]
         user.profiles.fl_otch= self.cleaned_data["fl_otch"]
         user.profiles.fl_tlph_mob= self.cleaned_data["fl_tlph_mob"]
+        user.profiles.fl_adress_real= self.cleaned_data["fl_adress_real"]
+        user.profiles.fl_pd_date= self.cleaned_data["fl_pd_date"]
         user.profiles.resume = '[]'
         user.profiles.save()
     

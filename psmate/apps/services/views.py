@@ -189,31 +189,82 @@ class CvPresentView(ListView):
 
     template_name = 'services/presentation-cv-resume.html'
     model = User
-    
+
+   
     def get_context_data(self, **kwargs):
 
         udata = super(CvPresentView, self).get_context_data(**kwargs)
         user = self.request.user
+ 
+        cv =user.profiles.resume # get resume - JSONb field
         
-        cv = json.loads(user.profiles.resume)
-
-
+        
         # companynames = [ i['FL_cv_companyName'] for i in cv ]  
         # startdates = [ i['FL_cv_WorkStartDate'] for i  in cv]     
         # enddates = [ i['FL_cv_WorkEndDate'] for i in cv] 
         # keyskills = [ i['KeySkills'] for i in cv ]
 
-        qualis = [ i['Quali'] for i in cv ]
-   
-        for q in qualis:
-            for s in q:
-                print(s)
-                # if s['selected'] == 'true':
-                #     print(s['nametf'])
-         
-         
-         
-        return {'udata' :udata, 'cv' : cv} 
+
+        cvcleared = []
+
+        key,value = 'selected', True
+        for i in cv:
+
+            quali = []
+            
+            for s in i['Quali'] :
+                # cvcleared.append(s['FL_cv_PS'])
+  
+                # print(s['FL_cv_PS'])
+                # print(s['FL_cv_Otrasl'])
+                # print(s['id'])
+      
+                tf_arr = [] 
+                la_arr = [] 
+                rs_arr = [] 
+                nk_arr = []
+                oc_arr = []
+                # found and append only selected competences in cv
+                for tf in s['FL_cv_TF']:
+                    
+                    if key in tf and value == tf[key]:
+                        tf_arr.append({'nametf' : tf['nametf'], 'codetf' : tf['codetf']})
+                        # append if tf_arr != []
+                         
+                    for la in tf['laboractions'] :
+                        if key in la and value == la[key]:
+                            la_arr.append({'laboraction' : la['laboraction']})
+                            
+                    for rs in tf['requiredskills'] :
+                        if key in rs and value == rs[key]:
+                            rs_arr.append({'requiredskill' : rs['requiredskill']})
+                            
+                    for nk in tf['necessaryknowledges'] :
+                        if key in nk and value == nk[key]:
+                            nk_arr.append({'necessaryknowledge' : nk['necessaryknowledge']})                            
+                
+                    for oc in tf['othercharacteristics'] :
+                        if key in oc and value == oc[key]:
+                            oc_arr.append({'othercharacteristic' : oc['othercharacteristic']})
+
+                quali.append({ 'PS' :s['FL_cv_PS'],
+                               'Otrasl' :s['FL_cv_Otrasl'],
+                               'tf' : tf_arr,
+                               'la' : la_arr,
+                               'rs' : rs_arr,
+                               'nk' : nk_arr,
+                               'oc' : oc_arr
+                            })
+            
+            cvcleared.append(
+                            {'companyname' : i['FL_cv_companyName'],
+                            'startdate' :   i['FL_cv_WorkStartDate'],
+                            'enddate' :     i['FL_cv_WorkEndDate'],
+                            'keyskills' :    i['KeySkills'],
+                            'quali' : quali})
+                   
+            
+        return {'cvcleared' :cvcleared} 
 
 
 
