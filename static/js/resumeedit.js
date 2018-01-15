@@ -5,17 +5,33 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
                                          'typeahead-focus'])
 
 
-    app.controller('ResumeItems', function($scope, $http) {
+    app.factory('GetCV', function($http) { 
+        return $http.get('/load_cv').then(function(response){ 
 
-
-    //$scope.cvitems = JSON.parse(ucvval); // make object from json string
+            return response.data;
+        });    
     
-    //console.log($scope.cvitems)
+  
+    });
 
+
+    app.controller('ResumeItems', function($scope, $http, GetCV) {
+
+
+    //$scope.cvitems =[];
+    //
+    GetCV.then(function (cv) {
+
+        $scope.cvitems = cv
+    
     $scope.items = [];
+    
+    
+    
     //---.put last data from db to input---
     //---for each cv items get data values---
     angular.forEach($scope.cvitems, function(cvitem) {
+
         $scope.items.push(angular.forEach(cvitem, function(value, key) { {key : value} }));
         
        });
@@ -144,7 +160,7 @@ console.log($scope.items)
     }
 
   
-
+});
 });
 
 

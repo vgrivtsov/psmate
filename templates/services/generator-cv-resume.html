@@ -55,17 +55,16 @@
 
 </style>
 
-
+{% if user.is_authenticated %}
 <div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
 
 
 <div ng-app="resume_form">
 
-<div ng-controller="ResumeItems" > 
-
+<div ng-controller="ResumeItems" >
 
 <div class="form-group py-3" >
-{% if user.is_authenticated %}
+
 
 <!--Panel-->
 
@@ -79,22 +78,8 @@
 
     </div>
     
-    
-    
 </div>
-<!--/.Panel-->
-{% else %}                
-                    
-<div class="card card-body">
-    <h4 class="card-title">Anonymous</h4>
-    <p class="card-text">homeless</p>
-    <div class="flex-row">
-        <p>no phone<p/>
 
-    </div>
-</div>
-<!--/.Panel-->
-{% endif %} 
 </div>
 
 
@@ -769,9 +754,9 @@ $('.datepicker').datepicker({
    <button class="btn btn-blue-grey btn-md btn-block" ng-click="addNewEdu()">Добавить место учёбы</button>
  </div>
 
-
  
-{% endverbatim %}  
+{% endverbatim %}
+
 
 <!--------POST form----------------------------->
 <form method="post" action=''>
@@ -783,19 +768,24 @@ $('.datepicker').datepicker({
   
   {% endfor %} 
   
-  <input type="submit" class="btn btn-blue-grey btn-md" id="resumesubmit" value="Сохранить резюме" >
+  <input type="submit" class="btn btn-outline-success btn-lg btn-block" id="resumesubmit" value="Сохранить резюме" >
 
-</form> 
+</form>
+
 <!----------------------------------------------->
-
-<button type="submit" class="btn btn-success btn-md" ng-click="getitems()">Get items</button>
+<!--<button type="submit" class="btn btn-success btn-md" ng-click="getitems()">Get items</button>-->
 </div>
 </div>
 </div>
 
-
-
-
+{% else %}
+<div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
+<div class="card card-body">
+    <h4 class="card-title">Anonymous</h4>
+    <a class="nav-link" href="/login/">Необходима авторизация</a>
+</div>
+</div>
+{% endif %}
 
 
 {% endblock %}  

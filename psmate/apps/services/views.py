@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 
+
 ### Search PS ###
 
 class SearchPsAuto(autocomplete.Select2QuerySetView):
@@ -81,6 +82,7 @@ class CvEditView(UpdateView):
     # success_url = None
 
     def get_object(self, queryset=None):
+        
         return self.request.user
 
     def get(self, request, *args, **kwargs):
@@ -92,7 +94,7 @@ class CvEditView(UpdateView):
         return super(CvEditView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse_lazy('generator-cv-resume')    
+        return reverse_lazy('presentation-cv-resume')    
 
 
 class LoadPS(View):
@@ -181,7 +183,24 @@ class LoadCompt(View):
                 
             return JsonResponse(maintfresult, safe=False) 
 
-##################
+#####################
+
+
+#### Load CV ########
+
+
+class LoadCV(View):
+
+    def get(self, request, *args, **kwargs):
+
+        usercv = self.request.user.profiles.resume
+        
+  
+        return JsonResponse(usercv, safe=False) 
+
+
+
+
 
 ###CV Presentation###
 
