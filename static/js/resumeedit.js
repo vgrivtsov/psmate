@@ -25,7 +25,9 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
         $scope.cvitems = cv
     
     $scope.items = [];
-
+    
+    
+    
     //---.put last data from db to input---
     //---for each cv items get data values---
     angular.forEach($scope.cvitems, function(cvitem) {
@@ -40,7 +42,11 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
     
     $scope.addnewWorkPos = function() {
           
-        $scope.items.push({id : newWorkPosNo,                        
+        $scope.items.push({id : newWorkPosNo,
+                           FL_cv_companyName : '',
+                           FL_cv_WorkStartDate : '',
+                           FL_cv_WorkEndDate : '',
+                           KeySkills : '',
                            Quali : []});
 
         newWorkPosNo++;
@@ -63,7 +69,10 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
         
         var QualiNo = $scope.items.find(item => item.id === itemid).Quali.length + newQualiNo
           
-        $scope.items.find(item => item.id === itemid).Quali.push({id : QualiNo});
+        $scope.items.find(item => item.id === itemid).Quali.push({id : QualiNo,
+                                                                  FL_cv_TF : '',
+                                                                  FL_cv_PS : '',                                                                 
+                                                                 });
         newQualiNo++;
 
     };

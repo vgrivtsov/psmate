@@ -103,10 +103,17 @@ class CvEditView(UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        
         return super(CvEditView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('presentation-cv-resume')    
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+
+        return super(CvEditView, self).form_valid(form) 
+
 
 
 class LoadPS(View):
