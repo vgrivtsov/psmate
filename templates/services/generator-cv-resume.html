@@ -137,7 +137,7 @@ $('.datepicker').datepicker({
  <!--dynamic inputs -->
 {% verbatim %} 
  
- <input type="hidden" ng-model="item.Quali" value="{{item.Quali}}">
+<!-- <input type="hidden" ng-model="item.Quali" value="{{item.Quali}}">-->
   
  
 <div ng-show="quali" id="qualiseditform" class="form-horizontal" name="qualiseditform" data-ng-repeat="quali in item.Quali" >
@@ -158,7 +158,7 @@ $('.datepicker').datepicker({
   <select class="form-control mdb-select colorful-select dropdown-info" id="otraslselect"  ng-model="quali.FL_cv_Otrasl"
           ng-change="loadPS(quali.FL_cv_Otrasl.id, item.id, quali.id)" ng-options="otrasl as otrasl.name for otrasl in selectitems">
     
-   <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="{{quali.FL_cv_Otrasl}}">  
+<!--   <input type="hidden" ng-model="quali.FL_cv_Otrasl" value="{{quali.FL_cv_Otrasl}}">  -->
   </select>
   <!-- -->
 
@@ -185,7 +185,7 @@ $('.datepicker').datepicker({
 </div>
  
  
-   <input type="hidden" ng-model="quali.FL_cv_PS" value="{{quali.FL_cv_PS}}">
+<!--   <input type="hidden" ng-model="quali.FL_cv_PS" value="{{quali.FL_cv_PS}}">-->
    
  </div>
   
@@ -717,8 +717,8 @@ $('.datepicker').datepicker({
 <input type="hidden" ng-model="quali.FL_cv_LA.othercharacteristics" value="{{quali.FL_cv_LA.othercharacteristics}}">
 -->
 
-<input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">
-
+<!--<input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">
+-->
 
 </div>
 
@@ -773,7 +773,7 @@ $('.datepicker').datepicker({
 </form>
 
 <!----------------------------------------------->
-<!--<button type="submit" class="btn btn-success btn-md" ng-click="getitems()">Get items</button>-->
+<button type="submit" class="btn btn-success btn-md" ng-click="getitems()">Get items</button>
 </div>
 </div>
 </div>

@@ -94,7 +94,6 @@ class CvEditView(UpdateView):
         if user.profiles.fl_adress_real == None:
             user.profiles.fl_adress_real = ''            
             
-
         return user
 
     def get(self, request, *args, **kwargs):
@@ -111,7 +110,7 @@ class CvEditView(UpdateView):
 
     def form_valid(self, form):
         self.object = self.get_object()
-
+    
         return super(CvEditView, self).form_valid(form) 
 
 
