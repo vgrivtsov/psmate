@@ -267,7 +267,7 @@ section:last-child {
 		<div id="contactDetails">
 			<ul>
 				<li>Электронная почта: <a href="mailto:{{ user.email }}" target="_blank">{{ user.email }}</a></li>
-				<li>Мобильный телефон: {{ user.profiles.fl_tlph_mob | phone2numeric}} </li>
+				<li>Мобильный телефон: {{ user.profiles.fl_tlph_mob}} </li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -280,18 +280,12 @@ section:last-child {
         
 {% for item in cvcleared %}
 
-
-            
-		
-
 				
 			<div class="sectionContent">
                 <h2>{{ item.companyname }}</h2>
                 <p class="subDetails">{{ item.startdate }} - {{ item.enddate }}</p>
 			</div>
 		
-
-	
 
  {% for quali in item.quali %} 		
 		<section>

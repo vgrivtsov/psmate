@@ -82,8 +82,20 @@ class CvEditView(UpdateView):
     # success_url = None
 
     def get_object(self, queryset=None):
+
+        user = self.request.user
         
-        return self.request.user
+        if user.profiles.fl_tlph_mob == None: # if user not set settings
+            user.profiles.fl_tlph_mob = ''
+        if user.profiles.fl_otch == None:
+            user.profiles.fl_otch = ''
+        if user.profiles.fl_pd_date == None:
+            user.profiles.fl_pd_date = ''
+        if user.profiles.fl_adress_real == None:
+            user.profiles.fl_adress_real = ''            
+            
+
+        return user
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -194,12 +206,8 @@ class LoadCV(View):
     def get(self, request, *args, **kwargs):
 
         usercv = self.request.user.profiles.resume
-        
-  
+
         return JsonResponse(usercv, safe=False) 
-
-
-
 
 
 ###CV Presentation###
@@ -208,21 +216,22 @@ class CvPresentView(ListView):
 
     template_name = 'services/presentation-cv-resume.html'
     model = User
-
    
     def get_context_data(self, **kwargs):
 
         udata = super(CvPresentView, self).get_context_data(**kwargs)
         user = self.request.user
+
+        if user.profiles.fl_tlph_mob == None: # if user not set settings
+            user.profiles.fl_tlph_mob = ''
+        if user.profiles.fl_otch == None:
+            user.profiles.fl_otch = ''
+        if user.profiles.fl_pd_date == None:
+            user.profiles.fl_pd_date = ''
+        if user.profiles.fl_adress_real == None:
+            user.profiles.fl_adress_real = ''             
  
         cv =user.profiles.resume # get resume - JSONb field
-        
-        
-        # companynames = [ i['FL_cv_companyName'] for i in cv ]  
-        # startdates = [ i['FL_cv_WorkStartDate'] for i  in cv]     
-        # enddates = [ i['FL_cv_WorkEndDate'] for i in cv] 
-        # keyskills = [ i['KeySkills'] for i in cv ]
-
 
         cvcleared = []
 
@@ -232,11 +241,6 @@ class CvPresentView(ListView):
             quali = []
             
             for s in i['Quali'] :
-                # cvcleared.append(s['FL_cv_PS'])
-  
-                # print(s['FL_cv_PS'])
-                # print(s['FL_cv_Otrasl'])
-                # print(s['id'])
       
                 tf_arr = [] 
                 la_arr = [] 
