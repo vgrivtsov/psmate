@@ -157,7 +157,7 @@ class LoadCompt(View):
                 otflist.append(otf.nameotf)
 
             for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
-                print(tf.nametf)
+
 
                 laresult = []
                 nkresult = []
@@ -187,7 +187,7 @@ class LoadCompt(View):
                 tfsel = ''
                 if tf.nameotf in otflist: 
 
-                    tfsel = 'card info-color white-text mb-0 z-depth-2'
+                    tfsel = 'card info-color white-text mb-0 py-2 z-depth-2'
 
                 maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf,
                                      'nametf' : tf.nametf, 'tfsel' : tfsel, # tfcell use for color ligth of jobtitels tf's

@@ -1,5 +1,8 @@
 from django.shortcuts import render
-
+try:
+    from django.urls import reverse_lazy
+except ImportError:
+    from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from psmate.apps.usercabinet.forms import UserRegisterForm
@@ -7,7 +10,7 @@ from psmate.apps.usercabinet.forms import ProfileSettingsForm
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
-from django.views.generic.base import View
+from django.views.generic import FormView, ListView, View, UpdateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
@@ -58,61 +61,72 @@ class LogoutView(View):
         # redirect to  index.html after logout
         return HttpResponseRedirect("/")
 
-#  
-# class SettingsFormView(UpdateView):
-#     form_class = ProfileSettingsForm
-#     template_name = "usercabinet/settings.html"
-#     
-#     success_url = "/settings/"  # You should be using reverse here
-# 
-#     def get_object(self):
-#         return User.objects.get(email=self.request.user)
-#
 
-###############!!!!! need rewrite to CBV ####################!!!!!
 
-@login_required    
-def usercabinet(request):
+class UserCabinetView(ListView):
+    form_class = ProfileSettingsForm
+    template_name = 'usercabinet/index.html'
+    model = User
+
+    def get_object(self, queryset=None):
+
+        user = self.request.user
+
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(UserCabinetView, self).get(request, *args, **kwargs)
+
+
+    def get_success_url(self):
+        return reverse_lazy('cabinet')    
+
+
+class UserSettingsView(UpdateView):
+    form_class = ProfileSettingsForm
+    template_name = 'usercabinet/settings.html'
+    model = User
+    success_url = "cabinet"
+
+    def dispatch(self, *args, **kwargs):
+        return super(UserSettingsView, self).dispatch(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+
+        user = self.request.user
+        
+        return user
+
+
+    def get(self, request, *args, **kwargs):
+        
+        self.object = self.get_object()
     
-    if request.method == 'POST':
-        
-        # get current user to form - see ProfileSettingsForm __init__
-        form = ProfileSettingsForm(request.user, request.POST, instance=request.user)
-        
-
-        if form.is_valid():
-
-            form.save()
-            context = {'form': form}
-
-            return render(request, 'usercabinet/index.html', context)
-
-        
-    else:
-        form = ProfileSettingsForm(request.user, instance=request.user)
-
-    return render(request, 'usercabinet/index.html', {'form': form})
-
-
-@login_required
-def settings(request):
+        return super(UserSettingsView, self).get(request, *args, **kwargs)
     
-    if request.method == 'POST':
+    def post(self, request, *args, **kwargs):
         
-        # get current user to form - see ProfileSettingsForm __init__
-        form = ProfileSettingsForm(request.user, request.POST, instance=request.user)
+        self.object = self.get_object()
+    
         
+        return super(UserSettingsView, self).post(request, *args, **kwargs)
 
-        if form.is_valid():
+    def get_success_url(self):
+        return reverse_lazy('cabinet')    
 
-            form.save()
-            context = {'form': form}
+    def get_form_kwargs(self):
+        kwargs = super(UserSettingsView, self).get_form_kwargs()
+        user = self.request.user
 
-            return render(request, 'usercabinet/settings.html', context)
+        if user:
+            kwargs['user'] = user
+    
+        return kwargs
 
-        
-    else:
-        form = ProfileSettingsForm(request.user, instance=request.user)
 
-    return render(request, 'usercabinet/settings.html', {'form': form})
+    def form_valid(self, form):
+        self.object = self.get_object()
+        return super(UserSettingsView, self).form_valid(form)
+
+
 

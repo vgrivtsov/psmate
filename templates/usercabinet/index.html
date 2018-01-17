@@ -73,12 +73,13 @@ body, html {
                 <li class="nav-item"><a class="cabinet_sb" href="/settings/">Настройки</a></li>
             </ul>
         </div>
-        <div class="col pt-2">
+      <div class="row">       
+        <div class="col my-5 mx-5">
 
         {% if user.profiles.resume %}
 
             <!--Panel-->
-            <div class="card">
+            <div class="card w-100">
                 <h3 class="card-header info-color white-text">Резюме</h3>
                 <div class="card-body">
                     <h4 class="card-title">{{user.profiles.fl_pd_date}}</h4>
@@ -87,9 +88,12 @@ body, html {
                     <p class="card-text">{{qq.FL_cv_PS.jobtitle}}</p>
                     {% endfor %}
                     {% endfor %}
-                    <a class="btn btn-info" href="/presentation-cv-resume/">Перейти</a>
+                    <a class="btn btn-info btn-md" href="/presentation-cv-resume/">Перейти</a>
                 </div>
             </div>
+            <div class="col">
+            </div>
+      </div>
             <!--/.Panel-->
         {% endif %}
                          

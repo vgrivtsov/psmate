@@ -31,7 +31,7 @@ class UserRegisterForm(UserCreationForm):
         user.profiles.email= self.cleaned_data["email"]
         user.profiles.fl_name= self.cleaned_data["first_name"]
         user.profiles.fl_fam= self.cleaned_data["last_name"]
-        user.profiles.resume = '[]'
+        user.profiles.resume = []
         user.profiles.save()
 
 
@@ -47,32 +47,42 @@ class ProfileSettingsForm(ModelForm):
         model = User
         fields = ( 'email', 'last_name', 'first_name', 'fl_otch', 'fl_tlph_mob', 'fl_adress_real', 'fl_pd_date')
 
-    def __init__(self, user, *args, **kwargs):
-        
-        
-        # get values from current user extended model to form field
-        self.user = user
+
+    def __init__(self, *args, **kwargs):
+        if kwargs.get('user'):
+            user = kwargs.pop('user', None)
+            # self.user = user
+
+            instance = kwargs.get('instance', None)
             
-        instance = kwargs.get('instance', None)
-        
-        kwargs.update(initial={
-             'fl_otch': user.profiles.fl_otch,
-             'fl_tlph_mob': user.profiles.fl_tlph_mob,
-             'fl_adress_real': user.profiles.fl_adress_real,
-             'fl_pd_date': user.profiles.fl_pd_date
-           
-        })        
-        
-        
-        super(ProfileSettingsForm, self).__init__(*args, **kwargs)
+            print(user.profiles.resume)
+            
+            kwargs.update(initial={
+                 'last_name' : user.last_name,
+                 'first_name' : user.first_name,
+                 'email' : user.email,
+                 'fl_otch': user.profiles.fl_otch,
+                 'fl_tlph_mob': user.profiles.fl_tlph_mob,
+                 'fl_adress_real': user.profiles.fl_adress_real,
+                 'fl_pd_date': user.profiles.fl_pd_date
+               
+            })               
+            
+            
+            
+        super(ProfileSettingsForm, self).__init__(*args,**kwargs)
+
 
 
     def save(self, commit=True):
         user = super(ProfileSettingsForm, self).save(commit=False)
 
+
         user.email = self.cleaned_data["email"]
         # write email to username
         user.username = user.email
+
+
 
         if commit:
             user.save()
@@ -84,7 +94,7 @@ class ProfileSettingsForm(ModelForm):
         user.profiles.fl_tlph_mob= self.cleaned_data["fl_tlph_mob"]
         user.profiles.fl_adress_real= self.cleaned_data["fl_adress_real"]
         user.profiles.fl_pd_date= self.cleaned_data["fl_pd_date"]
-        user.profiles.resume = '[]'
+
         user.profiles.save()
     
         

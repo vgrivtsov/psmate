@@ -184,8 +184,7 @@ $('.datepicker').datepicker({
 </div>
 </div>
  
- 
-<!--   <input type="hidden" ng-model="quali.FL_cv_PS" value="{{quali.FL_cv_PS}}">-->
+
    
  </div>
   
@@ -217,7 +216,8 @@ $('.datepicker').datepicker({
     <tr ng-repeat="tf in quali.FL_cv_TF" ng-switch on="$index % 3">
       <td ng-switch-when="0" >
        <div class="{{quali.FL_cv_TF[$index].tfsel}}"> <!-- tfsel - mdb card class -->
-       <label class="checkbox"  style="height: 20vh;">
+       <label class="checkbox"  style="height: 17vh; overflow:hidden;" data-toggle="tooltip"
+              data-placement="right" title=" {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}}">
 
         <input type="checkbox"  ng-model="quali.FL_cv_TF[$index].selected"/>
         {{quali.FL_cv_TF[$index].nametf}} (Код: {{quali.FL_cv_TF[$index].codetf}})
@@ -382,7 +382,8 @@ $('.datepicker').datepicker({
 
       <td ng-switch-when="0">
        <div class="{{quali.FL_cv_TF[$index+1].tfsel}}">
-       <label class="checkbox"  style="height: 20vh;">
+       <label class="checkbox"  style="height: 17vh; overflow:hidden;" data-toggle="tooltip"
+              data-placement="right" title=" {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}}">
 
         <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+1].selected"/>
         {{quali.FL_cv_TF[$index+1].nametf}} (Код: {{quali.FL_cv_TF[$index+1].codetf}})
@@ -545,7 +546,8 @@ $('.datepicker').datepicker({
       <td ng-switch-when="0">
        
        <div class="{{quali.FL_cv_TF[$index+2].tfsel}}" ng-if="quali.FL_cv_TF[$index+2].nametf">
-       <label class="checkbox" style="height: 20vh;">
+       <label class="checkbox" style="height: 17vh; overflow:hidden;" data-toggle="tooltip"
+              data-placement="right" title=" {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}}">
 
         <input type="checkbox"  ng-model="quali.FL_cv_TF[$index+2].selected"/>
         {{quali.FL_cv_TF[$index+2].nametf}} (Код: {{quali.FL_cv_TF[$index+2].codetf}})
@@ -703,25 +705,16 @@ $('.datepicker').datepicker({
 
       </td> 
 <!-- Competences Modal_3 end -----------------------------------------------------------------------> 
-<!-- Competences Modal_3 end -->
       
     </tr>
   </table>
 
-
-
-<!--save-->
-<!--<input type="hidden" ng-model="quali.FL_cv_LA.laboractions" value="{{quali.FL_cv_LA.laboractions}}">  
-<input type="hidden" ng-model="quali.FL_cv_LA.necessaryknowledges" value="{{quali.FL_cv_LA.necessaryknowledges}}">
-<input type="hidden" ng-model="quali.FL_cv_LA.requiredskills" value="{{quali.FL_cv_LA.requiredskills}}">
-<input type="hidden" ng-model="quali.FL_cv_LA.othercharacteristics" value="{{quali.FL_cv_LA.othercharacteristics}}">
--->
-
-<!--<input type="hidden" ng-model="quali.FL_cv_TF" value="{{quali.FL_cv_TF}}">
--->
-
 </div>
-
+<script>
+ $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 <!----------------------------------------Show competences block END --------------------------------------------------->
 
 
