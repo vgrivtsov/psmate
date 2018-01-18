@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^', include('psmate.apps.resume.urls')),
     url(r'^', include('psmate.apps.usercabinet.urls')),
     url(r'^', include('psmate.apps.services.urls')),
+    url(r'^', include('psmate.apps.blog.urls')),
 ]
 
 
