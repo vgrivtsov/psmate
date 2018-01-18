@@ -1,6 +1,7 @@
 manage.py
 models*
 /media
+/psmate/media
 /psmate/settings
 /media
 /psmate/migrations

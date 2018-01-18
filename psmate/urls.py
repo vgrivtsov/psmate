@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.conf.urls.static import static
+from django.conf import settings
 
+
+admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,6 +29,5 @@ urlpatterns = [
     url(r'^', include('psmate.apps.usercabinet.urls')),
     url(r'^', include('psmate.apps.services.urls')),
     url(r'^', include('psmate.apps.blog.urls')),
-]
-
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

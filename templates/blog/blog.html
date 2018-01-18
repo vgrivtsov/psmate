@@ -39,20 +39,20 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-6">
-              <a href="#">
-                <img class="img-fluid rounded" src="http://placehold.it/750x300" alt="">
+              <a href="/news/{{a.slug}}/">
+                <img class="img-fluid rounded" src="{{ a.image.url }}" alt="">
               </a>
             </div>
             <div class="col-lg-6">
               <h2 class="card-title">{{ a.title }}</h2>
               <p class="card-text" style="height: 15vh; overflow:hidden;">{{ a.text }}</p>
-              <a href="#" class="btn btn-blue-grey">Читать далее &rarr;</a>
+              <a href="/news/{{a.slug}}/" class="btn btn-blue-grey">Читать далее &rarr;</a>
             </div>
           </div>
         </div>
         <div class="card-footer text-muted">
-          {{ created_at }}
-          <a href="#">{{ a.url }}</a>
+          {{ a.created_at }}
+          <span>Источник: </span><a href="#">{{ a.url }}</a>
         </div>
       </div>
 

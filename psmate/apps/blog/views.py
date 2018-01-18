@@ -17,3 +17,14 @@ class ArticleListView(TemplateView):
 
 
         return context
+    
+class ArticleDetailView(DetailView):
+
+    model = News
+    template_name = "blog/blog-post.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['slug']
+        # context['article'] = timezone.now()
+        return context
