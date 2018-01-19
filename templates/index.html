@@ -4,6 +4,33 @@
 {% load static %}
 {% block content %}
 
+<style>
+
+.img-card-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-card-wrapper :after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.img-card-wrapper  img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+
+</style>
+
+
     <header>
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -50,48 +77,39 @@
 
       <!-- News Section -->
       <h2 class="my-4">Новости</h2>
-
+       
       <div class="row">
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="{% static 'images/700x400.png' %}" alt=""></a>
-            <div class="card-body">
+        {% for n in news %}
+        <div class="col-lg-4 col-sm-6 news-item">
+          <div class="card h-100" >
+            <a href="/news/{{ n.slug}}">
+                <div class="img-card-wrapper ">
+                  <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt=""></a>
+                </div>
+            <div class="card-body" >
               <h4 class="card-title">
-                <a href="#">Новость 1</a>
+                <a href="/news/{{ n.slug}}">{{ n.title }}</a>
               </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+              <p class="card-text line-clamp" >{{ n.text }}</p>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="{% static 'images/700x400.png' %}" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Новость 2</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="{% static 'images/700x400.png' %}" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Новость 3</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-            </div>
-          </div>
-        </div>
+         {% endfor %}
         <div class="col-md-12">
-          <a class="btn btn-lg btn-secondary btn-block" href="#">Перейти ко всем новостям в ленте</a>
+          <a class="btn btn-lg btn-secondary btn-block" href="/news/">Перейти ко всем новостям в ленте</a>
         </div>
       </div>
       <!-- /.row -->
+<script>
+jQuery(document).ready(function( $ ) {
 
+   $(".line-clamp").dotdotdot({
+      // Options go here
 
+   });
+
+});
+</script>
       <h1 class="my-4">Работа с профстандартами</h1>
 
       <!-- Marketing Icons Section -->
@@ -103,7 +121,7 @@
               <p class="card-text">Позволяет сгенерировать резюме по профстандарту с необходимыми знаниями, умениями, действиями. Экспорт в Microsoft Word, PDF.</p>
             </div>
             <div class="card-footer">
-              <a href="/resume-index" class="btn btn-primary">Перейти</a>
+              <a href="/generator-cv-resume/" class="btn btn-blue-grey">Перейти</a>
             </div>
           </div>
         </div>
@@ -114,7 +132,7 @@
               <p class="card-text">Поиск по профстандартам, возможность сгенерировать собственный профстандарт, экспорт во внешние файлы.</p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btn-primary">Перейти</a>
+              <a href="/search-profstandart/" class="btn btn-blue-grey">Перейти</a>
             </div>
           </div>
         </div>
@@ -125,7 +143,7 @@
               <p class="card-text">Рекомендации по обучению в получении желаемой квалификации. ФГОСы. ПОиск по региональным ВУЗам.</p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btn-primary">Перейти</a>
+              <a href="/education-recomendations/" class="btn btn-blue-grey">Перейти</a>
             </div>
           </div>
         </div>

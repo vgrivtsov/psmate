@@ -6,27 +6,33 @@
 {% block content %}
 
 <style>
-  
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}  
 </style>
 
 
 
 
-<div class="container py-5">
+<div class="container py-5" style="min-height: 100vh;">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 ">
 
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <span class="anchor" id="formLogin"></span>
 
                     <!-- form card login -->
-                    <div class="card rounded-0">
+                    <div class="card rounded-0 ">
                         <div class="card-header">
                             <h5 class="mb-0">Вход</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+                            <form class="form-horizontal " name="LoginForm" action="/login/" method="post">
                               {% csrf_token %}
                               {% if next %}
                                 <input type="hidden" name="next" value="{{ next }}" />

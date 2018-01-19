@@ -2,23 +2,36 @@
     
 {% extends "layouts/layout.html" %}
 {% load static %}
-{% load widget_tweaks %}
 {% block content %}
 
 <style>
 
- 
-  
+/*.img-card-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-card-wrapper :after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.img-card-wrapper  img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}*/
+
+
 </style>
 
     <!-- Page Content -->
     <div class="container">
-
-
-
-
-
-
 
       <!-- Page Heading/Breadcrumbs -->
       <h1 class="mt-4 mb-3">Новости
@@ -40,24 +53,35 @@
           <div class="row">
             <div class="col-lg-6">
               <a href="/news/{{a.slug}}/">
+                <div class="img-card-wrapper ">
                 <img class="img-fluid rounded" src="{{ a.image.url }}" alt="">
+                </div>
               </a>
             </div>
             <div class="col-lg-6">
               <h2 class="card-title">{{ a.title }}</h2>
-              <p class="card-text" style="height: 15vh; overflow:hidden;">{{ a.text }}</p>
+              <p class="card-text line-clamp">{{ a.text }}</p>
               <a href="/news/{{a.slug}}/" class="btn btn-blue-grey">Читать далее &rarr;</a>
             </div>
           </div>
         </div>
         <div class="card-footer text-muted">
           {{ a.created_at }}
-          <span>Источник: </span><a href="#">{{ a.url }}</a>
+          <span>Источник: </span><a href="{{ a.url }}">{{ a.url }}</a>
         </div>
       </div>
 
     {% endfor %}
+<script>
+jQuery(document).ready(function( $ ) {
 
+   $(".line-clamp").dotdotdot({
+      // Options go here
+
+   });
+
+});
+</script>
       <!-- Pagination -->
       <ul class="pagination justify-content-center mb-4">
         <li class="page-item">
