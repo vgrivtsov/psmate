@@ -14,7 +14,10 @@ class IndexNewsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['news'] = News.objects.all()[:3]
-        print(context)
+
+        for item in context['news']:
+            item.short = item.text[:150]+'...' # get preview text
+
         
         return context
 
@@ -30,7 +33,8 @@ class ArticleListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['articles'] = News.objects.all()
-        # [x.text[:150]+'...' for x in context['articles']]
+        for item in context['articles'] :
+            item.short = item.text[:150]+'...' # get preview text
 
 
         return context
@@ -43,5 +47,5 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs['slug']
-        # context['article'] = timezone.now()
+
         return context

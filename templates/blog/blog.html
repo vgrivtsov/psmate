@@ -5,7 +5,16 @@
 {% block content %}
 
 <style>
+.img-card-wrapper {
+    height:190px;
+    background-color:#FFFFFF;
+    margin-top:10px;
+    overflow: hidden;
+}
 
+.img-card-wrapper img {
+    height:100%;
+}
 </style>
 
     <!-- Page Content -->
@@ -26,20 +35,21 @@
     {% for a in articles %}
     
       <!-- Blog Post -->
-      <div class="card mb-4">
+      <div class="card mb-4"  >
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 " >
               <a href="/news/{{a.slug}}/">
-                <div class="img-card-wrapper ">
-                <img class="img-fluid rounded" src="{{ a.image.url }}" alt="">
+                <div class="img-card-wrapper " >
+                <img class="img-fluid rounded" src="{{ a.image.url }}" alt="" style="  position: relative; overflow: hidden;">
                 </div>
               </a>
             </div>
             <div class="col-lg-6">
+              <a href="/news/{{a.slug}}/">
               <h2 class="card-title">{{ a.title }}</h2>
-              <p class="card-text line-clamp">{{ a.text }}</p>
-              <a href="/news/{{a.slug}}/" class="btn btn-blue-grey">Читать далее &rarr;</a>
+              <p class="card-text line-clamp">{{ a.short }}</p>
+              </a>
             </div>
           </div>
         </div>
@@ -51,14 +61,7 @@
 
     {% endfor %}
 <script>
-jQuery(document).ready(function( $ ) {
 
-   $(".line-clamp").dotdotdot({
-      // Options go here
-
-   });
-
-});
 </script>
       <!-- Pagination -->
       <ul class="pagination justify-content-center mb-4">

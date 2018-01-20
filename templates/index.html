@@ -80,6 +80,7 @@
        
       <div class="row">
         {% for n in news %}
+
         <div class="col-lg-4 col-sm-6 news-item">
           <div class="card h-100" >
             <a href="/news/{{ n.slug}}">
@@ -90,10 +91,12 @@
               <h4 class="card-title">
                 <a href="/news/{{ n.slug}}">{{ n.title }}</a>
               </h4>
-              <p class="card-text line-clamp" >{{ n.text }}</p>
+              
+              <p class="card-text line-clamp" >{{ n.short }}</p>
             </div>
           </div>
         </div>
+
          {% endfor %}
         <div class="col-md-12">
           <a class="btn btn-lg btn-secondary btn-block" href="/news/">Перейти ко всем новостям в ленте</a>
@@ -101,14 +104,7 @@
       </div>
       <!-- /.row -->
 <script>
-jQuery(document).ready(function( $ ) {
 
-   $(".line-clamp").dotdotdot({
-      // Options go here
-
-   });
-
-});
 </script>
       <h1 class="my-4">Работа с профстандартами</h1>
 
