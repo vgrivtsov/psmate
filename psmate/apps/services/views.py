@@ -12,7 +12,8 @@ from psmate.apps.services.forms import SearchPsForm, CvGenForm
 ###
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
-from django.core import serializers
+from django.conf import settings
+from easy_pdf.views import PDFTemplateView
 
 
 ### Search PS ###
@@ -295,6 +296,15 @@ class CvPresentView(ListView):
             
         return {'cvcleared' :cvcleared} 
 
+class CvtoPDFView(PDFTemplateView):
+    template_name = 'services/presentation-cv-resume.html'
 
+    base_url = 'file://' + settings.STATIC_ROOT
+    download_filename = 'resume.pdf'
 
-
+    def get_context_data(self, **kwargs):
+        return super(CvtoPDFView, self).get_context_data(
+            pagesize='A4',
+            title='PSResume',
+            **kwargs
+        )

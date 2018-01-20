@@ -80,7 +80,8 @@ body, html {
 
             <!--Panel-->
             <div class="card w-100">
-                <h3 class="card-header info-color white-text">Резюме</h3>
+                
+                <h3 class="card-header info-color white-text">Резюме </h3>
                 <div class="card-body">
                     <h4 class="card-title">{{user.profiles.fl_pd_date}}</h4>
                     {% for quali in user.profiles.resume %}
@@ -88,7 +89,14 @@ body, html {
                     <p class="card-text">{{qq.FL_cv_PS.jobtitle}}</p>
                     {% endfor %}
                     {% endfor %}
-                    <a class="btn btn-info btn-md" href="/presentation-cv-resume/">Перейти</a>
+                    <div class="row">
+                        <div class="col">
+                          <a class="btn btn-info btn-md" href="/presentation-cv-resume/">Перейти</a>
+                        </div>
+                        <div class="col">
+                          <a class="btn btn-info btn-md" href="/generator-cv-resume/">Изменить</a>
+                        </div>
+                    </div>      
                 </div>
             </div>
             <div class="col">
