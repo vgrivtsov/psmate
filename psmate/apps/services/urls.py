@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from django_filters.views import FilterView
-from psmate.apps.services.filters import PSFilter
 from django.contrib.auth.decorators import login_required
+from django_pdfkit import PDFView
 from . import views
 
 urlpatterns = [
@@ -12,11 +11,6 @@ urlpatterns = [
     url(r'^load_cv/$', views.LoadCV.as_view(), name='load_cv'),
     url(r'^load_compt/$', views.LoadCompt.as_view(), name='load_compt'),
     url(r'^presentation-cv-resume/$', login_required(views.CvPresentView.as_view(), login_url='/login'), name='presentation-cv-resume'),
-    url(r'^cvtopdf/$',views.CvtoPDFView.as_view(), name='cvtopdf'),    
-    
-
-    
-    # url(r'^search-profstandart/$', FilterView.as_view(filterset_class=PSFilter,
-    #     template_name='services/search-profstandart.html'), name='search-profstandart'),
+    # url(r'^cvtopdf/$', views.html_to_pdf_view, name='cvtopdf'),    
 
 ]
