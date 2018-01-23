@@ -91,19 +91,22 @@
 
     <!-- Top Navigation -->
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #e9e8eb;">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light grey lighten-4" >
       <div class="container">
-        <a class="navbar-brand" href="/">ПС Навигатор</a>
+        
+        <a class="navbar-brand border border-secondary rounded px-2" href="/">ПрофНавигатор</a>
+        
+
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/">На главную</a>
+              <a class="nav-link border border-secondary rounded px-2 mx-1" href="/">На главную</a>
             </li>
             <li class="nav-item btn-group">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle border border-secondary rounded px-2 mx-1" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Сервисы
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
@@ -115,7 +118,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/news/">Новости</a>
+              <a class="nav-link border border-secondary rounded px-2 mx-1" href="/news/">Новости</a>
             </li>
 
 
@@ -123,7 +126,7 @@
             <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown btn-group">
                 {% if user.is_authenticated %}
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle border border-secondary rounded px-2 mx-1" href="#" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ user.last_name }} {{ user.first_name }}
               </a>                
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
@@ -135,7 +138,7 @@
                 {% else %}
                 
               <li class="nav-item btn-group">
-               <button class=" btn btn-sm align-middle btn-outline-secondary" href="#" id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Вход</button> 
+               <button class=" btn btn-md align-middle btn-outline-secondary" href="#" id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Вход</button> 
 <!--              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Вход
               </a> -->                

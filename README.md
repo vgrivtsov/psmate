@@ -1,3 +1,4 @@
 # psmate
-Data processing for professional standards from rosmitrud edition
-Made with Pton3, Django 2, T Bootstrap 4, AngularJS
+Data processing for professional standards from rosmitrud edition.
+
+Developed with Python3, Django 2, T Bootstrap 4, AngularJS
