@@ -18,7 +18,6 @@ from django.forms import inlineformset_factory
 class RegisterFormView(FormView):
     form_class = UserRegisterForm
 
-    # enter to cabinet
     success_url = "/cabinet/"
 
     template_name = "regform.html"
@@ -51,6 +50,7 @@ class LoginFormView(FormView):
         # Auth user
         login(self.request, self.user)
         return super(LoginFormView, self).form_valid(form) 
+
   
   
 class LogoutView(View):
@@ -86,7 +86,7 @@ class UserSettingsView(UpdateView):
     form_class = ProfileSettingsForm
     template_name = 'usercabinet/settings.html'
     model = User
-    success_url = "cabinet"
+    success_url = "/cabinet/"
 
     def dispatch(self, *args, **kwargs):
         return super(UserSettingsView, self).dispatch(*args, **kwargs)

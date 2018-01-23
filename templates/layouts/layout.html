@@ -304,7 +304,7 @@
               </a>                
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
                   <a class="dropdown-item" href="/cabinet/">Личный кабинет</a>
-                  <a class="dropdown-item" href="/logout/">Выход</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Выход</a>
                 </div>
               </li>
               
@@ -327,7 +327,11 @@
                   			<a class="tumblrBtn smGlobalBtn" href="#" ></a>
                   			<a class="rssBtn smGlobalBtn" href="#" ></a>-->
                   		</div>
-                <form class="form-horizontal " name="LoginForm" action="/login/" method="post">
+                {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}                    
+                <form class="form-horizontal " name="LoginForm" action="{% url 'login' %}" method="post">
+
                   {% csrf_token %}
                   {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
