@@ -40,9 +40,9 @@ class RegisterFormView(FormView):
 class LoginFormView(FormView):
     form_class = AuthenticationForm
    
-    template_name = "loginform.html"
+    template_name = "layouts/layout.html"
     
-    success_url = "/"
+    success_url = "/cabinet/"
 
     def form_valid(self, form):
         # Get user object

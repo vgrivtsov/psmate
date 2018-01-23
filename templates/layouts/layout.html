@@ -80,14 +80,187 @@
     color: #fff !important;
     }
 
-  
-  
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}  
+/* SOCIALS BUT*/
+
+#social {
+  margin: 20px 10px;
+  text-align: center;
+}
+
+.smGlobalBtn { /* global button class */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border:2px solid #ddd; /* add border to the buttons */
+    box-shadow: 0 3px 3px #999;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+    font-weight: normal;
+    line-height: 2em;
+    border-radius: 27px;
+    -moz-border-radius:27px;
+    -webkit-border-radius:27px;
+}
+
+/* facebook button class*/
+.facebookBtn{
+    background: #4060A5;
+}
+
+.facebookBtn:before{ /* use :before to add the relevant icons */
+    font-family: "FontAwesome";
+    content: "\f09a"; /* add facebook icon */
+}
+
+.facebookBtn:hover{
+    color: #4060A5;
+    background: #fff;
+    border-color: #4060A5; /* change the border color on mouse hover */
+}
+
+/* twitter button class*/
+.twitterBtn{
+    background: #00ABE3;
+}
+
+.twitterBtn:before{
+      font-family: "FontAwesome";
+      content: "\f099"; /* add twitter icon */
+      
+}
+
+.twitterBtn:hover{
+      color: #00ABE3;
+      background: #fff;
+      border-color: #00ABE3;
+}
+
+/* google plus button class*/
+.googleplusBtn{
+    background: #e64522;
+}
+
+.googleplusBtn:before{
+      font-family: "FontAwesome";
+      content: "\f0d5"; /* add googleplus icon */
+}
+
+.googleplusBtn:hover{
+      color: #e64522;
+      background: #fff;
+      border-color: #e64522;
+}
+
+/* linkedin button class*/
+.linkedinBtn{
+    background: #0094BC;
+}
+
+.linkedinBtn:before{
+      font-family: "FontAwesome";
+      content: "\f0e1"; /* add linkedin icon */
+}
+
+.linkedinBtn:hover{
+      color: #0094BC;
+      background: #fff;
+      border-color: #0094BC;
+}
+
+/* pinterest button class*/
+.pinterestBtn{
+    background: #cb2027;
+}
+
+.pinterestBtn:before{
+      font-family: "FontAwesome";
+      content: "\f0d2"; /* add pinterest icon */
+}
+
+.pinterestBtn:hover{
+      color: #cb2027;
+      background: #fff;
+      border-color: #cb2027;
+}
+
+/* tumblr button class*/
+.tumblrBtn{
+    background: #3a5876;
+}
+
+.tumblrBtn:before{
+      font-family: "FontAwesome";
+      content: "\f173"; /* add tumblr icon */
+}
+
+.tumblrBtn:hover{
+      color: #3a5876;
+      background: #fff;
+      border-color: #3a5876;
+}
+
+/* rss button class*/
+.rssBtn{
+    background: #e88845;
+}
+
+.rssBtn:before{
+      font-family: "FontAwesome";
+      content: "\f09e"; /* add rss icon */
+}
+
+.rssBtn:hover{
+      color: #e88845;
+      background: #fff;
+      border-color: #e88845;
+} 
+ 
+
     </style>
 
   </head>
 
   <body>
- 
 
     <!-- Top Navigation -->
 
@@ -136,16 +309,51 @@
               </li>
               
                 {% else %}
-                
-              <li class="nav-item btn-group">
-               <button class=" btn btn-md align-middle btn-outline-secondary" href="#" id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Вход</button> 
-<!--              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              
+              <li class="nav-item dropdown ">
+<!--               <button class=" btn btn-md align-middle btn-outline-secondary"  id="navbarLogin" aria-haspopup="true" aria-expanded="false">Вход</button> -->
+              <a class="btn btn-md align-middle btn-outline-secondary" data-toggle="dropdown" href="#" id="navbarDropdownLogin" aria-haspopup="true" aria-expanded="false">
                 Вход
-              </a> -->                
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownLogin">
-                  <a class="dropdown-item" href="/login/">Вход</a>
-                  <a class="dropdown-item" href="/register/">Регистрация</a>
-                </div>
+                <span class="caret"></span>
+              </a>
+         
+                <div class="dropdown-menu dropdown-menu-right" id="login-dp" aria-labelledby="navbarDropdownPortfolio">    
+                  <div id="social">
+                  			<a class="facebookBtn smGlobalBtn" href="#" ></a>
+                  			<!--<a class="twitterBtn smGlobalBtn" href="#" ></a>-->
+                  			<a class="googleplusBtn smGlobalBtn" href="#" ></a>
+                  			<a class="linkedinBtn smGlobalBtn" href="#" ></a>
+<!--                  			<a class="pinterestBtn smGlobalBtn" href="#" ></a>
+                  			<a class="tumblrBtn smGlobalBtn" href="#" ></a>
+                  			<a class="rssBtn smGlobalBtn" href="#" ></a>-->
+                  		</div>
+                <form class="form-horizontal " name="LoginForm" action="/login/" method="post">
+                  {% csrf_token %}
+                  {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                  {% endif %}
+                    <div class="form-group">
+                        <label for="uname1">Электронная почта</label>
+                        <input type="text" class="form-control " id="username" name="username"  required="">
+                    </div> 
+                    <div class="form-group">
+                      <label>Пароль</label>
+                      <input type="password" class="form-control" name="password" id="password" required="" autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+								      <label class="checkbox">
+								       <input type="checkbox">
+                       <span class="custom-control-description small">Запомнить меня на этом компьютере</span>
+								      </label>
+                    </div>
+                    <div class="form-group">
+                      <a class="nav-link border border-secondary rounded px-2 mx-1" href="/register/">Регистрация</a>
+                    </div>    
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-secondary btn-lg float-right">Войти</button>
+                    </div>  
+                </form>
+                </div> 
               </li>    
                 
                 {% endif %}
