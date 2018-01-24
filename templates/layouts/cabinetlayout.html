@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+{% extends "layouts/layout.html" %}
+
+{% load static %}
+{% block content %}
+
+<style>
+body, html {
+    height: 100%;
+}
+
+#sidebar {
+    min-width: 200px;
+    position: fixed;
+</style>
+<head>
+    
+<script>
+$('#sidebar a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
+
+</head>
+
+<div class="container-fluid py-5">
+<div class="row h-100">
+  <div class="list-group" role="tablist" id="sidebar">
+    <a class="list-group-item" href="{% url 'cabinet' %}" >Личный кабинет</a>
+    <a class="list-group-item" href="{% url 'settings' %}">Настройки</a>
+    <a class="list-group-item" href="#paw" role="tab">Service 08</a>
+  </div>
+
+</div>
+ 
+  {% block cabinet %}
+  {% endblock %}
+</div>
+</div>
+
+
+
+{% endblock %}

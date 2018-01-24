@@ -1,119 +1,44 @@
 <!DOCTYPE html>
 
-{% extends "layouts/layout.html" %}
+{% extends "layouts/cabinetlayout.html" %}
 
 {% load static %}
-{% block content %}
-
-<style>
-body, html {
-    height: 100%;
-}
-
-#sidebar {
-    min-width: 130px;
-}
-.cabinet_sb[data-toggle].collapsed:after {
-    content: "▾";
-}
-.cabinet_sb[data-toggle]:not(.collapsed):after {
-    content: "▴";
-}
-</style>
-
-
-<body>
+{% block cabinet %}
 
 
 {% if user.is_authenticated %}
 
 
-
-<div class="container-fluid h-100">
-    <div class="row h-100">
-        <div class="col-2 collapse d-md-flex bg-light pt-2 h-100" id="sidebar">
-            <ul class="nav flex-column flex-nowrap">
-                <li class="nav-item"><a class="cabinet_sb" href="#">Overview</a></li>
-                <li class="nav-item">
-                    <a class="cabinet_sb collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Reports</a>
-                    <div class="collapse" id="submenu1" aria-expanded="false">
-                        <ul class="flex-column pl-2 nav">
-                            <li class="nav-item"><a class="cabinet_sb py-0" href="">Orders</a></li>
-                            <li class="nav-item">
-                                <a class="cabinet_sb collapsed py-0" href="#submenu1sub1" data-toggle="collapse" data-target="#submenu1sub1">Customers</a>
-                                <div class="collapse small" id="submenu1sub1" aria-expanded="false">
-                                    <ul class="flex-column nav pl-4">
-                                        <li class="nav-item">
-                                            <a class="cabinet_sb p-0" href="">
-                                                <i class="fa fa-fw fa-clock-o"></i> Daily
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="cabinet_sb p-0" href="">
-                                                <i class="fa fa-fw fa-dashboard"></i> Dashboard
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="cabinet_sb p-0" href="">
-                                                <i class="fa fa-fw fa-bar-chart"></i> Charts
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="cabinet_sb p-0" href="">
-                                                <i class="fa fa-fw fa-compass"></i> Areas
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item"><a class="cabinet_sb" href="/presentation-cv-resume/">Резюме</a></li>
-                <li class="nav-item"><a class="cabinet_sb" href="/settings/">Настройки</a></li>
-            </ul>
-        </div>
-      <div class="row">       
-        <div class="col my-5 mx-5">
-
         {% if user.profiles.resume %}
 
-            <!--Panel-->
-            <div class="card w-100">
-                
-                <h3 class="card-header info-color white-text">Резюме </h3>
-                <div class="card-body">
-                    <h4 class="card-title">{{user.profiles.fl_pd_date}}</h4>
-                    {% for quali in user.profiles.resume %}
-                    {% for qq in quali.Quali %}
-                    <p class="card-text">{{qq.FL_cv_PS.jobtitle}}</p>
-                    {% endfor %}
-                    {% endfor %}
-                    <div class="row">
-                        <div class="col">
-                          <a class="btn btn-info btn-md" href="/presentation-cv-resume/">Перейти</a>
-                        </div>
-                        <div class="col">
-                          <a class="btn btn-info btn-md" href="/generator-cv-resume/">Изменить</a>
-                        </div>
-                    </div>      
+<div class="container" style="height: 100vh">
+    <div class="row">
+    <div class="col-lg-5 col-sm-6">
+      <div class="card h-100" >
+        <h3 class="card-header info-color white-text">Резюме </h3>
+        <div class="card-body">
+            <h4 class="card-title">{{user.profiles.fl_pd_date}}</h4>
+            {% for quali in user.profiles.resume %}
+            {% for qq in quali.Quali %}
+            <p class="card-text">{{qq.FL_cv_PS.jobtitle}}</p>
+            {% endfor %}
+            {% endfor %}
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-info btn-lg" href="/presentation-cv-resume/">Перейти</a>
                 </div>
-            </div>
-            <div class="col">
-            </div>
-      </div>
-            <!--/.Panel-->
-        {% endif %}
-                         
-                            
+                <div class="col">
+                    <a class="btn btn-info btn-lg" href="/generator-cv-resume/">Изменить</a>
+                </div>
+            </div>      
         </div>
+      </div>
+    </div>
     </div>
 </div>
 
-<script>
-
     
-</script>   
+{% endif %}
     
 {% else %}
 
@@ -125,7 +50,5 @@ body, html {
 {% endif %}
 
 
-
-</body>
 
 {% endblock %}

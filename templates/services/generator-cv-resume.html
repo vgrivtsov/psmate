@@ -1,9 +1,9 @@
 <!DOCTYPE html>
     
-{% extends "layouts/layout.html" %}
+{% extends "layouts/cabinetlayout.html" %}
 {% load static %}
 {% load widget_tweaks %}
-{% block content %}
+{% block cabinet %}
 
 
 
@@ -56,7 +56,7 @@
 </style>
 
 {% if user.is_authenticated %}
-<div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
+<div class="container" style="min-height: 100vh; overflow-y: hidden;">
 
 
 <div ng-app="resume_form">
@@ -130,8 +130,6 @@ $('.datepicker').datepicker({
 
 
 </script>
-
-
 
 
  <!--dynamic inputs -->
