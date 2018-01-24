@@ -255,6 +255,13 @@
       border-color: #e88845;
 } 
  
+input.error {
+ border: 1px solid #ff0000;
+}
+label.error {
+ color: #ff0000;
+ font-weight: normal;
+}
 
     </style>
 
@@ -326,32 +333,28 @@
                   			<a class="tumblrBtn smGlobalBtn" href="#" ></a>
                   			<a class="rssBtn smGlobalBtn" href="#" ></a>-->
                   		</div>
-                {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
-                {% endif %}
-                
-                {% if next %}
-                    {% if user.is_authenticated %}
-                    <p>Your account doesn't have access to this page. To proceed,
-                    please login with an account that has access.</p>
-                    {% else %}
-                    <p>Please login to see this page.</p>
-                    {% endif %}
-                {% endif %}                
+            
 
-                <form class="form-horizontal " name="LoginForm" action="{% url 'login' %}" method="post">
+                <form class="form-horizontal" id="loginfrom" name="loginform" action="{% url 'login' %}" method="post">
 
                   {% csrf_token %}
+                  
                   {% if next %}
                     <input type="hidden" name="next" value="{{ next }}" />
+                  {% else %}  
+                {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}                    
+                    
+                    
                   {% endif %}
                     <div class="form-group">
                         <label for="uname1">Электронная почта</label>
-                        <input type="text" class="form-control " id="username" name="username"  required="">
+                        <input type="email" class="form-control " id="username" name="username"  required>
                     </div> 
                     <div class="form-group">
                       <label>Пароль</label>
-                      <input type="password" class="form-control" name="password" id="password" required="" autocomplete="new-password">
+                      <input type="password" class="form-control" name="password" id="password" required autocomplete="new-password">
                     </div>
                     <div class="form-group">
 								      <label class="checkbox">
@@ -394,7 +397,7 @@
     
     <script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/datepicker-ru.js' %}"></script>
- 
+    <script type="text/javascript" src="{% static 'js/jquery.validate.min.js' %}"></script> 
     
 <!--    <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>-->
    
@@ -432,7 +435,31 @@
 </footer>
 
     <!--core JavaScript -->
-
+<script>
+$(document).ready(function(){
+$(function(){
+ $('#form').validate({
+  rules: {
+ name: {
+ required: true,
+ minlength: 2
+ }
+  },
+  messages: {
+ name: {
+ required: "Поле 'Имя' обязательно к заполнению",
+ minlength: "Введите не менее 2-х символов в поле 'Имя'"
+ },
+ email: {
+ required: "Поле 'Email' обязательно к заполнению",
+ email: "Необходим формат адреса email" 
+ },
+ url: "Поле 'Сайт' обязательно к заполнению"
+  }
+ });
+}); 
+}); 
+</script>
 
 
 
