@@ -5,10 +5,6 @@
 {% load static %}
 {% block cabinet %}
 
-
-{% if user.is_authenticated %}
-
-
         {% if user.profiles.resume %}
 
 <div class="container" style="height: 100vh">
@@ -35,20 +31,9 @@
       </div>
     </div>
     </div>
+    
 </div>
 
-    
 {% endif %}
-    
-{% else %}
-
-<div class="container-fluid h-100">
-    <p>Для входа в личный кабинет, пожалуйста зарегестрируйтесь</p>
-    <a href="/register/">Регистрация</a>
-</div>    
-    
-{% endif %}
-
-
 
 {% endblock %}

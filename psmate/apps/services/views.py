@@ -13,6 +13,7 @@ from psmate.apps.services.forms import SearchPsForm, CvGenForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 ### Search PS ###
 
@@ -73,12 +74,18 @@ class SearchPSView(FormView):
 
 ###CV generator###
 
-class CvEditView(UpdateView):
 
-    form_class = CvGenForm
+class CvEditView(LoginRequiredMixin, UpdateView):
+    
     template_name = 'services/generator-cv-resume.html'
+    login_url = '/'
+    permission_denied_message = 'Необходима авторизация!' 
+    form_class = CvGenForm
+    
     model = User
     # success_url = None
+
+
 
     def get_object(self, queryset=None):
 
@@ -111,7 +118,6 @@ class CvEditView(UpdateView):
         self.object = self.get_object()
     
         return super(CvEditView, self).form_valid(form) 
-
 
 
 class LoadPS(View):

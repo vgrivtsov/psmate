@@ -25,21 +25,42 @@ $('#sidebar a').click(function (e) {
 
 </head>
 
+{% if user.is_authenticated %}
+
 <div class="container-fluid py-5">
+  
 <div class="row h-100">
   <div class="list-group" role="tablist" id="sidebar">
     <a class="list-group-item" href="{% url 'cabinet' %}" >Личный кабинет</a>
     <a class="list-group-item" href="{% url 'settings' %}">Настройки</a>
     <a class="list-group-item" href="#paw" role="tab">Service 08</a>
+    
+    
+    
+    
+    
   </div>
+
+{% else %}
+
+  <div class="container-fluid py-5 card text-center z-depth-2">
+   <div class="card-body">
+    <h5>Для входа в личный кабинет, пожалуйста авторизуйтесь</h5>
+   </div>
+   </div>
+
+{% endif %} 
+
 
 </div>
  
   {% block cabinet %}
   {% endblock %}
-</div>
-</div>
 
+
+
+
+</div>    
 
 
 {% endblock %}

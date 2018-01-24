@@ -5,8 +5,6 @@
 {% load widget_tweaks %}
 {% block cabinet %}
 
-
-
 <style>
 
 .remove {
@@ -770,12 +768,14 @@ $('.datepicker').datepicker({
 </div>
 
 {% else %}
+
 <div class="container py-5" style="min-height: 100vh; overflow-y: hidden;">
 <div class="card card-body">
     <h4 class="card-title">Anonymous</h4>
     <a class="nav-link" href="/login/">Необходима авторизация</a>
 </div>
 </div>
+
 {% endif %}
 
 
