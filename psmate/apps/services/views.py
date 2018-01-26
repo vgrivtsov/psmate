@@ -8,10 +8,10 @@ from django.shortcuts import render
 from django.views.generic import FormView, ListView, View, UpdateView
 from dal import autocomplete
 from psmate.models import *
-from psmate.apps.services.forms import SearchPsForm, CvGenForm 
+from psmate.apps.services.forms import SearchPsForm, CvGenForm, GetJTlistForm
 ###
 from django.contrib.auth.models import User
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -301,3 +301,62 @@ class CvPresentView(ListView):
             
         return {'cvcleared' :cvcleared} 
 
+
+###Get competences - search from index.html###
+
+
+###Autocompete###
+# class SearchJtAuto(autocomplete.Select2QuerySetView):
+#      def get_queryset(self):
+# 
+#         qs = Jobtitles.objects.all()
+# 
+#         if self.q:
+# 
+# 
+#             qs = qs.filter(jobtitle__icontains=self.q) # icontains - Case-insensitive
+#            
+# 
+#         return qs
+# 
+# 
+# 
+# class SearchJtView(FormView):
+#     model = Jobtitles
+#     form_class = SearchJtForm
+#     template_name = 'index.html'    
+#     success_url = None
+
+class ShowJTlist(ListView):
+    # services/jobtitles-list.html
+    template_name = 'services/jobtitles-list.html'
+    model = Jobtitles
+    #form_class = GetJTlistForm
+
+    
+    def get(self, request, *args, **kwargs):
+
+        jt = self.request.GET.get('jt', None)
+
+        
+        if jt != None:
+            
+            jtresult = []
+            jt_get = Jobtitles.objects.filter(jobtitle__icontains=jt).distinct('id')
+            for jt in jt_get:
+                print(jt.jobtitle)
+                ps = Psinfo.objects.filter(psregnum=jt.psregnum)
+                
+                otrasl = ps[0].otraslid
+                
+
+                
+                jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
+                                 # 'pspurposekind' : ps.pspurposekind,
+                                 'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                                 'otraslname' : otrasl.name},
+                    )
+                
+            return render(request, self.template_name, {'jtresult': jtresult,
+                                                                                                          
+                                                        })

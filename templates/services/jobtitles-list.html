@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+    
+{% extends "layouts/layout.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<style>
+   
+
+</style>
+
+{% for jt in jtresult  %}
+
+   {{jt.id}} {{ jt.jobtitle }} {{ jt.otraslname }} {{ jt.psregnum }}  </br>
+
+{% endfor %}  
+
+
+{% endblock %}  
+

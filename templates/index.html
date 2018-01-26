@@ -2,6 +2,7 @@
     
 {% extends "layouts/layout.html" %}
 {% load static %}
+{% load widget_tweaks %}
 {% block content %}
 
 <style>
@@ -124,14 +125,18 @@ header.masthead h1 {
             <h1 class="mb-5">Квалификационный справочник должностей</h1>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
-            <form>
+            <form method="get" action='/search-jobtitles/{{ jt }}'>
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="text" class="form-control form-control-lg" id="inputjt">
-                   <label for="inputjt" class="">Название должности</label>
+            
+                  <input type="text" class="form-control form-control-lg" id="jt" name="jt" value="Бухгалтер">
+                   <label for="jt" class="">Название должности</label>
+
                 </div>
+                
                 <div class="col-12 col-md-3">
-                  <button type="submit" class="btn btn-block btn- btn-info">Показать</button>
+                  <input type="submit" class="btn btn-block btn- btn-info"
+                  value="Показать">
                 </div>
               </div>
             </form>
@@ -259,5 +264,5 @@ header.masthead h1 {
     <!-- /.container -->
 
 
-
+{{ form.media }}
 {% endblock %}

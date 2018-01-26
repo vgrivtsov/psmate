@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django_pdfkit import PDFView
+# from django_pdfkit import PDFView
 from . import views
 
 urlpatterns = [
@@ -10,6 +10,9 @@ urlpatterns = [
     url(r'^load_cv/$', views.LoadCV.as_view(), name='load_cv'),
     url(r'^load_compt/$', views.LoadCompt.as_view(), name='load_compt'),
     url(r'^presentation-cv-resume/$', views.CvPresentView.as_view(),  name='presentation-cv-resume'),
+    url(r'^search-jobtitles/$', views.ShowJTlist.as_view(), name='search-jobtitles'),   
+    # url(r'^jt-autocomplete/$', views.SearchJtAuto.as_view(), name='jt-autocomplete'),    
+    # url(r'^', views.SearchJtView.as_view()),
     # url(r'^cvtopdf/$', views.html_to_pdf_view, name='cvtopdf'),    
 
 ]

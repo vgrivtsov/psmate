@@ -22,6 +22,29 @@ class SearchPsForm(forms.ModelForm):
                                             )
                 }
         
+# 
+# class SearchJtForm(forms.ModelForm):
+#     
+#     class Meta:
+#         model = Jobtitles
+#         fields = ['jobtitle']
+#         widgets = {
+#             'jobtitle': autocomplete.Select2('jt-autocomplete',
+#                                                 attrs={
+#                                                 # Set some placeholder
+#                                                  #'data-placeholder': 'Введите слово из названия ПС',
+#                                                 #autfocus
+#                                                 'autofocus':'autofocus',
+#                                                 # Only trigger autocompletion after 2 characters have been typed
+#                                                 #'data-minimum-input-length': 2,                                                
+#         
+#                                             },                                 
+#                                             )
+#                 }
+#         
+# 
+
+
 
 
 class CvGenForm(forms.ModelForm):
@@ -48,5 +71,13 @@ class CvGenForm(forms.ModelForm):
         user.profiles.save()
 
 
+class GetJTlistForm(forms.ModelForm):
+    
+    jobtitle = forms.CharField(max_length=250, required=False)
+
+    class Meta:
+        
+        model = Jobtitles
+        fields = ('jobtitle', )
 
 
