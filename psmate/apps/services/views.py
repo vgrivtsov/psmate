@@ -15,6 +15,8 @@ from django.http import JsonResponse, HttpResponseRedirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+
 ### Search PS ###
 
 class SearchPsAuto(autocomplete.Select2QuerySetView):
@@ -327,6 +329,16 @@ class CvPresentView(ListView):
 #     template_name = 'index.html'    
 #     success_url = None
 
+class SearchJT(FormView):
+    template_name = 'index.html'
+    form_class = GetJTlistForm
+
+    def form_valid(self, form):
+        jobtitle = form.cleaned_data.get('jobtitle')
+
+        return redirect('search-jobtitles', jobtitle)
+
+
 class ShowJTlist(ListView):
     # services/jobtitles-list.html
     template_name = 'services/jobtitles-list.html'
@@ -339,7 +351,7 @@ class ShowJTlist(ListView):
         jt = self.request.GET.get('jt', None)
 
         
-        if jt != None:
+        if jt:
             
             jtresult = []
             jt_get = Jobtitles.objects.filter(jobtitle__icontains=jt).distinct('id')
@@ -354,7 +366,8 @@ class ShowJTlist(ListView):
                 jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
                                  # 'pspurposekind' : ps.pspurposekind,
                                  'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
-                                 'otraslname' : otrasl.name},
+                                 'otraslname' : otrasl.name,
+                                 'otraslicon' : otrasl.icon},
                     )
                 
             return render(request, self.template_name, {'jtresult': jtresult,
