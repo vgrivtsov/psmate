@@ -22,7 +22,7 @@
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
             
-                  <input type="text" class="form-control form-control-lg" id="jt" name="jt" value="Бухгалтер" required>
+                  <input type="text" class="form-control form-control-lg" id="jt" name="jt" value="" required>
                    <label for="jt" class="">Название должности</label>
 
                 </div>
@@ -50,17 +50,25 @@
    </thead>
    <tbody>
 {% for jt in jtresult  %}
-   <tr>
+
+   <tr class='clickable-row' data-href='/competences/{{jt.id}}'>
      <td>{{ jt.jobtitle }}</td>
-      <td><i class="{{ jt.otraslicon }}"></i></td>
-     <td><small>{{ jt.otraslname }}</small></td>    
+      <td><i class="{{ jt.otraslicon }} fa-2x"></i></td>
+     <td>{{ jt.otraslname }}</td>    
      <td> {{ jt.psregnum }}</td>
      <!--<td></td>-->
-   </tr>
+
+  </a>
 {% endfor %}  
    </tbody>
 </table>
-
+<script>
+   jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
 <!--<div class="row">
  <div class="col mb-4">
    <a>

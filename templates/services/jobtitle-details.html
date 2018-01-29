@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+    
+{% extends "layouts/layout.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<style>
+.icon-grey-big {
+  color: #e9e8eb;
+  font-size: 2.5rem; }
+  
+.listheader {
+    background-color: #a3b1bc;
+}  
+ 
+/*.jobtitle h3 {
+  font-family: 'Merriweather', serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  max-width: 320px;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  color: #465457;
+}*/
+  
+</style>
+
+
+<!-- Page Content -->
+<div class="container py-5">
+
+  <div class="card  my-3 jobtitle">
+        <div class="card-body mx-3">
+            
+            <div class="clearfix">
+              
+              
+            </div>
+            
+            <center><h3 class="card-title font-weight-normal">{{ jtresult.jobtitle }}</h3></center>
+           
+          </div>
+    <div class="card-footer text-muted mdb-color white-text">
+        <div class="row">
+            <div class="col">
+              <p class="card-subtitle mb-4">Профессиональный стандарт № {{ jtresult.psregnum }}: {{ jtresult.nameps }}</p>
+            </div>
+            <div class="col-sm-1">
+               <i class="{{ jtresult.otraslicon }} float-right icon-grey-big"></i>
+            </div>  
+         </div> 
+    </div>
+  </div> <!-- /.card 1 -->
+   
+
+  <div class="card px-2 my-4 py-4">
+
+<ul class="list-group px-4 my-3">
+    <li class="list-group-item listheader"><h5>Основная цель вида профессиональной деятельности<h5></li>
+    <li class="list-group-item">
+       {{ jtresult.pspurposekind }}
+    </li>
+</ul>    
+
+{% if jtresult.educationalreqs %}
+<ul class="list-group px-4 my-3">
+    <li class="list-group-item listheader"><h5>Требования к образованию и обучению<h5></li>
+{% for item in jtresult.educationalreqs %}    
+    <li class="list-group-item">
+       {{item.educationalrequirement}} 
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if jtresult.requirementsworkexperience %}
+<ul  class="list-group px-4 my-3">
+        <li class="list-group-item listheader"><h5>Требования к опыту практической работы<h5></li>
+{% for item in jtresult.reqworkexperiences %}    
+    <li class="list-group-item">
+       {{item.requirementsworkexperience}} 
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if jtresult.specialconditions %}
+<ul  class="list-group px-4 my-3">
+    <li class="list-group-item listheader"><h5>Особые условия допуска к работе<h5></li>
+{% for item in jtresult.specialconditions %}    
+    <li class="list-group-item">
+       {{item.specialconditionforadmissiontowork}} 
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if jtresult.othercharacts %}
+<ul  class="list-group px-4 my-3">
+    <li class="list-group-item listheader"><h5>Другое<h5></li>
+{% for item in jtresult.othercharacts %}    
+    <li class="list-group-item">
+       {{item.othercharacteristic}} 
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if jtresult.tfs %}
+<ul  class="list-group px-4 my-3">
+    <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
+{% for item in jtresult.tfs %}    
+    <li class="list-group-item">
+       {{item.nametf}}. Код: {{item.codetf}} 
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+<!-- /.card 2 -->
+</div>
+  
+</div>
+<!-- /.container -->
+
+{% endblock %} 

@@ -165,7 +165,6 @@ class LoadCompt(View):
 
             for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
 
-
                 laresult = []
                 nkresult = []
                 rsresult = []
@@ -373,3 +372,50 @@ class ShowJTlist(ListView):
             return render(request, self.template_name, {'jtresult': jtresult,
                                                                                                           
                                                         })
+        
+        
+class JTDetailsView(ListView):
+
+    template_name = 'services/jobtitle-details.html'
+    model = Jobtitles
+
+    
+    def get(self, request, *args, **kwargs):
+        
+        jt_id =  self.kwargs['id'] 
+
+        if jt_id:
+
+            jt = Jobtitles.objects.filter(id=jt_id)
+
+            ps = Psinfo.objects.filter(psregnum=jt[0].psregnum)
+            educationalreqs = Educationalreqs.objects.filter(nameotf=jt[0].nameotf)
+            reqworkexperiences = Reqworkexperiences.objects.filter(nameotf=jt[0].nameotf)
+            specialconditions = Specialconditions.objects.filter(nameotf=jt[0].nameotf)
+            othercharacts = Othercharacts.objects.filter(nameotf=jt[0].nameotf)
+            tfs = Tfinfo.objects.filter(nameotf=jt[0].nameotf)
+            
+            otrasl = ps[0].otraslid
+            
+            
+            
+            
+            jtresult = {'id' : jt[0].id,
+                        'jobtitle' : jt[0].jobtitle,
+                        'nameotf' : jt[0].nameotf,
+                        'pspurposekind' : ps[0].pspurposekind,
+                        'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                        'otraslname' : otrasl.name,
+                        'otraslicon' : otrasl.icon,
+                        'educationalreqs' : educationalreqs,
+                        'reqworkexperiences' : reqworkexperiences,
+                        'specialconditions' : specialconditions,
+                        'othercharacts' : othercharacts,
+                        'tfs' : tfs,
+                        
+                        }
+                
+
+            return render(request, self.template_name, {'jtresult': jtresult,
+                                                                                                          
+                                                        })       
