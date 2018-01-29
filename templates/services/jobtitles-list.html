@@ -6,7 +6,132 @@
 {% block content %}
 <html lang="ru-RU">
 <style>
-   
+/*=== MEDIA QUERY ===*/
+
+
+
+
+
+.schedule .schedule-contents {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 15px;
+}
+
+.schedule .schedule-contents .schedule-item ul {
+  margin-bottom: 0;
+}
+
+.schedule .schedule-contents .schedule-item ul li {
+  list-style: none;
+}
+
+.schedule .schedule-contents .schedule-item ul li div {
+  display: inline-block;
+}
+
+.schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+  width: 50%;
+}
+
+@media (max-width: 991px) {
+  .schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+    width: 60%;
+  }
+}
+
+@media (max-width: 767px) {
+  .schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+    width: 60%;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+    width: 50%;
+  }
+}
+
+
+.schedule .schedule-contents .schedule-item ul li .otraslitem {
+  width: 20%;
+}
+
+@media (max-width: 991px) {
+  .schedule .schedule-contents .schedule-item ul li .otraslitem {
+    display: none;
+  }
+}
+
+.schedule .schedule-contents .schedule-item ul li .otraslicon {
+  width: 5%;
+}
+
+
+.schedule .schedule-contents .schedule-item ul li .profstandartitem {
+  width: 20%;
+}
+
+@media (max-width: 991px) {
+  .schedule .schedule-contents .schedule-item ul li .profstandartitem {
+    display: none;
+  }
+}
+
+
+.schedule .schedule-contents .schedule-item li.headings {
+  padding: 22px 30px;
+  background: #4e5f6e;
+}
+
+.schedule .schedule-contents .schedule-item li.headings div {
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+}
+
+.schedule .schedule-contents .schedule-item li.schedule-details {
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-color: #e5e5e5;
+}
+
+.schedule .schedule-contents .schedule-item li.schedule-details .block {
+  padding: 10px 40px;
+  background: #fff;
+  width: 100%;
+  transition: .2s ease-in;
+}
+
+.schedule .schedule-contents .schedule-item li.schedule-details .block div {
+  color: #222222;
+  font-family: "Montserrat", sans-serif;
+}
+
+.schedule .schedule-contents .schedule-item li.schedule-details .block div i {
+  font-size: 1.1875em;
+  color: #c7c8c9;
+}
+
+
+.schedule .schedule-contents .schedule-item li.schedule-details .block div span.jobtitleitem {
+  margin-left: 5px;
+}
+
+.schedule .schedule-contents .schedule-item li.schedule-details .block:hover {
+  box-shadow: 0px 0px 30px 0px rgba(11, 29, 66, 0.15);
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+.schedule .schedule-contents .schedule-item li.schedule-details .block:hover span.jobtitleitem {
+  color: #ff6600;
+}
+
+
+
+
 
 </style>
 
@@ -39,8 +164,52 @@
     </header>
 
 
-<table class="table table-hover table-striped">
-   <thead>
+<section class="section schedule">
+
+	<div class="schedule-contents">
+	
+			  <div class="schedule-item">
+			  	<!-- Headings -->
+			  	<ul class="m-0 p-0">
+			  		<li class="headings">
+			  			<div class="jobtitleitem">Должность</div>                  
+			  			<div class="otraslitem">Отрасль</div>
+                  <div class="otraslicon"></div>
+			  			<div class="profstandartitem">Профстандарт №</div>
+			  		</li>
+
+               {% for jt in jtresult  %}
+               
+			  		<li class="schedule-details">
+                  <a href="/competences/{{jt.id}}">
+			  			<div class="block">
+			  				<!-- jobtitleitem -->
+					  		<div class="jobtitleitem">
+					  			<span class="jobtitleitem">{{ jt.jobtitle }}</span>
+					  		</div>
+                     
+					  		<div class="otraslitem">
+                        
+                        <small class="otraslitem">{{ jt.otraslname }}</small>
+                     </div>
+                     
+					  		<div class="otraslicon">
+					  			<i class="{{ jt.otraslicon }} fa-2x"></i>
+					  		</div>                     
+                     
+					  		<div class="profstandartitem"><center>{{ jt.psregnum }}</center></div>
+			  			</div>
+                  </a>
+            	</li>
+               
+               {% endfor %}  
+			  	</ul>
+			  
+			</div>
+	</div>
+
+</section >
+<!--   <thead>
      <tr class="">
        <th>Должность</th>
        <th></th>
@@ -48,20 +217,24 @@
        <th>Номер профстандарта</th>
      </tr>
    </thead>
-   <tbody>
-{% for jt in jtresult  %}
+   <tbody>-->
 
-   <tr class='clickable-row' data-href='/competences/{{jt.id}}'>
+<!--   <tr class='clickable-row' data-href='/competences/{{jt.id}}'>
      <td>{{ jt.jobtitle }}</td>
       <td><i class="{{ jt.otraslicon }} fa-2x"></i></td>
      <td>{{ jt.otraslname }}</td>    
      <td> {{ jt.psregnum }}</td>
-     <!--<td></td>-->
 
-  </a>
-{% endfor %}  
-   </tbody>
-</table>
+
+  </a>-->
+
+
+
+
+
+
+
+
 <script>
    jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
@@ -69,26 +242,6 @@
     });
 });
 </script>
-<!--<div class="row">
- <div class="col mb-4">
-   <a>
-    <div class="card">
-     <div class="card-body">
-      
-      <div class="clearfix">
-        <i class="fa fa-shopping-cart float-right icon-grey-big"></i>
-      </div>
-       <h4 class="card-title font-weight-normal text-blue-grey">{{ jt.jobtitle }}</h4>
-       <h6 class="card-subtitle mb-4">{{ jt.nameps }} {{ jt.psregnum }}</h6>
-       <small>{{ jt.otraslname }} </small> 
-    </div>
-   </div>
-  </a>
- </div>
-</div>-->
-<!-- {{ jt.otraslname }} </br>-->
-
-
 
 
 

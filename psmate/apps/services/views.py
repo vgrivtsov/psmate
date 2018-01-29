@@ -344,11 +344,14 @@ class ShowJTlist(ListView):
     model = Jobtitles
     #form_class = GetJTlistForm
 
-    
+   
     def get(self, request, *args, **kwargs):
 
         jt = self.request.GET.get('jt', None)
 
+        # if jt = None:
+        #     print("NONE!!!")
+        #     return search-jobtitles
         
         if jt:
             

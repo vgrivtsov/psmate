@@ -8,23 +8,37 @@
 <style>
 .icon-grey-big {
   color: #e9e8eb;
-  font-size: 2.5rem; }
+  font-size: 2.0rem; }
   
 .listheader {
     background-color: #a3b1bc;
 }  
  
-/*.jobtitle h3 {
-  font-family: 'Merriweather', serif;
-  font-size: 20px;
-  letter-spacing: 1px;
-  max-width: 320px;
-  width: 100%;
-  position: relative;
-  display: inline-block;
-  color: #465457;
+
+.jobtitle h3  {
+  text-align: center;
+  padding-bottom: 10px;
+}
+/*.jobtitle h3:before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  margin-left: -25%;
+  width: 50%;
+  height: 2px;
+  background: #000;
+}
+.d7 h3:after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  margin-left: -15%;
+  width: 30%;
+  height: 2px;
+  background: #000;
 }*/
-  
 </style>
 
 
@@ -34,13 +48,8 @@
   <div class="card  my-3 jobtitle">
         <div class="card-body mx-3">
             
-            <div class="clearfix">
-              
-              
-            </div>
-            
-            <center><h3 class="card-title font-weight-normal">{{ jtresult.jobtitle }}</h3></center>
-           
+            <center><h3 class="card-title font-weight-normal">{{ jtresult.jobtitle }}</h3></center>  
+
           </div>
     <div class="card-footer text-muted mdb-color white-text">
         <div class="row">
@@ -55,7 +64,7 @@
   </div> <!-- /.card 1 -->
    
 
-  <div class="card px-2 my-4 py-4">
+  <div class="card px-2 my-3 py-3">
 
 <ul class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Основная цель вида профессиональной деятельности<h5></li>
@@ -122,6 +131,8 @@
 
 <!-- /.card 2 -->
 </div>
+  
+
   
 </div>
 <!-- /.container -->
