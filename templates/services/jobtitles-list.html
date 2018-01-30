@@ -4,129 +4,126 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block content %}
+
 <html lang="ru-RU">
+  
 <style>
-/*=== MEDIA QUERY ===*/
 
-
-
-
-
-.schedule .schedule-contents {
+.jobtitlelist .jobtitlelist-contents {
   margin-top: 30px;
   margin-bottom: 30px;
   padding: 15px;
 }
 
-.schedule .schedule-contents .schedule-item ul {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul {
   margin-bottom: 0;
 }
 
-.schedule .schedule-contents .schedule-item ul li {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li {
   list-style: none;
 }
 
-.schedule .schedule-contents .schedule-item ul li div {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li div {
   display: inline-block;
 }
 
-.schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
   width: 50%;
 }
 
 @media (max-width: 991px) {
-  .schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
     width: 60%;
   }
 }
 
 @media (max-width: 767px) {
-  .schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
     width: 60%;
   }
 }
 
 @media (max-width: 480px) {
-  .schedule .schedule-contents .schedule-item ul li .jobtitleitem {
+  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
     width: 50%;
   }
 }
 
 
-.schedule .schedule-contents .schedule-item ul li .otraslitem {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .otraslitem {
   width: 20%;
 }
 
 @media (max-width: 991px) {
-  .schedule .schedule-contents .schedule-item ul li .otraslitem {
+  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .otraslitem {
     display: none;
   }
 }
 
-.schedule .schedule-contents .schedule-item ul li .otraslicon {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .otraslicon {
   width: 5%;
 }
 
 
-.schedule .schedule-contents .schedule-item ul li .profstandartitem {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .profstandartitem {
   width: 20%;
 }
 
 @media (max-width: 991px) {
-  .schedule .schedule-contents .schedule-item ul li .profstandartitem {
+  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .profstandartitem {
     display: none;
   }
 }
 
 
-.schedule .schedule-contents .schedule-item li.headings {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.headings {
   padding: 22px 30px;
   background: #4e5f6e;
 }
 
-.schedule .schedule-contents .schedule-item li.headings div {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.headings div {
   color: #fff;
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif;
 }
 
-.schedule .schedule-contents .schedule-item li.schedule-details {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details {
   border-bottom: 1px solid;
   border-left: 1px solid;
   border-right: 1px solid;
   border-color: #e5e5e5;
 }
 
-.schedule .schedule-contents .schedule-item li.schedule-details .block {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block {
   padding: 10px 40px;
   background: #fff;
   width: 100%;
   transition: .2s ease-in;
 }
 
-.schedule .schedule-contents .schedule-item li.schedule-details .block div {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block div {
   color: #222222;
   font-family: "Montserrat", sans-serif;
 }
 
-.schedule .schedule-contents .schedule-item li.schedule-details .block div i {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block div i {
   font-size: 1.1875em;
   color: #c7c8c9;
 }
 
 
-.schedule .schedule-contents .schedule-item li.schedule-details .block div span.jobtitleitem {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block div span.jobtitleitem {
   margin-left: 5px;
 }
 
-.schedule .schedule-contents .schedule-item li.schedule-details .block:hover {
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block:hover {
   box-shadow: 0px 0px 30px 0px rgba(11, 29, 66, 0.15);
   -webkit-transform: scale(1.01);
           transform: scale(1.01);
 }
 
-.schedule .schedule-contents .schedule-item li.schedule-details .block:hover span.jobtitleitem {
-  color: #ff6600;
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block:hover span.jobtitleitem {
+  color: #0099CC ;
 }
 
 
@@ -164,11 +161,11 @@
     </header>
 
 
-<section class="section schedule">
+<section class="section jobtitlelist">
 
-	<div class="schedule-contents">
+	<div class="jobtitlelist-contents">
 	
-			  <div class="schedule-item">
+			  <div class="jobtitlelist-item">
 			  	<!-- Headings -->
 			  	<ul class="m-0 p-0">
 			  		<li class="headings">
@@ -180,7 +177,7 @@
 
                {% for jt in jtresult  %}
                
-			  		<li class="schedule-details">
+			  		<li class="jobtitlelist-details">
                   <a href="/competences/{{jt.id}}">
 			  			<div class="block">
 			  				<!-- jobtitleitem -->
@@ -209,31 +206,6 @@
 	</div>
 
 </section >
-<!--   <thead>
-     <tr class="">
-       <th>Должность</th>
-       <th></th>
-       <th>Отрасль</th>
-       <th>Номер профстандарта</th>
-     </tr>
-   </thead>
-   <tbody>-->
-
-<!--   <tr class='clickable-row' data-href='/competences/{{jt.id}}'>
-     <td>{{ jt.jobtitle }}</td>
-      <td><i class="{{ jt.otraslicon }} fa-2x"></i></td>
-     <td>{{ jt.otraslname }}</td>    
-     <td> {{ jt.psregnum }}</td>
-
-
-  </a>-->
-
-
-
-
-
-
-
 
 <script>
    jQuery(document).ready(function($) {
@@ -242,10 +214,6 @@
     });
 });
 </script>
-
-
-
-
 
 </div>
 </html>
