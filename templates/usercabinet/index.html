@@ -4,36 +4,40 @@
 
 {% load static %}
 {% block cabinet %}
-
-        {% if user.profiles.resume %}
-
-<div class="container" style="height: 100vh">
-    <div class="row">
-    <div class="col-lg-5 col-sm-6">
-      <div class="card h-100" >
-        <h3 class="card-header info-color white-text">Резюме </h3>
-        <div class="card-body">
-            <h4 class="card-title">{{user.profiles.fl_pd_date}}</h4>
-            {% for quali in user.profiles.resume %}
-            {% for qq in quali.Quali %}
-            <p class="card-text">{{qq.FL_cv_PS.jobtitle}}</p>
-            {% endfor %}
-            {% endfor %}
-            <div class="row">
-                <div class="col">
-                    <a class="btn btn-info btn-lg" href="/presentation-cv-resume/">Перейти</a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-info btn-lg" href="/generator-cv-resume/">Изменить</a>
-                </div>
-            </div>      
-        </div>
-      </div>
-    </div>
-    </div>
     
+
+<div class="container" style="min-height: 100vh;">
+    
+    
+    <div class="row">
+            <div class="cols">
+              <div class="card">
+                <div class="card-body">
+                  <div class="clearfix">
+                    <a href="/generator-cv-resume/">
+                    <i class="fa fa-pencil float-right"></i>
+                    </a>
+                  </div>
+                  <h4 class="card-title font-weight-normal text-secondary">{{user.profiles.fl_pd_date}}</h4>
+                  {% for quali in user.profiles.resume %}
+                  {% for qq in quali.Quali %}
+                    <h6 class="card-subtitle mb-4">{{qq.FL_cv_PS.jobtitle}}</h6>
+                  {% endfor %}
+                  {% endfor %}                  
+                  <div class="row">
+                      <div class="col">
+                          <a class="btn btn-outline-info btn-block waves-effect" href="/presentation-cv-resume/">перейти к резюме</a>
+                      </div>
+                  </div>  
+                </div>
+              </div>
+            </div>
+    {% if user.profiles.resume %}    
+        
+{% endif %}    
+    </div>
 </div>
 
-{% endif %}
+
 
 {% endblock %}

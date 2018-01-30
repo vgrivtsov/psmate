@@ -6,13 +6,42 @@
 {% block content %}
 
 <style>
-body, html {
-    height: 100%;
-}
 
-#sidebar {
+
+.sidebar {
+    float: left;
     min-width: 200px;
     position: fixed;
+    min-height: 100vh;
+    padding: 0 20px;
+    
+ 
+    
+.widget {
+  margin-bottom: 45px;
+}
+
+.widget.category ul.category-list li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  list-style: none;
+}
+
+.widget.category ul.category-list li a {
+  font-size: 15px;
+  letter-spacing: 0;
+  display: block;
+}
+
+.widget.category ul.category-list li a:hover {
+  color: #ff6600;
+}
+
+.widget.category ul.category-list li:last-child {
+  margin-bottom: 5px;
+}
+
 </style>
 <head>
     
@@ -27,19 +56,19 @@ $('#sidebar a').click(function (e) {
 
 {% if user.is_authenticated %}
 
-<div class="container-fluid py-5">
-  
-<div class="row h-100">
-  <div class="list-group" role="tablist" id="sidebar">
-    <a class="list-group-item" href="{% url 'cabinet' %}" >Личный кабинет</a>
-    <a class="list-group-item" href="{% url 'settings' %}">Настройки</a>
-    <a class="list-group-item" href="#paw" role="tab">Service 08</a>
-    
-    
-    
-    
-    
-  </div>
+<div class="container-fluid py-5 " >
+
+		<div class="sidebar">
+				<!-- Category Widget -->
+				<div class="widget category">
+					<!-- Widget Header -->
+					<ul class="category-list m-0 p-0">
+            <a class="list-group-item" href="{% url 'cabinet' %}" >Личный кабинет</a>
+            <a class="list-group-item" href="{% url 'settings' %}">Настройки</a>
+            <a class="list-group-item" href="#paw" role="tab">Service 08</a>
+					</ul>
+				</div>
+		</div>
 
 {% else %}
 
@@ -47,13 +76,11 @@ $('#sidebar a').click(function (e) {
    <div class="card-body">
     <h5>Для входа в личный кабинет, пожалуйста авторизуйтесь</h5>
    </div>
-   </div>
+  </div>
 
 {% endif %} 
 
 
-</div>
- 
   {% block cabinet %}
   {% endblock %}
 
