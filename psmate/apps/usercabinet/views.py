@@ -17,10 +17,10 @@ from django.forms import inlineformset_factory
 
 class RegisterFormView(FormView):
     form_class = UserRegisterForm
-
+    template_name = "regform.html"
     success_url = "/cabinet/"
 
-    template_name = "regform.html"
+    
 
     def form_valid(self, form):
         # create user
