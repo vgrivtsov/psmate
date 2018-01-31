@@ -10,45 +10,35 @@
 
 <div class="container" style="min-height: 100vh;">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
 
-            <div class="row">
-                <div class="col-md-6 mx-auto">
-                    <span class="anchor" id="formLogin"></span>
-
-                    <!-- form card login -->
-                    <div class="card rounded-0">
-                        <div class="card-header">
-                            <h6 class="mb-0">Персональные данные</h6>
-                        </div>
-                        <div class="card-body">
-                          <form method="post" action="">
-                           {% csrf_token %}
-                         
-                           {% for field in form %}
-                             <div class="form-group">
-                               {{ field.label_tag }}
-                               
-                               {% render_field field class="form-control form-control-lg rounded-0" %}
-
-                             </div>
-                             
-                           {% endfor %}
-                            <input type="reset" class="btn btn-secondary" onclick="location.href='/cabinet/';" value="Отмена">
-                            <input type="submit" class="btn btn-primary" value="Сохранить">
-
-                         </form>
-                        </div>
-                        <!--/card-block-->
-                    </div>
-                    <!-- /form card login -->
-
+            <!-- form card login -->
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <h6 class="mb-0">Персональные данные</h6>
                 </div>
+                <div class="card-body">
+                  <form method="post" action="">
+                   {% csrf_token %}
+                 
+                   {% for field in form %}
+                     <div class="form-group">
+                       {{ field.label_tag }}
+                       
+                       {% render_field field class="form-control form-control-lg rounded-0" %}
+            
+                     </div>
+                     
+                   {% endfor %}
+                    <input type="reset" class="btn btn-secondary" onclick="location.href='/cabinet/';" value="Отмена">
+                    <input type="submit" class="btn btn-primary" value="Сохранить">
+            
+                 </form>
+                </div>
+                <!--/card-block-->
 
-
-            </div>
             <!--/row-->
-
+           </div>
         </div>
         <!--/col-->
     </div>
