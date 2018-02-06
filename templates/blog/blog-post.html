@@ -4,23 +4,22 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block content %}
+{% autoescape off %}
+
+<style>
+
+    
+</style>
+
 
     <!-- Page Content -->
     <div class="container">
 
       <!-- Page Heading/Breadcrumbs -->
       <h1 class="mt-4 mb-3">{{ object.title }}
-        <small><!--by
-          <a href="#">Start Bootstrap</a>-->
+        <small>
         </small>
       </h1>
-
-<!--      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="breadcrumb-item active">Blog Home 2</li>
-      </ol>-->
 
       <div class="row">
 
@@ -38,7 +37,7 @@
           <hr>
 
           <!-- Post Content -->
-          <p class="lead">{{object.text}}</p>
+          {{object.text}}
 
           <hr>
 
@@ -62,5 +61,5 @@
 
     </div>
     <!-- /.container -->
-
+{% endautoescape %}
 {% endblock %} 

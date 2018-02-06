@@ -4,11 +4,17 @@
 
 {% load static %}
 {% block cabinet %}
+<style>
+
+</style>
     
 
 <div class="container" style="min-height: 100vh;">
     
+
     
+    
+ {% if user.profiles.resume %}     
     <div class="row">
             <div class="col-sm-4">
               <div class="card">
@@ -32,10 +38,11 @@
                 </div>
               </div>
             </div>
-    {% if user.profiles.resume %}    
+      
         
-{% endif %}    
+    
     </div>
+ {% endif %}   
 </div>
 
 

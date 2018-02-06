@@ -28,6 +28,12 @@
   transform: translateX(-50%);
 }
 
+a:link {color: black;}      /* unvisited link */
+a:visited {color: black;}   /* visited link */
+a:hover {color: black;}     /* mouse over link */
+a:active {color: black;}    /* selected link */
+
+
 
 body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -161,9 +167,9 @@ header.masthead h1 {
                   <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt=""></a>
                 </div>
             <div class="card-body" >
-              <h4 class="card-title">
+              <p class="card-title">
                 <a href="/news/{{ n.slug}}">{{ n.title }}</a>
-              </h4>
+              </p>
               
               <!--<p class="card-text line-clamp" >{{ n.short }}</p>-->
             </div>
@@ -222,7 +228,7 @@ header.masthead h1 {
       <!-- Features Section -->
       <div class="row">
         <div class="col-lg-6">
-          <h2>Psmate</h2>
+          <h2>ПрофНавигатор</h2>
           <p>С помощью сервиса ПрофНавигатор вы можете:</p>
           <ul>
             <li>
