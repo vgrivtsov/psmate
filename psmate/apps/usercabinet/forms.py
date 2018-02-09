@@ -6,13 +6,13 @@ from django.forms import ModelForm
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    first_name = forms.CharField(max_length=30, required=True,label="Имя")
-    last_name = forms.CharField(max_length=30, required=True, label="Фамилия")    
+    # first_name = forms.CharField(max_length=30, required=True,label="Имя")
+    # last_name = forms.CharField(max_length=30, required=True, label="Фамилия")    
     
 
     class Meta:
         model = User
-        fields = ("email", 'first_name', 'last_name', "password1", "password2")
+        fields = ("email", "password1", "password2")
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
@@ -29,8 +29,8 @@ class UserRegisterForm(UserCreationForm):
             user.save()
         # fill profiles table
         user.profiles.email= self.cleaned_data["email"]
-        user.profiles.fl_name= self.cleaned_data["first_name"]
-        user.profiles.fl_fam= self.cleaned_data["last_name"]
+        # user.profiles.fl_name= self.cleaned_data["first_name"]
+        # user.profiles.fl_fam= self.cleaned_data["last_name"]
         user.profiles.resume = []
         user.profiles.save()
 

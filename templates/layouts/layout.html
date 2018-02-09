@@ -41,229 +41,229 @@
    
     <style>
       
-      
-    body {
-      padding-top: 54px;
-    }
-
-    
-    .carousel-item {
-      height: 65vh;
-      min-height: 300px;
-      background: no-repeat center center scroll;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-    }
-    
-    .portfolio-item {
-      margin-bottom: 30px;
-    }
-
-    .navbar-nav {
-      flex-direction: row;
-    }
-    
-    .nav-link {
-      padding-right: .5rem !important;
-      padding-left: .5rem !important;
-    }
+ 
 
     /* angularjs */  
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
       display: none !important;
     } 
 
-    .navbar .btn-group .dropdown-menu a:hover {
-    color: #000 !important;
+
+	.form-control {
+		box-shadow: none;		
+		font-weight: normal;
+		font-size: 13px;
+	}
+	.form-control:focus {
+		border-color: #33cabb;
+		box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	}
+	.navbar-header.col {
+		padding: 0 !important;
+	}	
+	.navbar {
+		background: #fff;
+		padding-left: 16px;
+		padding-right: 16px;
+		border-bottom: 1px solid #dfe3e8;
+		border-radius: 0;
+	}
+	.nav-link img {
+		border-radius: 50%;
+		width: 36px;
+		height: 36px;
+		margin: -8px 0;
+		float: left;
+		margin-right: 10px;
+	}
+	.navbar .navbar-brand, .navbar .navbar-brand:hover, .navbar .navbar-brand:focus {
+		padding-left: 0;
+		font-size: 20px;
+		padding-right: 50px;
+	}
+	.navbar .navbar-brand b {
+		font-weight: bold;
+		color: #33cabb;		
+	}
+	.navbar .form-inline {
+        display: inline-block;
     }
-    .navbar .btn-group .dropdown-menu a:active {
-    color: #fff !important;
+	.navbar .nav li {
+		position: relative;
+	}
+	.navbar .nav li a {
+		color: #888;
+	}
+/*	.search-box {
+        position: relative;
+    }	
+    .search-box input {
+        padding-right: 35px;
+		border-color: #dfe3e8;
+        border-radius: 4px !important;
+		box-shadow: none
+    }
+	.search-box .input-group-addon {
+        min-width: 35px;
+        border: none;
+        background: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 9;
+        padding: 7px;
+		height: 100%;
+    }
+    .search-box i {
+        color: #a0a5b1;
+		font-size: 19px;
+    }*/
+
+	.navbar .nav .btn-primary:hover, .navbar .nav .btn-primary:focus {		
+		color: #fff;
+		outline: none;
+		background: #31bfb1;
+	}
+	.navbar .navbar-right li:first-child a {
+		padding-right: 30px;
+	}
+	.navbar .nav-item i {
+		font-size: 18px;
+	}
+	.navbar .dropdown-item i {
+		font-size: 16px;
+		min-width: 22px;
+	}
+	.navbar ul.nav li.active a, .navbar ul.nav li.open > a {
+		background: transparent !important;
+	}	
+
+	.navbar .dropdown-menu {
+		border-radius: 1px;
+		border-color: #e5e5e5;
+		box-shadow: 0 2px 8px rgba(0,0,0,.05);
+	}
+	.navbar .nav .dropdown-menu li {
+		color: #999;
+		font-weight: normal;
+	}
+	.navbar .nav .dropdown-menu li a, .navbar .nav .dropdown-menu li a:hover, .navbar .nav .dropdown-menu li a:focus {
+		padding: 8px 20px;
+		line-height: normal;
+	}
+	.navbar .navbar-form {
+		border: none;
+	}
+	.navbar .dropdown-menu.form-wrapper {
+		width: 280px;
+		padding: 20px;
+		left: auto;
+		right: 0;
+        font-size: 14px;
+	}
+	.navbar .dropdown-menu.form-wrapper a {		
+		color: #33cabb;
+		padding: 0 !important;
+	}
+	.navbar .dropdown-menu.form-wrapper a:hover{
+		text-decoration: underline;
+	}
+	.navbar .form-wrapper .hint-text {
+		text-align: center;
+		margin-bottom: 15px;
+		font-size: 13px;
+    
+    
+	}
+	.navbar .form-wrapper .social-btn .btn, .navbar .form-wrapper .social-btn .btn:hover {
+		color: #fff;
+        margin: 0;
+		padding: 0 !important;
+		font-size: 13px;
+		border: none;
+		transition: all 0.4s;
+		text-align: center;
+		line-height: 34px;
+		width: 47%;
+		text-decoration: none;
+    }	
+	.navbar .social-btn .btn-primary {
+		background: #507cc0;
+	}
+	.navbar .social-btn .btn-primary:hover {
+		background: #4676bd;
+	}
+	.navbar .social-btn .btn-info {
+		background: #64ccf1;
+	}
+	.navbar .social-btn .btn-info:hover {
+		background: #4ec7ef;
+	}
+	.navbar .social-btn .btn i {
+		margin-right: 5px;
+		font-size: 16px;
+		position: relative;
+		top: 2px;
+	}
+	.navbar .form-wrapper .form-footer {
+		text-align: center;
+		padding-top: 10px;
+		font-size: 13px;
+	}
+	.navbar .form-wrapper .form-footer a:hover{
+		text-decoration: underline;
+    color: black;
+	}
+
+	.or-seperator {
+        margin-top: 32px;
+		text-align: center;
+		border-top: 1px solid #e0e0e0;
+    }
+    .or-seperator b {
+		color: #666;
+        padding: 0 5px;
+		width: 30px;
+		height: 30px;
+		font-size: 11px;
+		text-align: center;
+		line-height: 26px;
+		background: #fff;
+		display: inline-block;
+		border: 1px solid #e0e0e0;
+		border-radius: 50%;
+		position: relative;
+		top: -15px;
+		z-index: 1;
     }
 
-#login-dp{
-    min-width: 250px;
-    padding: 14px 14px 0;
-    overflow:hidden;
-    background-color:rgba(255,255,255,.8);
-}
-#login-dp .help-block{
-    font-size:12px    
-}
-#login-dp .bottom{
-    background-color:rgba(255,255,255,.8);
-    border-top:1px solid #ddd;
-    clear:both;
-    padding:14px;
-}
-#login-dp .social-buttons{
-    margin:12px 0    
-}
-#login-dp .social-buttons a{
-    width: 49%;
-}
-#login-dp .form-group {
-    margin-bottom: 10px;
-}
+	.navbar .navbar-right .dropdown-toggle::after {
+		display: none;
+	}
+	@media (min-width: 1200px){
+		.form-inline .input-group {
+			width: 300px;
+			margin-left: 30px;
+		}
+	}
+	@media (max-width: 768px){
+		.navbar .dropdown-menu.form-wrapper {
+			width: 100%;
+			padding: 10px 15px;
+			/*background: transparent;*/
+			border: none;
+		}
+		.navbar .form-inline {
+			display: block;
+		}
+		.navbar .input-group {
+			width: 100%;
+		}
+		.navbar .nav .btn-primary, .navbar .nav .btn-primary:active {
+			display: block;
+		}
+	}
 
-@media(max-width:768px){
-    #login-dp{
-        background-color: inherit;
-        color: #fff;
-    }
-    #login-dp .bottom{
-        background-color: inherit;
-        border-top:0 none;
-    }
-}  
-/* SOCIALS BUT*/
 
-#social {
-  margin: 20px 10px;
-  text-align: center;
-}
-
-.smGlobalBtn { /* global button class */
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    border:2px solid #ddd; /* add border to the buttons */
-    box-shadow: 0 3px 3px #999;
-    padding: 0px;
-    text-decoration: none;
-    text-align: center;
-    color: #fff;
-    font-size: 25px;
-    font-weight: normal;
-    line-height: 2em;
-    border-radius: 27px;
-    -moz-border-radius:27px;
-    -webkit-border-radius:27px;
-}
-
-/* facebook button class*/
-.facebookBtn{
-    background: #4060A5;
-}
-
-.facebookBtn:before{ /* use :before to add the relevant icons */
-    font-family: "FontAwesome";
-    content: "\f09a"; /* add facebook icon */
-}
-
-.facebookBtn:hover{
-    color: #4060A5;
-    background: #fff;
-    border-color: #4060A5; /* change the border color on mouse hover */
-}
-
-/* twitter button class*/
-.twitterBtn{
-    background: #00ABE3;
-}
-
-.twitterBtn:before{
-      font-family: "FontAwesome";
-      content: "\f099"; /* add twitter icon */
-      
-}
-
-.twitterBtn:hover{
-      color: #00ABE3;
-      background: #fff;
-      border-color: #00ABE3;
-}
-
-/* google plus button class*/
-.googleplusBtn{
-    background: #e64522;
-}
-
-.googleplusBtn:before{
-      font-family: "FontAwesome";
-      content: "\f0d5"; /* add googleplus icon */
-}
-
-.googleplusBtn:hover{
-      color: #e64522;
-      background: #fff;
-      border-color: #e64522;
-}
-
-/* linkedin button class*/
-.linkedinBtn{
-    background: #0094BC;
-}
-
-.linkedinBtn:before{
-      font-family: "FontAwesome";
-      content: "\f0e1"; /* add linkedin icon */
-}
-
-.linkedinBtn:hover{
-      color: #0094BC;
-      background: #fff;
-      border-color: #0094BC;
-}
-
-/* pinterest button class*/
-.pinterestBtn{
-    background: #cb2027;
-}
-
-.pinterestBtn:before{
-      font-family: "FontAwesome";
-      content: "\f0d2"; /* add pinterest icon */
-}
-
-.pinterestBtn:hover{
-      color: #cb2027;
-      background: #fff;
-      border-color: #cb2027;
-}
-
-/* tumblr button class*/
-.tumblrBtn{
-    background: #3a5876;
-}
-
-.tumblrBtn:before{
-      font-family: "FontAwesome";
-      content: "\f173"; /* add tumblr icon */
-}
-
-.tumblrBtn:hover{
-      color: #3a5876;
-      background: #fff;
-      border-color: #3a5876;
-}
-
-/* rss button class*/
-.rssBtn{
-    background: #e88845;
-}
-
-.rssBtn:before{
-      font-family: "FontAwesome";
-      content: "\f09e"; /* add rss icon */
-}
-
-.rssBtn:hover{
-      color: #e88845;
-      background: #fff;
-      border-color: #e88845;
-} 
- 
-input.error {
- border: 1px solid #ff0000;
-}
-label.error {
- color: #ff0000;
- font-weight: normal;
-}
 
     </style>
 
@@ -271,117 +271,131 @@ label.error {
 
   <body>
 
-    <!-- Top Navigation -->
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light grey lighten-4">
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light grey lighten-4" >
-      <div class="container">
-        
-        <a class="navbar-brand border border-secondary rounded px-2" href="/">ПрофНавигатор</a>
-        
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="/">ПрофНавигатор</a>
 
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link border border-secondary rounded px-2 mx-1" href="/">На главную</a>
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">На главную <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item btn-group">
-              <a class="nav-link dropdown-toggle border border-secondary rounded px-2 mx-1" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Сервисы
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+
+            <li class="nav-item">
+                 <a class="nav-link" href="/about/">О проекте</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сервисы</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="/search-profstandart/">Найти профстандарт</a>
-                <a class="dropdown-item" href="{% url 'generator-cv-resume' %}">Резюме в профстандарт</a>
+                <a class="dropdown-item" href="{% url 'generator-cv-resume' %}">Конструктор резюме</a>
                 <a class="dropdown-item nav-link disabled" href="/generator-staff-table/">Генератор должностных инструкций</a>
                 <a class="dropdown-item nav-link disabled" href="/education-recomendations/">Рекомендации по обучению</a>
-              </div>
+                </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link border border-secondary rounded px-2 mx-1" href="/news/">Новости</a>
-            </li>
+                 <a class="nav-link" href="/news/">Новости</a>
+            </li>            
 
-            </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown btn-group">
-                {% if user.is_authenticated %}
-              <a class="nav-link dropdown-toggle border border-secondary rounded px-2 mx-1" href="#" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ user.last_name }} {{ user.first_name }}
-              </a>                
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
-                  <a class="dropdown-item" href="/cabinet/">Личный кабинет</a>
-                  <a class="dropdown-item" href="{% url 'logout' %}">Выход</a>
-                </div>
-              </li>
-              
-                {% else %}
-              
-              <li class="nav-item dropdown ">
-<!--               <button class=" btn btn-md align-middle btn-outline-secondary"  id="navbarLogin" aria-haspopup="true" aria-expanded="false">Вход</button> -->
-              <a class="btn btn-md align-middle btn-outline-secondary" data-toggle="dropdown" href="#" id="navbarDropdownLogin" aria-haspopup="true" aria-expanded="false">
-                Вход
-                <span class="caret"></span>
-              </a>
-         
-                <div class="dropdown-menu dropdown-menu-right" id="login-dp" aria-labelledby="navbarDropdownPortfolio">    
-                  <div id="social">
-                  			<a class="facebookBtn smGlobalBtn" href="#" ></a>
-                  			<!--<a class="twitterBtn smGlobalBtn" href="#" ></a>-->
-                  			<a class="googleplusBtn smGlobalBtn" href="#" ></a>
-                  			<a class="linkedinBtn smGlobalBtn" href="#" ></a>
-<!--                  			<a class="pinterestBtn smGlobalBtn" href="#" ></a>
-                  			<a class="tumblrBtn smGlobalBtn" href="#" ></a>
-                  			<a class="rssBtn smGlobalBtn" href="#" ></a>-->
-                  		</div>
-            
+        </ul>
+        <!-- Links -->
 
-                <form class="form-horizontal" id="loginfrom" name="loginform" action="{% url 'login' %}" method="post">
-
-                  {% csrf_token %}
-                  
-                  {% if next %}
-                    <input type="hidden" name="next" value="{{ next }}" />
-                  {% else %}  
-                {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
-                {% endif %}                    
-                    
-                    
-                  {% endif %}
-                    <div class="form-group">
-                        <label for="uname1">Электронная почта</label>
-                        <input type="email" class="form-control " id="username" name="username"  required>
-                    </div> 
-                    <div class="form-group">
-                      <label>Пароль</label>
-                      <input type="password" class="form-control" name="password" id="password" required autocomplete="new-password">
-                    </div>
-                    <div class="form-group">
-								      <label class="checkbox">
-								       <input type="checkbox">
-                       <span class="custom-control-description small">Запомнить меня на этом компьютере</span>
-								      </label>
-                    </div>
-                    <div class="form-group">
-                      <a class="nav-link border border-secondary rounded px-2 mx-1" href="/register/">Регистрация</a>
-                    </div>    
-                    <div class="form-group">
-                    <button type="submit" class="btn btn-secondary btn-lg float-right">Войти</button>
-                    </div>  
-                </form>
-                </div> 
-              </li>    
-                
-                {% endif %}
-                          
-            </ul> 
+		<ul class="nav navbar-nav navbar-right ml-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item dropdown btn-group">
+        
+      <a class="nav-link dropdown-toggle border border-secondary rounded px-2 mx-1" href="#" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ user.last_name }} {{ user.first_name }}
+      </a>                
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
+          <a class="dropdown-item" href="/cabinet/">Личный кабинет</a>
+          <a class="dropdown-item" href="{% url 'logout' %}">Выход</a>
         </div>
-      </div>
-    </nav>
+      </li>
+      
+        {% else %}         
+      
+			<li class="nav-item">
+         <a class="btn btn-md align-middle btn-outline-secondary" data-toggle="dropdown" href="#" id="navbarDropdownLogin" aria-haspopup="true" aria-expanded="false">
+           Вход
+           <span class="caret"></span>
+         </a>
+
+				<ul class="dropdown-menu form-wrapper">					
+					<li>
+						 <form class="form-horizontal" id="loginfrom" name="loginform" action="{% url 'login' %}" method="post">
+              {% csrf_token %}
+              {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                  {% else %}  
+                    {% if form.errors %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                      <strong><center>Логин или пароль не совпадают</center></strong>
+                    </div>
+                    {% endif %}                    
+                    
+              {% endif %}
+							<p class="hint-text">Войти с помощью аккаунтов</p>
+							<div class="form-group social-btn clearfix">
+								<a href="#" class="btn btn-primary pull-left"><i class="fa fa-facebook"></i> Facebook</a>
+								<a href="#" class="btn btn-danger pull-right"><i class="fa fa-google"></i> Google+</a>
+							</div>
+							<div class="or-seperator"><b>или</b></div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="эл. почта" id="username" name="username" required="required">
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" placeholder="пароль" name="password" id="password" required="required">
+							</div>
+
+              <div class="form-group">
+             <button type="submit" class="btn btn-secondary btn-md float-right">Войти</button>
+              </div>
+              
+  
+						</form>
+					</li>
+				</ul>
+			</li>
+      <li>
+              <div class="form-footer">
+                  <a class="btn btn-md align-middle btn-outline-primary" href="/register/">Регистрация</a>
+              </div>          
+        
+      </li>
+
+
+     
+
+
+     {% endif %}
+     
+		</ul>
+    </div>
+    <!-- Collapsible content -->
+
+</nav>
+                    {% if form.errors %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                      <strong><center>Логин или пароль не совпадают</center></strong>
+                    </div>
+                    {% endif %}
 
     <!-- Page Content -->
-    
+</body>    
     <!-- Scripts -->
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>        
@@ -403,13 +417,7 @@ label.error {
 <!--    <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>-->
    
     <script type="text/javascript" src="{% static 'js/resumeedit.js' %}"></script>
-
-<!-- TINYMCE-->
-    <script type="text/javascript" src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/tinymce/classictinymc.js' %}"></script>   
-
-
-  </body>
+  
   
   {% block content %}
   {% endblock %}

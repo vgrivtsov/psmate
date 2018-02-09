@@ -18,7 +18,7 @@ from django.forms import inlineformset_factory
 class RegisterFormView(FormView):
     form_class = UserRegisterForm
     template_name = "regform.html"
-    success_url = "/cabinet/"
+    success_url = "/settings/"
 
     
 
