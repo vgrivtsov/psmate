@@ -27,16 +27,17 @@
   top: 0;
   transform: translateX(-50%);
 
-  filter: gray; /* IE6-9 */
-  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
-  filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */  
-  
+   -webkit-filter: grayscale(100%);
+   -moz-filter: grayscale(100%);
+   filter: grayscale(100%);
+   transition: all 0.5s ease;
   
 }
 
 .img-card-wrapper img:hover {
-  -webkit-filter: grayscale(0);
-  filter: none;
+   -webkit-filter: grayscale(0%);
+   -moz-filter: grayscale(0%);
+   filter: grayscale(0%);
 }
 
 
