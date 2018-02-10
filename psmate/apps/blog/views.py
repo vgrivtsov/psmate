@@ -13,7 +13,7 @@ class IndexNewsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['news'] = News.objects.all()[:3]
+        context['news'] = News.objects.all().order_by('-created_at')[:3] # -created_at - reversed date
 
         for item in context['news']:
             item.short = item.text[:150]+'...' # get preview text
@@ -23,19 +23,21 @@ class IndexNewsView(TemplateView):
 
 
 
-class ArticleListView(TemplateView):
+class ArticleListView(ListView):
     
     model = News
 
     template_name = 'blog/blog.html'    
     success_url = None
+    context_object_name = "articles"
+    paginate_by = 9
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['articles'] = News.objects.all()
-        for item in context['articles'] :
+    def get_queryset(self):
+
+        context = News.objects.all().order_by('-created_at')
+        
+        for item in context :
             item.short = item.text[:150]+'...' # get preview text
-
 
         return context
     

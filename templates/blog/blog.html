@@ -6,76 +6,115 @@
 
 <style>
 .img-card-wrapper {
-    height:190px;
-    background-color:#FFFFFF;
-    margin-top:10px;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
-.img-card-wrapper img {
-    height:100%;
+.img-card-wrapper:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
 }
+
+.img-card-wrapper  img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+  filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */  
+  
+  
+}
+
+.img-card-wrapper img:hover {
+  -webkit-filter: grayscale(0);
+  filter: none;
+}
+
+
+
+a:link {color: black;}      /* unvisited link */
+a:visited {color: black;}   /* visited link */
+a:active {color: black;}    /* selected link */
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.next {
+    background-color: #f1f1f1;
+    color: white;
+}
+
+
 </style>
 
     <!-- Page Content -->
     <div class="container">
 
-      <!-- Page Heading/Breadcrumbs -->
-      <h1 class="mt-4 mb-3">Новости
-<!--        <small>Subheading</small>-->
-      </h1>
+      <h1 class="mt-4 mb-3">Новости </h1>
 
-<!--      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="breadcrumb-item active">Blog Home 2</li>
-      </ol>-->
-      
-    {% for a in articles %}
-    
       <!-- Blog Post -->
-      <div class="card mb-4"  >
-        <div class="card-body">
-          <div class="row">
-            <div class="col-lg-6 " >
-              <a href="/news/{{a.slug}}/">
-                <div class="img-card-wrapper " >
-                <img class="img-fluid rounded" src="{{ a.image.url }}" alt="" style="  position: relative; overflow: hidden;">
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-6">
-              <a href="/news/{{a.slug}}/">
-              <h2 class="card-title">{{ a.title }}</h2>
-              <p class="card-text line-clamp">{{ a.short }}</p>
-              </a>
+    
+      <div class="row">
+     {% for n in articles %}
+        <div class="col-lg-4 col-sm-6 py-3 news-item">
+          
+          <div class="card h-100" >
+              <div class="img-card-wrapper ">
+                <a href="/news/{{ n.slug}}">
+                  <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt="">
+                </a>  
+              </div>
+            
+            <div class="card-body" >
+              <p class="card-title">
+                <a href="/news/{{ n.slug}}">{{ n.title }}</a>
+              </p>
+              
+              <p class="card-text line-clamp" >{{ n.created_at }}</p>
             </div>
           </div>
         </div>
-        <div class="card-footer text-muted">
-          {{ a.created_at }}
-          <span>Источник: </span><a href="{{ a.url }}">{{ a.url }}</a>
+      {% endfor %}
+       </div>    
+
+ {% if is_paginated %}
+ 
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/news?page={{ page_obj.previous_page_number }}" class="previous">&larr; Раньше</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/news?page={{ page_obj.next_page_number }}" class="next">Позже &rarr;</a>
+                {% endif %}
+            </span>
         </div>
-      </div>
+    {% endif %}
 
-    {% endfor %}
-<script>
-
-</script>
-      <!-- Pagination -->
-      <ul class="pagination justify-content-center mb-4">
-        <li class="page-item">
-          <a class="page-link" href="#">&larr; Раньше</a>
-        </li>
-        <li class="page-item disabled">
-          <a class="page-link" href="#">Позже &rarr;</a>
-        </li>
-      </ul>
-
-    </div>
-
-  </div>
+</div>
   <!-- /.container -->
 
 

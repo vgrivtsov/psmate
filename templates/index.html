@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-.img-card-wrapper :after {
+.img-card-wrapper:after {
   content: '';
   display: block;
   padding-top: 100%;
@@ -26,13 +26,25 @@
   left: 50%;
   top: 0;
   transform: translateX(-50%);
+
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+  filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */  
+  
+  
 }
+
+.img-card-wrapper img:hover {
+  -webkit-filter: grayscale(0);
+  filter: none;
+}
+
+
 
 a:link {color: black;}      /* unvisited link */
 a:visited {color: black;}   /* visited link */
 a:hover {color: black;}     /* mouse over link */
 a:active {color: black;}    /* selected link */
-
 
 
 body {
@@ -162,8 +174,9 @@ header.masthead h1 {
 
         <div class="col-lg-4 col-sm-6 news-item">
           <div class="card h-100" >
-            <a href="/news/{{ n.slug}}">
+            
                 <div class="img-card-wrapper ">
+                  <a href="/news/{{ n.slug}}">
                   <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt=""></a>
                 </div>
             <div class="card-body" >
