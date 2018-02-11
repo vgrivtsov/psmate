@@ -7,71 +7,18 @@
 
 <style>
 
-/* closed state */
-#sidebar .list-group .list-group-item[aria-expanded="false"]::after {
-  content: " \f0d7";
-  font-family: FontAwesome;
-  display: inline;
-  text-align: right;
-  padding-left: 5px;
-}
-
-/* open state */
-#sidebar .list-group .list-group-item[aria-expanded="true"] {
-  background-color: #222;
-}
-#sidebar .list-group .list-group-item[aria-expanded="true"]::after {
-  content: " \f0da";
-  font-family: FontAwesome;
-  display: inline;
-  text-align: right;
-  padding-left: 5px;
-}
-
-
-@media (max-width:48em) {
-    /* overlay sub levels on small screens */
-    #sidebar .list-group .collapse.in, #sidebar .list-group .collapsing {
-        position: absolute;
-        z-index: 1;
-        width: 190px;
-    }
-    #sidebar .list-group > .list-group-item {
-        text-align: center;
-        padding: .75rem .5rem;
-    }
-    /* hide caret icons of top level when collapsed */
-    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
-    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
-        display:none;
-    }
-}
-
-
 
 </style>
+
 <head>
-    
-<script>
-$('#sidebar a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>
 
 </head>
 
 {% if user.is_authenticated %}
 <div class="container-fluid py-5 " >
 
-    <div class="row">
-        <div class="col-md-3 col-xs-1 p-l-0 p-r-0 " id="sidebar">
-          <div class="list-group panel">
-            <a class="list-group-item" href="{% url 'cabinet' %}" >Личный кабинет</a>
-            <a class="list-group-item" href="{% url 'settings' %}">Настройки</a>
-            <a class="list-group-item" href="#paw" role="tab">Service 08</a>
-          </div>
-        </div>
+  {% block cabinet %}
+  {% endblock %}
 
 
 {% else %}
@@ -84,14 +31,7 @@ $('#sidebar a').click(function (e) {
 
 {% endif %} 
 
-  <main class="col-md-9 col-xs-11 p-l-2 p-t-2">
-    <a href="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-lg"></i></a>
-    <hr>
 
-  {% block cabinet %}
-  {% endblock %}
-
-  </main>
   </div>
 </div> 
 

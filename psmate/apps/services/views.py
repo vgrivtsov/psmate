@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponseRedirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from time import time
 
 
 ### Search PS ###
@@ -149,6 +149,8 @@ class LoadPS(View):
 class LoadCompt(View):
 
     def get(self, request, *args, **kwargs):
+        
+        t0 = time()
 
         data = self.request.GET.getlist('psvars', None)
         
@@ -160,11 +162,11 @@ class LoadCompt(View):
             maintfresult = []
             
             for otf in otf_get_raw:
-                
+
                 otflist.append(otf.nameotf)
-
+                 
             for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
-
+                
                 laresult = []
                 nkresult = []
                 rsresult = []
@@ -186,9 +188,15 @@ class LoadCompt(View):
                     
                 for oc in oc_get_raw:
                     ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
+                 
+                # time test 
+                t1 = time()
+                time_res = t1 - t0
+                print(time_res, tf)
+
 
                 #dynamic  mdbootstrap class for TF matched of JT:
-                
+
 
                 tfsel = ''
                 if tf.nameotf in otflist: 
@@ -204,7 +212,7 @@ class LoadCompt(View):
 
                                      })
 
-                
+            
             return JsonResponse(maintfresult, safe=False) 
 
 #####################

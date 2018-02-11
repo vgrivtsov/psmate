@@ -278,11 +278,11 @@
     <a class="navbar-brand" href="/">ПрофНавигатор</a>
 
     <!-- Collapse button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainnavbar" aria-controls="mainnavbar"
         aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
     <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="mainnavbar">
 
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
@@ -313,17 +313,21 @@
 
 		<ul class="nav navbar-nav navbar-right ml-auto">
       {% if user.is_authenticated %}
-      <li class="nav-item dropdown">
-        
-      <a class="nav-link dropdown-toggle border border-secondary rounded px-2 mx-1 my-1" href="#" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ user.last_name }} {{ user.first_name }}
-      </a>                
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
-          <a class="dropdown-item" href="/cabinet/">Личный кабинет</a>
-          <a class="dropdown-item" href="{% url 'logout' %}">Выход</a>
-        </div>
-      </li>
-      
+
+<!--                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'settings' %}"><i class="fa fa-gear"></i> Настройки</a>
+                        </li>-->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              {{ user.last_name }} {{ user.first_name }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
+                              <a class="dropdown-item" href="{% url 'settings' %}">Настройки</a>
+                              <a class="dropdown-item" href="/cabinet/">Личный кабинет</a>
+                              <a class="dropdown-item" href="{% url 'logout' %}">Выход</a>
+                            </div>
+                        </li>
+
         {% else %}         
       
 			<li class="nav-item ">
