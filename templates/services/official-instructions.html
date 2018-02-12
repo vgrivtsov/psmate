@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+{% extends "layouts/cabinetlayout.html" %}
+
+{% load static %}
+{% block cabinet %}
+<style>
+
+.card-usercab {
+ min-height: 150px;
+}
+a:link {color: black;}      /* unvisited link */
+a:visited {color: black;}   /* visited link */
+a:active {color: black;}    /* selected link */
+
+</style>
+  
+
+<div class="container" style="min-height: 100vh;">
+    
+
+{% for el in maintfresult %}
+
+ <h3 class="page-heading mb-4">Должностная инструкция на {{el.jobtitle}}</h3>    
+
+{% endfor %}
+
+ 
+</div>
+
+
+
+{% endblock %}

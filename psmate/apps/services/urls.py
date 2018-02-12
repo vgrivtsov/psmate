@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^load_compt/$', views.LoadCompt.as_view(), name='load_compt'),
     url(r'^presentation-cv-resume/$', views.CvPresentView.as_view(),  name='presentation-cv-resume'),
     url(r'^search-jobtitles/$', views.ShowJTlist.as_view(), name='search-jobtitles'),
-    url(r'^competences/(?P<id>[-\w]+)/$', views.JTDetailsView.as_view(), name='competences'),    
+    url(r'^competences/(?P<id>[-\w]+)/$', views.JTDetailsView.as_view(), name='competences'),
+    url(r'^official-instructions/(?P<id>[-\w]+)/$', views.OfficialInstructions.as_view(), name='official-instructions'), 
     # url(r'^search-jobtitles/$', FilterView.as_view(filterset_class=JTsearchFilter,
     #     template_name='services/jobtitles-list.html'), name='search-jobtitles'),    
     

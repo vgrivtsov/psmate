@@ -134,13 +134,14 @@ class LoadPS(View):
             
             for ps in ps_get:
                 
-                jt_get = Jobtitles.objects.filter(psregnum=ps.psregnum).distinct('jobtitle')
+                jt_get = Jobtitles.objects.filter(ps_id=ps.id).distinct('jobtitle')
                 
                 for jt in jt_get:
 
                     jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle,
                                      # 'pspurposekind' : ps.pspurposekind,
                                      'nameps' : ps.nameps, 'psregnum' : ps.psregnum,
+                                     'ps_id' : ps.id,
                                      'pspurposekind' : ps.pspurposekind})
   
             return JsonResponse(jtresult, safe=False) 
@@ -156,7 +157,8 @@ class LoadCompt(View):
         
         if data != None:
             
-            tf_get_raw = Tfinfo.objects.filter(psregnum=data[0])
+            tf_get_raw = Tfinfo.objects.filter(ps_id=data[0])
+            print(tf_get_raw)
             otf_get_raw = Jobtitles.objects.filter(jobtitle=data[1]) # get OTF by jobtitle
             otflist = []
             maintfresult = []
@@ -166,16 +168,16 @@ class LoadCompt(View):
                 otflist.append(otf.nameotf)
                  
             for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
-                
+
                 laresult = []
                 nkresult = []
                 rsresult = []
                 ocresult = []
-
-                la_get_raw = Tf_la.objects.filter(nametf=tf.nametf)
-                nk_get_raw = Tf_rs.objects.filter(nametf=tf.nametf)
-                rs_get_raw = Tf_nk.objects.filter(nametf=tf.nametf)
-                oc_get_raw = Tf_oc.objects.filter(nametf=tf.nametf)
+                
+                la_get_raw = Tf_la.objects.filter(tf_id=tf.id)
+                nk_get_raw = Tf_rs.objects.filter(tf_id=tf.id)
+                rs_get_raw = Tf_nk.objects.filter(tf_id=tf.id)
+                oc_get_raw = Tf_oc.objects.filter(tf_id=tf.id)
                
                 for la in la_get_raw:
                     laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
@@ -192,8 +194,7 @@ class LoadCompt(View):
                 # time test 
                 t1 = time()
                 time_res = t1 - t0
-                print(time_res, tf)
-
+                print(time_res)
 
                 #dynamic  mdbootstrap class for TF matched of JT:
 
@@ -366,7 +367,7 @@ class ShowJTlist(ListView):
             jtresult = []
             jt_get = Jobtitles.objects.filter(jobtitle__icontains=jt).distinct('id')
             for jt in jt_get:
-                print(jt.jobtitle)
+                #print(jt.jobtitle)
                 ps = Psinfo.objects.filter(psregnum=jt.psregnum)
                 
                 otrasl = ps[0].otraslid
@@ -429,4 +430,104 @@ class JTDetailsView(ListView):
 
             return render(request, self.template_name, {'jtresult': jtresult,
                                                                                                           
-                                                        })       
+                                                        })
+        
+        
+class OfficialInstructions(ListView):
+
+    template_name = 'services/official-instructions.html'
+    model = Jobtitles
+
+
+    def get(self, request, *args, **kwargs):
+        
+        t0 = time()
+
+        data =  self.kwargs['id'] 
+        
+        if data != None:
+            
+            jt = Jobtitles.objects.filter(id=data)
+
+            ps = Psinfo.objects.filter(psregnum=jt[0].psregnum)
+            educationalreqs = Educationalreqs.objects.filter(nameotf=jt[0].nameotf)
+            reqworkexperiences = Reqworkexperiences.objects.filter(nameotf=jt[0].nameotf)
+            specialconditions = Specialconditions.objects.filter(nameotf=jt[0].nameotf)
+            othercharacts = Othercharacts.objects.filter(nameotf=jt[0].nameotf)
+            tfs = Tfinfo.objects.filter(nameotf=jt[0].nameotf)
+            
+            otrasl = ps[0].otraslid
+
+            #tf_get_raw = Tfinfo.objects.filter(psregnum=data[0])
+            otf_get_raw = Jobtitles.objects.filter(jobtitle=data[1]) # get OTF by jobtitle
+            otflist = []
+            maintfresult = []
+            
+            for otf in otf_get_raw:
+
+                otflist.append(otf.nameotf)
+                 
+            for tf in tf_get_raw: # select TF only for selected jobtitle
+                
+                laresult = []
+                nkresult = []
+                rsresult = []
+                ocresult = []
+
+                la_get_raw = Tf_la.objects.filter(nametf=tf.nametf)
+                nk_get_raw = Tf_rs.objects.filter(nametf=tf.nametf)
+                rs_get_raw = Tf_nk.objects.filter(nametf=tf.nametf)
+                oc_get_raw = Tf_oc.objects.filter(nametf=tf.nametf)
+               
+                for la in la_get_raw:
+                    laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
+                    
+                for nk in nk_get_raw:
+                    nkresult.append({'id' : nk.id, 'necessaryknowledge' : nk.requiredskill}) # !!!Swap with RS becouse rosmintrud edition!!!
+                    
+                for rs in rs_get_raw:
+                    rsresult.append({'id' : rs.id, 'requiredskill' : rs.necessaryknowledge}) #  # !!!Swap with NK becouse rosmintrud edition!!!                     
+                    
+                for oc in oc_get_raw:
+                    ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
+                 
+                # time test 
+                t1 = time()
+                time_res = t1 - t0
+
+                #dynamic  mdbootstrap class for TF matched of JT:
+
+                tfsel = ''
+                if tf.nameotf in otflist: 
+
+                    tfsel = 'card info-color white-text mb-0 py-2 z-depth-2'
+
+                maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf,
+                                     'nametf' : tf.nametf, 'tfsel' : tfsel, # tfcell use for color ligth of jobtitels tf's
+                                     'laboractions' : laresult,
+                                     'necessaryknowledges' : nkresult,
+                                     'requiredskills' : rsresult,
+                                     'othercharacteristics' : ocresult,
+
+                                     })
+
+            # maintfresult.append({
+            #     
+            #         'jobtitleid' : jt[0].id,
+            #         'jobtitle' : jt[0].jobtitle,
+            #         'nameotf' : jt[0].nameotf,
+            #         'pspurposekind' : ps[0].pspurposekind,
+            #         'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+            #         'otraslname' : otrasl.name,
+            #         'otraslicon' : otrasl.icon,
+            #         'educationalreqs' : educationalreqs,
+            #         'reqworkexperiences' : reqworkexperiences,
+            #         'specialconditions' : specialconditions,
+            #         'othercharacts' : othercharacts,
+            #         'tfs' : tfs,
+            #         })
+
+            
+            return render(request, self.template_name, {'maintfresult': maintfresult,
+                                                                                                          
+                                                        })
