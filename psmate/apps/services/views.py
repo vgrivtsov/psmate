@@ -154,11 +154,11 @@ class LoadCompt(View):
         t0 = time()
 
         data = self.request.GET.getlist('psvars', None)
-        
+
         if data != None:
             
             tf_get_raw = Tfinfo.objects.filter(ps_id=data[0])
-            print(tf_get_raw)
+
             otf_get_raw = Jobtitles.objects.filter(jobtitle=data[1]) # get OTF by jobtitle
             otflist = []
             maintfresult = []
