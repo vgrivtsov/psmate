@@ -19,11 +19,24 @@ a:active {color: black;}    /* selected link */
 <div class="container" style="min-height: 100vh;">
     
 
-{% for el in maintfresult %}
+ <h3 class="page-heading mb-4">Должностная инструкция {{generaldatas.jobtitle}}</h3>    
 
- <h3 class="page-heading mb-4">Должностная инструкция на {{el.jobtitle}}</h3>    
 
-{% endfor %}
+
+<strong>jobtitleid </strong>           {{generaldatas.jobtitleid           }} <br>
+<strong>jobtitle           </strong>              {{generaldatas.jobtitle             }} <br>
+<strong>nameotf            </strong>              {{generaldatas.nameotf              }} <br>
+<strong>pspurposekind      </strong>              {{generaldatas.pspurposekind        }} <br>
+<strong>nameps             </strong>              {{generaldatas.nameps               }} <br>
+<strong>otraslname         </strong>              {{generaldatas.otraslname           }} <br>
+<strong>otraslicon         </strong>              {{generaldatas.otraslicon           }} <br>
+<strong>educationalreqs    </strong>              {{generaldatas.educationalreqs      }} <br>
+<strong>reqworkexperiences </strong>              {{generaldatas.reqworkexperiences   }} <br>
+<strong>specialconditions  </strong>              {{generaldatas.specialconditions    }} <br>
+<strong>othercharacts      </strong>              {{generaldatas.othercharacts        }} <br>
+<strong>tfs                </strong>              {{generaldatas.tfs                  }} <br>
+
+
 
  
 </div>

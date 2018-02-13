@@ -159,14 +159,16 @@ class LoadCompt(View):
             
             tf_get_raw = Tfinfo.objects.filter(ps_id=data[0])
 
-            otf_get_raw = Jobtitles.objects.filter(jobtitle=data[1]) # get OTF by jobtitle
+            otf_get_raw = Jobtitles.objects.filter(id=data[1]) # get OTF by jobtitle
+            print(otf_get_raw)
             otflist = []
             maintfresult = []
             
             for otf in otf_get_raw:
 
-                otflist.append(otf.nameotf)
-                 
+                otflist.append(otf.gtf_id)
+                print(otf)
+
             for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
 
                 laresult = []
@@ -200,7 +202,7 @@ class LoadCompt(View):
 
 
                 tfsel = ''
-                if tf.nameotf in otflist: 
+                if tf.gtf_id in otflist: 
 
                     tfsel = 'card info-color white-text mb-0 py-2 z-depth-2'
 
@@ -449,36 +451,46 @@ class OfficialInstructions(ListView):
             
             jt = Jobtitles.objects.filter(id=data)
 
-            ps = Psinfo.objects.filter(psregnum=jt[0].psregnum)
-            educationalreqs = Educationalreqs.objects.filter(nameotf=jt[0].nameotf)
-            reqworkexperiences = Reqworkexperiences.objects.filter(nameotf=jt[0].nameotf)
-            specialconditions = Specialconditions.objects.filter(nameotf=jt[0].nameotf)
-            othercharacts = Othercharacts.objects.filter(nameotf=jt[0].nameotf)
-            tfs = Tfinfo.objects.filter(nameotf=jt[0].nameotf)
-            
+            ps = Psinfo.objects.filter(id=jt[0].ps_id)
+            educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
+            reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
+            specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
+            othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
+            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+          
             otrasl = ps[0].otraslid
 
-            #tf_get_raw = Tfinfo.objects.filter(psregnum=data[0])
-            otf_get_raw = Jobtitles.objects.filter(jobtitle=data[1]) # get OTF by jobtitle
-            otflist = []
-            maintfresult = []
+            generaldatas = []
+            requirements =[]
             
-            for otf in otf_get_raw:
-
-                otflist.append(otf.nameotf)
-                 
-            for tf in tf_get_raw: # select TF only for selected jobtitle
+            generaldatas = {
+                
+                    'jobtitleid' : jt[0].id,
+                    'jobtitle' : jt[0].jobtitle,
+                    'nameotf' : jt[0].nameotf,
+                    'pspurposekind' : ps[0].pspurposekind,
+                    'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                    'otraslname' : otrasl.name,
+                    'otraslicon' : otrasl.icon,
+                    'educationalreqs' : educationalreqs,
+                    'reqworkexperiences' : reqworkexperiences,
+                    'specialconditions' : specialconditions,
+                    'othercharacts' : othercharacts,
+                    'tfs' : tfs,
+                    }
+            
+            for tf in tfs: # select TF only for selected jobtitle
                 
                 laresult = []
                 nkresult = []
                 rsresult = []
                 ocresult = []
 
-                la_get_raw = Tf_la.objects.filter(nametf=tf.nametf)
-                nk_get_raw = Tf_rs.objects.filter(nametf=tf.nametf)
-                rs_get_raw = Tf_nk.objects.filter(nametf=tf.nametf)
-                oc_get_raw = Tf_oc.objects.filter(nametf=tf.nametf)
-               
+                la_get_raw = Tf_la.objects.filter(tf_id=tf.id)
+                nk_get_raw = Tf_rs.objects.filter(tf_id=tf.id)
+                rs_get_raw = Tf_nk.objects.filter(tf_id=tf.id)
+                oc_get_raw = Tf_oc.objects.filter(tf_id=tf.id)
+                print(la_get_raw)
                 for la in la_get_raw:
                     laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
                     
@@ -494,16 +506,10 @@ class OfficialInstructions(ListView):
                 # time test 
                 t1 = time()
                 time_res = t1 - t0
+                print(time_res)
 
-                #dynamic  mdbootstrap class for TF matched of JT:
-
-                tfsel = ''
-                if tf.nameotf in otflist: 
-
-                    tfsel = 'card info-color white-text mb-0 py-2 z-depth-2'
-
-                maintfresult.append({'id' : tf.id, 'codetf' : tf.codetf,
-                                     'nametf' : tf.nametf, 'tfsel' : tfsel, # tfcell use for color ligth of jobtitels tf's
+                requirements.append({'id' : tf.id, 'codetf' : tf.codetf,
+                                     'nametf' : tf.nametf,
                                      'laboractions' : laresult,
                                      'necessaryknowledges' : nkresult,
                                      'requiredskills' : rsresult,
@@ -511,23 +517,9 @@ class OfficialInstructions(ListView):
 
                                      })
 
-            # maintfresult.append({
-            #     
-            #         'jobtitleid' : jt[0].id,
-            #         'jobtitle' : jt[0].jobtitle,
-            #         'nameotf' : jt[0].nameotf,
-            #         'pspurposekind' : ps[0].pspurposekind,
-            #         'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
-            #         'otraslname' : otrasl.name,
-            #         'otraslicon' : otrasl.icon,
-            #         'educationalreqs' : educationalreqs,
-            #         'reqworkexperiences' : reqworkexperiences,
-            #         'specialconditions' : specialconditions,
-            #         'othercharacts' : othercharacts,
-            #         'tfs' : tfs,
-            #         })
+
 
             
-            return render(request, self.template_name, {'maintfresult': maintfresult,
-                                                                                                          
+            return render(request, self.template_name, {'generaldatas': generaldatas,
+                                                        'requirements' : requirements
                                                         })
