@@ -16,6 +16,9 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from time import time
 
+import pymorphy2
+from pymorphy2 import units
+import re
 
 ### Search PS ###
 
@@ -160,14 +163,13 @@ class LoadCompt(View):
             tf_get_raw = Tfinfo.objects.filter(ps_id=data[0])
 
             otf_get_raw = Jobtitles.objects.filter(id=data[1]) # get OTF by jobtitle
-            print(otf_get_raw)
+
             otflist = []
             maintfresult = []
             
             for otf in otf_get_raw:
 
                 otflist.append(otf.gtf_id)
-                print(otf)
 
             for tf in tf_get_raw: # select TF only for selected jobtitle (used in color sheme in generator-cv)
 
@@ -194,9 +196,9 @@ class LoadCompt(View):
                     ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
                  
                 # time test 
-                t1 = time()
-                time_res = t1 - t0
-                print(time_res)
+                #t1 = time()
+                #time_res = t1 - t0
+                #print(time_res)
 
                 #dynamic  mdbootstrap class for TF matched of JT:
 
@@ -463,10 +465,80 @@ class OfficialInstructions(ListView):
             generaldatas = []
             requirements =[]
             
+            #make jobtitle Roditelny paezh
+            
+            
+            prefix_units = [
+                [
+                    units.DictionaryAnalyzer,
+                    units.AbbreviatedFirstNameAnalyzer,
+                    units.AbbreviatedPatronymicAnalyzer,
+                ],
+                units.NumberAnalyzer,
+                units.PunctuationAnalyzer,
+                [
+                    units.RomanNumberAnalyzer,
+                    units.LatinAnalyzer
+                ],
+            
+                units.HyphenSeparatedParticleAnalyzer,
+                units.HyphenAdverbAnalyzer,
+                # units.HyphenatedWordsAnalyzer,
+                units.KnownPrefixAnalyzer,
+                [
+                    units.UnknownPrefixAnalyzer,
+                    units.KnownSuffixAnalyzer
+                ],
+                units.UnknAnalyzer,
+            ]            
+
+            
+            jt_rod = []
+            morph = pymorphy2.MorphAnalyzer(units=prefix_units)
+            
+            #cut non need padezh string beenween '( )'
+            pattern = re.compile("[\(\[].*?[\)\]]")
+            if re.findall(pattern, jt[0].jobtitle):
+                cuttedstring = re.findall(pattern, jt[0].jobtitle)[0]
+            else:
+                cuttedstring = ''
+            
+            cleared_jt = re.sub("[\(\[].*?[\)\]]", "", jt[0].jobtitle)
+            
+           # print(cuttedstring)
+            
+            pos_list = ['NOUN', 'ADJF', 'ADJS', 'PRTF', 'PRTS'] 
+            case_list = []
+
+            
+            for i in cleared_jt.split(' '):
+                p = morph.parse(i)[0]
+                print(p)
+
+                if p.tag.POS in pos_list and p.tag.case == 'nomn': # Chast' rechi & padezh
+
+                    #print(jt_rod_word)
+                    if p.inflect({'gent'}) :
+                    
+                        jt_rod.append(p.inflect({'gent'}).word)
+                    
+                    else:
+                        jt_rod.append(i)
+
+
+
+                else:
+                    jt_rod.append(i)
+
+
+           # print(jt_rod)
+            jobtitlerod = ' '.join(jt_rod) + ' '+cuttedstring
+            
             generaldatas = {
                 
                     'jobtitleid' : jt[0].id,
                     'jobtitle' : jt[0].jobtitle,
+                    'jobtitlerod' : jobtitlerod,
                     'nameotf' : jt[0].nameotf,
                     'pspurposekind' : ps[0].pspurposekind,
                     'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
@@ -490,7 +562,7 @@ class OfficialInstructions(ListView):
                 nk_get_raw = Tf_rs.objects.filter(tf_id=tf.id)
                 rs_get_raw = Tf_nk.objects.filter(tf_id=tf.id)
                 oc_get_raw = Tf_oc.objects.filter(tf_id=tf.id)
-                print(la_get_raw)
+
                 for la in la_get_raw:
                     laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
                     
@@ -506,7 +578,7 @@ class OfficialInstructions(ListView):
                 # time test 
                 t1 = time()
                 time_res = t1 - t0
-                print(time_res)
+                #print(time_res)
 
                 requirements.append({'id' : tf.id, 'codetf' : tf.codetf,
                                      'nametf' : tf.nametf,
