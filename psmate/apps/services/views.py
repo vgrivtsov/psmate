@@ -463,39 +463,12 @@ class OfficialInstructions(ListView):
             otrasl = ps[0].otraslid
 
             generaldatas = []
-            requirements =[]
-            
+                        
             #make jobtitle Roditelny paezh
-            
-            
-            prefix_units = [
-                [
-                    units.DictionaryAnalyzer,
-                    units.AbbreviatedFirstNameAnalyzer,
-                    units.AbbreviatedPatronymicAnalyzer,
-                ],
-                units.NumberAnalyzer,
-                units.PunctuationAnalyzer,
-                [
-                    units.RomanNumberAnalyzer,
-                    units.LatinAnalyzer
-                ],
-            
-                units.HyphenSeparatedParticleAnalyzer,
-                units.HyphenAdverbAnalyzer,
-                # units.HyphenatedWordsAnalyzer,
-                units.KnownPrefixAnalyzer,
-                [
-                    units.UnknownPrefixAnalyzer,
-                    units.KnownSuffixAnalyzer
-                ],
-                units.UnknAnalyzer,
-            ]            
 
-            
             jt_rod = []
-            morph = pymorphy2.MorphAnalyzer(units=prefix_units)
-            
+            morph = pymorphy2.MorphAnalyzer()
+       
             #cut non need padezh string beenween '( )'
             pattern = re.compile("[\(\[].*?[\)\]]")
             if re.findall(pattern, jt[0].jobtitle):
@@ -514,18 +487,25 @@ class OfficialInstructions(ListView):
             for i in cleared_jt.split(' '):
                 p = morph.parse(i)[0]
                 print(p)
-
+                print(p.inflect({'gent'}))
                 if p.tag.POS in pos_list and p.tag.case == 'nomn': # Chast' rechi & padezh
 
                     #print(jt_rod_word)
                     if p.inflect({'gent'}) :
-                    
-                        jt_rod.append(p.inflect({'gent'}).word)
+                        
+                        changed_word = p.inflect({'sing', 'gent'}).word
+                        if changed_word == 'риска-менеджера':
+                            changed_word = 'риск-менеджера'
+                        if changed_word == 'бренда-менеджера':
+                            changed_word = 'бренд-менеджера'                        
+                        if changed_word == 'брэнда-менеджера':
+                            changed_word = 'брэнд-менеджера'                         
+                        
+                        jt_rod.append(changed_word)
                     
                     else:
+                        
                         jt_rod.append(i)
-
-
 
                 else:
                     jt_rod.append(i)
@@ -551,17 +531,21 @@ class OfficialInstructions(ListView):
                     'tfs' : tfs,
                     }
             
+            laresult = []
+            nkresult = []
+            rsresult = []
+            ocresult = []            
+            tfresult = []
+            
             for tf in tfs: # select TF only for selected jobtitle
-                
-                laresult = []
-                nkresult = []
-                rsresult = []
-                ocresult = []
 
                 la_get_raw = Tf_la.objects.filter(tf_id=tf.id)
                 nk_get_raw = Tf_rs.objects.filter(tf_id=tf.id)
                 rs_get_raw = Tf_nk.objects.filter(tf_id=tf.id)
                 oc_get_raw = Tf_oc.objects.filter(tf_id=tf.id)
+
+
+                tfresult.append({'id' : tf.id, 'codetf' : tf.codetf, 'nametf' : tf.nametf})
 
                 for la in la_get_raw:
                     laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
@@ -580,14 +564,12 @@ class OfficialInstructions(ListView):
                 time_res = t1 - t0
                 #print(time_res)
 
-                requirements.append({'id' : tf.id, 'codetf' : tf.codetf,
-                                     'nametf' : tf.nametf,
-                                     'laboractions' : laresult,
-                                     'necessaryknowledges' : nkresult,
-                                     'requiredskills' : rsresult,
-                                     'othercharacteristics' : ocresult,
-
-                                     })
+            requirements = {'tf' : tfresult,
+                            'laboractions' : laresult,
+                            'necessaryknowledges' : nkresult,
+                            'requiredskills' : rsresult,
+                            'othercharacteristics' : ocresult,
+                            }
 
 
 
