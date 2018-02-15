@@ -16,23 +16,30 @@ a:active {color: black;}    /* selected link */
 
 .ofinstructions li {
     
-    list-style-type: none; /* Убираем маркеры у списка */
+    list-style-type: none;
    }
 .ofinstructions li:before {
     padding-left:2em;
-    content: "- "; /* Добавляем в качестве маркера символ */
+    content: "- "; 
   /* white-space:pre;*/
    }
 
+  
+.laboractions li {
+    
+    list-style-type: none;
+   }   
+   
+   
 </style>
   
 
 <div class="container" style="min-height: 100vh;">
     
 
- <h3 class="page-heading mb-4">Должностная инструкция {{generaldatas.jobtitlerod}}</h3>    
+<!-- <h3 class="page-heading mb-4">Должностная инструкция {{generaldatas.jobtitlerod}}</h3>   --> 
 
-
+<!--
 
 <strong>jobtitleid </strong>           {{generaldatas.jobtitleid           }} <br>
 <strong>jobtitle           </strong>              {{generaldatas.jobtitle             }} <br>
@@ -51,16 +58,16 @@ a:active {color: black;}    /* selected link */
 
 
 
-<strong>laboractions          </strong>
+<strong>laboractions          </strong>-->
 
 
-  {% for la in requirements.laboractions %}
+<!--  {% for la in requirements.laboractions %}
   
    <li>{{la.laboraction}}</li>
   {% endfor %}
+-->
 
-
-
+<!--
 <strong>necessaryknowledges   </strong>
 
 
@@ -79,7 +86,7 @@ a:active {color: black;}    /* selected link */
 <li>{{oc.othercharacteristic}}</li>
 {% endfor %}
 
-<hr>
+<hr>-->
 <!--<p>
 	p { margin-bottom: 0.08in; direction: ltr; text-align: left; }p.western { font-size: 12pt; }p.cjk { font-size: 12pt; }p.ctl { font-size: 12pt; }a:link { color: rgb(0, 0, 255); }
 </p>-->
@@ -124,12 +131,16 @@ a:active {color: black;}    /* selected link */
 На должность {{generaldatas.jobtitlerod}} назначается
 лицо, имеющее
 {% for education in generaldatas.educationalreqs %}
- {{education|lower}}{% if not forloop.last %}, {% endif %}
+    {{education|lower}}{% if not forloop.last %}, {% endif %}
 {% endfor %}
- и стаж
-{% for workexp in generaldatas.reqworkexperiences %}
- {{workexp|lower}}{% if not forloop.last %}, {% else %}. {% endif %}
-{% endfor %}
+{% if generaldatas.reqworkexperiences %}
+    и стаж
+    {% for workexp in generaldatas.reqworkexperiences %}
+        {{workexp|lower}}{% if not forloop.last %}, {% else %}. {% endif %}
+    {% endfor %}
+{% else %}
+.
+{% endif %}
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
 OTHER_REQUIREMENTS
@@ -142,21 +153,9 @@ OTHER_REQUIREMENTS
 <li>{{nk.necessaryknowledge}}</li>
 </div>
 {% endfor %}
-<hr>
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    1.4. {{generaldatas.jobtitle}} должен исполнять
-требования статьи 15 Федерального закона
-от 24 ноября 1995 г. № 181-ФЗ (ред. от 29.12.2015)
-«О социальной защите инвалидов в
-Российской Федерации» пункта 8) «оказание
-работниками организаций, предоставляющих
-услуги населению, помощи инвалидам в
-преодолении барьеров, мешающих получению
-ими услуг наравне с другими лицами».
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-     1.5. {{generaldatas.jobtitle}} назначается на должность
+     1.4. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
 директора Учреждения в соответствии с
 действующим законодательством Российской
@@ -178,94 +177,13 @@ OTHER_REQUIREMENTS
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
-	2.1. Организация ведения бухгалтерского
-учета имущества, обязательств и
-хозяйственных операций.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">	2.2.
-Осуществление   приема   и   контроля  
-первичной   документации   по   участкам
-бухгалтерского учета и подготовка их
-к обработке.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-    2.3. Выполнение работы по
-ведению бухгалтерского учета имущества,
-обязательств хозяйственных операций
-(учет основных средств и товарно-материальных
-ценностей).
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-    2.4. Отражение на счетах
-бухгалтерского учета операций, связанных
-с движением основных средств,
-товарно-материальных ценностей и
-денежных средств.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-    2.5. Начисление и перечисление
-налогов и сборов в федеральный,
-региональный и местный бюджеты, страховых
-взносов в государственные внебюджетные
-социальные  фонды,  платежей в  банковские
-учреждения,  заработной платы работникам
-Учреждения,  других выплат, платежей.
-</p>
-<p style="text-indent: 0.49in; margin-bottom: 0in; orphans: 2; widows: 2" align="justify">
-	2.6.
-Разработка
-   рабочих    планов    счетов,    формы   
-первичных    документов, применяемых
-для оформления хозяйственных операций,
-по которым не предусмотрены типовые
-формы, а также формы документов для
-внутренней бухгалтерской отчетности,
-участие  в  определении  содержания 
-основных приемов  и  методов  ведения 
-учета и технологии обработки бухгалтерской
-информации.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-    2.7. Участие в проведении
-экономического анализа финансово-экономической
-деятельности Учреждения по данным
-бухгалтерского учета и отчетности в
-целях выявления внутрихозяйственных 
-резервов, осуществления  режима  экономии
-и мероприятий по совершенствованию
-документооборота, в разработке и
-внедрении прогрессивных форм и методов
-бухгалтерского учета на основе применения
-современных средств вычислительной
-техники,   в   проведении   инвентаризации
-  денежных   средств   и   товарно-материальных
-ценностей.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-    2.8. Подготовка данных по
-соответствующим участкам бухгалтерского
-учета для    составления   отчетности,  
- слежение   за   сохранностью    бухгалтерских
-  документов, оформление их в соответствии
-с установленным порядком для передачи
-в архив.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-    2.9. Выполнение работы по
-формированию, ведению и хранению базы
-данных бухгалтерской информации,
-внесение изменений в справочную и
-нормативную информацию используемую
-при обработке данных.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">	2.11.
-Участие в разработке и реализации
-политики Учреждения в области системы
-качества   (основные   цели,   задачи   и 
- принципы   деятельности   Учреждения в
-области качества).
-</p>
+
+{% for la in requirements.laboractions %}
+<div  class="laboractions">
+<li>2.{{ forloop.counter }}. {{la.laboraction}}</li>
+</div>
+{% endfor %}
+
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="center"><b>3.
@@ -274,7 +192,7 @@ OTHER_REQUIREMENTS
 </p>
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify"><b>	Бухгалтер
+<p class="western" style="margin-bottom: 0in" align="justify"><b>	{{generaldatas.jobtitle}}
 имеет право:
 	</b>
 </p>
@@ -282,7 +200,7 @@ OTHER_REQUIREMENTS
     3.1. Запрашивать и получать необходимую
 информацию, а так же материалы и документы,
 относящиеся к вопросам деятельности
-бухгалтера.
+{{generaldatas.jobtitlerod}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     3.2.   Повышать квалификацию, проходить
@@ -292,7 +210,7 @@ OTHER_REQUIREMENTS
     3.3. Вступать во взаимоотношения с
 подразделениями сторонних учреждений
 и организаций для решения вопросов,
-входящих в компетенцию бухгалтера.
+входящих в компетенцию {{generaldatas.jobtitlerod}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     3.4. Принимать участие в обсуждении
@@ -330,7 +248,7 @@ OTHER_REQUIREMENTS
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
-	<b>Бухгалтер несет ответственность
+	<b>{{generaldatas.jobtitle}} несет ответственность
 за:
 	</b>
 </p>
@@ -342,7 +260,7 @@ OTHER_REQUIREMENTS
 <p class="western" style="margin-bottom: 0in" align="justify">       
     4.2. Невыполнение распоряжений и
 поручений директора Учреждения и
-главного бухгалтера.
+CHEEF_VALUE.
 </p>
 <p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
 	4.3. Недостоверную
@@ -370,7 +288,7 @@ OTHER_REQUIREMENTS
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
 	За вышеперечисленные
-нарушения бухгалтер может быть
+нарушения {{generaldatas.jobtitle}} может быть
 привлечен в соответствии с действующим
 законодательством в зависимости от
 тяжести проступка к дисциплинарной,
@@ -414,7 +332,7 @@ OTHER_REQUIREMENTS
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-                         «___»______________200 __ г.
+                         «___»______________20 ___ г.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
@@ -427,7 +345,7 @@ OTHER_REQUIREMENTS
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">_________________/________________/
-                                   «___»______________200__г.
+                                   «___»______________20___г.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">    
 (личная подпись) 
