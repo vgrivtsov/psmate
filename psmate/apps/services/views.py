@@ -20,6 +20,8 @@ import pymorphy2
 from pymorphy2 import units
 import re
 
+import pytils
+
 ### Search PS ###
 
 class SearchPsAuto(autocomplete.Select2QuerySetView):
@@ -371,14 +373,16 @@ class ShowJTlist(ListView):
             jtresult = []
             jt_get = Jobtitles.objects.filter(jobtitle__icontains=jt).distinct('id')
             for jt in jt_get:
-                #print(jt.jobtitle)
+
                 ps = Psinfo.objects.filter(psregnum=jt.psregnum)
                 
                 otrasl = ps[0].otraslid
-                
-
-                
+                ### Slug save
+                jt.slug = pytils.translit.slugify(jt.jobtitle) + '-' + str(jt.id)
+                jt.save()               
+                ###
                 jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
+                                 'slug' : jt.slug,
                                  # 'pspurposekind' : ps.pspurposekind,
                                  'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
                                  'otraslname' : otrasl.name,
@@ -398,11 +402,11 @@ class JTDetailsView(ListView):
     
     def get(self, request, *args, **kwargs):
         
-        jt_id =  self.kwargs['id'] 
+        jt_slug =  self.kwargs['slug']
 
-        if jt_id:
+        if jt_slug:
 
-            jt = Jobtitles.objects.filter(id=jt_id)
+            jt = Jobtitles.objects.filter(slug=jt_slug)
 
             ps = Psinfo.objects.filter(psregnum=jt[0].psregnum)
             educationalreqs = Educationalreqs.objects.filter(nameotf=jt[0].nameotf)
@@ -417,6 +421,7 @@ class JTDetailsView(ListView):
             
             
             jtresult = {'id' : jt[0].id,
+                        'slug' : jt[0].slug,
                         'jobtitle' : jt[0].jobtitle,
                         'nameotf' : jt[0].nameotf,
                         'pspurposekind' : ps[0].pspurposekind,
@@ -447,11 +452,11 @@ class OfficialInstructions(ListView):
         
         t0 = time()
 
-        data =  self.kwargs['id'] 
+        data =  self.kwargs['slug'] 
         
         if data != None:
             
-            jt = Jobtitles.objects.filter(id=data)
+            jt = Jobtitles.objects.filter(slug=data)
 
             ps = Psinfo.objects.filter(id=jt[0].ps_id)
             educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
