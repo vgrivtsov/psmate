@@ -28,9 +28,30 @@ a:active {color: black;}    /* selected link */
 .laboractions li {
     
     list-style-type: none;
-   }   
+   }
    
-   
+
+.tooltip-inner {
+  background-color: #31b0d5 !important;
+  /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
+  color: #fff;
+}
+
+.tooltip.top .tooltip-arrow {
+  border-top-color: #31b0d5;
+}
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: #31b0d5;
+}
+
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #31b0d5;
+}
+
+.tooltip.left .tooltip-arrow {
+  border-left-color: #31b0d5;
+}
 </style>
   
 
@@ -91,27 +112,49 @@ a:active {color: black;}    /* selected link */
 	p { margin-bottom: 0.08in; direction: ltr; text-align: left; }p.western { font-size: 12pt; }p.cjk { font-size: 12pt; }p.ctl { font-size: 12pt; }a:link { color: rgb(0, 0, 255); }
 </p>-->
 
+<!--head-->
 <p class="western" style="margin-bottom: 0in" align="right">УТВЕРЖДАЮ
 </p>
-<p class="western" style="margin-bottom: 0in" align="right">
-</p>
-<p class="western" style="margin-bottom: 0in" align="right">«COMPANY_VALUE»
-</p>
-<p class="western" style="margin-bottom: 0in" align="right">DIRECTORNAME_VALUE
-</p>
-<p class="western" style="margin-bottom: 0in" align="right">         
-                                  DATA_VALUE «xx» month YYYY г.
-</p>
+<p class="western" style="margin-bottom: 0in" align="right"></p>
+
+
+<div class="ofhead varceo" contenteditable="true" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+Директор
+</div>
+
+<div class="ofhead varcompany" contenteditable="true" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+ «Учреждение»
+</div>
+
+
+<div class="ofhead vardirector" contenteditable="true" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+_______________И.О. Фамилия
+</div>
+
+
+<div class="ofhead vardate" contenteditable="true" style="margin-bottom: 0in" align="right" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+«ЧЧ» месяц ГГГГ г.
+</div>
+
+
+
+
+<!--head-->
+
+
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="center"><b>ДОЛЖНОСТНАЯ
 ИНСТРУКЦИЯ
 	</b>
 </p>
-<p class="western" style="margin-bottom: 0in" align="center"><b>{{generaldatas.jobtitlerod}}
-подразделения 
-	</b>
-</p>
+
+
+<div class="ofhead vardate" style="margin-bottom: 0in" align="center" contenteditable="true" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<b>{{generaldatas.jobtitlerod}} подразделения « »</b>
+</div>
+
+
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="center"><b>1.
@@ -361,6 +404,14 @@ CHEEF_VALUE.
  
 </div>
 
+<script>
+ $(document).ready(function() {
+  //initializing tooltip
+  $('[data-toggle="tooltip"]').tooltip({
+    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+});
+});
 
+</script>
 
 {% endblock %}
