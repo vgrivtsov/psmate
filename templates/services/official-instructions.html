@@ -33,7 +33,6 @@ a:active {color: black;}    /* selected link */
 
 .tooltip-inner {
   background-color: #31b0d5 !important;
-  /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
   color: #fff;
 }
 
@@ -52,8 +51,10 @@ a:active {color: black;}    /* selected link */
 .tooltip.left .tooltip-arrow {
   border-left-color: #31b0d5;
 }
+
 </style>
   
+<div ng-app="offinstructions" ng-controller="ctrl">
 
 <div class="container" style="min-height: 100vh;">
     
@@ -122,8 +123,8 @@ a:active {color: black;}    /* selected link */
 Директор
 </div>
 
-<div class="ofhead varcompany" contenteditable="true" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
- «Учреждение»
+<div class="ofhead varcompany" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" data-directive ng-model="organization" ></span><span>&nbsp;</span>
 </div>
 
 
@@ -143,18 +144,23 @@ _______________И.О. Фамилия
 
 
 <p class="western" style="margin-bottom: 0in" align="center"><br>
+
 </p>
 <p class="western" style="margin-bottom: 0in" align="center"><b>ДОЛЖНОСТНАЯ
 ИНСТРУКЦИЯ
 	</b>
 </p>
 
-
-<div class="ofhead vardate" style="margin-bottom: 0in" align="center" contenteditable="true" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<b>{{generaldatas.jobtitlerod}} подразделения « »</b>
+<div class="ofhead vardate" style="margin-bottom: 0in; font-weight: 400;" align="center">
+{{generaldatas.jobtitlerod}}
+</div>
+<!--change angular value departament -->
+<div id="depart"    class="ofhead depart" style="margin-bottom: 0in; font-weight: 400;"
+     align="center" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+     подразделения «<span contenteditable="true" data-directive ng-model="depart" ></span>»<span>&nbsp;</span>
 </div>
 
-
+ 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="center"><b>1.
@@ -165,10 +171,10 @@ _______________И.О. Фамилия
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.1. Настоящая должностная инструкция
-определяет функциональные, должностные
+определяет функциональные, должностные 
 обязанности, права и ответственность
-{{generaldatas.jobtitlerod}} подразделения  PODRAZDELENIE_VALUE
- (далее - {{generaldatas.jobtitle}}) COMPANY_VALUE (далее Учреждение).
+{{generaldatas.jobtitlerod}} подразделения «<span ng-bind-html="depart"></span>»
+ (далее - {{generaldatas.jobtitle}}) <span ng-bind-html="organization"></span> (далее Учреждение).
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">	1.2.
 На должность {{generaldatas.jobtitlerod}} назначается
@@ -404,13 +410,63 @@ CHEEF_VALUE.
  
 </div>
 
+</div><!--Ngapp-->
+
 <script>
+ 
  $(document).ready(function() {
   //initializing tooltip
   $('[data-toggle="tooltip"]').tooltip({
     template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
 });
 });
+
+//angular.module('offinstructions', []).config(function($interpolateProvider){
+//    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+//});
+
+var app = angular.module("offinstructions", ["ngSanitize"]).config(function($interpolateProvider){
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('ctrl', ['$scope', '$sanitize', function($scope, $sanitize) {
+    $scope.depart = 'Новые технологии';
+    $scope.depart = $sanitize($scope.depart);
+    $scope.organization = '«Учреждение»'
+    $scope.organization = $sanitize($scope.organization);
+}]);
+
+app.directive("directive", function() {
+	return {
+        restrict: "A",
+        require: "ngModel",
+        link: function(scope, element, attrs, ngModel) {
+
+            function read() {
+                // view -> model
+                var html = element.html();
+                html = html.replace(/&nbsp;/g, "\u00a0");
+                ngModel.$setViewValue(html);
+                
+            }
+            // model -> view
+            ngModel.$render = function() {
+                element.html(ngModel.$viewValue || "");
+            };
+
+            element.bind("blur", function() {
+                scope.$apply(read);
+            });
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    this.blur();
+                    event.preventDefault();
+                }
+            });
+        }
+	};
+});
+
 
 </script>
 
