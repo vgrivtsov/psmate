@@ -29,7 +29,10 @@ a:active {color: black;}    /* selected link */
     
     list-style-type: none;
    }
-   
+.tfs li {
+    
+    list-style-type: none;
+   }   
 
 .tooltip-inner {
   background-color: #31b0d5 !important;
@@ -51,6 +54,7 @@ a:active {color: black;}    /* selected link */
 .tooltip.left .tooltip-arrow {
   border-left-color: #31b0d5;
 }
+
 
 </style>
   
@@ -119,22 +123,24 @@ a:active {color: black;}    /* selected link */
 <p class="western" style="margin-bottom: 0in" align="right"></p>
 
 
-<div class="ofhead varceo" contenteditable="true" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-Директор
+<div class="ofhead varceo" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" data-directive ng-model="ceo" ></span><span>&nbsp;</span>
 </div>
 
-<div class="ofhead varcompany" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<div class="ofhead varorganization" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <span contenteditable="true" data-directive ng-model="organization" ></span><span>&nbsp;</span>
 </div>
 
 
-<div class="ofhead vardirector" contenteditable="true" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-_______________И.О. Фамилия
+<div class="ofhead vardirector" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+_______________<span contenteditable="true" data-directive ng-model="director" ></span><span>&nbsp;</span>
 </div>
 
 
-<div class="ofhead vardate" contenteditable="true" style="margin-bottom: 0in" align="right" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-«ЧЧ» месяц ГГГГ г.
+<div class="ofhead vardate" style="margin-bottom: 0in" align="right" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true">
+«{% now "j" %}» {% now "E" %} {% now "Y" %} г.
+</span>
 </div>
 
 
@@ -169,6 +175,8 @@ _______________И.О. Фамилия
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
+
+
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.1. Настоящая должностная инструкция
 определяет функциональные, должностные 
@@ -176,6 +184,11 @@ _______________И.О. Фамилия
 {{generaldatas.jobtitlerod}} подразделения «<span ng-bind-html="depart"></span>»
  (далее - {{generaldatas.jobtitle}}) <span ng-bind-html="organization"></span> (далее Учреждение).
 </p>
+
+
+<div class="ofhead other_req" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
+
 <p class="western" style="margin-bottom: 0in" align="justify">	1.2.
 На должность {{generaldatas.jobtitlerod}} назначается
 лицо, имеющее
@@ -191,9 +204,13 @@ _______________И.О. Фамилия
 .
 {% endif %}
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">
-OTHER_REQUIREMENTS
-</p>
+
+</span><span>&nbsp;</span>
+</div>
+
+
+
+
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.3. {{generaldatas.jobtitle}} должен знать:
 </p>
@@ -204,38 +221,74 @@ OTHER_REQUIREMENTS
 {% endfor %}
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
-     1.4. {{generaldatas.jobtitle}} назначается на должность
+     1.4. {{generaldatas.jobtitle}} должен уметь:
+</p>
+{% for rs in requirements.requiredskills %}
+<div  class="ofinstructions">
+<li>{{rs.requiredskill}}</li>
+</div>
+{% endfor %}
+
+
+<p class="western" style="margin-bottom: 0in" align="justify">       
+     1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
 директора Учреждения в соответствии с
 действующим законодательством Российской
 Федерации.
 </p>
+
+<div class="ofhead other_req" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <p class="western" style="margin-bottom: 0in" align="justify">	1.6.
-{{generaldatas.jobtitle}} подчиняется DIRECTOR_VALUE и CHEEF_VALUE.
+{{generaldatas.jobtitle}} <span contenteditable="true">подчиняется Директору и начальнику подразделения</span>
+«<span contenteditable="true" data-directive ng-model="depart"></span>»
+<span>&nbsp;</span>
 </p>
+</div>
+
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="center"><br>
-</p>
+
+
 <p class="western" style="margin-bottom: 0in" align="center"><b>2.
-Должностные обязанности и трудовые
-функции
+Трудовые функции
 	</b>
+
+<p class="western" style="margin-bottom: 0in" align="justify"><br>
+</p>
+
+
+{% for tf in requirements.tf %}
+<div  class="tfs">
+<li>2.{{ forloop.counter }}. {{tf.nametf}}</li>
+</div>
+{% endfor %}
+
+</p>
+<p class="western" style="margin-bottom: 0in" align="justify"><br>
+</p>
+
+<p class="western" style="margin-bottom: 0in" align="center"><b>3.
+Должностные обязанности
+	</b>
+
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
 {% for la in requirements.laboractions %}
 <div  class="laboractions">
-<li>2.{{ forloop.counter }}. {{la.laboraction}}</li>
+<li>3.{{ forloop.counter }}. {{la.laboraction}}</li>
 </div>
 {% endfor %}
 
+<p class="western" style="margin-bottom: 0in" align="center"><br>
+</p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="center"><b>3.
+<p class="western" style="margin-bottom: 0in" align="center"><b>4.
 Права
 	</b>
 </p>
@@ -245,54 +298,64 @@ OTHER_REQUIREMENTS
 имеет право:
 	</b>
 </p>
+
+<div class="ofhead o" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
+
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.1. Запрашивать и получать необходимую
+    4.1. Запрашивать и получать необходимую
 информацию, а так же материалы и документы,
 относящиеся к вопросам деятельности
 {{generaldatas.jobtitlerod}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.2.   Повышать квалификацию, проходить
+    4.2.   Повышать квалификацию, проходить
 переподготовку (переквалификацию).
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.3. Вступать во взаимоотношения с
+    4.3. Вступать во взаимоотношения с
 подразделениями сторонних учреждений
 и организаций для решения вопросов,
 входящих в компетенцию {{generaldatas.jobtitlerod}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.4. Принимать участие в обсуждении
+    4.4. Принимать участие в обсуждении
 вопросов, входящих в его функциональные
 обязанности.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.5. Вносить предложения и замечания
+    4.5. Вносить предложения и замечания
 по вопросам улучшения деятельности на
 порученном участке работы.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.6.  Обращаться в соответствующие
+    4.6.  Обращаться в соответствующие
 органы местного самоуправления или в
 суд для разрешения споров, возникающих
 при исполнении функциональных
 обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.7. Пользоваться информационными
+    4.7. Пользоваться информационными
 материалами и нормативно-правовыми
 документами, необходимыми для исполнения
 своих должностных обязанностей;
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    3.8. Проходить в установленном порядке
+    4.8. Проходить в установленном порядке
 аттестацию.
 </p>
+</span>
+<span>&nbsp;</span>
+</div>
+
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="center"><b>4.
+
+<p class="western" style="margin-bottom: 0in" align="center"><b>5.
 Ответственность
 	</b>
+
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
@@ -300,38 +363,41 @@ OTHER_REQUIREMENTS
 	<b>{{generaldatas.jobtitle}} несет ответственность
 за:
 	</b>
+ 
+<div class="ofhead o" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" > 
+ 
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    4.1. Неисполнение (ненадлежащее
+    5.1. Неисполнение (ненадлежащее
 исполнение) своих функциональных
 обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    4.2. Невыполнение распоряжений и
-поручений директора Учреждения и
-CHEEF_VALUE.
+    5.2. Невыполнение распоряжений и
+поручений директора Учреждения
 </p>
 <p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
-	4.3. Недостоверную
+	5.3. Недостоверную
 информацию о состоянии выполнения
 порученных заданий и поручений, нарушении
 сроков их исполнения.
 </p>
 <p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
-	4.4. Нарушение правил
+	5.4. Нарушение правил
 внутреннего трудового распорядка,
 правила противопожарной безопасности
 и техники безопасности, установленных
 в Учреждении.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    4.5. Причинение материального
+    5.5. Причинение материального
 ущерба в пределах, установленных
 действующим законодательством Российской
 Федерации.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    4.6. Разглашение сведений, ставших
+    5.6. Разглашение сведений, ставших
 известными в связи с исполнением
 должностных обязанностей.
 </p>
@@ -344,6 +410,11 @@ CHEEF_VALUE.
 материальной, административной,
 гражданской и уголовной ответственности.
 </p>
+</span>
+<span>&nbsp;</span>
+</div>
+
+
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
@@ -356,34 +427,26 @@ CHEEF_VALUE.
 регулирующих трудовые отношения.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">Должность
-составителя
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">______________________________________
-              _________________ /________________/
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-                  (личная
-подпись)                    (ФИО)
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">Согласовано
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">Должность
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">______________________________________
-              _________________ /________________/
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-                  (личная
-подпись)                    (ФИО)
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
-                         «___»______________20 ___ г.
-</p>
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
+<p>Должность составителя</p>
+
+<p>______________________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; _____________________________________</p>
+
+<p>/_________________________/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (личная подпись)&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ФИО)</p>
+
+<p>&nbsp;</p>
+
+<p>Согласовано</p>
+
+<p>Должность</p>
+
+<p>______________________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; _____________________________________</p>
+
+<p>/_________________________/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; (личная подпись) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ФИО)</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &laquo;___&raquo;______________20 __ г.</p>
+
 </p>
 <p class="western" style="text-indent: 0.49in; margin-bottom: 0in" align="justify">
 	С должностной инструкцией, экземпляр
@@ -393,8 +456,7 @@ CHEEF_VALUE.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">_________________/________________/
-                                   «___»______________20___г.
+<p class="western" style="margin-bottom: 0in" align="justify">_________________/________________/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &laquo;___&raquo;______________20 __ г.</p>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">    
 (личная подпись) 
@@ -434,6 +496,12 @@ app.controller('ctrl', ['$scope', '$sanitize', function($scope, $sanitize) {
     $scope.depart = $sanitize($scope.depart);
     $scope.organization = '«Учреждение»'
     $scope.organization = $sanitize($scope.organization);
+    $scope.director = 'И.О. Фамилия'
+    $scope.director = $sanitize($scope.director);    
+    $scope.ceo = 'Генеральный директор'
+    $scope.ceo = $sanitize($scope.ceo);
+   
+    
 }]);
 
 app.directive("directive", function() {
