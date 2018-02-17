@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-{% extends "layouts/cabinetlayout.html" %}
-
+{% extends "layouts/layout.html" %}
 {% load static %}
-{% block cabinet %}
+{% load widget_tweaks %}
+{% block content %}
 <style>
 
 .card-usercab {
@@ -60,62 +60,8 @@ a:active {color: black;}    /* selected link */
   
 <div ng-app="offinstructions" ng-controller="ctrl">
 
-<div class="container" style="min-height: 100vh;">
+<div class="container py-5" style="min-height: 100vh;">
     
-
-<!-- <h3 class="page-heading mb-4">Должностная инструкция {{generaldatas.jobtitlerod}}</h3>   --> 
-
-<!--
-
-<strong>jobtitleid </strong>           {{generaldatas.jobtitleid           }} <br>
-<strong>jobtitle           </strong>              {{generaldatas.jobtitle             }} <br>
-<strong>nameotf            </strong>              {{generaldatas.nameotf              }} <br>
-<strong>pspurposekind      </strong>              {{generaldatas.pspurposekind        }} <br>
-<strong>nameps             </strong>              {{generaldatas.nameps               }} <br>
-<strong>otraslname         </strong>              {{generaldatas.otraslname           }} <br>
-<strong>otraslicon         </strong>              {{generaldatas.otraslicon           }} <br>
-<strong>educationalreqs    </strong>              {{generaldatas.educationalreqs      }} <br>
-<strong>reqworkexperiences </strong>              {{generaldatas.reqworkexperiences   }} <br>
-<strong>specialconditions  </strong>              {{generaldatas.specialconditions    }} <br>
-<strong>othercharacts      </strong>              {{generaldatas.othercharacts        }} <br>
-<strong>tfs                </strong>              {{generaldatas.tfs                  }} <br>
-<hr>
-<strong>nametf                </strong>
-
-
-
-<strong>laboractions          </strong>-->
-
-
-<!--  {% for la in requirements.laboractions %}
-  
-   <li>{{la.laboraction}}</li>
-  {% endfor %}
--->
-
-<!--
-<strong>necessaryknowledges   </strong>
-
-
-{% for nk in requirements.necessaryknowledges %}
-<li>{{nk.necessaryknowledge}}</li>
-
-{% endfor %}
-
-
-<strong>requiredskills        </strong>
-{% for re in requirements.requiredskills %}
-<li>{{re.requiredskill}}</li>
-{% endfor %}
-<strong>othercharacteristics  </strong>
-{% for oc in requirements.othercharacteristics %}
-<li>{{oc.othercharacteristic}}</li>
-{% endfor %}
-
-<hr>-->
-<!--<p>
-	p { margin-bottom: 0.08in; direction: ltr; text-align: left; }p.western { font-size: 12pt; }p.cjk { font-size: 12pt; }p.ctl { font-size: 12pt; }a:link { color: rgb(0, 0, 255); }
-</p>-->
 
 <!--head-->
 <p class="western" style="margin-bottom: 0in" align="right">УТВЕРЖДАЮ
@@ -186,30 +132,35 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </p>
 
 
-<div class="ofhead other_req" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<span contenteditable="true" >
 
+<div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
 <p class="western" style="margin-bottom: 0in" align="justify">	1.2.
 На должность {{generaldatas.jobtitlerod}} назначается
-лицо, имеющее
+лицо, удовлетворяющее следующим требованиям к образованию и обучению:
+</p>
 {% for education in generaldatas.educationalreqs %}
-    {{education|lower}}{% if not forloop.last %}, {% endif %}
+   <div  class="ofinstructions">
+    <li>{{education}}</li>
+   </div>
 {% endfor %}
+
 {% if generaldatas.reqworkexperiences %}
-    и стаж
-    {% for workexp in generaldatas.reqworkexperiences %}
-        {{workexp|lower}}{% if not forloop.last %}, {% else %}. {% endif %}
-    {% endfor %}
+   <p class="western" style="margin-bottom: 0in" align="justify">с опытом практической работы:</p>
+{% for workexp in generaldatas.reqworkexperiences %}
+<div  class="ofinstructions">
+  <li>{{workexp}}</li>
+</div> 
+{% endfor %}
 {% else %}
 .
 {% endif %}
-</p>
 
-</span><span>&nbsp;</span>
 </div>
 
 
-
+<div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.3. {{generaldatas.jobtitle}} должен знать:
@@ -228,6 +179,9 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 <li>{{rs.requiredskill}}</li>
 </div>
 {% endfor %}
+
+</div>
+
 
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
@@ -375,7 +329,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     5.2. Невыполнение распоряжений и
-поручений директора Учреждения
+поручений директора Учреждения.
 </p>
 <p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
 	5.3. Недостоверную
