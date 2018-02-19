@@ -26,9 +26,10 @@ admin.autodiscover()
 
 urlpatterns = [
     path('', include('django.contrib.auth.urls')),
-    path('login', auth_views.LoginView.as_view(template_name='layouts/layout.html',
-                                               success_url='/'), name='login'),
-    path('logout', auth_views.LogoutView.as_view(template_name='layouts/layout.html'), name='logout'),     
+    url(r'^accounts/', include('allauth.urls')),
+    path('account_login', auth_views.LoginView.as_view(template_name='layouts/layout.html',
+                                               success_url='/'), name='account_login'),
+    path('account_logout', auth_views.LogoutView.as_view(template_name='layouts/layout.html'), name='account_logout'),     
     url(r'^admin/', admin.site.urls),
     # url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^agreement/$', TemplateView.as_view(template_name='agreement.html')),
