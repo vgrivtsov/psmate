@@ -338,8 +338,8 @@ footer a:active {color: white;}    /* selected link */
                               {{ user.last_name }} {{ user.first_name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
-                              <a class="dropdown-item" href="{% url 'settings' %}">Настройки</a>
                               <a class="dropdown-item" href="/cabinet/">Личный кабинет</a>
+                              <a class="dropdown-item" href="{% url 'settings' %}">Настройки</a>                              
                               <a class="dropdown-item" href="{% url 'account_logout' %}">Выход</a>
                             </div>
                         </li>
@@ -358,14 +358,6 @@ footer a:active {color: white;}    /* selected link */
               {% csrf_token %}
               {% if next %}
                 <input type="hidden" name="next" value="{{ next }}" />
-                  {% else %}  
-                    {% if form.errors %}
-                    
-                    <div class="alert alert-danger" role="alert">
-                      <input type="hidden" name="next" value="{{ next }}" />
-                      <strong><center>Неверное имя или пароль</center></strong>
-                    </div>
-                    {% endif %}                    
                     
               {% endif %}
 							<p class="hint-text">Войти с помощью аккаунтов</p>
@@ -402,15 +394,23 @@ footer a:active {color: white;}    /* selected link */
      
 		</ul>
     </div>
-    <!-- Collapsible content -->
 
 </nav>
-                    {% if form.errors %}
-                    
-                    <div class="alert alert-danger" role="alert">
-                      <strong><center>Логин или пароль не совпадают</center></strong>
-                    </div>
-                    {% endif %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
 
     <!-- Page Content -->
 </body>    

@@ -31,8 +31,12 @@ a:active {color: black;}    /* selected link */
                     <p class="card-text text-dark">Настройки</p>
                   </div>
     <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
+     {% if user.profiles.fl_pd_date %}  
     <h5>{{ user.profiles.fl_pd_date }}</h5>
+    {% endif %}
+    {% if user.profiles.fl_adress_real %}  
     <p class="card-text">{{ user.profiles.fl_adress_real }}</p>
+    {% endif %}
     <div class="flex-row">
         <h6>{{ user.profiles.fl_tlph_mob }}</h6>
         <h6>{{ user.email }}</h6>
@@ -89,7 +93,7 @@ a:active {color: black;}    /* selected link */
             
             
  {% endif %}  
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
+<!--            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
              <a href="/generate-position-instructions/">
               <div class="card card-usercab">
                 <div class="card-body">
@@ -102,7 +106,7 @@ a:active {color: black;}    /* selected link */
                 </div>
               </div>
               </a>
-            </div>
+            </div>-->
 
           </div>
  
