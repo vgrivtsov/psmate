@@ -15,7 +15,7 @@
 
     <title>ПрофНавигатор</title>
 
-
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/tether.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >       
@@ -315,7 +315,9 @@ footer a:active {color: white;}    /* selected link */
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сервисы</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="/search-profstandart/">Найти профстандарт</a>
+                
                 <a class="dropdown-item" href="{% url 'generator-cv-resume' %}">Конструктор резюме</a>
+                
                 <a class="dropdown-item nav-link disabled" href="/generator-staff-table/">Генератор должностных инструкций</a>
                 <a class="dropdown-item nav-link disabled" href="/education-recomendations/">Рекомендации по обучению</a>
                 </div>
@@ -410,7 +412,6 @@ footer a:active {color: white;}    /* selected link */
         </div>
     {% endfor %}
 {% endif %}
-
 
     <!-- Page Content -->
 </body>    

@@ -16,6 +16,8 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from time import time
 
+from operator import itemgetter
+
 import pymorphy2
 from pymorphy2 import units
 import re
@@ -84,14 +86,11 @@ class SearchPSView(FormView):
 
 class CvEditView(LoginRequiredMixin, UpdateView):
     
-    template_name = 'services/generator-cv-resume.html'
-    login_url = '/'
-    permission_denied_message = 'Необходима авторизация!' 
+    template_name = 'services/generator-cv-resume.html'    
     form_class = CvGenForm
     
     model = User
     # success_url = None
-
 
 
     def get_object(self, queryset=None):
@@ -357,44 +356,46 @@ class ShowJTlist(ListView):
     # services/jobtitles-list.html
     template_name = 'services/jobtitles-list.html'
     model = Jobtitles
-    #form_class = GetJTlistForm
+    context_object_name = "jtresult"
+    queryset = ''
 
-   
-    def get(self, request, *args, **kwargs):
+    paginate_by = 25
 
-        jt = self.request.GET.get('jt', None)
-
-        # if jt = None:
-        #     print("NONE!!!")
-        #     return search-jobtitles
+    def get_paginate_by(self, queryset):
+            """
+            Paginate by specified value in querystring, or use default class property value.
+            """
+            return self.request.GET.get('paginate_by', self.paginate_by)
         
-        if jt:
+       
+    def get_queryset(self,  *args, **kwargs):
+    
+        search_data = self.request.GET.get('search', None)
+    
+        jtresult = []
             
-            jtresult = []
-            jt_get = Jobtitles.objects.filter(jobtitle__icontains=jt).distinct('id')
-            for jt in jt_get:
-
-                ps = Psinfo.objects.filter(psregnum=jt.psregnum)
-                
-                otrasl = ps[0].otraslid
-                ### Slug save
-                jt.slug = pytils.translit.slugify(jt.jobtitle) + '-' + str(jt.id)
-                jt.save()               
-                ###
-                jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
-                                 'slug' : jt.slug,
-                                 # 'pspurposekind' : ps.pspurposekind,
-                                 'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
-                                 'otraslname' : otrasl.name,
-                                 'otraslicon' : otrasl.icon},
-                    )
-                
-            return render(request, self.template_name, {'jtresult': jtresult,
-                                                                                                          
-                                                        })
+        jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
+        for jt in jt_get:
+    
+            ps = Psinfo.objects.filter(id=jt.ps_id)
+            
+            otrasl = ps[0].otraslid
+            ### Slug save
+            jt.slug = pytils.translit.slugify(jt.jobtitle) + '-' + str(jt.id)
+            jt.save()               
+            ###
+            jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
+                             'slug' : jt.slug,
+                             # 'pspurposekind' : ps.pspurposekind,
+                             'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                             'otraslname' : otrasl.name,
+                             'otraslicon' : otrasl.icon},
+                )
+    
+            
+        return sorted(jtresult, key=itemgetter('jobtitle')) 
         
-        
-class JTDetailsView(ListView):
+class JTDetailsView(View):
 
     template_name = 'services/jobtitle-details.html'
     model = Jobtitles

@@ -28,52 +28,29 @@
 }
 
 .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
-  width: 50%;
+  width: 25%;
 }
 
-@media (max-width: 991px) {
-  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
-    width: 60%;
-  }
-}
-
-@media (max-width: 767px) {
-  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
-    width: 60%;
-  }
-}
-
-@media (max-width: 480px) {
-  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .jobtitleitem {
-    width: 50%;
-  }
-}
 
 
 .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .otraslitem {
-  width: 20%;
+  width: 25%;
 }
 
-@media (max-width: 991px) {
-  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .otraslitem {
-    display: none;
-  }
-}
 
 .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .otraslicon {
   width: 5%;
 }
 
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .nameotfitem {
+  width: 35%;
+}
+
 
 .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .profstandartitem {
-  width: 20%;
+  width: 5%;
 }
 
-@media (max-width: 991px) {
-  .jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li .profstandartitem {
-    display: none;
-  }
-}
 
 
 .jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.headings {
@@ -133,19 +110,19 @@
 </style>
 
 
-<div class="container py-5" style="min-height: 100vh">
+<div class=" py-5 px-5" style="min-height: 100vh">
 
 
     <header class="masthead text-white text-center">
       <div class="overlay"></div>
         <div class="row">
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
-            <form method="get" action='/search-jobtitles/{{ jt }}'>
+            <form method="get" action='/search-jobtitles/{{ search }}'>
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
             
-                  <input type="text" class="form-control form-control-lg" id="jt" name="jt" value="" required>
-                   <label for="jt" class="">поиск по ключевому слову</label>
+                  <input type="text" class="form-control form-control-lg" id="search" name="search" value="" required>
+                   <label for="search" class="">поиск по ключевому слову</label>
 
                 </div>
                 
@@ -153,12 +130,25 @@
                   <input type="submit" class="btn btn-outline-info btn-info"
                   value="Показать">
                 </div>
+
               </div>
+              
+<!--                <div class="form-group">
+                 <label for="paginate_by">Показывать на странице результатов:</label>
+                  <select class="form-control" name="paginate_by" id="paginate_by">
+                    <option>25</option>
+                    <option>50</option>
+                    <option>75</option>
+                    <option>100</option>
+                  </select>                
+                </div>-->
+
             </form>
           </div>
         </div>
 
     </header>
+
 
 
 <section class="section jobtitlelist">
@@ -169,10 +159,16 @@
 			  	<!-- Headings -->
 			  	<ul class="m-0 p-0">
 			  		<li class="headings">
-			  			<div class="jobtitleitem">Должность</div>                  
+			  			<div class="jobtitleitem">Должность</div>
+        
+        <div class="otraslicon"></div>
+        
 			  			<div class="otraslitem">Отрасль</div>
-                  <div class="otraslicon"></div>
-			  			<div class="profstandartitem">Профстандарт №</div>
+        
+			  			<div class="nameotfitem">Обобщенная трудовая функция</div>
+        
+        <div class="profstandartitem">Профстандарт</div>
+        
 			  		</li>
 
                {% for jt in jtresult  %}
@@ -194,7 +190,10 @@
 					  			<i class="{{ jt.otraslicon }} fa-2x"></i>
 					  		</div>                     
                      
-					  		<div class="profstandartitem"><center>{{ jt.psregnum }}</center></div>
+					  		<div class="nameotfitem">{{ jt.nameotf }}</div>
+         
+         <div class="profstandartitem"><center>{{ jt.psregnum }}</center></div>
+         
 			  			</div>
                   </a>
             	</li>
@@ -203,7 +202,33 @@
 			  	</ul>
 			  
 			</div>
+        
+
 	</div>
+
+
+ {% if is_paginated %}
+  {{get_params}}
+ 
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'search-jobtitles' %}?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}" class="previous">&larr; Назад</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                
+                    <a href="{% url 'search-jobtitles' %}?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>               
+                
+                
+                   <!-- <a href="?page={{ page_obj.next_page_number }}" class="next">Вперёд &rarr;</a>-->
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
 
 </section >
 

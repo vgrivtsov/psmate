@@ -183,18 +183,20 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </div>
 
 
-
+<div class="ofhead 15" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
-директора Учреждения в соответствии с
+<span contenteditable="true" ng-bind-html="ceo"></span> Учреждения в соответствии с
 действующим законодательством Российской
 Федерации.
 </p>
+</div>
 
-<div class="ofhead other_req" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<div class="ofhead 16" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <p class="western" style="margin-bottom: 0in" align="justify">	1.6.
-{{generaldatas.jobtitle}} <span contenteditable="true">подчиняется Директору и начальнику подразделения</span>
+{{generaldatas.jobtitle}} подчиняется <span contenteditable="true" ng-bind-html="ceo"></span>
+и начальнику подразделения
 «<span contenteditable="true" data-directive ng-model="depart"></span>»
 <span>&nbsp;</span>
 </p>
@@ -328,8 +330,8 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    5.2. Невыполнение распоряжений и
-поручений директора Учреждения.
+    <span>5.2. Невыполнение распоряжений и
+поручений</span> <span ng-bind-html="ceo"></span>  Учреждения.
 </p>
 <p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
 	5.3. Недостоверную

@@ -109,6 +109,15 @@
 </ul>
 {% endif %}
 
+
+{% if jtresult.nameotf %}
+<ul  class="list-group px-4 my-3">
+    <li class="list-group-item listheader"><h5>Обобщенная трудовая функция<h5></li>
+       {{jtresult.nameotf}}
+</ul>
+{% endif %}
+
+
 {% if jtresult.tfs %}
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
@@ -119,6 +128,9 @@
 {% endfor %}
 </ul>
 {% endif %}
+
+
+
 
 
 <!-- /.card 2 -->
