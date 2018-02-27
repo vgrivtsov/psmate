@@ -50,13 +50,12 @@ class SearchPSView(FormView):
         form=SearchPsForm
         data = self.request.GET.get('nameps', None)
         if data != None:
-            ps_get = Psinfo.objects.filter(id=data) # id=num of autocomplete element. Need to rewrite to psregnum
+            ps_get = Psinfo.objects.filter(id=data) 
             psinfo = ps_get[0]
-            psregnum = ps_get[0].psregnum
-            tfinfo = Tfinfo.objects.filter(psregnum=psregnum).distinct('codetf') # dinstinct delete doubles
-            otfinfo = Gtfinfo.objects.filter(psregnum=psregnum).distinct('codeotf')
-            okzinfo = Okz.objects.filter(psregnum=psregnum).distinct('codeokz')
-            okvedinfo = Okved.objects.filter(psregnum=psregnum).distinct('codeokved')
+            tfinfo = Tfinfo.objects.filter(ps_id=psinfo.id).distinct('codetf') # dinstinct delete doubles
+            otfinfo = Gtfinfo.objects.filter(ps_id=psinfo.id).distinct('codeotf')
+            okzinfo = Okz.objects.filter(ps_id=psinfo.id).distinct('codeokz')
+            okvedinfo = Okved.objects.filter(ps_id=psinfo.id).distinct('codeokved')
             
             mixed_tf_otf = []
             
@@ -409,12 +408,12 @@ class JTDetailsView(View):
 
             jt = Jobtitles.objects.filter(slug=jt_slug)
 
-            ps = Psinfo.objects.filter(psregnum=jt[0].psregnum)
-            educationalreqs = Educationalreqs.objects.filter(nameotf=jt[0].nameotf)
-            reqworkexperiences = Reqworkexperiences.objects.filter(nameotf=jt[0].nameotf)
-            specialconditions = Specialconditions.objects.filter(nameotf=jt[0].nameotf)
-            othercharacts = Othercharacts.objects.filter(nameotf=jt[0].nameotf)
-            tfs = Tfinfo.objects.filter(nameotf=jt[0].nameotf)
+            ps = Psinfo.objects.filter(id=jt[0].ps_id)
+            educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
+            reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
+            specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
+            othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
+            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
             
             otrasl = ps[0].otraslid
             

@@ -7,10 +7,9 @@
 
 <style>
    
-/*div. {
-    height:100vh;
-}   
-   */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
     .select2-container .select2-selection--single {
         height: auto;
     }
@@ -61,7 +60,7 @@
 
 <div ng-app="ps_search" ng-controller="ps_search_ctrl" style="min-height: 100vh; overflow-y: hidden;">
    
-<div class="container py-5 md-form">
+<div class="container py-5 md-form " >
 
 
                          <h6 class="mb-0">Поиск по ключевому слову</h6>
@@ -86,7 +85,7 @@
 
 </div>
 
-<div class="container py-5" ng-show="{{ngshow}}" id="showps"">
+<div class="container py-5" ng-show="{{ngshow}}" id="showps" ng-cloak>
 
    <table width=100%>
    <tr>
