@@ -425,7 +425,7 @@ class JTDetailsView(View):
                         'jobtitle' : jt[0].jobtitle,
                         'nameotf' : jt[0].nameotf,
                         'pspurposekind' : ps[0].pspurposekind,
-                        'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                        'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum, 'psid' : ps[0].id,
                         'otraslname' : otrasl.name,
                         'otraslicon' : otrasl.icon,
                         'educationalreqs' : educationalreqs,
