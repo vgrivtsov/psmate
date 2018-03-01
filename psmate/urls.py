@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^', include('psmate.apps.usercabinet.urls')),
     url(r'^', include('psmate.apps.services.urls')),
     url(r'^', include('psmate.apps.blog.urls')),
+    url(r'^', include('psmate.apps.companyservices.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

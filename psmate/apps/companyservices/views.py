@@ -1,3 +1,102 @@
 from django.shortcuts import render
+try:
+    from django.urls import reverse_lazy
+except ImportError:
+    from django.core.urlresolvers import reverse_lazy
+from django.views.generic import FormView, ListView, View, UpdateView
+from django.views.generic.edit import FormView
+from django.contrib.auth.models import User
+from psmate.models import Enterprises
+from psmate.apps.companyservices.forms import CompanyRegisterForm, CompanySettingsForm
 
-# Create your views here.
+
+class RegisterCompanyFormView(FormView):
+    form_class = CompanyRegisterForm
+    template_name = "companyservices/regform.html"
+    success_url = "/companylist/"
+
+    
+
+    def form_valid(self, form):
+        # create company
+        form.save()
+
+        e_name = self.request.POST['e_name']
+        e_op_form = self.request.POST['e_op_form']
+        e_director = self.request.POST['e_director']
+        e_fam_ul = self.request.POST['e_fam_ul']
+        e_name_ul = self.request.POST['e_name_ul']
+        e_otch_ul = self.request.POST['e_otch_ul']
+
+
+        # call base class method
+        return super(RegisterCompanyFormView, self).form_valid(form)
+
+
+
+class CompanyCabinetView(ListView):
+
+    template_name = 'companyservices/index.html'
+    model = User
+
+    def get_object(self, queryset=None):
+
+        user = self.request.user
+
+
+    def get(self, request, *args, **kwargs):
+        
+        companies = Enterprises.objects.filter(regname_id=user.id)
+
+        return super(CompanyCabinetView, self).get(request, *args, **kwargs)
+
+
+    def get_success_url(self):
+        return reverse_lazy('company')    
+
+
+class CompanySettingsView(UpdateView):
+    form_class = CompanySettingsForm
+    template_name = 'companyservices/settings.html'
+    model = User
+    success_url = "/company/"
+
+    def dispatch(self, *args, **kwargs):
+        return super(CompanySettingsView, self).dispatch(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+
+        user = self.request.user
+        
+        return user
+
+
+    def get(self, request, *args, **kwargs):
+        
+        self.object = self.get_object()
+    
+        return super(CompanySettingsView, self).get(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        
+        self.object = self.get_object()
+    
+        
+        return super(CompanySettingsView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('company')    
+
+    def get_form_kwargs(self):
+        kwargs = super(CompanySettingsView, self).get_form_kwargs()
+        user = self.request.user
+
+        if user:
+            kwargs['user'] = user
+    
+        return kwargs
+
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        return super(CompanySettingsView, self).form_valid(form)
