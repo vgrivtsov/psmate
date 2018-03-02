@@ -6,6 +6,15 @@
 {% load widget_tweaks %}
 {% block content %}
 
+
+{% if user.is_authenticated %}
+  <div class="container-fluid py-5 card text-center z-depth-2">
+   <div class="card-body">
+    <h5>Для новой регистрации необходимо выйти из аккаунта</h5>
+   </div>
+  </div>
+{% else %}
+
 <div class="container py-5" style="min-height: 100vh;">
     <div class="row">
         <div class="col-md-12">
@@ -66,6 +75,6 @@
     <!--/row-->
 </div>
 <!--/container-->  
-  
+{% endif %} 
 
 {% endblock %}

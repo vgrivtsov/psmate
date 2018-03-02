@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+{% extends "layouts/layout.html" %}
+
+{% load static %}
+{% block content %}
+
+<style>
+
+
+</style>
+
+<head>
+
+</head>
+
+{% if user.is_authenticated %}
+<div class="container-fluid py-5 " >
+
+  {% block companyprofile %}
+  {% endblock %}
+
+
+{% else %}
+
+  <div class="container-fluid py-5 card text-center z-depth-2">
+   <div class="card-body">
+    <h5>Для входа в личный кабинет, пожалуйста авторизуйтесь</h5>
+   </div>
+  </div>
+
+{% endif %} 
+
+
+  </div>
+</div> 
+
+
+{% endblock %}

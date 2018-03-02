@@ -83,25 +83,43 @@
             
             
  {% endif %}  
+          </div>
 
-
+<a class="btn btn-outline-info waves-effect my-3" href="/registercompany/">Добавить организацию</a>  
 {% if companies %}
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
-              <div class="card card-usercab">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <i class="fa fa-book float-right"></i>                    
-                  </div>
-                  <h4 class="card-title font-weight-normal text-secondary">Здесь должен быть аккордеон</h4>
-                </div>
-              </div>
-            </div>
-{% else %}              
-         <a class="btn btn-outline-info btn-block waves-effect" href="/registercompany/">Добавить организацию</a>  
+
+<h5>Зарегестрированные компании</h5> 
+
+<div id="accordion" role="tablist" aria-multiselectable="true">
+{% for company in companies %}
+
+  <div class="card">
+   <a {% if forloop.counter == 1 %}  {% else %}  class="collapsed" {% endif %}  data-toggle="collapse" data-parent="#accordion"
+           href="#company_{{ forloop.counter }}" aria-expanded="true" aria-controls="company_{{ forloop.counter }}">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+
+          {{company.e_name}}
+        
+      </h5>
+    </div>
+   </a>
+    <div id="company_{{ forloop.counter }}" {% if forloop.counter == 1 %} class="collapse show" {% else %} class="collapse" {% endif %} role="tabpanel" aria-labelledby="heading_{{ forloop.counter }}">
+      <div class="card-block">
+       «{{company.e_op_form}}» {{company.e_name}}, {{company.e_director}}
+       {{ company.e_name_ul|first|capfirst }}. {{ company.e_otch_ul|first|capfirst }}. {{ company.e_fam_ul|capfirst }}
+      <a class="btn btn-md align-middle btn-outline-success" href="/organization-profile/{{company.id}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
+Войти</a>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+</div>
+
 {% endif %}  
 
-
-          </div>
  
 </div>
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    
+{% extends "layouts/companieslayout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block companyprofile %}
+
+
+{% if company.regname_id == user.id %}
+
+<div class="container" style="min-height: 100vh;">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <!-- form card login -->
+            <div class="card rounded-0">
+                <div class="card-header">
+                    Название компании
+                    <h6 class="mb-0">{{company.e_name}}</h6>
+                </div>
+                <div class="card-body">
+
+                </div>
+                <!--/card-block-->
+
+            <!--/row-->
+           </div>
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->
+
+{% else %} 
+
+  <div class="container-fluid py-5 card text-center z-depth-2">
+   <div class="card-body">
+    <h5>У вас нет такой зарегестрированой организации</h5>
+   </div>
+  </div>
+
+{% endif %} 
+{% endblock %}

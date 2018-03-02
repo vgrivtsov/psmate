@@ -44,16 +44,27 @@ class RegisterCompanyFormView(FormView):
 
 class OrgProfileView(ListView):
 
-    template_name = 'companyservices/index.html'
+    template_name = 'companyservices/organization-profile.html'
     model = User
-    success_url = "/organization-profile/"
+    #success_url = "/organization-profile/"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     slug = self.kwargs['slug']
+    # 
+    #     return context
+
+
 
     def get(self, request, *args, **kwargs):
         
         user = self.request.user
-        companies = Enterprises.objects.filter(regname_id=user.id)
-        
-        return render(request, self.template_name, {'companies' : companies})  
+        company_id = self.kwargs['id']
+        try:
+            company = Enterprises.objects.filter(id=company_id)[0]
+        except IndexError:
+            company = 'null'
+        return render(request, self.template_name, {'company' : company})  
 
 
 class OrgSettingsView(UpdateView):
