@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     
     url(r'^registercompany/$', views.RegisterCompanyFormView.as_view(), name='registercompany'),
-    url(r'^companylist/$', views.CompanyCabinetView.as_view(), name='companylist'),
-    url(r'^companyprofile/$', views.CompanyCabinetView.as_view(), name='companyprofile'),
-    
+    #url(r'^organizations-list/$', views.OrgListCabinetView.as_view(), name='organizations-list'),
+    url(r'^organization-profile/$', views.OrgProfileView.as_view(), name='organization-profile'),
+    url(r'^organization-settings/$', views.OrgSettingsView.as_view(), name='organization-settings'),    
 ]

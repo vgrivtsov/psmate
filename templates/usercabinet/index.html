@@ -83,20 +83,23 @@
             
             
  {% endif %}  
-<!--            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
-             <a href="/generate-position-instructions/">
+
+
+{% if companies %}
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
               <div class="card card-usercab">
                 <div class="card-body">
                   <div class="clearfix">
-                    
-                    <i class="fa fa-table float-right"></i>
-                    <p class="card-text text-dark">Должностные инструкции</p>
-                    
+                    <i class="fa fa-book float-right"></i>                    
                   </div>
+                  <h4 class="card-title font-weight-normal text-secondary">Здесь должен быть аккордеон</h4>
                 </div>
               </div>
-              </a>
-            </div>-->
+            </div>
+{% else %}              
+         <a class="btn btn-outline-info btn-block waves-effect" href="/registercompany/">Добавить организацию</a>  
+{% endif %}  
+
 
           </div>
  

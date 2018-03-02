@@ -17,7 +17,7 @@
                     <!-- form card login -->
                     <div class="card rounded-0">
                         <div class="card-header">
-                            <h3 class="mb-0">Регистрация компании</h3>
+                            <h3 class="mb-0">Регистрация организации</h3>
                         </div>
                         <div class="card-body">
                           <form method="post">
@@ -26,9 +26,13 @@
                            {% for hidden_field in form.hidden_fields %}
                              {{ hidden_field }}
                            {% endfor %}
-                         
+                           
+                          
                            {% for field in form.visible_fields %}
                              <div class="form-group">
+                               
+                               
+                               
                                {{ field.label_tag }}
                                
                                {% render_field field class="form-control form-control-lg rounded-0" %}
@@ -44,7 +48,7 @@
                              
                            {% endfor %}
                          
-                           <button type="submit" class="btn btn-secondary">Зарегестрировать компанию</button>
+                           <button type="submit" class="btn btn-secondary">Зарегестрировать</button>
                            <small class="form-text text-muted">
                             Нажимая кнопку «Зарегистрироваться», вы принимаете
                            <a href="/agreement/">Соглашение на обработку персональных данных</a></small>

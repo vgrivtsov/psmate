@@ -13,11 +13,19 @@ from psmate.apps.companyservices.forms import CompanyRegisterForm, CompanySettin
 class RegisterCompanyFormView(FormView):
     form_class = CompanyRegisterForm
     template_name = "companyservices/regform.html"
-    success_url = "/companylist/"
+    success_url = "/cabinet/"
 
+    def get_form_kwargs(self):
+        kwargs = super(RegisterCompanyFormView, self).get_form_kwargs()
+        user = self.request.user
+
+        if user:
+            kwargs['user'] = user
     
+        return kwargs  
 
     def form_valid(self, form):
+
         # create company
         form.save()
 
@@ -27,39 +35,32 @@ class RegisterCompanyFormView(FormView):
         e_fam_ul = self.request.POST['e_fam_ul']
         e_name_ul = self.request.POST['e_name_ul']
         e_otch_ul = self.request.POST['e_otch_ul']
-
+        regname_id = self.request.user.id
 
         # call base class method
         return super(RegisterCompanyFormView, self).form_valid(form)
 
 
 
-class CompanyCabinetView(ListView):
+class OrgProfileView(ListView):
 
     template_name = 'companyservices/index.html'
     model = User
-
-    def get_object(self, queryset=None):
-
-        user = self.request.user
-
+    success_url = "/organization-profile/"
 
     def get(self, request, *args, **kwargs):
         
+        user = self.request.user
         companies = Enterprises.objects.filter(regname_id=user.id)
-
-        return super(CompanyCabinetView, self).get(request, *args, **kwargs)
-
-
-    def get_success_url(self):
-        return reverse_lazy('company')    
+        
+        return render(request, self.template_name, {'companies' : companies})  
 
 
-class CompanySettingsView(UpdateView):
+class OrgSettingsView(UpdateView):
     form_class = CompanySettingsForm
     template_name = 'companyservices/settings.html'
     model = User
-    success_url = "/company/"
+    success_url = "/organization-profile/"
 
     def dispatch(self, *args, **kwargs):
         return super(CompanySettingsView, self).dispatch(*args, **kwargs)

@@ -15,6 +15,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 
+from psmate.models import Enterprises
+
+
 class RegisterFormView(FormView):
     form_class = UserRegisterForm
     template_name = "regform.html"
@@ -63,23 +66,23 @@ class LogoutView(View):
 
 
 
-class UserCabinetView(ListView):
+class UserCabinetView(View):
     form_class = ProfileSettingsForm
     template_name = 'usercabinet/index.html'
     model = User
 
-    def get_object(self, queryset=None):
-
-        user = self.request.user
-
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return super(UserCabinetView, self).get(request, *args, **kwargs)
-
-
-    def get_success_url(self):
-        return reverse_lazy('cabinet')    
+        
+        user = self.request.user
+        companies = Enterprises.objects.filter(regname_id=user.id)
+        
+        print(companies)
+        
+        return render(request, self.template_name, {'user': user,
+                                                    'companies' :companies,
+                                                                                                          
+                                                        })
 
 
 class UserSettingsView(UpdateView):
