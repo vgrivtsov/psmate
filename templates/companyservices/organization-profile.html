@@ -6,40 +6,71 @@
 {% load widget_tweaks %}
 {% block companyprofile %}
 
+<style>
+
+</style>
+
+
 
 {% if company.regname_id == user.id %}
+<div class="alert alert-info">
+     «{{company.e_op_form}}» {{company.e_name}}
+</div>
+<div class="container-fluid py-5" style="min-height: 100vh;">
 
-<div class="container" style="min-height: 100vh;">
-    <div class="row">
-        <div class="col-sm-12">
+ 
+{% if departs%} 
+<table class="table table-striped"> 
 
-            <!-- form card login -->
-            <div class="card rounded-0">
-                <div class="card-header">
-                    Название компании
-                    <h6 class="mb-0">{{company.e_name}}</h6>
-                </div>
-                <div class="card-body">
 
-                </div>
-                <!--/card-block-->
 
-            <!--/row-->
-           </div>
-        </div>
-        <!--/col-->
-    </div>
-    <!--/row-->
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Название</th>
+      <th>Должность руководителя</th>
+      <th>ФИО руководителя</th>
+      <th>Телефон</th>      
+    </tr>
+  </thead>
+  <tbody>
+  {% for dep in departs %}    
+    <tr>
+      <th scope="row">{{ forloop.counter }}.</th>
+      <td>{{dep.name}}</td>
+      <td>{{dep.cheef}}</td>
+      <td>{{dep.cheef_name|first|capfirst}}. {{dep.cheef_otch|first|capfirst}}. {{dep.cheef_fam|capfirst}}</td>
+      <td>{{dep.phone}}</td>
+      
+      <td align="right"><a class="btn btn-warning btn-sm" href="/organization-profile/{{company.id}}/editdepart/{{dep.id}}">Изменить</a>
+          <a class="btn btn-danger btn-sm" href="/organization-profile/{{company.id}}/removedepart/{{dep.id}}">Удалить</a>
+      </td>
+    </tr>
+  {% endfor %}      
+  </tbody>
+
+</table>
+{% endif %}
+  
+
+    
+<a class="btn btn-outline-info waves-effect my-3" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a>      
+    
+    
 </div>
 <!--/container-->
+
 
 {% else %} 
 
   <div class="container-fluid py-5 card text-center z-depth-2">
    <div class="card-body">
-    <h5>У вас нет такой зарегестрированой организации</h5>
+    <h5>У вас нет такой зарегестрированой организации</h5> {{company.regname_id}}
    </div>
   </div>
 
-{% endif %} 
+{% endif %}
+
 {% endblock %}
+
+

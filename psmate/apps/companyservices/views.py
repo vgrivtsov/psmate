@@ -6,9 +6,10 @@ except ImportError:
 from django.views.generic import FormView, ListView, View, UpdateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
-from psmate.models import Enterprises
+from psmate.models import Enterprises, Departs
 from psmate.apps.companyservices.forms import CompanyRegisterForm, CompanySettingsForm
-
+from psmate.apps.companyservices.forms import DepartRegisterForm, DepartSettingsForm
+from django.http import Http404
 
 class RegisterCompanyFormView(FormView):
     form_class = CompanyRegisterForm
@@ -42,32 +43,133 @@ class RegisterCompanyFormView(FormView):
 
 
 
-class OrgProfileView(ListView):
+class OrgProfileView(View):
 
     template_name = 'companyservices/organization-profile.html'
     model = User
-    #success_url = "/organization-profile/"
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     slug = self.kwargs['slug']
-    # 
-    #     return context
-
 
 
     def get(self, request, *args, **kwargs):
         
         user = self.request.user
         company_id = self.kwargs['id']
-        try:
-            company = Enterprises.objects.filter(id=company_id)[0]
-        except IndexError:
-            company = 'null'
-        return render(request, self.template_name, {'company' : company})  
+        
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+
+        if int(company_id) not in orgs:
+            raise Http404        
+        else:
+            company = Enterprises.objects.get(pk=company_id)
+            departs = Departs.objects.filter(company_id=company_id)
+        # try:
+        #     company = Enterprises.objects.filter(id=company_id)[0]
+        # except IndexError:
+        #     company = 'null'
+        return render(request, self.template_name, {'company' : company,
+                                                    'departs' :departs})  
+
+
+
+
 
 
 class OrgSettingsView(UpdateView):
+    form_class = CompanySettingsForm
+    template_name = 'companyservices/settings.html'
+    model = User
+    success_url = "/organization-profile/"
+
+    def dispatch(self, *args, **kwargs):
+        return super(CompanySettingsView, self).dispatch(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+
+        user = self.request.user
+        
+        return user
+
+
+    def get(self, request, *args, **kwargs):
+        
+        self.object = self.get_object()
+    
+        return super(CompanySettingsView, self).get(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        
+        self.object = self.get_object()
+    
+        
+        return super(CompanySettingsView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('company')    
+
+    def get_form_kwargs(self):
+        kwargs = super(CompanySettingsView, self).get_form_kwargs()
+        user = self.request.user
+
+        if user:
+            kwargs['user'] = user
+    
+        return kwargs
+
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        return super(CompanySettingsView, self).form_valid(form)
+    
+    
+    
+class RegisterDepartFormView(FormView):
+    form_class = DepartRegisterForm
+    template_name = "companyservices/departregform.html"
+
+    def get_form_kwargs(self):
+        kwargs = super(RegisterDepartFormView, self).get_form_kwargs()
+        company_id = self.kwargs['id']
+        user = self.request.user
+        
+        # check if company belongs auth user 
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+
+        if int(company_id) not in orgs:
+            raise Http404
+        else:
+            kwargs['company'] = Enterprises.objects.get(pk=company_id)
+
+        if user:
+            kwargs['user'] = user
+    
+    
+        return kwargs  
+
+    
+    
+    def form_valid(self, form):
+
+        # create company
+        form.save()
+
+        name = self.request.POST['name']
+        cheef = self.request.POST['cheef']
+        cheef_fam = self.request.POST['cheef_fam']
+        cheef_name = self.request.POST['cheef_name']
+        cheef_otch = self.request.POST['cheef_otch']
+        phone = self.request.POST['phone']        
+        #company_id = self.company_id
+
+        # call base class method
+        return super(RegisterDepartFormView, self).form_valid(form)
+
+    def get_success_url(self):
+        company_id = self.kwargs['id']
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})  
+
+
+class DepartSettingsView(UpdateView):
     form_class = CompanySettingsForm
     template_name = 'companyservices/settings.html'
     model = User
