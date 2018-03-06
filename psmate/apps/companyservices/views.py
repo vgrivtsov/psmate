@@ -231,6 +231,23 @@ class DepartDeleteView(DeleteView):
     
     template_name = "companyservices/departs_confirm_delete.html"
 
+    def get(self, request, *args, **kwargs):
+        
+        user = self.request.user
+        company_id = self.kwargs['id']
+        dep_id =  self.kwargs['pk']
+        
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+
+        if int(company_id) not in orgs:
+            raise Http404        
+        else:
+            company = Enterprises.objects.get(pk=company_id)
+            department = Departs.objects.filter(id=dep_id)[0]
+
+        return render(request, self.template_name, {'company' : company, 'department' : department }) 
+
     def get_queryset(self):
         
         user = self.request.user

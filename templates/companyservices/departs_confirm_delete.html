@@ -8,7 +8,7 @@
 
 <div class="container-fluid py-5 card text-center z-depth-2">
 <form action="" method="post">
-    <h6>Удалить подразделение "{{ object }}"?</h6>{% csrf_token %}
+    <h6>Удалить подразделение "{{ department.name }}"?</h6>{% csrf_token %}
     <input class="btn btn-blue-grey btn-md" type="submit" value="Удалить"/>
     <button onclick="window.history.back();" class="btn btn-primary btn-md" type="button">Отмена</button>
 </form>

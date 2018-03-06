@@ -6,6 +6,18 @@
 {% block content %}
 
 <div class="container-fluid py-5" style="min-height: 100vh;">
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="/cabinet/">Кабинет</a>
+  {% if company %}
+    <a class="breadcrumb-item" href="/organization-profile/{{company.id}}">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
+  {% endif %}
+  
+  {% if form %}
+    <a class="breadcrumb-item" href="/organization-profile/{{form.company_id}}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
+  {% endif %}  
+</nav>    
+    
+    
 {% if messages %}
 <div class="alert alert-success">
     {% for m in messages %}
