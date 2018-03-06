@@ -3,6 +3,13 @@
 {% extends "layouts/cabinetlayout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+
+{% block breadcrumbs %}
+{{ block.super }} <a class="breadcrumb-item" href="/presentation-cv-resume/">Резюме</a><a class="breadcrumb-item" href="/generator-cv-resume/">Генератор резюме</a>
+{% endblock %}
+
+
 {% block cabinet %}
 
 <style>
@@ -55,6 +62,7 @@
 
 {% if user.is_authenticated %}
 <div class="container cvgen" style="min-height: 100vh; overflow-y: hidden;">
+
 
 
 <div ng-app="resume_form">

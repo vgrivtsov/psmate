@@ -4,7 +4,13 @@
 
 {% load static %}
 {% load widget_tweaks %}
+
+{% block breadcrumbs %}
+{{ block.super }} <a class="breadcrumb-item" href="/organization-profile/{{form.company_id}}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
+{% endblock %}
+
 {% block companyprofile %}
+
 
 {% if user.is_authenticated %}
 

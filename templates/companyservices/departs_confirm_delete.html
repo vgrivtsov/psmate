@@ -4,6 +4,11 @@
 
 {% load static %}
 {% load widget_tweaks %}
+
+{% block breadcrumbs %}
+{{ block.super }} <a class="breadcrumb-item" href="/organization-profile/{{company.id}}/">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
+{% endblock %}
+
 {% block companyprofile %}
 
 <div class="container-fluid py-5 card text-center z-depth-2">

@@ -3,6 +3,13 @@
 {% extends "layouts/cabinetlayout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+
+{% block breadcrumbs %}
+{{ block.super }}<a class="breadcrumb-item" href="/presentation-cv-resume/">Резюме</a>
+{% endblock %}
+
+
 {% block cabinet %}
 
 
@@ -244,6 +251,8 @@ section:last-child {
 
 <div class="form-group py-3" >
 {% if user.is_authenticated %}
+
+
 
 <div id="toprserv" class="pull-right">
 	<a class="btn btn-md align-middle btn-outline-secondary" href="/generator-cv-resume/" class="px-3">

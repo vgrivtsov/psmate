@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 
-{% extends "layouts/layout.html" %}
+{% extends "layouts/cabinetlayout.html" %}
 
 {% load static %}
-{% block content %}
 
-<div class="container-fluid py-5" style="min-height: 100vh;">
+
+{% block cabinet %}
+
+
+<!--<div class="py-3">
 <nav class="breadcrumb">
   <a class="breadcrumb-item" href="/cabinet/">Кабинет</a>
   {% if company %}
+    
     <a class="breadcrumb-item" href="/organization-profile/{{company.id}}">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
   {% endif %}
   
@@ -16,8 +20,12 @@
     <a class="breadcrumb-item" href="/organization-profile/{{form.company_id}}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
   {% endif %}  
 </nav>    
-    
-    
+</div>   -->
+
+
+
+<div class="container-fluid py-5" style="min-height: 100vh;">
+<!--Messages-->
 {% if messages %}
 <div class="alert alert-success">
     {% for m in messages %}
@@ -25,6 +33,8 @@
     {% endfor %}
 </div>
 {% endif %}
+    
+
  
 {% block companyprofile %}
 {% endblock %}

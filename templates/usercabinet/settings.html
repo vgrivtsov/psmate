@@ -4,11 +4,21 @@
 
 {% load static %}
 {% load widget_tweaks %}
+
+{% block breadcrumbs %}
+{{ block.super }}<a class="breadcrumb-item" href="/settings/">Настройки</a>
+{% endblock %}
+
+
 {% block cabinet %}
 
 {% if user.is_authenticated %}
 
+
+
+
 <div class="container" style="min-height: 100vh;">
+    
     <div class="row">
         <div class="col-sm-12">
 
