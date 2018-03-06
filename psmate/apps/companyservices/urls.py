@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^organization-profile/(?P<id>[-\d]+)/$', views.OrgProfileView.as_view(), name='organization-profile'),
     url(r'^organization-settings/$', views.OrgSettingsView.as_view(), name='organization-settings'),    
     url(r'^organization-profile/(?P<id>[-\d]+)/registerdepart/$', views.RegisterDepartFormView.as_view(), name='registerdepart'),
-    url(r'^depart-settings/$', views.DepartSettingsView.as_view(), name='depart-settings'),       
+    url(r'^organization-profile/(?P<id>[-\d]+)/editdepart/(?P<pk>[-\d]+)/$', views.DepartSettingsView.as_view(), name='editdepart'),
+    url(r'^organization-profile/(?P<id>[-\d]+)/removedepart/(?P<pk>[-\d]+)/$', views.DepartDeleteView.as_view(), name='removedepart'),
     
 ]
-

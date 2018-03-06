@@ -3,13 +3,14 @@ try:
     from django.urls import reverse_lazy
 except ImportError:
     from django.core.urlresolvers import reverse_lazy
-from django.views.generic import FormView, ListView, View, UpdateView
+from django.views.generic import FormView, ListView, View, UpdateView, DeleteView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from psmate.models import Enterprises, Departs
 from psmate.apps.companyservices.forms import CompanyRegisterForm, CompanySettingsForm
 from psmate.apps.companyservices.forms import DepartRegisterForm, DepartSettingsForm
 from django.http import Http404
+from django.contrib import messages
 
 class RegisterCompanyFormView(FormView):
     form_class = CompanyRegisterForm
@@ -170,47 +171,89 @@ class RegisterDepartFormView(FormView):
 
 
 class DepartSettingsView(UpdateView):
-    form_class = CompanySettingsForm
-    template_name = 'companyservices/settings.html'
-    model = User
-    success_url = "/organization-profile/"
-
-    def dispatch(self, *args, **kwargs):
-        return super(CompanySettingsView, self).dispatch(*args, **kwargs)
+    
+    form_class = DepartSettingsForm
+    template_name = 'companyservices/departsettings.html'
+    model = Departs
 
     def get_object(self, queryset=None):
-
-        user = self.request.user
         
-        return user
-
+        obj = Departs.objects.get(id=self.kwargs['pk'])
+        return obj
+   
 
     def get(self, request, *args, **kwargs):
         
         self.object = self.get_object()
     
-        return super(CompanySettingsView, self).get(request, *args, **kwargs)
+        return super(DepartSettingsView, self).get(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):
         
         self.object = self.get_object()
     
         
-        return super(CompanySettingsView, self).post(request, *args, **kwargs)
+        return super(DepartSettingsView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse_lazy('company')    
+        company_id = self.kwargs['id']
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})    
 
     def get_form_kwargs(self):
-        kwargs = super(CompanySettingsView, self).get_form_kwargs()
+        
+        kwargs = super(DepartSettingsView, self).get_form_kwargs()
+        company_id = self.kwargs['id']
         user = self.request.user
+        
+        # check if company belongs auth user 
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+
+        if int(company_id) not in orgs:
+            raise Http404
+        else:
+            kwargs['company'] = Enterprises.objects.get(pk=company_id)
 
         if user:
             kwargs['user'] = user
     
-        return kwargs
+    
+        return kwargs   
 
 
     def form_valid(self, form):
         self.object = self.get_object()
-        return super(CompanySettingsView, self).form_valid(form)
+        return super(DepartSettingsView, self).form_valid(form)
+
+
+
+class DepartDeleteView(DeleteView):
+    
+    template_name = "companyservices/departs_confirm_delete.html"
+
+    def get_queryset(self):
+        
+        user = self.request.user
+        company_id =  self.kwargs['id']
+        dep_id =  self.kwargs['pk']
+
+        # check if company belongs auth user 
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+    
+        if int(company_id) not in orgs:
+            raise Http404
+        else:
+            return Departs.objects.filter(id=dep_id)
+            
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(request, "Подразделение %s было удалено" % obj.name)
+        return super(DepartDeleteView, self).delete(request, *args, **kwargs)      
+
+    def get_success_url(self):
+        company_id = self.kwargs['id']
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})  
+
+
