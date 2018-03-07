@@ -18,18 +18,18 @@
                     <i class="fa fa-gear float-right"></i>
                     <p class="card-text text-dark">Настройки</p>
                   </div>
-    <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
-     {% if user.profiles.fl_pd_date %}  
-    <h5>{{ user.profiles.fl_pd_date }}</h5>
-    {% endif %}
-    {% if user.profiles.fl_adress_real %}  
-    <p class="card-text">{{ user.profiles.fl_adress_real }}</p>
-    {% endif %}
-    <div class="flex-row">
-        <h6>{{ user.profiles.fl_tlph_mob }}</h6>
-        <h6>{{ user.email }}</h6>
+                <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
+                 {% if user.profiles.fl_pd_date %}  
+                <h5>{{ user.profiles.fl_pd_date }}</h5>
+                {% endif %}
+                {% if user.profiles.fl_adress_real %}  
+                <p class="card-text">{{ user.profiles.fl_adress_real }}</p>
+                {% endif %}
+                <div class="flex-row">
+                    <h6>{{ user.profiles.fl_tlph_mob }}</h6>
+                    <h6>{{ user.email }}</h6>
 
-    </div>                  
+                </div>                  
                   
                   
                 </div>
@@ -83,13 +83,55 @@
  {% endif %}  
           </div>
 
-<a class="btn btn-outline-info waves-effect my-3" href="/registercompany/">Добавить организацию</a>  
+
 {% if companies %}
 
-<h5>Зарегестрированные компании</h5> 
+<h4><span class="badge stylish-color">Зарегестрированные организации</span></h4> 
 
-<div id="accordion" role="tablist" aria-multiselectable="true">
+
+<div class="row">
+<!--<div id="accordion" role="tablist" aria-multiselectable="true">-->
 {% for company in companies %}
+
+
+<!--Card company info-->
+            <div class="col">             
+              <div class="card">               
+                <div class="card-body">
+                  <div class="clearfix">
+                    <a href="/organization-settings/{{company.id}}">
+                     <i class="fa fa-pencil float-right"></i>
+                    </a>
+                  </div>
+                     <h5 class="card-title">«{{company.e_op_form}}» {{company.e_name}}</h5>
+                </div>
+               <div class="card-body" >
+                 {{company.e_director}} {{company.e_name_ul|first|capfirst}}. {{company.e_otch_ul|first|capfirst}}. {{company.e_fam_ul|capfirst}}
+               </div>                
+                 <a class="btn btn-sm align-middle btn-outline-info" href="/organization-profile/{{company.id}}">Войти в профиль</a>                
+              </div>               
+            </div>
+              
+
+<!--/.Card company info-->
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+{% if companies|length < 3 %}
+<button type="button" class="btn btn-sm btn-outline-primary" href="/registercompany/">Добавить организацию</button type="button">
+{% else %}
+<p class="font-italic text-muted">Достигнут лимит созданных организаций</p>
+{% endif %}
+
+</div>
+
+
+<!--
+
 
   <div class="card">
    <a {% if forloop.counter == 1 %}  {% else %}  class="collapsed" {% endif %}  data-toggle="collapse" data-parent="#accordion"
@@ -112,16 +154,14 @@
 Настройки</a>
       </div>
     </div>
-  </div>
+  </div>-->
 
-{% endfor %}
 
-</div>
 
-{% endif %}  
+<!--</div row>-->
 
- 
-</div>
+
+
 
 
 

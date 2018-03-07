@@ -13,6 +13,63 @@
 
 
 {% if company.regname_id == user.id %}
+<!--Card company info-->
+            <div class="col-3 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="clearfix">
+                    <a href="/organization-settings/{{company.id}}">
+                     <i class="fa fa-pencil float-right"></i>
+                    </a>
+                  </div>
+                  <h5 class="card-title">Информация об организации</h5>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>
+                            Название
+                          </th>
+                          <th>
+                            {{company.e_director}}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                           «{{company.e_op_form}}» {{company.e_name}}
+                          </td>
+                          <td>{{company.e_name_ul|first|capfirst}}. {{company.e_otch_ul|first|capfirst}}. {{company.e_fam_ul|capfirst}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+ 
+<!--/.Card company info-->
+
+
+
+
+<div class="row py-5">
+  <div class="col"><h4>Подразделения</h4></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+
+</div>
+
+
 
 {% if departs%} 
 <table class="table table-striped"> 
@@ -48,8 +105,10 @@
 {% endif %}
   
 
-    
-<a class="btn btn-outline-info waves-effect my-3" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a>      
+<div class="row">
+  <div class="col"><a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a> </div>
+</div>    
+     
     
     
 

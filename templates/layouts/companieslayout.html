@@ -8,23 +8,8 @@
 {% block cabinet %}
 
 
-<!--<div class="py-3">
-<nav class="breadcrumb">
-  <a class="breadcrumb-item" href="/cabinet/">Кабинет</a>
-  {% if company %}
-    
-    <a class="breadcrumb-item" href="/organization-profile/{{company.id}}">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
-  {% endif %}
-  
-  {% if form %}
-    <a class="breadcrumb-item" href="/organization-profile/{{form.company_id}}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
-  {% endif %}  
-</nav>    
-</div>   -->
 
-
-
-<div class="container-fluid py-5" style="min-height: 100vh;">
+<div class="container-fluid" style="min-height: 100vh;">
 <!--Messages-->
 {% if messages %}
 <div class="alert alert-success">
