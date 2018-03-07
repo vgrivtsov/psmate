@@ -38,8 +38,11 @@
                      </div>
                      
                    {% endfor %}
-                    <input type="reset" class="btn btn-secondary" onclick="location.href='/cabinet/';" value="Отмена">
-                    <input type="submit" class="btn btn-primary" value="Сохранить">
+                   <div class="d-flex justify-content-end">
+                     <div class="p-2"><input type="reset" class="btn btn-secondary" onclick="location.href='/cabinet/';" value="Отмена"></div>
+                     <div class="p-2"><input type="submit" class="btn btn-primary" value="Сохранить"></div>
+                     <div class="ml-auto p-2"><a class="btn btn-danger" href="/organization-remove/{{form.company_id}}/">Удалить</a></div>
+                   </div>
             
                  </form>
                 </div>
