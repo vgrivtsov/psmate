@@ -14,7 +14,7 @@
 
 {% if company.regname_id == user.id %}
 <!--Card company info-->
-            <div class="col-4 mb-4">
+            <div class="col-3 mb-4">
               <div class="card">
                 <div class="card-body">
                   <div class="clearfix">
@@ -56,11 +56,26 @@
 
 <div class="row py-5">
   <div class="col"><h4>Подразделения</h4></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+
 </div>
+
 
 
 {% if departs%} 
 <table class="table table-striped"> 
+
+
+
   <thead>
     <tr>
       <th>№</th>
@@ -77,8 +92,11 @@
       <td>{{dep.name}}</td>
       <td>{{dep.cheef}}</td>
       <td>{{dep.cheef_name|first|capfirst}}. {{dep.cheef_otch|first|capfirst}}. {{dep.cheef_fam|capfirst}}</td>
-      <td>{{dep.phone}}</td>      
-      <td align="right"><a class="btn btn-warning btn-sm" href="/organization-profile/{{company.id}}/editdepart/{{dep.id}}">Изменить</a></td>
+      <td>{{dep.phone}}</td>
+      
+      <td align="right"><a class="btn btn-warning btn-sm" href="/organization-profile/{{company.id}}/editdepart/{{dep.id}}">Изменить</a>
+          <a class="btn btn-danger btn-sm" href="/organization-profile/{{company.id}}/removedepart/{{dep.id}}">Удалить</a>
+      </td>
     </tr>
   {% endfor %}      
   </tbody>
@@ -86,11 +104,11 @@
 </table>
 {% endif %}
   
-{% if departs|length < 2 %}
-<a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a> </div>
-{% else %}
-<p class="font-italic text-muted">Достигнут лимит на создание подразделений в организации «{{company.e_op_form}}» {{company.e_name}}</p>
-{% endif %}     
+
+<div class="row">
+  <div class="col"><a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a> </div>
+</div>    
+     
     
     
 

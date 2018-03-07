@@ -12,15 +12,13 @@ from psmate.apps.companyservices.forms import DepartRegisterForm, DepartSettings
 from django.http import Http404
 from django.contrib import messages
 
-################ ORGANIZATIONS VIEWS ###################################################
-
-class OrgCompanyFormView(FormView):
+class RegisterCompanyFormView(FormView):
     form_class = OrgRegisterForm
     template_name = "companyservices/regform.html"
     success_url = "/cabinet/"
 
     def get_form_kwargs(self):
-        kwargs = super(OrgCompanyFormView, self).get_form_kwargs()
+        kwargs = super(RegisterCompanyFormView, self).get_form_kwargs()
         user = self.request.user
 
         if user:
@@ -42,7 +40,7 @@ class OrgCompanyFormView(FormView):
         regname_id = self.request.user.id
 
         # call base class method
-        return super(OrgCompanyFormView, self).form_valid(form)
+        return super(RegisterCompanyFormView, self).form_valid(form)
 
 
 
@@ -131,59 +129,6 @@ class OrgSettingsView(UpdateView):
         return super(OrgSettingsView, self).form_valid(form)
     
     
-
-class OrgDeleteView(DeleteView):
-    
-    template_name = "companyservices/enterprises_confirm_delete.html"
-    success_url = "/cabinet/"
-
-
-    def get_object(self, queryset=None):
-        
-        obj = Enterprises.objects.get(pk=self.kwargs['id'])
-        return obj
-
-
-    def get(self, request, *args, **kwargs):
-        
-        user = self.request.user
-        company_id = self.kwargs['id']
-        
-        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
-        orgs = [x.id for x in get_all_orgs]
-
-        if int(company_id) not in orgs:
-            raise Http404        
-        else:
-            company = Enterprises.objects.get(pk=company_id)
-
-        return render(request, self.template_name, {'company' : company})
-
-
-    def get_queryset(self):
-        
-        user = self.request.user
-        company_id =  self.kwargs['id']
-
-
-        # check if company belongs auth user 
-        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
-        orgs = [x.id for x in get_all_orgs]
-    
-        if int(company_id) not in orgs:
-            raise Http404
-        else:
-            return Enterprises.objects.get(pk=company_id)
-            
-
-    def delete(self, request, *args, **kwargs):
-        obj = self.get_object()
-        messages.success(request, "Организация %s была удалена" % obj.e_name)
-        return super(OrgDeleteView, self).delete(request, *args, **kwargs)      
-
-
-################ DEPARTS VIEWS ###################################################
-
     
 class RegisterDepartFormView(FormView):
     form_class = DepartRegisterForm

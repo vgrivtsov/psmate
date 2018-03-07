@@ -11,23 +11,13 @@
 
 {% if user.is_authenticated %}
 
-  <!--Messages-->
-  {% if messages %}
-  <div class="alert alert-success">
-      {% for m in messages %}
-         {{ m }}
-      {% endfor %}
-  </div>
-  {% endif %}
-</div>
 
 <div class="py-3">
 
   <nav class="breadcrumb">
     {% block breadcrumbs %} <a class="breadcrumb-item" href="/cabinet/">Личный кабинет</a> {% endblock %}
   </nav>
-  
-
+</div>
   
 
 

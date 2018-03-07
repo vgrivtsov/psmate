@@ -6,43 +6,60 @@
 {% block content %}
 {% autoescape off %}
 
-<!-- Page Content -->
+<style>
 
-<div class="container blog-post">
     
-  <!-- Page Heading/Breadcrumbs -->
-  <div class="py-3">
-    <p class="font-italic text-muted">Источник: <a href="{{object.url}}">{{object.url}}</a></p>
-  </div>
-  
-  <h1 class="mt-4 mb-3">{{ object.title }}
-    
-  </h1>
+</style>
 
-  <div class="row">
 
-    <!-- Post Content Column -->
-    <div class="col-lg-8">
+    <!-- Page Content -->
+    <div class="container">
 
-      <!-- Preview Image -->
-      <img class="img-fluid rounded" src="{{ object.image.url }}" alt="">
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3">{{ object.title }}
+        <small>
+        </small>
+      </h1>
 
-      <hr>
+      <div class="row">
 
-      <!-- Date/Time -->
-      <p>{{object.created_at}}</p>
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
 
-      <hr>
+          <!-- Preview Image -->
+          <img class="img-fluid rounded" src="{{ object.image.url }}" alt="">
 
-      <!-- Post Content -->
-      {{object.text}}
+          <hr>
+
+          <!-- Date/Time -->
+          <p>{{object.created_at}}</p>
+
+          <hr>
+
+          <!-- Post Content -->
+          {{object.text}}
+
+          <hr>
+          Источник: <a href="{{object.url}}">{{object.url}}</a>
+          <!-- Comments Form -->
+<!--          <div class="card my-4">
+            <h5 class="card-header">Написать комментарий:</h5>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-secondary">Отправить</button>
+              </form>
+            </div>
+          </div>-->
+
+        </div>
+
+      </div>
+      <!-- /.row -->
 
     </div>
-
-  </div>
-  <!-- /.row -->
-
-</div>
-<!-- /.container -->
+    <!-- /.container -->
 {% endautoescape %}
 {% endblock %} 

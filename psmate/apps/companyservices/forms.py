@@ -5,7 +5,7 @@ from psmate.models import Enterprises, Departs
 from django.forms import ModelForm
 
 
-################ ORGANIZATIONS FORMS ###################################################
+################ COMPANY FORMS ###################################################
 
 class OrgRegisterForm(ModelForm):
     CHOICES = (('ПТ', 'ПТ'),

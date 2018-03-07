@@ -36,13 +36,9 @@
                      </div>
                      
                    {% endfor %}
-                   <div class="d-flex justify-content-end">
-                     <div class="p-2"><input type="reset" class="btn btn-secondary" onclick="location.href='/organization-profile/{{form.company_id}}/';" value="Отмена"></div>
-                     <div class="p-2"><input type="submit" class="btn btn-primary" value="Сохранить"></div>
-                     <div class="ml-auto p-2"><a class="btn btn-danger" href="/organization-profile/{{form.company_id}}/removedepart/{{object.id}}">Удалить</a></div>
-                   </div>
-                    
-                               
+                    <input type="reset" class="btn btn-secondary" onclick="location.href='/cabinet/';" value="Отмена">
+                    <input type="submit" class="btn btn-primary" value="Сохранить">
+            
                  </form>
                 </div>
                 <!--/card-block-->
