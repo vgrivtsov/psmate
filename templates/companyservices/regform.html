@@ -4,6 +4,14 @@
 
 {% load static %}
 {% load widget_tweaks %}
+
+
+{% block breadcrumbs %}
+{{ block.super }} <a class="breadcrumb-item" href="/registercompany/">Регистрация организации</a>
+{% endblock %}
+
+
+
 {% block content %}
 
 <div class="container py-5" style="min-height: 100vh;">

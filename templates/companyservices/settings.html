@@ -1,9 +1,17 @@
 <!DOCTYPE html>
     
-{% extends "layouts/cabinetlayout.html" %}
+{% extends "layouts/companieslayout.html" %}
 
 {% load static %}
 {% load widget_tweaks %}
+
+
+{% block breadcrumbs %}
+{{ block.super }} <a class="breadcrumb-item" href="/organization-profile/{{form.company_id}}">Организация: «{{form.company_form}}» {{form.company_name}}</a> <a class="breadcrumb-item" href="/organization-settings/{{form.company_id}}/">Настройки</a>
+{% endblock %}
+
+
+
 {% block cabinet %}
 
 {% if user.is_authenticated %}
@@ -15,7 +23,7 @@
             <!-- form card login -->
             <div class="card rounded-0">
                 <div class="card-header">
-                    <h6 class="mb-0">Персональные данные</h6>
+                    <h6 class="mb-0">Организация: «{{form.company_form}}» {{form.company_name}}</h6>
                 </div>
                 <div class="card-body">
                   <form method="post" action="">

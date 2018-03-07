@@ -7,13 +7,13 @@ from django.views.generic import FormView, ListView, View, UpdateView, DeleteVie
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from psmate.models import Enterprises, Departs
-from psmate.apps.companyservices.forms import CompanyRegisterForm, CompanySettingsForm
+from psmate.apps.companyservices.forms import OrgRegisterForm, OrgSettingsForm
 from psmate.apps.companyservices.forms import DepartRegisterForm, DepartSettingsForm
 from django.http import Http404
 from django.contrib import messages
 
 class RegisterCompanyFormView(FormView):
-    form_class = CompanyRegisterForm
+    form_class = OrgRegisterForm
     template_name = "companyservices/regform.html"
     success_url = "/cabinet/"
 
@@ -63,63 +63,70 @@ class OrgProfileView(View):
         else:
             company = Enterprises.objects.get(pk=company_id)
             departs = Departs.objects.filter(company_id=company_id)
-        # try:
-        #     company = Enterprises.objects.filter(id=company_id)[0]
-        # except IndexError:
-        #     company = 'null'
+
         return render(request, self.template_name, {'company' : company,
                                                     'departs' :departs})  
 
 
 
-
-
-
 class OrgSettingsView(UpdateView):
-    form_class = CompanySettingsForm
+    form_class = OrgSettingsForm
     template_name = 'companyservices/settings.html'
-    model = User
-    success_url = "/organization-profile/"
+    model = Enterprises
 
-    def dispatch(self, *args, **kwargs):
-        return super(CompanySettingsView, self).dispatch(*args, **kwargs)
 
     def get_object(self, queryset=None):
 
-        user = self.request.user
-        
-        return user
+        obj = Enterprises.objects.get(id=self.kwargs['id'])
+        return obj
 
 
     def get(self, request, *args, **kwargs):
         
         self.object = self.get_object()
     
-        return super(CompanySettingsView, self).get(request, *args, **kwargs)
+        return super(OrgSettingsView, self).get(request, *args, **kwargs)
+    
     
     def post(self, request, *args, **kwargs):
         
         self.object = self.get_object()
     
         
-        return super(CompanySettingsView, self).post(request, *args, **kwargs)
+        return super(OrgSettingsView, self).post(request, *args, **kwargs)
+
 
     def get_success_url(self):
-        return reverse_lazy('company')    
+        company_id = self.kwargs['id']
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})    
+
 
     def get_form_kwargs(self):
-        kwargs = super(CompanySettingsView, self).get_form_kwargs()
+        
+        kwargs = super(OrgSettingsView, self).get_form_kwargs()
+        company_id = self.kwargs['id']
         user = self.request.user
+        
+        # check if company belongs auth user 
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+
+        if int(company_id) not in orgs:
+            raise Http404
+        else:
+            kwargs['company'] = Enterprises.objects.get(pk=company_id)
 
         if user:
             kwargs['user'] = user
     
-        return kwargs
+    
+        return kwargs  
 
 
     def form_valid(self, form):
+        
         self.object = self.get_object()
-        return super(CompanySettingsView, self).form_valid(form)
+        return super(OrgSettingsView, self).form_valid(form)
     
     
     
@@ -127,7 +134,9 @@ class RegisterDepartFormView(FormView):
     form_class = DepartRegisterForm
     template_name = "companyservices/departregform.html"
 
+
     def get_form_kwargs(self):
+        
         kwargs = super(RegisterDepartFormView, self).get_form_kwargs()
         company_id = self.kwargs['id']
         user = self.request.user
@@ -147,8 +156,7 @@ class RegisterDepartFormView(FormView):
     
         return kwargs  
 
-    
-    
+        
     def form_valid(self, form):
 
         # create company
@@ -165,6 +173,7 @@ class RegisterDepartFormView(FormView):
         # call base class method
         return super(RegisterDepartFormView, self).form_valid(form)
 
+
     def get_success_url(self):
         company_id = self.kwargs['id']
         return reverse_lazy('organization-profile', kwargs={'id': company_id})  
@@ -175,6 +184,7 @@ class DepartSettingsView(UpdateView):
     form_class = DepartSettingsForm
     template_name = 'companyservices/departsettings.html'
     model = Departs
+
 
     def get_object(self, queryset=None):
         
@@ -188,6 +198,7 @@ class DepartSettingsView(UpdateView):
     
         return super(DepartSettingsView, self).get(request, *args, **kwargs)
     
+    
     def post(self, request, *args, **kwargs):
         
         self.object = self.get_object()
@@ -195,9 +206,11 @@ class DepartSettingsView(UpdateView):
         
         return super(DepartSettingsView, self).post(request, *args, **kwargs)
 
+
     def get_success_url(self):
         company_id = self.kwargs['id']
         return reverse_lazy('organization-profile', kwargs={'id': company_id})    
+
 
     def get_form_kwargs(self):
         
@@ -231,6 +244,7 @@ class DepartDeleteView(DeleteView):
     
     template_name = "companyservices/departs_confirm_delete.html"
 
+
     def get(self, request, *args, **kwargs):
         
         user = self.request.user
@@ -247,6 +261,7 @@ class DepartDeleteView(DeleteView):
             department = Departs.objects.filter(id=dep_id)[0]
 
         return render(request, self.template_name, {'company' : company, 'department' : department }) 
+
 
     def get_queryset(self):
         
@@ -268,6 +283,7 @@ class DepartDeleteView(DeleteView):
         obj = self.get_object()
         messages.success(request, "Подразделение %s было удалено" % obj.name)
         return super(DepartDeleteView, self).delete(request, *args, **kwargs)      
+
 
     def get_success_url(self):
         company_id = self.kwargs['id']
