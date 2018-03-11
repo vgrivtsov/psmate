@@ -398,11 +398,10 @@ class ShowJTlist(ListView):
             return sorted(jtresult, key=itemgetter('jobtitle')) 
 
         
-class JTDetailsView(View):
+class JTDetailsView(ListView):
 
     template_name = 'services/jobtitle-details.html'
     model = Jobtitles
-
     
     def get(self, request, *args, **kwargs):
         
@@ -420,10 +419,7 @@ class JTDetailsView(View):
             tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
             
             otrasl = ps[0].otraslid
-            
-            
-            
-            
+
             jtresult = {'id' : jt[0].id,
                         'slug' : jt[0].slug,
                         'jobtitle' : jt[0].jobtitle,
@@ -441,11 +437,9 @@ class JTDetailsView(View):
                         }
                 
 
-            return render(request, self.template_name, {'jtresult': jtresult,
-                                                                                                          
-                                                        })
-        
-        
+            return render(request, self.template_name, {'jtresult': jtresult})
+
+    
 class OfficialInstructions(ListView):
 
     template_name = 'services/official-instructions.html'

@@ -21,7 +21,7 @@ from operator import itemgetter
 import pymorphy2
 from pymorphy2 import units
 import pytils
-
+from django.views.generic.detail import SingleObjectMixin
 
 
 ################ ORGANIZATIONS VIEWS ###################################################
@@ -306,7 +306,6 @@ class DepartUpdateView(UpdateView):
         return super(DepartUpdateView, self).form_valid(form)
 
 
-
 class DepartDeleteView(DeleteView):
     
     template_name = "companyservices/departs_confirm_delete.html"
@@ -359,26 +358,70 @@ class DepartDeleteView(DeleteView):
 ################### OFFICIAL INSTRUCTIONS VIEW ########################3
 
 
-class OICreateView(ShowJTlist):
+class OIsearchJTView(ShowJTlist):
 
     template_name = "companyservices/jobtitles-list.html"
 
     def get_context_data(self, **kwargs):
-        context = super(OICreateView, self).get_context_data(**kwargs)
+        context = super(OIsearchJTView, self).get_context_data(**kwargs)
         
-        user = self.request.user
-        company_id = self.kwargs['id']
-        dep_id =  self.kwargs['pk']
-        
-        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
-        orgs = [x.id for x in get_all_orgs]
-
-        if int(company_id) not in orgs:
-            raise Http404        
-        else:        
-            companyid = self.kwargs['id']
-            departid = self.kwargs['pk']        
+        companyid = self.kwargs['id']
+        departid = self.kwargs['pk']        
         
         context['cmpd'] =  {'companyid' : companyid, 'departid' : departid}
         
         return context    
+
+
+class OIJTDetailsView(JTDetailsView):
+
+    template_name = "companyservices/jobtitle-details.html"
+    model = Jobtitles
+    
+    def get(self, request, *args, **kwargs):
+        
+        jt_slug =  self.kwargs['slug']
+
+        companyid = self.kwargs['id']
+        departid = self.kwargs['pk']        
+        
+        cmpd = {'companyid' : companyid, 'departid' : departid}
+        if jt_slug:
+
+            jt = Jobtitles.objects.filter(slug=jt_slug)
+
+            ps = Psinfo.objects.filter(id=jt[0].ps_id)
+            educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
+            reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
+            specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
+            othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
+            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            
+            otrasl = ps[0].otraslid
+
+            jtresult = {'id' : jt[0].id,
+                        'slug' : jt[0].slug,
+                        'jobtitle' : jt[0].jobtitle,
+                        'nameotf' : jt[0].nameotf,
+                        'pspurposekind' : ps[0].pspurposekind,
+                        'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum, 'psid' : ps[0].id,
+                        'otraslname' : otrasl.name,
+                        'otraslicon' : otrasl.icon,
+                        'educationalreqs' : educationalreqs,
+                        'reqworkexperiences' : reqworkexperiences,
+                        'specialconditions' : specialconditions,
+                        'othercharacts' : othercharacts,
+                        'tfs' : tfs,
+                        'companyid' : companyid,
+                        'departid' : departid
+
+                        }
+                
+
+            return render(request, self.template_name, {'jtresult': jtresult})
+
+    
+class OICreateView(OfficialInstructions):
+ 
+    template_name = "companyservices/official-instructions.html"
+

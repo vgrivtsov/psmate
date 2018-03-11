@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 from . import views
 
 urlpatterns = [
@@ -12,5 +11,7 @@ urlpatterns = [
     url(r'^organization-profile/(?P<id>[-\d]+)/registerdepart/$', views.DepartCreateView.as_view(), name='registerdepart'),
     url(r'^organization-profile/(?P<id>[-\d]+)/editdepart/(?P<pk>[-\d]+)/$', views.DepartUpdateView.as_view(), name='editdepart'),
     url(r'^organization-profile/(?P<id>[-\d]+)/removedepart/(?P<pk>[-\d]+)/$', views.DepartDeleteView.as_view(), name='removedepart'),
-    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/$', views.OICreateView.as_view(), name='ogr-search-jobtitles'),    
+    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/$', views.OIsearchJTView.as_view(), name='org-search-jobtitles'),
+    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/competences/(?P<slug>[\w-]+)/$', views.OIJTDetailsView.as_view(), name='org-competences'),
+    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/official-instructions/(?P<slug>[\w-]+)/$', views.OICreateView.as_view(), name='org-official-instructions'),     
 ]

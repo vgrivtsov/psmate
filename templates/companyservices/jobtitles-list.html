@@ -15,7 +15,7 @@
   <div class="overlay"></div>
     <div class="row">
       <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
-        <form method="get" action="/organization-profile/{{cmpd.companyid}}/{{cmpd.departid}}/?{{ search }}/">
+        <form method="get" action="{% url 'org-search-jobtitles' cmpd.companyid cmpd.departid %}?{{ search }}/">
           <div class="form-row">
             <div class="col-12 col-md-9 mb-2 mb-md-0">        
               <input type="text" class="form-control form-control-lg" id="search" name="search" value="" required>
@@ -54,7 +54,7 @@
                {% for jt in jtresult %}
                
 			  		<li class="jobtitlelist-details">
-                  <a href="/competences/{{jt.slug}}">
+                  <a href="{% url 'org-competences' cmpd.companyid cmpd.departid jt.slug %}">
 			  			<div class="block">
 			  				<!-- jobtitleitem -->
 					  		<div class="jobtitleitem">
@@ -93,14 +93,14 @@
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="/organization-profile/{{cmpd.companyid}}/{{cmpd.departid}}/?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}" class="previous">&larr; Назад</a>
+                    <a href="{% url 'org-search-jobtitles' cmpd.companyid cmpd.departid %}?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}" class="previous">&larr; Назад</a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
                 
-                    <a href="/organization-profile/{{cmpd.companyid}}/{{cmpd.departid}}/?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>               
+                    <a href="{% url 'org-search-jobtitles' cmpd.companyid cmpd.departid %}?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>               
                 
                 {% endif %}
             </span>
