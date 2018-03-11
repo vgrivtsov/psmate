@@ -5,9 +5,9 @@ from psmate.models import Enterprises, Departs
 from django.forms import ModelForm
 
 
-################ COMPANY FORMS ###################################################
+################ ORGANIZATIONS FORMS ###################################################
 
-class OrgRegisterForm(ModelForm):
+class OrgCreateForm(ModelForm):
     CHOICES = (('ПТ', 'ПТ'),
                ('ТНВ','ТНВ'),
                ('ООО','ООО'),
@@ -41,12 +41,12 @@ class OrgRegisterForm(ModelForm):
     def __init__(self, user, *args, **kwargs):
         
         self.user = user
-        super(OrgRegisterForm, self).__init__(*args, **kwargs)
+        super(OrgCreateForm, self).__init__(*args, **kwargs)
 
 
     def save(self, commit=True):
         
-        company = super(OrgRegisterForm, self).save(commit=False)
+        company = super(OrgCreateForm, self).save(commit=False)
 
 
         if commit:
@@ -63,7 +63,7 @@ class OrgRegisterForm(ModelForm):
         company.save()
 
 
-class OrgSettingsForm(ModelForm):
+class OrgUpdateForm(ModelForm):
     CHOICES = (('ПТ', 'ПТ'),
                ('ТНВ','ТНВ'),
                ('ООО','ООО'),
@@ -102,11 +102,11 @@ class OrgSettingsForm(ModelForm):
         self.company_form= company.e_op_form
 
             
-        super(OrgSettingsForm, self).__init__(*args,**kwargs)
+        super(OrgUpdateForm, self).__init__(*args,**kwargs)
         
 
     def save(self, commit=True):
-        company = super(OrgSettingsForm, self).save(commit=False)
+        company = super(OrgUpdateForm, self).save(commit=False)
 
 
         if commit:
@@ -127,7 +127,7 @@ class OrgSettingsForm(ModelForm):
 ################ DEPART FORMS ###################################################
 
 
-class DepartRegisterForm(ModelForm):
+class DepartCreateForm(ModelForm):
 
     name = forms.CharField(max_length=255, required=True,label="Наименование подразделения")
     cheef = forms.CharField(max_length=255, required=False,label="Должность руководителя подразделения")
@@ -148,12 +148,12 @@ class DepartRegisterForm(ModelForm):
         self.company_name= company.e_name
         self.company_form= company.e_op_form
 
-        super(DepartRegisterForm , self).__init__(*args, **kwargs)
+        super(DepartCreateForm , self).__init__(*args, **kwargs)
 
 
     def save(self, commit=True):
         
-        dep = super(DepartRegisterForm, self).save(commit=False)
+        dep = super(DepartCreateForm, self).save(commit=False)
 
 
         if commit:
@@ -170,7 +170,7 @@ class DepartRegisterForm(ModelForm):
         dep.save()
 
 
-class DepartSettingsForm(ModelForm):
+class DepartUpdateForm(ModelForm):
 
     name = forms.CharField(max_length=255, required=True,label="Наименование подразделения")
     cheef = forms.CharField(max_length=255, required=False,label="Должность руководителя подразделения")
@@ -192,14 +192,14 @@ class DepartSettingsForm(ModelForm):
         self.company_name= company.e_name
         self.company_form= company.e_op_form
 
-        super(DepartSettingsForm , self).__init__(*args, **kwargs)
+        super(DepartUpdateForm , self).__init__(*args, **kwargs)
 
         
         
 
     def save(self, commit=True):
         
-        dep = super(DepartSettingsForm, self).save(commit=False)
+        dep = super(DepartUpdateForm, self).save(commit=False)
 
 
         if commit:

@@ -14,7 +14,7 @@
 
 {% if company.regname_id == user.id %}
 <!--Card company info-->
-            <div class="col-3 mb-4">
+            <div class="col-4 mb-4">
               <div class="card">
                 <div class="card-body">
                   <div class="clearfix">
@@ -56,59 +56,77 @@
 
 <div class="row py-5">
   <div class="col"><h4>Подразделения</h4></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col"></div>
-
 </div>
 
 
-
-{% if departs%} 
-<table class="table table-striped"> 
+{% if departs%}
 
 
+<div id="Departs">
 
+<table id="tableDeparts" class="table table-striped"> 
   <thead>
     <tr>
       <th>№</th>
       <th>Название</th>
       <th>Должность руководителя</th>
       <th>ФИО руководителя</th>
-      <th>Телефон</th>      
+      <th>Телефон</th>
     </tr>
   </thead>
   <tbody>
   {% for dep in departs %}    
-    <tr>
+    <tr id="depart_{{ forloop.counter }}" class="accordion-toggle" data-toggle="collapse" data-parent="#Departs" data-target=".docsDepart_{{ forloop.counter }}">
       <th scope="row">{{ forloop.counter }}.</th>
       <td>{{dep.name}}</td>
       <td>{{dep.cheef}}</td>
       <td>{{dep.cheef_name|first|capfirst}}. {{dep.cheef_otch|first|capfirst}}. {{dep.cheef_fam|capfirst}}</td>
-      <td>{{dep.phone}}</td>
-      
-      <td align="right"><a class="btn btn-warning btn-sm" href="/organization-profile/{{company.id}}/editdepart/{{dep.id}}">Изменить</a>
-          <a class="btn btn-danger btn-sm" href="/organization-profile/{{company.id}}/removedepart/{{dep.id}}">Удалить</a>
-      </td>
+      <td>{{dep.phone}}</td>      
+      <td align="right"><a class="btn btn-warning btn-sm" href="/organization-profile/{{company.id}}/editdepart/{{dep.id}}">Изменить</a></td>
+      <td><i class="indicator fa fa-chevron-up pull-right"></i>
     </tr>
+
+    <tr>
+        <td colspan="3" class="hiddenRow">
+            <div class="accordion-body collapse docsDepart_{{ forloop.counter }}" id="depaccordion_{{ forloop.counter }}">
+                <table>
+                    <tr>
+                        <td>Revealed item 1</td>
+                    </tr>
+                    <tr>
+                        <td>Revealed item 2</td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+<script>
+$('#depaccordion_{{ forloop.counter }}').on('shown.bs.collapse', function () {
+    $("#depart_{{ forloop.counter }} i.indicator").removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
+});
+$('#depaccordion_{{ forloop.counter }}').on('hidden.bs.collapse', function () {
+    $("#depart_{{ forloop.counter }} i.indicator").removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
+});
+
+</script>
+
   {% endfor %}      
   </tbody>
 
 </table>
 {% endif %}
+ 
+</div> 
   
 
-<div class="row">
-  <div class="col"><a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a> </div>
-</div>    
-     
+  
+  
+{% if departs|length < 2 %}
+  <a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a> </div>
+  {% else %}
+  <p class="font-italic text-muted">Достигнут лимит на создание подразделений в организации «{{company.e_op_form}}» {{company.e_name}}</p>
+{% endif %}     
     
     
 
