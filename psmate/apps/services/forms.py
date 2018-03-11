@@ -42,9 +42,7 @@ class SearchPsForm(forms.ModelForm):
 #                                             )
 #                 }
 #         
-# 
-
-
+#
 
 
 class CvGenForm(forms.ModelForm):
@@ -73,7 +71,7 @@ class CvGenForm(forms.ModelForm):
 
 class GetJTlistForm(forms.ModelForm):
     
-    jobtitle = forms.CharField(max_length=250, required=False)
+    jobtitle = forms.CharField(max_length=250, required=True)
 
     class Meta:
         

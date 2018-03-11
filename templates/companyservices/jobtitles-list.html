@@ -15,7 +15,7 @@
   <div class="overlay"></div>
     <div class="row">
       <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
-        <form method="get" action='/search-jobtitles/{{ search }}'>
+        <form method="get" action="/organization-profile/{{cmpd.companyid}}/{{cmpd.departid}}/?{{ search }}/">
           <div class="form-row">
             <div class="col-12 col-md-9 mb-2 mb-md-0">        
               <input type="text" class="form-control form-control-lg" id="search" name="search" value="" required>
@@ -51,7 +51,7 @@
         
 			  		</li>
 
-               {% for jt in jtresult  %}
+               {% for jt in jtresult %}
                
 			  		<li class="jobtitlelist-details">
                   <a href="/competences/{{jt.slug}}">
@@ -93,17 +93,15 @@
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="{% url 'search-jobtitles' %}?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}" class="previous">&larr; Назад</a>
+                    <a href="/organization-profile/{{cmpd.companyid}}/{{cmpd.departid}}/?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}" class="previous">&larr; Назад</a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
                 
-                    <a href="{% url 'search-jobtitles' %}?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>               
+                    <a href="/organization-profile/{{cmpd.companyid}}/{{cmpd.departid}}/?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>               
                 
-                
-                   <!-- <a href="?page={{ page_obj.next_page_number }}" class="next">Вперёд &rarr;</a>-->
                 {% endif %}
             </span>
         </div>

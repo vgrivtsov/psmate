@@ -14,56 +14,50 @@
 
 {% if company.regname_id == user.id %}
 <!--Card company info-->
-            <div class="col-4 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <a href="/organization-settings/{{company.id}}">
-                     <i class="fa fa-pencil float-right"></i>
-                    </a>
-                  </div>
-                  <h5 class="card-title">Информация об организации</h5>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>
-                            Название
-                          </th>
-                          <th>
-                            {{company.e_director}}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                           «{{company.e_op_form}}» {{company.e_name}}
-                          </td>
-                          <td>{{company.e_name_ul|first|capfirst}}. {{company.e_otch_ul|first|capfirst}}. {{company.e_fam_ul|capfirst}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+<div class="col-4 mb-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="clearfix">
+        <a href="/organization-settings/{{company.id}}">
+         <i class="fa fa-pencil float-right"></i>
+        </a>
+      </div>
+      <h5 class="card-title">Информация об организации</h5>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Название
+              </th>
+              <th>
+                {{company.e_director}}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+               «{{company.e_op_form}}» {{company.e_name}}
+              </td>
+              <td>{{company.e_name_ul|first|capfirst}}. {{company.e_otch_ul|first|capfirst}}. {{company.e_fam_ul|capfirst}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
  
 <!--/.Card company info-->
-
-
-
 
 <div class="row py-5">
   <div class="col"><h4>Подразделения</h4></div>
 </div>
 
-
 {% if departs%}
 
-
 <div id="Departs">
-
 <table id="tableDeparts" class="table table-striped"> 
   <thead>
     <tr>
@@ -85,7 +79,6 @@
       <td align="right"><a class="btn btn-warning btn-sm" href="/organization-profile/{{company.id}}/editdepart/{{dep.id}}">Изменить</a></td>
       <td><i class="indicator fa fa-chevron-up pull-right"></i>
     </tr>
-
     <tr>
         <td colspan="3" class="hiddenRow">
             <div class="accordion-body collapse docsDepart_{{ forloop.counter }}" id="depaccordion_{{ forloop.counter }}">
@@ -94,13 +87,15 @@
                         <td>Revealed item 1</td>
                     </tr>
                     <tr>
-                        <td>Revealed item 2</td>
+                         <td><a class="btn btn-info btn-sm" href="/organization-profile/{{company.id}}/{{dep.id}}?search=''">Добавить должностную инструкцию</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="btn btn-info btn-sm" href="/search-jobtitles/?search=''&company={{company.id}}&depart={{dep.id}}">Добавить должностную инструкцию</a></td>
                     </tr>
                 </table>
             </div>
         </td>
     </tr>
-
 <script>
 $('#depaccordion_{{ forloop.counter }}').on('shown.bs.collapse', function () {
     $("#depart_{{ forloop.counter }} i.indicator").removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down");
@@ -108,40 +103,24 @@ $('#depaccordion_{{ forloop.counter }}').on('shown.bs.collapse', function () {
 $('#depaccordion_{{ forloop.counter }}').on('hidden.bs.collapse', function () {
     $("#depart_{{ forloop.counter }} i.indicator").removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
 });
-
 </script>
-
   {% endfor %}      
   </tbody>
-
 </table>
 {% endif %}
- 
-</div> 
-  
-
-  
-  
+ </div> 
 {% if departs|length < 2 %}
-  <a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a> </div>
+  <a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a>
   {% else %}
   <p class="font-italic text-muted">Достигнут лимит на создание подразделений в организации «{{company.e_op_form}}» {{company.e_name}}</p>
-{% endif %}     
-    
-    
-
-
-
-{% else %} 
-
+{% endif %}
+{% else %}
   <div class="container-fluid py-5 card text-center z-depth-2">
    <div class="card-body">
     <h5>У вас нет такой зарегестрированой организации</h5> {{company.regname_id}}
    </div>
   </div>
-
 {% endif %}
-
 {% endblock %}
 
 
