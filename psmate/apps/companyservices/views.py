@@ -16,12 +16,11 @@ from django.contrib import messages
 
 from psmate.models import *
 
-from time import time
 from operator import itemgetter
 import pymorphy2
 from pymorphy2 import units
 import pytils
-from django.views.generic.detail import SingleObjectMixin
+import re
 
 
 ################ ORGANIZATIONS VIEWS ###################################################
@@ -358,7 +357,7 @@ class DepartDeleteView(DeleteView):
 ################### OFFICIAL INSTRUCTIONS VIEW ########################3
 
 
-class OIsearchJTView(ShowJTlist):
+class OIsearchJTView(ShowJTlist): # overriding ShowJTlist from psmate.apps.services.views
 
     template_name = "companyservices/jobtitles-list.html"
 
@@ -417,11 +416,213 @@ class OIJTDetailsView(JTDetailsView):
 
                         }
                 
-
             return render(request, self.template_name, {'jtresult': jtresult})
 
     
-class OICreateView(OfficialInstructions):
+class OICreateView(ListView):
  
     template_name = "companyservices/official-instructions.html"
+    model = Jobtitles
 
+    def get(self, request, *args, **kwargs):
+        
+        data =  self.kwargs['slug'] 
+        companyid = self.kwargs['id']
+        departid = self.kwargs['pk']
+
+        if data != None:
+            
+            morph = pymorphy2.MorphAnalyzer()
+            pos_list = ['NOUN', 'ADJF', 'ADJS', 'PRTF', 'PRTS']  # Chast' rechi & padezh
+            
+            jt = Jobtitles.objects.filter(slug=data)
+            
+            ######### company-department data #######################################
+            
+            company = Enterprises.objects.get(id=companyid)
+            department = Departs.objects.get(id=departid)
+
+            e_name = company.e_name
+            e_op_form = company.e_op_form
+            e_director = company.e_director
+            e_fam_ul = company.e_fam_ul
+            e_name_ul = company.e_name_ul
+            e_otch_ul = company.e_otch_ul
+            
+            depname = department.name
+            cheef = department.cheef
+            cheef_name = department.cheef_name
+            cheef_otch = department.cheef_otch
+            cheef_fam = department.cheef_fam
+                        
+            ### roditelny, datelny padezhi ###
+            
+            # CEO to padezhi
+            director_gent = []
+            director_datv = []            
+            
+            for w in e_director.split(' '): # split CEO pozition
+                capmarker = False
+                if not w.islower() and not w.isupper(): # check if word is capitalized                    
+                    capmarker = True
+                
+                cleared_director = morph.parse(w)[0]
+
+                if cleared_director.tag.POS in pos_list and cleared_director.tag.case == 'nomn': # check if word is single noun
+            
+                    e_dir_gent = cleared_director.inflect({'gent'}).word
+                    e_dir_datv = cleared_director.inflect({'datv'}).word
+                          
+                    director_gent.append(e_dir_gent.capitalize() if capmarker == True else e_dir_gent )
+                    director_datv.append(e_dir_datv.capitalize() if capmarker == True else e_dir_datv)
+                else:
+                    director_gent.append(w.capitalize() if capmarker == True else w)
+                    director_datv.append(w.capitalize() if capmarker == True else w)
+                    
+
+            e_director_gent = ' '.join(director_gent)
+            e_director_datv = ' '.join(director_datv)
+
+            # Cheef to padezhi
+            cheef_datv = []
+            
+            for w in cheef.split(' '): # split CEO pozition
+                capmarker = False
+                if not w.islower() and not w.isupper(): # check if word is capitalized                    
+                    capmarker = True
+                
+                cleared_cheef = morph.parse(w)[0]
+
+                if cleared_cheef.tag.POS in pos_list and cleared_cheef.tag.case == 'nomn': # check if word is single noun
+            
+                    d_cheef_datv = cleared_cheef.inflect({'datv'}).word                          
+                    cheef_datv.append(d_cheef_datv.capitalize() if capmarker == True else d_cheef_datv)
+                else:
+                    cheef_datv.append(w.capitalize() if capmarker == True else w)
+                    
+
+            d_cheef_datv = ' '.join(cheef_datv)
+
+            cmpd = {  'e_name' : e_name,
+                      'e_op_form' : e_op_form,
+                      'e_director' : e_director,
+                      'e_fam_ul' : e_fam_ul,
+                      'e_name_ul' : e_name_ul, 
+                      'e_otch_ul' : e_otch_ul,
+                      'e_director_gent' : e_director_gent,
+                      'e_director_datv' : e_director_datv,
+                      'depname' : depname,
+                      'cheef' : cheef,
+                      'cheef_name' : cheef_name,
+                      'cheef_otch' : cheef_otch,
+                      'cheef_fam' : cheef_fam,
+                      'd_cheef_datv' : d_cheef_datv
+                    }  
+
+            ######### general data #######################################
+
+            ps = Psinfo.objects.filter(id=jt[0].ps_id)
+            educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
+            reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
+            specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
+            othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
+            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+          
+            otrasl = ps[0].otraslid
+
+            generaldatas = []
+               
+                        
+            #make jobtitle Roditelny padezh
+
+            jt_rod = []
+                   
+            #cut non need padezh string beetween '( )'
+            pattern = re.compile("[\(\[].*?[\)\]]")
+            if re.findall(pattern, jt[0].jobtitle):
+                cuttedstring = re.findall(pattern, jt[0].jobtitle)[0]
+            else:
+                cuttedstring = ''
+            
+            cleared_jt = re.sub("[\(\[].*?[\)\]]", "", jt[0].jobtitle)
+
+            for i in cleared_jt.split(' '):
+                p = morph.parse(i)[0]
+                if p.tag.POS in pos_list and p.tag.case == 'nomn': # Chast' rechi & padezh
+
+                    if p.inflect({'gent'}) :
+                        
+                        changed_word = p.inflect({'sing', 'gent'}).word
+                        if changed_word == 'риска-менеджера':
+                            changed_word = 'риск-менеджера'
+                        if changed_word == 'бренда-менеджера':
+                            changed_word = 'бренд-менеджера'                        
+                        if changed_word == 'брэнда-менеджера':
+                            changed_word = 'брэнд-менеджера'                         
+                        
+                        jt_rod.append(changed_word)                    
+                    else:
+                        
+                        jt_rod.append(i)
+                else:
+                    jt_rod.append(i)
+
+            jobtitlerod = ' '.join(jt_rod) + ' '+cuttedstring
+            
+            generaldatas = {                
+                    'jobtitleid' : jt[0].id,
+                    'jobtitle' : jt[0].jobtitle,
+                    'jobtitlerod' : jobtitlerod,
+                    'nameotf' : jt[0].nameotf,
+                    'pspurposekind' : ps[0].pspurposekind,
+                    'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                    'otraslname' : otrasl.name,
+                    'otraslicon' : otrasl.icon,
+                    'educationalreqs' : educationalreqs,
+                    'reqworkexperiences' : reqworkexperiences,
+                    'specialconditions' : specialconditions,
+                    'othercharacts' : othercharacts,
+                    'tfs' : tfs,
+                    }
+            
+            ######### requirements #######################################
+            
+            laresult = []
+            nkresult = []
+            rsresult = []
+            ocresult = []            
+            tfresult = []
+            
+            for tf in tfs: # select TF only for selected jobtitle
+
+                la_get_raw = Tf_la.objects.filter(tf_id=tf.id)
+                nk_get_raw = Tf_rs.objects.filter(tf_id=tf.id)
+                rs_get_raw = Tf_nk.objects.filter(tf_id=tf.id)
+                oc_get_raw = Tf_oc.objects.filter(tf_id=tf.id)
+
+                tfresult.append({'id' : tf.id, 'codetf' : tf.codetf, 'nametf' : tf.nametf})
+
+                for la in la_get_raw:
+                    laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
+                    
+                for nk in nk_get_raw:
+                    nkresult.append({'id' : nk.id, 'necessaryknowledge' : nk.requiredskill}) # !!!Swap with RS becouse rosmintrud edition!!!
+                    
+                for rs in rs_get_raw:
+                    rsresult.append({'id' : rs.id, 'requiredskill' : rs.necessaryknowledge}) #  # !!!Swap with NK becouse rosmintrud edition!!!                     
+                    
+                for oc in oc_get_raw:
+                    ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
+
+            requirements = {'tf' : tfresult,
+                            'laboractions' : laresult,
+                            'necessaryknowledges' : nkresult,
+                            'requiredskills' : rsresult,
+                            'othercharacteristics' : ocresult,
+                            }
+
+            
+            return render(request, self.template_name, {'generaldatas': generaldatas,
+                                                        'requirements' : requirements,
+                                                        'cmpd' : cmpd
+                                                        })
