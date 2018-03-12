@@ -566,7 +566,11 @@ class OICreateView(ListView):
                         if changed_word == 'бренда-менеджера':
                             changed_word = 'бренд-менеджера'                        
                         if changed_word == 'брэнда-менеджера':
-                            changed_word = 'брэнд-менеджера'                         
+                            changed_word = 'брэнд-менеджера'
+                        if changed_word == 'чокерноя':
+                            changed_word = 'чокерной'                            
+                            
+                                                     
                         
                         jt_rod.append(changed_word)                    
                     else:
