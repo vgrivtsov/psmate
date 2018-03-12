@@ -6,7 +6,7 @@
 {% load widget_tweaks %}
 
 {% block breadcrumbs %}
-{{ block.super }} <a class="breadcrumb-item" href="/organization-profile/{{company.id}}/">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
+{{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' company.id %}">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
 {% endblock %}
 
 {% block companyprofile %}
@@ -18,7 +18,7 @@
   <div class="card">
     <div class="card-body">
       <div class="clearfix">
-        <a href="/organization-settings/{{company.id}}">
+        <a href="{% url 'organization-settings' company.id %}">
          <i class="fa fa-pencil float-right"></i>
         </a>
       </div>
@@ -76,7 +76,7 @@
       <td>{{dep.cheef}}</td>
       <td>{{dep.cheef_name|first|capfirst}}. {{dep.cheef_otch|first|capfirst}}. {{dep.cheef_fam|capfirst}}</td>
       <td>{{dep.phone}}</td>      
-      <td align="right"><a class="btn btn-warning btn-sm" href="/organization-profile/{{company.id}}/editdepart/{{dep.id}}">Изменить</a></td>
+      <td align="right"><a class="btn btn-warning btn-sm" href="{% url 'editdepart' company.id dep.id %}">Изменить</a></td>
       <td><i class="indicator fa fa-chevron-up pull-right"></i>
     </tr>
     <tr>
@@ -87,11 +87,9 @@
                         <td>Revealed item 1</td>
                     </tr>
                     <tr>
-                         <td><a class="btn btn-info btn-sm" href="/organization-profile/{{company.id}}/{{dep.id}}?search=''">Добавить должностную инструкцию</a></td>
+                         <td><a class="btn btn-info btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a></td>
                     </tr>
-                    <tr>
-                        <td><a class="btn btn-info btn-sm" href="/search-jobtitles/?search=''&company={{company.id}}&depart={{dep.id}}">Добавить должностную инструкцию</a></td>
-                    </tr>
+
                 </table>
             </div>
         </td>
@@ -110,7 +108,7 @@ $('#depaccordion_{{ forloop.counter }}').on('hidden.bs.collapse', function () {
 {% endif %}
  </div> 
 {% if departs|length < 2 %}
-  <a class="btn btn-outline-info btn-sm waves-effect" href="/organization-profile/{{company.id}}/registerdepart/">Добавить подразделение</a>
+  <a class="btn btn-outline-info btn-sm waves-effect" href="{% url 'registerdepart' company.id%}">Добавить подразделение</a>
   {% else %}
   <p class="font-italic text-muted">Достигнут лимит на создание подразделений в организации «{{company.e_op_form}}» {{company.e_name}}</p>
 {% endif %}

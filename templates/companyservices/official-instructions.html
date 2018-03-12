@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 
-{% extends "layouts/layout.html" %}
+{% extends "layouts/companieslayout.html" %}
 {% load static %}
 {% load widget_tweaks %}
-{% block content %}
+
+{% block breadcrumbs %}
+{{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' cmpd0.company.id %}">Организация: «{{cmpd0.company.e_op_form}}» {{cmpd0.company.e_name}}</a>
+<a class="breadcrumb-item" href="{% url 'org-competences' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">подразделение «{{cmpd0.department.name}}» / {{generaldatas.jobtitle}}</a>
+{% endblock %}
+{% block companyprofile %}
+
+
+
 <style>
 
 .ofinstructions li {

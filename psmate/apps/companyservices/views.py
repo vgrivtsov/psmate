@@ -366,8 +366,9 @@ class OIsearchJTView(ShowJTlist): # overriding ShowJTlist from psmate.apps.servi
         
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']        
-        
-        context['cmpd'] =  {'companyid' : companyid, 'departid' : departid}
+        company = Enterprises.objects.get(id=companyid)
+        department = Departs.objects.get(id=departid)        
+        context['cmpd'] =  {'company' : company, 'department' : department}
         
         return context    
 
@@ -383,8 +384,11 @@ class OIJTDetailsView(JTDetailsView):
 
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']        
+        company = Enterprises.objects.get(id=companyid)
+        department = Departs.objects.get(id=departid)
+
+        cmpd = {'company' : company, 'department' : department}
         
-        cmpd = {'companyid' : companyid, 'departid' : departid}
         if jt_slug:
 
             jt = Jobtitles.objects.filter(slug=jt_slug)
@@ -411,12 +415,12 @@ class OIJTDetailsView(JTDetailsView):
                         'specialconditions' : specialconditions,
                         'othercharacts' : othercharacts,
                         'tfs' : tfs,
-                        'companyid' : companyid,
-                        'departid' : departid
+                        # 'company' : company,
+                        # 'department' : department
 
                         }
                 
-            return render(request, self.template_name, {'jtresult': jtresult})
+            return render(request, self.template_name, {'jtresult': jtresult, 'cmpd': cmpd })
 
     
 class OICreateView(ListView):
@@ -428,7 +432,11 @@ class OICreateView(ListView):
         
         data =  self.kwargs['slug'] 
         companyid = self.kwargs['id']
-        departid = self.kwargs['pk']
+        departid = self.kwargs['pk']        
+        company = Enterprises.objects.get(id=companyid)
+        department = Departs.objects.get(id=departid)
+
+        cmpd0 = {'company' : company, 'department' : department}
 
         if data != None:
             
@@ -569,7 +577,8 @@ class OICreateView(ListView):
 
             jobtitlerod = ' '.join(jt_rod) + ' '+cuttedstring
             
-            generaldatas = {                
+            generaldatas = {
+                    'slug' : data,
                     'jobtitleid' : jt[0].id,
                     'jobtitle' : jt[0].jobtitle,
                     'jobtitlerod' : jobtitlerod,
@@ -624,5 +633,6 @@ class OICreateView(ListView):
             
             return render(request, self.template_name, {'generaldatas': generaldatas,
                                                         'requirements' : requirements,
-                                                        'cmpd' : cmpd
+                                                        'cmpd' : cmpd,
+                                                        'cmpd0' : cmpd0
                                                         })
