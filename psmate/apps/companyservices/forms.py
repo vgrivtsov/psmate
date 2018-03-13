@@ -214,4 +214,6 @@ class DepartUpdateForm(ModelForm):
         dep.company_id= self.company_id
 
         dep.save()
-            
+  
+       
+        

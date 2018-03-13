@@ -21,7 +21,10 @@ import pymorphy2
 from pymorphy2 import units
 import pytils
 import re
-
+from docxtpl import DocxTemplate
+import datetime
+import locale
+import pymorphy2
 
 ################ ORGANIZATIONS VIEWS ###################################################
 
@@ -415,8 +418,6 @@ class OIJTDetailsView(JTDetailsView):
                         'specialconditions' : specialconditions,
                         'othercharacts' : othercharacts,
                         'tfs' : tfs,
-                        # 'company' : company,
-                        # 'department' : department
 
                         }
                 
@@ -425,12 +426,15 @@ class OIJTDetailsView(JTDetailsView):
     
 class OICreateView(ListView):
  
-    template_name = "companyservices/official-instructions-edit.html"
+    template_name = "companyservices/official-instructions-new.html"
     model = Jobtitles
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request,  *args, **kwargs):
         
-        data =  self.kwargs['slug'] 
+        data =  self.kwargs['slug']
+        docx =  self.kwargs['docx']
+        print(docx)
+
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']        
         company = Enterprises.objects.get(id=companyid)
@@ -569,9 +573,7 @@ class OICreateView(ListView):
                             changed_word = 'брэнд-менеджера'
                         if changed_word == 'чокерноя':
                             changed_word = 'чокерной'                            
-                            
-                                                     
-                        
+
                         jt_rod.append(changed_word)                    
                     else:
                         
@@ -640,3 +642,28 @@ class OICreateView(ListView):
                                                         'cmpd' : cmpd,
                                                         'cmpd0' : cmpd0
                                                         })
+
+
+
+# class GetForDocxView(ListView):
+#     template_name = "companyservices/official-instructions-new.html"
+# 
+#     def get(self, request, *args, **kwargs):
+#         
+#         search_data = self.request.GET('data', None)
+#         print(search_data)        
+#         
+#        # data =  self.kwargs['slug'] 
+#         companyid = self.kwargs['id']
+#         departid = self.kwargs['pk']        
+#         company = Enterprises.objects.get(id=companyid)
+#         department = Departs.objects.get(id=departid)
+# 
+#         cmpd0 = {'company' : company, 'department' : department}
+#         
+#         return render(request, self.template_name, {'cmpd0' : cmpd0 })
+#     
+
+        
+        
+

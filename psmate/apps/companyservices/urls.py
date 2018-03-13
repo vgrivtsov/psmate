@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^organization-profile/(?P<id>[-\d]+)/editdepart/(?P<pk>[-\d]+)/$', views.DepartUpdateView.as_view(), name='editdepart'),
     url(r'^organization-profile/(?P<id>[-\d]+)/removedepart/(?P<pk>[-\d]+)/$', views.DepartDeleteView.as_view(), name='removedepart'),
     url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/$', views.OIsearchJTView.as_view(), name='org-search-jobtitles'),
-    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/competences/(?P<slug>[\w-]+)/$', views.OIJTDetailsView.as_view(), name='org-competences'),
-    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/official-instructions/(?P<slug>[\w-]+)/$', views.OICreateView.as_view(), name='org-official-instructions'),     
+    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/competences/(?P<slug>[\w-]+)/$', views.OIJTDetailsView.as_view(),  name='org-competences'),
+    url(r'^organization-profile/(?P<id>[-\d]+)/(?P<pk>[-\d]+)/official-instructions/(?P<slug>[\w-]+)/(?:(?P<docx>[\w-]+)/)?$', views.OICreateView.as_view(), name='org-official-instructions'),
+
 ]

@@ -61,6 +61,10 @@
 
 <div class="container py-5" style="min-height: 100vh;">
 
+
+<a class="btn btn-info btn-sm" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}">Сохранить в формате MS Word</a>
+
+
 <!--head-->
 <p class="western" style="margin-bottom: 0in" align="right">УТВЕРЖДАЮ
 </p>
@@ -153,7 +157,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% endif %}
 
 {% if generaldatas.specialconditions %}
-   <p class="western" style="margin-bottom: 0in" align="justify">1.2.1 Особые условия допуска к работе {{generaldatas.jobtitlerod}}:</p>
+   <p class="western" style="margin-bottom: 0in" align="justify">1.2.1. Особые условия допуска к работе {{generaldatas.jobtitlerod}}:</p>
 {% for speconds in generaldatas.specialconditions %}
 <div  class="ofinstructions">
   <li>{{speconds}}</li>
@@ -191,30 +195,21 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </div>
 
 
-
-
-
-
-
-
-
-
-<div class="ofhead 15" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<div align="right" >
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
-<span contenteditable="true" ng-bind-html="ceo_gent"></span> Учреждения в соответствии с
+{{cmpd.e_director_gent}} Учреждения в соответствии с
 действующим законодательством Российской
 Федерации.
 </p>
 </div>
 
-<div class="ofhead 16" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<div align="right" >
 <p class="western" style="margin-bottom: 0in" align="justify">	1.6.
-{{generaldatas.jobtitle}} подчиняется <span contenteditable="true" ng-bind-html="ceo_datv"></span>
-и <span contenteditable="true" ng-bind-html="cheef_datv"></span> подразделения
-«<span contenteditable="true" data-directive ng-model="depart"></span>»
-<span>&nbsp;</span>
+{{generaldatas.jobtitle}} подчиняется {{cmpd.e_director_datv}} Учреждения
+и {{cmpd.d_cheef_datv}} подразделения
+«{{cmpd.depname}}»
 </p>
 </div>
 
@@ -271,8 +266,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 	</b>
 </p>
 
-<div class="ofhead o" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<span contenteditable="true" >
+<div style="margin-bottom: 0in" align="right">
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
     4.1. Запрашивать и получать необходимую
@@ -317,8 +311,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
     4.8. Проходить в установленном порядке
 аттестацию.
 </p>
-</span>
-<span>&nbsp;</span>
+
 </div>
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
@@ -336,8 +329,8 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 за:
 	</b>
  
-<div class="ofhead o" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<span contenteditable="true" > 
+<div style="margin-bottom: 0in" align="right">
+
  
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
@@ -346,8 +339,8 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-    <span>5.2. Невыполнение распоряжений и
-поручений</span> <span ng-bind-html="ceo_gent"></span>  Учреждения.
+    5.2. Невыполнение распоряжений и
+поручений {{cmpd.e_director_gent}} Учреждения.
 </p>
 <p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
 	5.3. Недостоверную
@@ -382,8 +375,6 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 материальной, административной,
 гражданской и уголовной ответственности.
 </p>
-</span>
-<span>&nbsp;</span>
 </div>
 
 
