@@ -425,7 +425,7 @@ class OIJTDetailsView(JTDetailsView):
     
 class OICreateView(ListView):
  
-    template_name = "companyservices/official-instructions.html"
+    template_name = "companyservices/official-instructions-edit.html"
     model = Jobtitles
 
     def get(self, request, *args, **kwargs):

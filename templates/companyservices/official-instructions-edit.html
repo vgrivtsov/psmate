@@ -57,8 +57,7 @@
 
 
 </style>
-  
-<div ng-app="offinstructions" ng-controller="ctrl">
+
 
 <div class="container py-5" style="min-height: 100vh;">
 
@@ -68,17 +67,17 @@
 <p class="western" style="margin-bottom: 0in" align="right"></p>
 
 
-<div class="ofhead varceo" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<span contenteditable="true" data-directive ng-model="ceo" ></span><span>&nbsp;</span>
+<div style="margin-bottom: 0in" align="right" >
+{{cmpd.e_director}}
 </div>
 
-<div class="ofhead varorganization" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<span contenteditable="true" data-directive ng-model="organization" ></span><span>&nbsp;</span>
+<div style="margin-bottom: 0in" align="right" >
+{{cmpd.e_op_form}} «{{cmpd.e_name}}»
 </div>
 
 
-<div class="ofhead vardirector" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-_______________ <span contenteditable="true" data-directive ng-model="director" ></span><span>&nbsp;</span>
+<div style="margin-bottom: 0in" align="right">
+_______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfirst}}. {{cmpd.e_fam_ul|capfirst}}
 </div>
 
 
@@ -106,9 +105,8 @@ _______________ <span contenteditable="true" data-directive ng-model="director" 
 {{generaldatas.jobtitlerod}}
 </div>
 <!--change angular value departament -->
-<div id="depart"    class="ofhead depart" style="margin-bottom: 0in; font-weight: 400;"
-     align="center" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-     подразделения «<span contenteditable="true" data-directive ng-model="depart" ></span>»<span>&nbsp;</span>
+<div style="margin-bottom: 0in; font-weight: 400;" align="center">
+     подразделения «{{cmpd.depname}}»
 </div>
 
  
@@ -126,14 +124,13 @@ _______________ <span contenteditable="true" data-directive ng-model="director" 
      1.1. Настоящая должностная инструкция
 определяет функциональные, должностные 
 обязанности, права и ответственность
-{{generaldatas.jobtitlerod}} подразделения «<span ng-bind-html="depart"></span>»
- (далее - {{generaldatas.jobtitle}}) <span ng-bind-html="organization"></span> (далее Учреждение).
+{{generaldatas.jobtitlerod}} подразделения «{{cmpd.depname}}»
+ (далее - {{generaldatas.jobtitle}}) {{cmpd.e_op_form}} «{{cmpd.e_name}}» (далее Учреждение).
 </p>
 
 
+<div style="margin-bottom: 0in">
 
-<div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<span contenteditable="true" >
 <p class="western" style="margin-bottom: 0in" align="justify">	1.2.
 На должность {{generaldatas.jobtitlerod}} назначается
 лицо, удовлетворяющее следующим требованиям к образованию и обучению:
@@ -155,11 +152,23 @@ _______________ <span contenteditable="true" data-directive ng-model="director" 
 .
 {% endif %}
 
+{% if generaldatas.specialconditions %}
+   <p class="western" style="margin-bottom: 0in" align="justify">1.2.1 Особые условия допуска к работе {{generaldatas.jobtitlerod}}:</p>
+{% for speconds in generaldatas.specialconditions %}
+<div  class="ofinstructions">
+  <li>{{speconds}}</li>
+</div> 
+{% endfor %}
+{% else %}
+.
+{% endif %}
+
+
 </div>
 
 
-<div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
-<span contenteditable="true" >
+<div style="margin-bottom: 0in" >
+
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.3. {{generaldatas.jobtitle}} должен знать:
@@ -180,6 +189,14 @@ _______________ <span contenteditable="true" data-directive ng-model="director" 
 {% endfor %}
 
 </div>
+
+
+
+
+
+
+
+
 
 
 <div class="ofhead 15" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
@@ -429,71 +446,5 @@ _______________ <span contenteditable="true" data-directive ng-model="director" 
 
 </div><!--Ngapp-->
 
-<script>
- 
- $(document).ready(function() {
-  //initializing tooltip
-  $('[data-toggle="tooltip"]').tooltip({
-    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-});
-});
-
-var app = angular.module("offinstructions", ["ngSanitize"]).config(function($interpolateProvider){
-    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-});
-
-app.controller('ctrl', ['$scope', '$sanitize', function($scope, $sanitize) {
-    $scope.depart = '{{cmpd.depname}}';
-    $scope.depart = $sanitize($scope.depart);
-    $scope.organization = '{{cmpd.e_op_form}} «{{cmpd.e_name}}»'
-    $scope.organization = $sanitize($scope.organization);
-    $scope.director = '{{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfirst}}. {{cmpd.e_fam_ul|capfirst}}'
-    $scope.director = $sanitize($scope.director);    
-    $scope.ceo = '{{cmpd.e_director}}'
-    $scope.ceo = $sanitize($scope.ceo);
-    $scope.ceo_gent = '{{cmpd.e_director_gent}}'
-    $scope.ceo_gent = $sanitize($scope.ceo_gent);
-    $scope.ceo_datv = '{{cmpd.e_director_datv}}'
-    $scope.ceo_datv = $sanitize($scope.ceo_datv);
-    $scope.cheef = '{{cmpd.cheef}}'
-    $scope.cheef = $sanitize($scope.cheef);
-    $scope.cheef_datv = '{{cmpd.d_cheef_datv}}'
-    $scope.cheef_datv = $sanitize($scope.cheef_datv);   
-    
-}]);
-
-app.directive("directive", function() {
-	return {
-        restrict: "A",
-        require: "ngModel",
-        link: function(scope, element, attrs, ngModel) {
-
-            function read() {
-                // view -> model
-                var html = element.html();
-                html = html.replace(/&nbsp;/g, "\u00a0");
-                ngModel.$setViewValue(html);
-                
-            }
-            // model -> view
-            ngModel.$render = function() {
-                element.html(ngModel.$viewValue || "");
-            };
-
-            element.bind("blur", function() {
-                scope.$apply(read);
-            });
-            element.bind("keydown keypress", function (event) {
-                if(event.which === 13) {
-                    this.blur();
-                    event.preventDefault();
-                }
-            });
-        }
-	};
-});
-
-
-</script>
 
 {% endblock %}
