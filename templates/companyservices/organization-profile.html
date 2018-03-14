@@ -51,13 +51,14 @@
  
 <!--/.Card company info-->
 
-<div class="row py-5">
-  <div class="col"><h4>Подразделения</h4></div>
+<div class="py-5">
+  <h4>Подразделения</h4>
 </div>
 
-{% if departs%}
+
 
 <div id="Departs">
+{% if departs%} 
 <table id="tableDeparts" class="table table-striped"> 
   <thead>
     <tr>
@@ -87,7 +88,7 @@
                         <td>Revealed item 1</td>
                     </tr>
                     <tr>
-                         <td><a class="btn btn-info btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a></td>
+                         <td><a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a></td>
                     </tr>
 
                 </table>
@@ -108,10 +109,11 @@ $('#depaccordion_{{ forloop.counter }}').on('hidden.bs.collapse', function () {
 {% endif %}
  </div> 
 {% if departs|length < 2 %}
-  <a class="btn btn-outline-info btn-sm waves-effect" href="{% url 'registerdepart' company.id%}">Добавить подразделение</a>
+  <a class="btn btn-mdb-color btn-sm waves-effect" href="{% url 'registerdepart' company.id%}">Добавить подразделение</a>
   {% else %}
   <p class="font-italic text-muted">Достигнут лимит на создание подразделений в организации «{{company.e_op_form}}» {{company.e_name}}</p>
 {% endif %}
+
 {% else %}
   <div class="container-fluid py-5 card text-center z-depth-2">
    <div class="card-body">

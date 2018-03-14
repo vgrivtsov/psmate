@@ -6,15 +6,13 @@
 {% load widget_tweaks %}
 
 {% block breadcrumbs %}
-{{ block.super }}<a class="breadcrumb-item" href="/settings/">Настройки</a>
+{{ block.super }}<a class="breadcrumb-item" href="{% url 'settings' %}">Настройки</a>
 {% endblock %}
 
 
 {% block cabinet %}
 
 {% if user.is_authenticated %}
-
-
 
 
 <div class="container" style="min-height: 100vh;">
@@ -40,8 +38,8 @@
                      </div>
                      
                    {% endfor %}
-                    <input type="reset" class="btn btn-secondary" onclick="location.href='/cabinet/';" value="Отмена">
-                    <input type="submit" class="btn btn-primary" value="Сохранить">
+                    <input type="reset" class="btn btn btn-outline-mdb-color" onclick='location.href="{% url 'cabinet' %}";' value="Отмена">
+                    <input type="submit" class="btn btn-mdb-color" value="Сохранить">
             
                  </form>
                 </div>

@@ -6,7 +6,7 @@
 {% block content %}
 
 
-    <header class="masthead text-white text-center ">
+    <header class="masthead text-center ">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -16,15 +16,12 @@
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
             <form method="get" action='/search-jobtitles/{{ jt }}'>
               <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">
-            
+                <div class="col-12 col-md-9 mb-2 mb-md-0">            
                   <input type="text" class="form-control form-control-lg" id="search" name="search" value="" required>
                    <label for="search" class="">поиск по ключевому слову</label>
-
-                </div>
-                
+                </div>                
                 <div class="col-12 col-md-3">
-                  <input type="submit" class="btn btn-block btn- btn-info"
+                  <input type="submit" class="btn btn-block btn-mdb-color"
                   value="Найти">
                 </div>
               </div>
@@ -62,7 +59,7 @@
 
          {% endfor %}
         <div class="col-md-12 py-3">
-          <a class="btn btn-lg btn-secondary btn-block" href="/news/">Перейти ко всем новостям в ленте</a>
+          <a class="btn btn-lg btn-mdb-color btn-block" href="/news/">Перейти ко всем новостям в ленте</a>
         </div>
       </div>
       <!-- /.row -->
@@ -75,37 +72,38 @@
       <div class="row">
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
-            <h4 class="card-header">Генератор резюме</h4>
-            <div class="card-body">
-              <p class="card-text">Позволяет сгенерировать резюме по профстандарту с необходимыми компетенциями.</p>
-            </div>
-            <div class="card-footer">
-              <a href="/generator-cv-resume/" class="btn btn-blue-grey">Перейти</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 mb-4">
-          <div class="card h-100">
             <h4 class="card-header">Профстандарты</h4>
             <div class="card-body">
               <p class="card-text">Найти профессиональный стандарт</p>
             </div>
             <div class="card-footer">
-              <a href="/search-profstandart/" class="btn btn-blue-grey">Перейти</a>
+              <a href="{% url 'search-profstandart' %}" class="btn btn-mdb-color">Перейти</a>
             </div>
           </div>
         </div>
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
-            <h4 class="card-header">Учебные заведения</h4>
+            <h4 class="card-header">Должностные инструкции</h4>
             <div class="card-body">
-              <p class="card-text">Рекомендации по обучению в получении желаемой квалификации. ФГОСы. ПОиск по региональным ВУЗам.</p>
+              <p class="card-text">Справочник должностей из реестра профессиональных стандартов. Инофрмация о требованиях и компетенциях.
+              Автоматическое построение должностной инструкции. Скачивание должностной инструкции в формате MS Word(необходима авторизация)</p>
             </div>
             <div class="card-footer">
-              <a href="/education-recomendations/" class="btn btn-blue-grey disabled">Перейти</a>
+              <a href="{% url 'search-jobtitles' %}" class="btn btn-mdb-color">Перейти</a>
             </div>
           </div>
         </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h4 class="card-header">Конструктор резюме</h4>
+            <div class="card-body">
+              <p class="card-text">Позволяет сконструировать резюме в рамках выбранного профстандарта с необходимыми компетенциями. Конструктор резюме доступен в личном кабинете после авторизации </p>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'generator-cv-resume' %}" class="btn btn-mdb-color">Перейти</a>
+            </div>
+          </div>
+        </div>        
       </div>
       <!-- /.row -->
 
@@ -147,7 +145,7 @@
           <p>ПрофНавигатор - помощник в области внедрения профстандартов.</p> <!--Используйте регистрацию для доступа к сервисам генератора резюме.-->
         </div>
         <div class="col-md-4">
-          <a class="btn btn-lg btn-secondary btn-block" href="/register/">Зарегестрироваться</a>
+          <a class="btn btn-lg btn-amber btn-block" href="/register/">Зарегестрироваться</a>
         </div>
       </div>
 

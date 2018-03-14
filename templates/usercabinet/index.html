@@ -11,19 +11,16 @@
 
           <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
-             <a href="/settings/">
-              <div class="card card-usercab" >
+             <a href="{% url 'settings' %}">
+              <div class="card h-100 card-usercab " >
                 <div class="card-body">
                   <div class="clearfix">
                     <i class="fa fa-gear float-right"></i>
                     <p class="card-text text-dark">Персональные настройки</p>
                   </div>
-                <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
+                <h4 class="card-title"> {{ user.first_name|first|capfirst}}. {{ user.profiles.fl_otch|first|capfirst }}. {{ user.last_name|capfirst }}</h4>
                  {% if user.profiles.fl_pd_date %}  
                 <h5>{{ user.profiles.fl_pd_date }}</h5>
-                {% endif %}
-                {% if user.profiles.fl_adress_real %}  
-                <p class="card-text">{{ user.profiles.fl_adress_real }}</p>
                 {% endif %}
                 <div class="flex-row">
                     <h6>{{ user.profiles.fl_tlph_mob }}</h6>
@@ -39,10 +36,10 @@
             
  {% if user.profiles.resume %}              
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
-              <div class="card card-usercab">
+              <div class="card h-100 card-usercab ">
                 <div class="card-body">
                   <div class="clearfix">
-                    <a href="/generator-cv-resume/">
+                    <a href="{% url 'generator-cv-resume' %}">
                      <i class="fa fa-pencil float-right"></i>
                     </a>
                       <p class="card-text text-dark">Резюме</p>
@@ -54,7 +51,7 @@
                   {% endfor %}                  
                   <div class="row">
                     <div class="col">
-                     <a class="btn btn-outline-info btn-block waves-effect" href="/presentation-cv-resume/">перейти к резюме</a>
+                     <a class="btn btn-outline-mdb-color btn-block waves-effect" href="{% url 'presentation-cv-resume' %}">перейти к резюме</a>
                     </div>
                   </div>  
                 </div>
@@ -72,7 +69,7 @@
                   <h4 class="card-title font-weight-normal text-secondary">Еще нет резюме</h4>
                   <div class="row">
                       <div class="col">
-                          <a class="btn btn-outline-info btn-block waves-effect" href="/generator-cv-resume/">Создать резюме</a>
+                          <a class="btn btn-outline-presentation-cv-resume btn-block waves-effect" href="{% url 'generator-cv-resume' %}">Создать резюме</a>
                       </div>
                   </div>  
                 </div>
@@ -86,7 +83,7 @@
 
 {% if companies %}
 
-<h4 class="py-3"><span class="badge blue-grey">Зарегестрированные организации</span></h4> 
+<h4 class="py-3"><span class="badge mdb-color ">Зарегестрированные организации</span></h4> 
 
 
 <div class="row">
@@ -95,24 +92,19 @@
 
 
 <!--Card company info-->
-            <div class="col">             
-              <div class="card">               
-                <div class="card-body">
-                  <div class="clearfix">
-                    <a href="/organization-settings/{{company.id}}">
-                     <i class="fa fa-pencil float-right"></i>
-                    </a>
-                  </div>
-                     <h5 class="card-title">«{{company.e_op_form}}» {{company.e_name}}</h5>
-                </div>
-               <div class="card-body" >
-                 {{company.e_director}} {{company.e_name_ul|first|capfirst}}. {{company.e_otch_ul|first|capfirst}}. {{company.e_fam_ul|capfirst}}
-               </div>                
-                 <a class="btn btn-sm align-middle btn-outline-info" href="/organization-profile/{{company.id}}">Войти в профиль</a>                
-              </div>               
-            </div>
-              
-
+<div class="col">
+ <a href="{% url 'organization-profile' company.id %}">
+  <div class="card h-100">
+    <div class="card-title mx-2 my-1">
+      <h6>{{company.e_op_form}} «{{company.e_name}}»</h5>
+    </div>
+  <div class="card-body" >
+   {{company.e_director}} {{company.e_name_ul|first|capfirst}}. {{company.e_otch_ul|first|capfirst}}. {{company.e_fam_ul|capfirst}}
+  </div>                
+    </a>                
+  </div>
+ 
+</div>
 <!--/.Card company info-->
 
 {% endfor %}
@@ -124,7 +116,7 @@
 
 <div class="py-3">
 {% if companies|length <= 2 %} 
-  <a type="button" class="btn btn-sm btn-blue-grey" href="/registercompany/">Добавить организацию</a>
+  <a type="button" class="btn btn-sm btn-mdb-color" href="% url 'registercompany' %}">Добавить организацию</a>
   {% else %}
   <p class="font-italic text-muted ">Достигнут лимит на создание организаций</p>
   {% endif %}
