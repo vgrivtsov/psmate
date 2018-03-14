@@ -3,6 +3,9 @@ try:
     from django.urls import reverse_lazy
 except ImportError:
     from django.core.urlresolvers import reverse_lazy
+
+from django.conf import settings
+from django.http import HttpResponse
 from django.views.generic import FormView, ListView, View, UpdateView, DeleteView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
@@ -21,10 +24,11 @@ import pymorphy2
 from pymorphy2 import units
 import pytils
 import re
-from docxtpl import DocxTemplate
+import docxtpl 
 import datetime
 import locale
 import pymorphy2
+import io
 
 ################ ORGANIZATIONS VIEWS ###################################################
 
@@ -410,7 +414,9 @@ class OIJTDetailsView(JTDetailsView):
                         'jobtitle' : jt[0].jobtitle,
                         'nameotf' : jt[0].nameotf,
                         'pspurposekind' : ps[0].pspurposekind,
-                        'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum, 'psid' : ps[0].id,
+                        'nameps' : ps[0].nameps,
+                        'psregnum' : ps[0].psregnum,
+                        'psid' : ps[0].id,
                         'otraslname' : otrasl.name,
                         'otraslicon' : otrasl.icon,
                         'educationalreqs' : educationalreqs,
@@ -433,7 +439,6 @@ class OICreateView(ListView):
         
         data =  self.kwargs['slug']
         docx =  self.kwargs['docx']
-        print(docx)
 
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']        
@@ -505,8 +510,7 @@ class OICreateView(ListView):
                 
                 cleared_cheef = morph.parse(w)[0]
 
-                if cleared_cheef.tag.POS in pos_list and cleared_cheef.tag.case == 'nomn': # check if word is single noun
-            
+                if cleared_cheef.tag.POS in pos_list and cleared_cheef.tag.case == 'nomn': # check if word is single noun            
                     d_cheef_datv = cleared_cheef.inflect({'datv'}).word                          
                     cheef_datv.append(d_cheef_datv.capitalize() if capmarker == True else d_cheef_datv)
                 else:
@@ -529,7 +533,17 @@ class OICreateView(ListView):
                       'cheef_otch' : cheef_otch,
                       'cheef_fam' : cheef_fam,
                       'd_cheef_datv' : d_cheef_datv
-                    }  
+                    }
+            
+            ##### nowdate in roditelny padezh(need for docx generation##
+
+            #m = pymorphy2.MorphAnalyzer()
+            #locale.setlocale(locale.LC_TIME, "ru_RU")
+            today = datetime.datetime.now()#.strftime("%d %B %Y").lower()
+            
+            #day, month, year = today.split(' ')            
+            #nmonth = m.parse(month)[0].inflect({'gent'}).word            
+            #today = (' '.join([day, nmonth, year]))
 
             ######### general data #######################################
 
@@ -538,12 +552,10 @@ class OICreateView(ListView):
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
-            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
-          
+            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)          
             otrasl = ps[0].otraslid
 
             generaldatas = []
-               
                         
             #make jobtitle Roditelny padezh
 
@@ -590,7 +602,10 @@ class OICreateView(ListView):
                     'jobtitlerod' : jobtitlerod,
                     'nameotf' : jt[0].nameotf,
                     'pspurposekind' : ps[0].pspurposekind,
-                    'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                    'nameps' : ps[0].nameps,
+                    'psregnum' : ps[0].psregnum,
+                    'psordernum' : ps[0].psordernum,
+                    'psdateappr' : ps[0].psdateappr,
                     'otraslname' : otrasl.name,
                     'otraslicon' : otrasl.icon,
                     'educationalreqs' : educationalreqs,
@@ -598,6 +613,7 @@ class OICreateView(ListView):
                     'specialconditions' : specialconditions,
                     'othercharacts' : othercharacts,
                     'tfs' : tfs,
+                    'today' : today
                     }
             
             ######### requirements #######################################
@@ -636,8 +652,28 @@ class OICreateView(ListView):
                             'othercharacteristics' : ocresult,
                             }
 
+
             
-            return render(request, self.template_name, {'generaldatas': generaldatas,
+            if docx == 'msword-document-download':
+                context = { 'generaldatas': generaldatas,
+                            'requirements' : requirements,
+                            'cmpd' : cmpd,
+                            'cmpd0' : cmpd0 }
+                
+                media_root = settings.MEDIA_ROOT
+                doc = docxtpl.DocxTemplate(media_root+ '/doctemplates/oitemplate.docx')
+                doc.render(context)
+
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                response['Content-Disposition'] = 'attachment; filename=download.docx'
+                
+                doc.save(response)
+                
+                return response
+                #return redirect(reverse_lazy("org-official-instructions", id=(companyid), pk=(departid), slug=(data) ))
+
+            else:
+                return render(request, self.template_name, {'generaldatas': generaldatas,
                                                         'requirements' : requirements,
                                                         'cmpd' : cmpd,
                                                         'cmpd0' : cmpd0

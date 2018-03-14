@@ -23,7 +23,11 @@
     content: "- "; 
   /* white-space:pre;*/
    }
-
+   
+.ofinstructions2 li {
+    
+    list-style-type: none;
+   }
   
 .laboractions li {
     
@@ -72,11 +76,11 @@
 
 
 <div style="margin-bottom: 0in" align="right" >
-{{cmpd.e_director}}
+{{cmpd.e_director}} {{cmpd.e_op_form}}
 </div>
 
 <div style="margin-bottom: 0in" align="right" >
-{{cmpd.e_op_form}} «{{cmpd.e_name}}»
+«{{cmpd.e_name}}»
 </div>
 
 
@@ -157,9 +161,9 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% endif %}
 
 {% if generaldatas.specialconditions %}
-   <p class="western" style="margin-bottom: 0in" align="justify">1.2.1. Особые условия допуска к работе {{generaldatas.jobtitlerod}}:</p>
+   <p class="western" style="margin-bottom: 0in" align="justify">{{generaldatas.jobtitlerod}}:</p>
 {% for speconds in generaldatas.specialconditions %}
-<div  class="ofinstructions">
+<div  class="ofinstructions2">
   <li>{{speconds}}</li>
 </div> 
 {% endfor %}
@@ -381,13 +385,11 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-     Настоящая должностная инструкция
-разработана в соответствии с положениями
-(требованиями) Трудового кодекса
-Российской Федерации от 30.12.2001 г. № 197
-ФЗ (ТК РФ) (с изменениями и дополнениями)
-и иных нормативно–правовых актов,
-регулирующих трудовые отношения.
+    Настоящая должностная инструкция разработана в соответствии с положениями
+(требованиями) Трудового кодекса Российской Федерации от 30.12.2001 г. № 197 ФЗ (ТК РФ)
+(с изменениями и дополнениями), профессионального стандарта «{{generaldatas.nameps}}»
+утвержденного Приказом Минтруда России от {{generaldatas.psdateappr}} № {{generaldatas.psordernum}}
+и иных нормативно–правовых актов, регулирующих трудовые отношения.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 <p>Должность составителя</p>
