@@ -111,16 +111,13 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 Общие положения
 	</b>
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
-
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.1. Настоящая должностная инструкция
 определяет функциональные, должностные 
 обязанности, права и ответственность
 {{generaldatas.jobtitlerod}} подразделения «<span ng-bind-html="depart"></span>»
- (далее - {{generaldatas.jobtitle}}) <span ng-bind-html="organization"></span> (далее Учреждение).
+ (далее - {{generaldatas.jobtitle|lower}}) <span ng-bind-html="organization"></span> (далее Учреждение).
 </p>
 
 
@@ -133,7 +130,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </p>
 {% for education in generaldatas.educationalreqs %}
    <div  class="ofinstructions">
-    <li>{{education}}</li>
+    <li>{{education}};</li>
    </div>
 {% endfor %}
 
@@ -141,7 +138,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
    <p class="western" style="margin-bottom: 0in" align="justify">с опытом практической работы:</p>
 {% for workexp in generaldatas.reqworkexperiences %}
 <div  class="ofinstructions">
-  <li>{{workexp}}</li>
+  <li>{{workexp}};</li>
 </div> 
 {% endfor %}
 {% else %}
@@ -159,7 +156,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </p>
 {% for nk in requirements.necessaryknowledges %}
 <div  class="ofinstructions">
-<li>{{nk.necessaryknowledge}}</li>
+<li>{{nk.necessaryknowledge}};</li>
 </div>
 {% endfor %}
 
@@ -168,7 +165,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </p>
 {% for rs in requirements.requiredskills %}
 <div  class="ofinstructions">
-<li>{{rs.requiredskill}}</li>
+<li>{{rs.requiredskill}};</li>
 </div>
 {% endfor %}
 
@@ -196,13 +193,11 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="center"><br>
-</p>
-
 
 <p class="western" style="margin-bottom: 0in" align="center"><b>2.
 Трудовые функции
 	</b>
+</p>
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
@@ -210,11 +205,10 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 
 {% for tf in requirements.tf %}
 <div  class="tfs">
-<li>2.{{ forloop.counter }}. {{tf.nametf}}</li>
+<li>2.{{ forloop.counter }}. {{tf.nametf}}.</li>
 </div>
 {% endfor %}
 
-</p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
@@ -228,14 +222,13 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 
 {% for la in requirements.laboractions %}
 <div  class="laboractions">
-<li>3.{{ forloop.counter }}. {{la.laboraction}}</li>
+<li>3.{{ forloop.counter }}. {{la.laboraction}}.</li>
 </div>
 {% endfor %}
 
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
+
 <p class="western" style="margin-bottom: 0in" align="center"><b>4.
 Права
 	</b>
@@ -254,7 +247,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
     4.1. Запрашивать и получать необходимую
 информацию, а так же материалы и документы,
 относящиеся к вопросам деятельности
-{{generaldatas.jobtitlerod}}.
+{{generaldatas.jobtitlerod|lower}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     4.2.   Повышать квалификацию, проходить
@@ -264,7 +257,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
     4.3. Вступать во взаимоотношения с
 подразделениями сторонних учреждений
 и организаций для решения вопросов,
-входящих в компетенцию {{generaldatas.jobtitlerod}}.
+входящих в компетенцию {{generaldatas.jobtitlerod|lower}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     4.4. Принимать участие в обсуждении
@@ -297,13 +290,9 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 <span>&nbsp;</span>
 </div>
 
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
-
 <p class="western" style="margin-bottom: 0in" align="center"><b>5.
 Ответственность
 	</b>
-
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
@@ -351,7 +340,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
 	За вышеперечисленные
-нарушения {{generaldatas.jobtitle}} может быть
+нарушения {{generaldatas.jobtitle|lower}} может быть
 привлечен в соответствии с действующим
 законодательством в зависимости от
 тяжести проступка к дисциплинарной,
@@ -366,13 +355,12 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
-     Настоящая должностная инструкция
-разработана в соответствии с положениями
-(требованиями) Трудового кодекса
-Российской Федерации от 30.12.2001 г. № 197
-ФЗ (ТК РФ) (с изменениями и дополнениями)
-и иных нормативно–правовых актов,
-регулирующих трудовые отношения.
+    Настоящая должностная инструкция разработана в соответствии с положениями
+(требованиями) Трудового кодекса Российской Федерации от 30.12.2001 г. № 197 ФЗ (ТК РФ)
+(с изменениями и дополнениями), профессионального стандарта «{{generaldatas.nameps}}»
+утвержденного приказом Министерства труда и социальной защиты Российской Федерации от {{generaldatas.psdateappr}} № {{generaldatas.psordernum}}
+и иных нормативно–правовых актов, регулирующих трудовые отношения.
+</p>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 <p>Должность составителя</p>

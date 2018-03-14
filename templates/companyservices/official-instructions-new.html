@@ -123,17 +123,15 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="center"><b>1.
 Общие положения
 	</b>
-</p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-
 
 <p class="western" style="margin-bottom: 0in" align="justify">       
      1.1. Настоящая должностная инструкция
 определяет функциональные, должностные 
 обязанности, права и ответственность
-{{generaldatas.jobtitlerod}} подразделения «{{cmpd.depname}}»
- (далее - {{generaldatas.jobtitle}}) {{cmpd.e_op_form}} «{{cmpd.e_name}}» (далее Учреждение).
+{{generaldatas.jobtitlerod|lower}} подразделения «{{cmpd.depname}}»
+ (далее - {{generaldatas.jobtitle|lower}}) {{cmpd.e_op_form}} «{{cmpd.e_name}}» (далее Учреждение).
 </p>
 
 
@@ -145,7 +143,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </p>
 {% for education in generaldatas.educationalreqs %}
    <div  class="ofinstructions">
-    <li>{{education}}</li>
+    <li>{{education}};</li>
    </div>
 {% endfor %}
 
@@ -153,7 +151,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
    <p class="western" style="margin-bottom: 0in" align="justify">с опытом практической работы:</p>
 {% for workexp in generaldatas.reqworkexperiences %}
 <div  class="ofinstructions">
-  <li>{{workexp}}</li>
+  <li>{{workexp}};</li>
 </div> 
 {% endfor %}
 {% else %}
@@ -164,7 +162,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
    <p class="western" style="margin-bottom: 0in" align="justify">{{generaldatas.jobtitlerod}}:</p>
 {% for speconds in generaldatas.specialconditions %}
 <div  class="ofinstructions2">
-  <li>{{speconds}}</li>
+  <li>{{speconds}};</li>
 </div> 
 {% endfor %}
 {% else %}
@@ -183,7 +181,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </p>
 {% for nk in requirements.necessaryknowledges %}
 <div  class="ofinstructions">
-<li>{{nk.necessaryknowledge}}</li>
+<li>{{nk.necessaryknowledge}};</li>
 </div>
 {% endfor %}
 
@@ -192,7 +190,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </p>
 {% for rs in requirements.requiredskills %}
 <div  class="ofinstructions">
-<li>{{rs.requiredskill}}</li>
+<li>{{rs.requiredskill}};</li>
 </div>
 {% endfor %}
 
@@ -211,17 +209,14 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 <div align="right" >
 <p class="western" style="margin-bottom: 0in" align="justify">	1.6.
-{{generaldatas.jobtitle}} подчиняется {{cmpd.e_director_datv}} Учреждения
-и {{cmpd.d_cheef_datv}} подразделения
+{{generaldatas.jobtitle}} подчиняется {{cmpd.e_director_datv|lower}} Учреждения
+и {{cmpd.d_cheef_datv|lower}} подразделения
 «{{cmpd.depname}}»
 </p>
 </div>
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="center"><br>
-</p>
-
 
 <p class="western" style="margin-bottom: 0in" align="center"><b>2.
 Трудовые функции
@@ -233,11 +228,10 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 {% for tf in requirements.tf %}
 <div  class="tfs">
-<li>2.{{ forloop.counter }}. {{tf.nametf}}</li>
+<li>2.{{ forloop.counter }}. {{tf.nametf}}.</li>
 </div>
 {% endfor %}
 
-</p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
@@ -251,24 +245,22 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 {% for la in requirements.laboractions %}
 <div  class="laboractions">
-<li>3.{{ forloop.counter }}. {{la.laboraction}}</li>
+<li>3.{{ forloop.counter }}. {{la.laboraction}}.</li>
 </div>
 {% endfor %}
 
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
+
 <p class="western" style="margin-bottom: 0in" align="center"><b>4.
 Права
 	</b>
-</p>
+
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify"><b>	{{generaldatas.jobtitle}}
+<p class="western" style="margin-bottom: 0in" align="justify"><b>	{{generaldatas.jobtitle|lower}}
 имеет право:
 	</b>
-</p>
 
 <div style="margin-bottom: 0in" align="right">
 
@@ -276,7 +268,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
     4.1. Запрашивать и получать необходимую
 информацию, а так же материалы и документы,
 относящиеся к вопросам деятельности
-{{generaldatas.jobtitlerod}}.
+{{generaldatas.jobtitlerod|lower}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     4.2.   Повышать квалификацию, проходить
@@ -286,7 +278,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
     4.3. Вступать во взаимоотношения с
 подразделениями сторонних учреждений
 и организаций для решения вопросов,
-входящих в компетенцию {{generaldatas.jobtitlerod}}.
+входящих в компетенцию {{generaldatas.jobtitlerod|lower}}.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     4.4. Принимать участие в обсуждении
@@ -344,7 +336,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">       
     5.2. Невыполнение распоряжений и
-поручений {{cmpd.e_director_gent}} Учреждения.
+поручений {{cmpd.e_director_gent|lower}} Учреждения.
 </p>
 <p class="western" style="margin-bottom: 0in; background: #ffffff" align="justify">
 	5.3. Недостоверную
@@ -372,7 +364,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
 	За вышеперечисленные
-нарушения {{generaldatas.jobtitle}} может быть
+нарушения {{generaldatas.jobtitle|lower}} может быть
 привлечен в соответствии с действующим
 законодательством в зависимости от
 тяжести проступка к дисциплинарной,
@@ -388,7 +380,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
     Настоящая должностная инструкция разработана в соответствии с положениями
 (требованиями) Трудового кодекса Российской Федерации от 30.12.2001 г. № 197 ФЗ (ТК РФ)
 (с изменениями и дополнениями), профессионального стандарта «{{generaldatas.nameps}}»
-утвержденного Приказом Минтруда России от {{generaldatas.psdateappr}} № {{generaldatas.psordernum}}
+утвержденного приказом Министерства труда и социальной защиты Российской Федерации от {{generaldatas.psdateappr}} № {{generaldatas.psordernum}}
 и иных нормативно–правовых актов, регулирующих трудовые отношения.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
