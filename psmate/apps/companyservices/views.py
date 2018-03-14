@@ -535,15 +535,15 @@ class OICreateView(ListView):
                       'd_cheef_datv' : d_cheef_datv
                     }
             
-            ##### nowdate in roditelny padezh(need for docx generation##
+            ##### nowdate in roditelny padezh(need for docx generation)##
 
-            #m = pymorphy2.MorphAnalyzer()
-            #locale.setlocale(locale.LC_TIME, "ru_RU")
-            today = datetime.datetime.now()#.strftime("%d %B %Y").lower()
+            m = pymorphy2.MorphAnalyzer()
+            locale.setlocale(locale.LC_TIME, "ru_RU.UTF-8")
+            today = datetime.datetime.now().strftime("%d %B %Y").lower()
             
-            #day, month, year = today.split(' ')            
-            #nmonth = m.parse(month)[0].inflect({'gent'}).word            
-            #today = (' '.join([day, nmonth, year]))
+            today, month, year = today.split(' ')            
+            nmonth = m.parse(month)[0].inflect({'gent'}).word
+            
 
             ######### general data #######################################
 
@@ -597,6 +597,7 @@ class OICreateView(ListView):
             
             generaldatas = {
                     'slug' : data,
+                    
                     'jobtitleid' : jt[0].id,
                     'jobtitle' : jt[0].jobtitle,
                     'jobtitlerod' : jobtitlerod,
@@ -613,7 +614,9 @@ class OICreateView(ListView):
                     'specialconditions' : specialconditions,
                     'othercharacts' : othercharacts,
                     'tfs' : tfs,
-                    'today' : today
+                    'today' : today,
+                    'month': nmonth,
+                    'year' :year                    
                     }
             
             ######### requirements #######################################
@@ -652,8 +655,6 @@ class OICreateView(ListView):
                             'othercharacteristics' : ocresult,
                             }
 
-
-            
             if docx == 'msword-document-download':
                 context = { 'generaldatas': generaldatas,
                             'requirements' : requirements,
@@ -665,7 +666,7 @@ class OICreateView(ListView):
                 doc.render(context)
 
                 response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                response['Content-Disposition'] = 'attachment; filename=download.docx'
+                response['Content-Disposition'] = 'attachment; filename=%s.docx' % re.sub(r'-\d+$', '', generaldatas['slug'])
                 
                 doc.save(response)
                 
@@ -678,28 +679,4 @@ class OICreateView(ListView):
                                                         'cmpd' : cmpd,
                                                         'cmpd0' : cmpd0
                                                         })
-
-
-
-# class GetForDocxView(ListView):
-#     template_name = "companyservices/official-instructions-new.html"
-# 
-#     def get(self, request, *args, **kwargs):
-#         
-#         search_data = self.request.GET('data', None)
-#         print(search_data)        
-#         
-#        # data =  self.kwargs['slug'] 
-#         companyid = self.kwargs['id']
-#         departid = self.kwargs['pk']        
-#         company = Enterprises.objects.get(id=companyid)
-#         department = Departs.objects.get(id=departid)
-# 
-#         cmpd0 = {'company' : company, 'department' : department}
-#         
-#         return render(request, self.template_name, {'cmpd0' : cmpd0 })
-#     
-
-        
-        
 
