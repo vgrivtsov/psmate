@@ -370,7 +370,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
    <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
        {% csrf_token %}
        {{ form.as_p}}
-       <input type="hidden" name='companyid' value='{{cmpd0.company.id}}'>
+       <input type="hidden" name='company' value='{{cmpd0.company.id}}'>
        <input type="hidden" name='name' value='{{generaldatas.jobtitlerod|lower}}'>
        <input type="hidden" name='slug' value='{{generaldatas.slug}}'>
        <input type="hidden" name='departs' value='{{cmpd0.department.id}}'>

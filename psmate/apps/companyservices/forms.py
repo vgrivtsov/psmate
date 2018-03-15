@@ -213,7 +213,7 @@ class OICreateForm(ModelForm):
 
     class Meta:
         model = Offinsts
-        fields = ('name', 'slug', 'departs', 'jt' )
+        fields = ('name', 'slug', 'departs', 'jt', 'company' )
         
     def save(self, commit=True):
         
@@ -222,8 +222,9 @@ class OICreateForm(ModelForm):
         if commit:
             oi.save()
 
-        oi.name= self.cleaned_data["name"]
+        oi.name= self.cleaned_data["name"] 
         oi.slug= self.cleaned_data["slug"]
+        oi.company= self.cleaned_data["company"]
         oi.departs= self.cleaned_data["departs"]
         oi.jt= self.cleaned_data["jt"]
 

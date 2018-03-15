@@ -84,10 +84,15 @@ class OrgReadView(View):
         else:
             company = Enterprises.objects.get(pk=company_id)
             departs = Departs.objects.filter(company_id=company_id)
+            ois = Offinsts.objects.filter(company_id=company_id)
+            for oi in ois:
+                oi.short = oi.name[:30]+'...' # truncate long JT name
+            
 
         return render(request, self.template_name, {'company' : company,
-                                                    'departs' :departs})  
-
+                                                    'departs' :departs,
+                                                    'ois' :ois
+                                                    })  
 
 
 class OrgUpdateView(UpdateView):
@@ -691,6 +696,7 @@ class OISaveView(FormView):
         name = self.request.POST['name']
         slug = self.request.POST['slug']
         jt = self.request.POST['jt']
+        company = self.request.POST['company']
         departs = self.request.POST['departs']
         
         return super(OISaveView, self).form_valid(form)

@@ -10,7 +10,45 @@
 {% endblock %}
 
 {% block companyprofile %}
+<style>
+ 
+.oiindepartcard{	
+	margin-top: 0;
+    margin-bottom: 1.0rem;
+    text-align: left;
+    height: 175px;
+    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.oiindepartcard .fa{
+	position: relative;
+    font-size: 50px;
+}
+.oiindepartcard-topimage_header{
+padding: 10px;
 
+}
+a.oiindepartcard:hover, .oiindepartcard-topimage:hover {
+    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+}
+.oiindepartcard-topimage a {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+}
+.oiindepartcard-topimage a {
+    border-bottom: none;
+    text-decoration: none;
+    color: #525c65;
+    transition: color 0.3s ease;
+}
+ 
+ 
+ 
+</style>
 
 {% if company.regname_id == user.id %}
 <!--Card company info-->
@@ -78,22 +116,37 @@
       <td>{{dep.cheef_name|first|capfirst}}. {{dep.cheef_otch|first|capfirst}}. {{dep.cheef_fam|capfirst}}</td>
       <td>{{dep.phone}}</td>      
       <td align="right"><a class="btn btn-warning btn-sm" href="{% url 'editdepart' company.id dep.id %}">Изменить</a></td>
-      <td><i class="indicator fa fa-chevron-up pull-right"></i>
+      <td><i class="indicator fa fa-chevron-up pull-right"></i></td>
     </tr>
     <tr>
-        <td colspan="3" class="hiddenRow">
-            <div class="accordion-body collapse docsDepart_{{ forloop.counter }}" id="depaccordion_{{ forloop.counter }}">
-                <table>
-                    <tr>
-                        <td>Revealed item 1</td>
-                    </tr>
-                    <tr>
-                         <td><a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a></td>
-                    </tr>
-
-                </table>
+     <td colspan="3" class="hiddenRow">
+       <div class="accordion-body collapse docsDepart_{{ forloop.counter }}" id="depaccordion_{{ forloop.counter }}">
+         {% if ois%}
+	       <div class="row">
+          {% for oi in ois %} {% if oi.departs_id == dep.id %}
+	           <div class="col-md-2">
+              <a href="{% url 'org-official-instructions' company.id oi.departs_id oi.slug%}">
+	               <div class="oiindepartcard oiindepartcard-topimage" style="background-color: #2b579a">                                    
+                   <div class="oiindepartcard-topimage_header" style="color:white">
+                     <center ><i class="fa fa-file-word-o" ></i> </center>
+                     <small>Должностная инструкция</small>
+                     {% if oi.name|length > 30 %} <!--truncate long JT name-->
+                      <small data-toggle="tooltip" data-placement="right" title="{{oi.name}}">{{oi.short|capfirst}}</small>
+                     {% else %}
+                      <small>{{oi.name|capfirst}}</small>
+                     {% endif %}                               
+                   </div>                              
+                </div>
+              </a>
             </div>
-        </td>
+          {% endif %}{% endfor %}
+        </div>                         
+          {% endif %} 
+          <div class="row">
+           <a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a>
+          </div>  
+         </div>
+       </td>
     </tr>
 <script>
 $('#depaccordion_{{ forloop.counter }}').on('shown.bs.collapse', function () {
