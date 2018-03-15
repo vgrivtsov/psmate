@@ -147,7 +147,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% endif %}
 
 {% if generaldatas.specialconditions %}
-   <p class="western" style="margin-bottom: 0in" align="justify">{{generaldatas.jobtitlerod}}:</p>
+   <p class="western" style="margin-bottom: 0in" align="justify">Особые условия допуска к работе {{generaldatas.jobtitlerod}}:</p>
 {% for speconds in generaldatas.specialconditions %}
 <div  class="ofinstructions2">
   <li>{{speconds}};</li>
@@ -364,8 +364,21 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 и иных нормативно–правовых актов, регулирующих трудовые отношения.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p> 
-<a class="btn btn-info btn-sm" align="right" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}">Сохранить в формате MS Word</a> 
+</p>
+
+<div>
+   <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
+       {% csrf_token %}
+       {{ form.as_p}}
+       <input type="hidden" name='companyid' value='{{cmpd0.company.id}}'>
+       <input type="hidden" name='name' value='{{generaldatas.jobtitlerod|lower}}'>
+       <input type="hidden" name='slug' value='{{generaldatas.slug}}'>
+       <input type="hidden" name='departs' value='{{cmpd0.department.id}}'>
+       <input type="hidden" name='jt' value='{{generaldatas.jobtitleid}}'>
+       <input class="btn btn-mdb-color btn-sm" type="submit" value="Сохранить в подразделении">
+   </form>
+</div>
+<a class="btn btn-info btn-sm" align="right" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}">Скачать в формате MS Word</a> 
  
 </div>
 

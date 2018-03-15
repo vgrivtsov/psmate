@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from psmate.models import Enterprises, Departs
+from psmate.models import Enterprises, Departs, Offinsts
 
 from django.forms import ModelForm
 
@@ -141,7 +141,6 @@ class DepartCreateForm(ModelForm):
         fields = ("name", "cheef", "cheef_fam", "cheef_name", "cheef_otch", "phone")
         exclude = ('company_id','company_name','company_form')
 
-
     def __init__(self, company, user, *args, **kwargs):
         
         self.company_id = company.id
@@ -149,7 +148,6 @@ class DepartCreateForm(ModelForm):
         self.company_form= company.e_op_form
 
         super(DepartCreateForm , self).__init__(*args, **kwargs)
-
 
     def save(self, commit=True):
         
@@ -184,8 +182,6 @@ class DepartUpdateForm(ModelForm):
         fields = ("name", "cheef", "cheef_fam", "cheef_name", "cheef_otch", "phone")
         exclude = ('company_id','company_name','company_form')
 
-
-
     def __init__(self, company, user, *args, **kwargs):
         
         self.company_id = company.id
@@ -193,9 +189,6 @@ class DepartUpdateForm(ModelForm):
         self.company_form= company.e_op_form
 
         super(DepartUpdateForm , self).__init__(*args, **kwargs)
-
-        
-        
 
     def save(self, commit=True):
         
@@ -214,6 +207,24 @@ class DepartUpdateForm(ModelForm):
         dep.company_id= self.company_id
 
         dep.save()
-  
-       
         
+  
+class OICreateForm(ModelForm):
+
+    class Meta:
+        model = Offinsts
+        fields = ('name', 'slug', 'departs', 'jt' )
+        
+    def save(self, commit=True):
+        
+        oi = super(OICreateForm, self).save(commit=False)
+
+        if commit:
+            oi.save()
+
+        oi.name= self.cleaned_data["name"]
+        oi.slug= self.cleaned_data["slug"]
+        oi.departs= self.cleaned_data["departs"]
+        oi.jt= self.cleaned_data["jt"]
+
+        oi.save()

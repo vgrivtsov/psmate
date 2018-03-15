@@ -14,6 +14,7 @@ from psmate.apps.services.views import ShowJTlist, JTDetailsView, OfficialInstru
 
 from psmate.apps.companyservices.forms import OrgCreateForm, OrgUpdateForm
 from psmate.apps.companyservices.forms import DepartCreateForm, DepartUpdateForm
+from psmate.apps.companyservices.forms import OICreateForm
 from django.http import Http404
 from django.contrib import messages
 
@@ -680,3 +681,26 @@ class OICreateView(ListView):
                                                         'cmpd0' : cmpd0
                                                         })
 
+class OISaveView(FormView):
+    form_class = OICreateForm
+    template_name = "companyservices/official-instructions-new.html"
+    
+    def form_valid(self, form):
+        form.save()
+    
+        name = self.request.POST['name']
+        slug = self.request.POST['slug']
+        jt = self.request.POST['jt']
+        departs = self.request.POST['departs']
+        
+        return super(OISaveView, self).form_valid(form)
+    
+    def get_success_url(self):
+
+        messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
+        return reverse_lazy('org-official-instructions', kwargs={'id': self.kwargs['id'],
+                            'pk': self.kwargs['pk'],'slug': self.kwargs['slug'],}) 
+    
+
+
+    
