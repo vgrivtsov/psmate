@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
@@ -8,28 +8,27 @@
 
 
 <div ng-app="ps_search" ng-controller="ps_search_ctrl" style="min-height: 100vh; overflow-y: hidden;">
-   
+
 <div class="container py-5 md-form " >
 
 
-                         <h6 class="mb-0">Поиск по ключевому слову</h6>
+<h6 class="mb-0">Поиск по ключевому слову</h6>
 
 
-                          <form method="get" action=''>
-                          <!-- <input type="hidden" name="next" value="request.GET.next">-->
-                         
-                           {% for field in form %}
-                             <div class="form-group">
-                                                    
-                               {% render_field field class="form-control form-control-lg rounded-0" %}
+ <form method="get" action=''>
 
-                             </div>
-                             
-                           {% endfor %}
-                            
-                            <input type="submit" class="btn btn-mdb-color btn-block" value="Показать профстандарт">
+  {% for field in form %}
+    <div class="form-group">
 
-                         </form>
+      {% render_field field class="form-control form-control-lg rounded-0" %}
+
+    </div>
+
+  {% endfor %}
+
+   <input type="submit" class="btn btn-mdb-color btn-block" value="Показать профстандарт">
+
+</form>
 
 
 </div>
@@ -59,7 +58,7 @@
 
    </table>
    <table width=100%>
-        <tr height="20"></tr>   
+        <tr height="20"></tr>
  		<TR>
 			<TD valign="bottom" COLSPAN=30 WIDTH=75% HEIGHT=15 STYLE="border-top: none; border-bottom: none; border-left: none; border-right: none;">
 				<center><font size="5"></font><BR>
@@ -72,7 +71,7 @@
 				<P><BR>
 				</P>
 			</TD>
-		</TR>  
+		</TR>
    		<TR VALIGN=TOP height="1">
 			<TD height=1 COLSPAN=30 WIDTH=75% STYLE="border: none; padding: 0in">
 			</TD>
@@ -219,50 +218,46 @@
 			</TD>
 		</TR>
 	</TBODY>
-      
-  
+
     <TBODY>
     {% for okz in okzinfo %}
     {% if not forloop.counter|divisibleby:"2" %}
 		<TR >
-      
+
 			<td COLSPAN=3 WIDTH=14% HEIGHT=13 STYLE="border: 1px solid; border-bottom: none; border-right: none; padding: 10px;">
 				<center>{{ okz.codeokz }}</center>
-			</td>      
+			</td>
 			<td COLSPAN=10 WIDTH=34% STYLE="border: 1px solid; border-bottom: none; border-right: none; padding: 10px; padding-bottom: 0px;">
 				<p>{{ okz.nameokz }}</p>
 			</td>
-      
+
       <!--If num of elements not even - add next table colomn-->
       {% if not forloop.last|divisibleby:"2" %}
-      
+
 			<TD COLSPAN=3 WIDTH=12% STYLE="border: 1px solid; border-bottom: none; border-right: none; padding: 10px;">
 				<center></center>
 			</TD>
 			<TD COLSPAN=19 WIDTH=39% STYLE="border: 1px solid; border-bottom: none; padding: 10px; padding-bottom: 0px;">
 				<p></p>
-			</TD>   
- 
+			</TD>
+
       {% endif %}
 
-      {% else %}    
-      
+      {% else %}
+
 			<TD COLSPAN=3 WIDTH=12% STYLE="border: 1px solid; border-bottom: none; border-right: none; padding: 10px;">
 				<center>{{ okz.codeokz }}</center>
 			</TD>
 			<TD COLSPAN=19 WIDTH=39% STYLE="border: 1px solid; border-bottom: none; padding: 10px; padding-bottom: 0px;">
 				<p>{{ okz.nameokz }}</p>
-			</TD>  
- 
+			</TD>
 
- 
 		</TR>
      {% endif %}
      {% endfor %}
 
 	</TBODY>
-          
-            
+
 	<TBODY>
 		<TR VALIGN=TOP>
 			<TD COLSPAN=3 WIDTH=14% HEIGHT=13 STYLE="border-top: 1px solid; border-bottom: none; border-left: none; border-right: none; padding: 0in">
@@ -297,9 +292,8 @@
 				<P>{{ okved.nameokved }}</P>
 			</TD>
             </TR>
-        {% endfor %}        
+        {% endfor %}
       </TBODY>
-
 
 		<TR>
 			<TD COLSPAN=3 WIDTH=14% HEIGHT=2 STYLE="border-top: 1px solid; border-bottom: none; border-left: none; border-right: none; padding: 0in">
@@ -364,10 +358,9 @@
 			(подуровень) квалификации</FONT></FONT></CENTER>
 		</TD>
 	</TR>
-   
+
    {% for x in mixed_tf_otf %}
-       
-   
+
    <TR>
 
  		<TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none;">
@@ -378,12 +371,12 @@
 			<P> <p>{{ x.0.nameotf }}</p><BR>
 			</P>
 		</TD>
-        
+
         		<TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none;">
 			<P><center><p>{{ x.0.levelofquali }}</p><BR></center></P>
 		</TD>
-  
-           
+
+
 	   <TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
 	   	<P><p>{{ x.1.0.nametf }}</p></P>
 	   </TD>
@@ -393,14 +386,13 @@
 	   <TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
 	   	<P><center><p>{{ x.1.0.subquali }}</p></center></P>
 	   </TD>
-           
-	</TR>    
- 
-   
+
+	</TR>
+
       {% for tf in x.1|slice:"1:" %}
-           
+
            <TR>
-           
+
 	        	<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
 	        		<P><p>{{ tf.nametf }}</p></P>
 	        	</TD>
@@ -410,20 +402,19 @@
 	        	<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
 	        		<P><center><p>{{ tf.subquali }}</p></center></P>
 	        	</TD>
-           
-	        </TR>           
-           
+
+	        </TR>
+
       {% endfor %}
-   
+
    {% endfor %}
-   
 
 </TABLE>
 
 <TABLE>
 <P STYLE="margin-bottom: 0.14in"><TABLE DIR="LTR" ALIGN=LEFT WIDTH=100% HSPACE=4 CELLPADDING=7 CELLSPACING=0>
 	<COL WIDTH=13*>
-	<COL WIDTH=243*>   
+	<COL WIDTH=243*>
 
 	<TBODY>
 		<TR>
@@ -441,7 +432,7 @@
 			</TD>
 		</TR>
 	</TBODY>
-   
+
 	<TBODY>
 
 		<TR>
@@ -466,9 +457,8 @@
 
 
 <script>
-angular.module("ps_search",[]).controller("ps_search_ctrl",function($scope){});  
+angular.module("ps_search",[]).controller("ps_search_ctrl",function($scope){});
 </script>
 
 {{ form.media }}
-{% endblock %}  
-
+{% endblock %}

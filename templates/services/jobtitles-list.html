@@ -15,7 +15,7 @@
   <div class="overlay"></div>
     <div class="row">
       <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
-        <form method="get" action='/search-jobtitles/{{ search }}'>
+        <form method="get" action="{% url 'search-jobtitles' %}{{ search }}">
           <div class="form-row">
             <div class="col-12 col-md-9 mb-2 mb-md-0">
               <input type="text" class="form-control form-control-lg" id="search" name="search" value="" required>
@@ -50,11 +50,10 @@
         <div class="profstandartitem">Профстандарт</div>
 
 			  		</li>
-
-               {% for jt in jtresult  %}
+            {% for jt in jtresult  %}
 
 			  		<li class="jobtitlelist-details">
-                  <a href="/competences/{{jt.slug}}">
+        <a href="/competences/{{jt.slug}}">
 			  			<div class="block">
 			  				<!-- jobtitleitem -->
 					  		<div class="jobtitleitem">
@@ -62,28 +61,23 @@
 					  		</div>
 
 					  		<div class="otraslitem">
-
-                        <small class="otraslitem">{{ jt.otraslname }}</small>
-                     </div>
+            <small class="otraslitem">{{ jt.otraslname }}</small>
+         </div>
 
 					  		<div class="otraslicon">
 					  			<i class="{{ jt.otraslicon }} fa-2x"></i>
 					  		</div>
 
 					  		<div class="nameotfitem">{{ jt.nameotf }}</div>
-
          <div class="profstandartitem"><center>{{ jt.psregnum }}</center></div>
 
 			  			</div>
-                  </a>
+         </a>
             	</li>
 
-               {% endfor %}
+          {% endfor %}
 			  	</ul>
-
 			</div>
-
-
 	</div>
 
 

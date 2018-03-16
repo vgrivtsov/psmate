@@ -6,7 +6,7 @@
 {% load widget_tweaks %}
 
 {% block breadcrumbs %}
-{{ block.super }} <a class="breadcrumb-item" href="/organization-profile/{{form.company_id}}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
+{{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' form.company_id %}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
 {% endblock %}
 
 
@@ -14,14 +14,14 @@
 
 
 <div class="container py-5" style="min-height: 100vh;">
-    
+
     <div class="row">
         <div class="col-md-12">
 
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <span class="anchor" id="formLogin"></span>
-                    
+
                     <!-- form card login -->
                     <div class="card rounded-0">
                         <div class="card-header">
@@ -30,33 +30,33 @@
                         <div class="card-body">
                           <form method="post">
                            {% csrf_token %}
-                         
+
                            {% for hidden_field in form.hidden_fields %}
                              {{ hidden_field }}
                            {% endfor %}
-                           
-                          
+
+
                            {% for field in form.visible_fields %}
                              <div class="form-group">
-                               
-                               
-                               
+
+
+
                                {{ field.label_tag }}
-                               
+
                                {% render_field field class="form-control form-control-lg rounded-0" %}
-                               
+
                                {% if field.help_text %}
-                               
+
                                  {% autoescape off %} <!-- escape html chars -->
                                    <small class="form-text text-muted">{{field.help_text}}</small>
                                   {% endautoescape %}
-                                  
+
                                {% endif %}
                              </div>
-                             
+
                            {% endfor %}
-                         
-                           <button type="submit" class="btn btn-secondary">Создать</button>
+
+                           <button type="submit" class="btn btn-mdb-color">Создать</button>
                            <small class="form-text text-muted">
                             Нажимая кнопку «Создать», вы принимаете
                            <a href="/agreement/">Соглашение на обработку персональных данных</a></small>
@@ -77,7 +77,7 @@
     </div>
     <!--/row-->
 </div>
-<!--/container-->  
-  
+<!--/container-->
+
 
 {% endblock %}

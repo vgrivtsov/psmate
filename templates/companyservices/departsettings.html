@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/companieslayout.html" %}
 
 {% load static %}
 {% load widget_tweaks %}
 
 {% block breadcrumbs %}
-{{ block.super }} <a class="breadcrumb-item" href="/organization-profile/{{form.company_id}}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
+{{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' form.company_id %}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
 {% endblock %}
 
 {% block companyprofile %}
-
 
 {% if user.is_authenticated %}
 
@@ -26,23 +25,23 @@
                 <div class="card-body">
                   <form method="post" action="">
                    {% csrf_token %}
-                 
+
                    {% for field in form %}
                      <div class="form-group">
                        {{ field.label_tag }}
-                       
+
                        {% render_field field class="form-control form-control-lg rounded-0" %}
-            
+
                      </div>
-                     
+
                    {% endfor %}
                    <div class="d-flex justify-content-end">
-                     <div class="p-2"><input type="reset" class="btn btn-secondary" onclick="location.href='/organization-profile/{{form.company_id}}/';" value="Отмена"></div>
-                     <div class="p-2"><input type="submit" class="btn btn-primary" value="Сохранить"></div>
-                     <div class="ml-auto p-2"><a class="btn btn-danger" href="/organization-profile/{{form.company_id}}/removedepart/{{object.id}}">Удалить</a></div>
+                     <div class="p-2"><input type="reset" class="btn btn-outline-mdb-color" onclick='location.href="{% url 'organization-profile' form.company_id %}";' value="Отмена"></div>
+                     <div class="p-2"><input type="submit" class="btn btn-mdb-color" value="Сохранить"></div>
+                     <div class="ml-auto p-2"><a class="btn btn-danger" href="{% url 'removedepart' form.company_id object.id %}">Удалить</a></div>
                    </div>
-                    
-                               
+
+
                  </form>
                 </div>
                 <!--/card-block-->
@@ -54,7 +53,7 @@
     </div>
     <!--/row-->
 </div>
-<!--/container-->  
+<!--/container-->
 
 
 {% else %}
@@ -62,7 +61,7 @@
 <div class="container-fluid h-100">
     <p>Для входа в личный кабинет, пожалуйста зарегестрируйтесь</p>
     <a href="/register/">Регистрация</a>
-</div> 
+</div>
 
 {% endif %}
 

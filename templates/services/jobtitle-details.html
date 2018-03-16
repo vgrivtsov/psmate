@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
@@ -12,11 +12,9 @@
 <!-- /.card 1 -->
   <div class="card  my-3 jobtitle">
         <div class="card-body mx-3">
-            
-            <center><h3 class="card-title font-weight-normal">{{ jtresult.jobtitle }}</h3></center>  
-
-          </div>
-   <a href="/search-profstandart/?nameps={{jtresult.psid}}">     
+            <center><h3 class="card-title font-weight-normal">{{ jtresult.jobtitle }}</h3></center>
+        </div>
+   <a href="{% url 'search-profstandart' %}?nameps={{jtresult.psid}}">
     <div class="card-footer text-muted mdb-color white-text">
         <div class="row">
             <div class="col">
@@ -24,12 +22,12 @@
             </div>
             <div class="col-sm-1">
                <i class="{{ jtresult.otraslicon }} float-right icon-grey-big"></i>
-            </div>  
+            </div>
          </div>
     </div>
    </a>
   </div> <!-- /.card 1 -->
-   
+
 <!-- /.card 2 -->
   <div class="card px-2 my-3 py-3 jobtitlecard">
 
@@ -38,14 +36,14 @@
     <li class="list-group-item" id="listitem">
        {{ jtresult.pspurposekind }}
     </li>
-</ul>    
+</ul>
 
 {% if jtresult.educationalreqs %}
 <ul class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Требования к образованию и обучению<h5></li>
-{% for item in jtresult.educationalreqs %}    
+{% for item in jtresult.educationalreqs %}
     <li class="list-group-item" id="listitem">
-       {{item.educationalrequirement}} 
+       {{item.educationalrequirement}}
     </li>
 {% endfor %}
 </ul>
@@ -54,9 +52,9 @@
 {% if jtresult.reqworkexperiences %}
 <ul  class="list-group px-4 my-3">
         <li class="list-group-item listheader"><h5>Требования к опыту практической работы<h5></li>
-{% for item in jtresult.reqworkexperiences %}    
+{% for item in jtresult.reqworkexperiences %}
     <li class="list-group-item" id="listitem">
-       {{item.requirementsworkexperience}} 
+       {{item.requirementsworkexperience}}
     </li>
 {% endfor %}
 </ul>
@@ -65,9 +63,9 @@
 {% if jtresult.specialconditions %}
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Особые условия допуска к работе<h5></li>
-{% for item in jtresult.specialconditions %}    
+{% for item in jtresult.specialconditions %}
     <li class="list-group-item" id="listitem">
-       {{item.specialconditionforadmissiontowork}} 
+       {{item.specialconditionforadmissiontowork}}
     </li>
 {% endfor %}
 </ul>
@@ -76,9 +74,9 @@
 {% if jtresult.othercharacts %}
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Другое<h5></li>
-{% for item in jtresult.othercharacts %}    
+{% for item in jtresult.othercharacts %}
     <li class="list-group-item" id="listitem">
-       {{item.othercharacteristic}} 
+       {{item.othercharacteristic}}
     </li>
 {% endfor %}
 </ul>
@@ -96,9 +94,9 @@
 {% if jtresult.tfs %}
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
-{% for item in jtresult.tfs %}    
+{% for item in jtresult.tfs %}
     <li class="list-group-item" id="listitem">
-       {{item.nametf}}. Код: {{item.codetf}} 
+       {{item.nametf}}. Код: {{item.codetf}}
     </li>
 {% endfor %}
 </ul>
@@ -110,12 +108,12 @@
 
 <!-- /.card 2 -->
 </div>
-  
+
 <div class="py-3">
-   <a class="btn btn-lg btn-mdb-color btn-block" href="/official-instructions/{{jtresult.slug}}">Построить должностные инструкции</a>
+   <a class="btn btn-lg btn-mdb-color btn-block" href="{% url 'official-instructions' jtresult.slug %}">Построить должностные инструкции</a>
  </div>
-  
+
 </div>
 <!-- /.container -->
 
-{% endblock %} 
+{% endblock %}

@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/cabinetlayout.html" %}
 {% load static %}
 {% load widget_tweaks %}
 
 
 {% block breadcrumbs %}
-{{ block.super }}<a class="breadcrumb-item" href="/presentation-cv-resume/">Резюме</a>
+{{ block.super }}<a class="breadcrumb-item" href="{% url 'presentation-cv-resume' %}">Резюме</a>
 {% endblock %}
 
 
 {% block cabinet %}
 
-
-
 <style>
-	
+
 
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 display:block;
@@ -95,7 +93,7 @@ p {
 }
 
 #contactDetails ul li a, a[href^=tel] {
-	color: #444; 
+	color: #444;
 	text-decoration: none;
 	-webkit-transition: all .3s ease-in;
 	-moz-transition: all .3s ease-in;
@@ -104,7 +102,7 @@ p {
 	transition: all .3s ease-in;
 }
 
-#contactDetails ul li a:hover { 
+#contactDetails ul li a:hover {
 	color: #cf8a05;
 }
 
@@ -169,7 +167,7 @@ section:last-child {
 	#headshot {
 		display: none;
 	}
-	
+
 	.keySkills {
 	-moz-column-count:2;
 	-webkit-column-count:2;
@@ -183,27 +181,27 @@ section:last-child {
 		margin: 10px auto;
 		min-width: 280px;
 	}
-	
+
 	#headshot {
 		display: none;
 	}
-	
+
 	#name, #contactDetails {
 		float: none;
 		width: 100%;
 		text-align: center;
 	}
-	
+
 	.sectionTitle, .sectionContent {
 		float: none;
 		width: 100%;
 	}
-	
+
 	.sectionTitle {
 		margin-left: -2px;
 		font-size: 1.25em;
 	}
-	
+
 	.keySkills {
 		-moz-column-count:2;
 		-webkit-column-count:2;
@@ -215,22 +213,22 @@ section:last-child {
 	.mainDetails {
 		padding: 15px 15px;
 	}
-	
+
 	section {
 		padding: 15px 0 0;
 	}
-	
+
 	#mainArea {
 		padding: 0 25px;
 	}
 
-	
+
 	.keySkills {
 	-moz-column-count:1;
 	-webkit-column-count:1;
 	column-count:1;
 	}
-	
+
 	#name h1 {
 		line-height: .8em;
 		margin-bottom: 4px;
@@ -252,28 +250,20 @@ section:last-child {
 <div class="form-group py-3" >
 {% if user.is_authenticated %}
 
-
-
 <div id="toprserv" class="pull-right">
-	<a class="btn btn-md align-middle btn-outline-secondary" href="/generator-cv-resume/" class="px-3">
+	<a class="btn btn-md align-middle btn-outline-mdb-color" href="{% url 'generator-cv-resume' %}" class="px-3">
 <i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
-<!--y<a href="/cvtopdf/" class="px-3">
-<i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-</a>-->
 </div>
-
 
 <div id="cv">
 	<div class="mainDetails">
 		<div id="headshot">
 			<img src="{% static 'images/headshot.jpg' %}" alt="User" />
 		</div>
-		
 		<div id="name">
 			<h1 >{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h1>
 			<h2 >{{ user.profiles.fl_pd_date }}</h2>
 		</div>
-		
 		<div id="contactDetails">
 			<ul>
 				<li>Электронная почта: <a href="mailto:{{ user.email }}" target="_blank">{{ user.email }}</a></li>
@@ -282,98 +272,88 @@ section:last-child {
 		</div>
 		<div class="clear"></div>
 	</div>
-	
+
 	<div id="mainArea">
 			<div class="sectionTitle">
 				<h1>Опыт работы</h1>
-			</div>		
-        
+			</div>
+
 {% for item in cvcleared %}
 
-				
 			<div class="sectionContent">
                 <h2>{{ item.companyname }}</h2>
                 <p class="subDetails">{{ item.startdate }} - {{ item.enddate }}</p>
 			</div>
-		
 
- {% for quali in item.quali %} 		
+ {% for quali in item.quali %}
 		<section>
 
 			<div class="sectionContent">
 
 					<h2>{{ forloop.counter }}. {{ quali.PS.jobtitle }}</h2>
-					
-                    
                     <h4>Отрасль</h4> <p>{{ quali.Otrasl.name }}</p>
-                    
                     <h4>Основная цель вида проф. деятельности</h4> <p>{{ quali.PS.pspurposekind }}</p>
-                    
-                    <h4>Профстандарт</h4> <p>{{ quali.PS.nameps }}. № {{ quali.PS.psregnum }}</p>                    
+                    <h4>Профстандарт</h4> <p>{{ quali.PS.nameps }}. № {{ quali.PS.psregnum }}</p>
 
                 <article>
-
                     <div class="form-group py-1">
 				    <h5 class="py-1">Трудовые функции:</h5>
                     {% for tf in quali.tf %}
                     <ul class="list-group">
                         <li class="list-group-item">{{tf.nametf}} (Код: {{tf.codetf}}) </li>
-                    </ul>                    
+                    </ul>
                     {% endfor %}
                     </div>
-                    
-                    <div class="form-group py-1">    
-                    <h5 class="py-2">Должностные обязанности:</h5>                    
-                    {% for la in quali.la %}                    
+
+                    <div class="form-group py-1">
+                    <h5 class="py-2">Должностные обязанности:</h5>
+                    {% for la in quali.la %}
                     <ul class="list-group">
                         <li class="list-group-item">{{la.laboraction}}</li>
                     </ul>
                     {% endfor %}
                     </div>
-                    
 
-                    <div class="form-group py-1">    
-                    <h5 class="py-2">Практические навыки:</h5>                    
+
+                    <div class="form-group py-1">
+                    <h5 class="py-2">Практические навыки:</h5>
                     {% for rs in quali.rs %}
                     <ul class="list-group">
                         <li class="list-group-item">{{rs.requiredskill}}</li>
                     </ul>
-                    {% endfor %}                    
-                    </div> 
+                    {% endfor %}
+                    </div>
 
-                    <div class="form-group py-1">    
-                    <h5 class="py-2">Знания:</h5>                    
+                    <div class="form-group py-1">
+                    <h5 class="py-2">Знания:</h5>
                     {% for nk in quali.nk %}
                     <ul class="list-group">
                         <li class="list-group-item">{{nk.necessaryknowledge}}</li>
                     </ul>
-                    {% endfor %}  
-                    </div> 
+                    {% endfor %}
+                    </div>
 
-                    <div class="form-group py-1">    
-                    <h5 class="py-2">Другие характеристики:</h5>                    
+                    <div class="form-group py-1">
+                    <h5 class="py-2">Другие характеристики:</h5>
                     {% for oc in quali.oc %}
                     <ul class="list-group">
                         <li class="list-group-item">{{oc.othercharacteristic}}</li>
                     </ul>
                     {% endfor %}
                     </div>
-                    
-				
-				
+
 			</div>
-	            
+
                 <div class="clear"></div>
-               </article> 
+               </article>
 		</section>
 {% endfor %}
-	
-		
+
 		<section>
 			<div class="sectionTitle">
 				<h1>Ключевые навыки</h1>
 			</div>
-			
+
 			<div class="sectionContent">
 				<ul class="keySkills">
 					<li>{{ item.keyskills | linebreaks }}</li>
@@ -381,29 +361,13 @@ section:last-child {
 			</div>
            <div class="clear"></div>
 		</section>
-		
-
-
 
 {% endfor %}
-</div>	
-</div>
-
-
-
-
-<!--/.Panel-->
-{% else %}                
-                    
-<div class="card card-body">
-    <h4 class="card-title">Anonymous</h4>
-    <a class="nav-link" href="/login/">Необходима авторизация</a>
-    
-
-</div>
-<!--/.Panel-->
-{% endif %} 
 </div>
 </div>
 
-{% endblock %}  
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

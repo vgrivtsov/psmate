@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
@@ -11,17 +11,17 @@
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5">Квалификационный справочник должностей</h1>
+            <h2 class="mb-5">Квалификационный справочник должностей</h2>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
-            <form method="get" action='/search-jobtitles/{{ jt }}'>
+            <form method="get" action="{% url 'search-jobtitles' %}{{ jt }}"
               <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">            
+                <div class="col-12 col-md-9 mb-2 mb-md-0">
                   <input type="text" class="form-control form-control-lg" id="search" name="search" value="" required>
                    <label for="search" class="">поиск по ключевому слову</label>
-                </div>                
+                </div>
                 <div class="col-12 col-md-3">
-                  <input type="submit" class="btn btn-block btn-mdb-color"
+                  <input type="submit" class="btn btn-lg btn-unique"
                   value="Найти">
                 </div>
               </div>
@@ -36,22 +36,22 @@
 
       <!-- News Section -->
       <h2 class="my-4">Новости</h2>
-       
+
       <div class="row">
         {% for n in news %}
 
         <div class="col-lg-4 col-sm-6 news-item">
           <div class="card h-100" >
-            
+
                 <div class="img-card-wrapper ">
-                  <a href="/news/{{ n.slug}}">
+                  <a href="{% url 'news' %}{{ n.slug}}">
                   <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt=""></a>
                 </div>
             <div class="card-body" >
               <p class="card-title">
-                <a href="/news/{{ n.slug}}">{{ n.title }}</a>
+                <a href="{% url 'news' %}{{ n.slug}}">{{ n.title }}</a>
               </p>
-              
+
               <!--<p class="card-text line-clamp" >{{ n.short }}</p>-->
             </div>
           </div>
@@ -103,7 +103,7 @@
               <a href="{% url 'generator-cv-resume' %}" class="btn btn-mdb-color">Перейти</a>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
       <!-- /.row -->
 
@@ -118,25 +118,21 @@
             </li>
             <li>Получить информацию о должности в редакции профстандарта</li>
             <li>Сгенерировать должностную инструкцию с учетом требований профстандарта</li>
-            <li>Составить резюме в терминах профстандартов</li>
+            <li>Составить резюме в терминах профстандарта</li>
             <li>Посмотреть рекомендации по обучению желаемой квалификации</li>
             <li>Оставаться в курсе новостей внедрения профстандартов</li>
           </ul>
-          <p>ПрофНавигатор использует современные алгоритмы обработки данных и самые свежие данные профстандартов с сайтов:</p>
+          <p>ПрофНавигатор использует современные алгоритмы обработки данных и самые свежие данные с сайтов:</p>
           <ul>
             <li>Министерство труда и социальной защиты</li>
             <li>Российское образование. Федеральный образовательный портал</li>
-
-          </ul>          
-          
-          
+          </ul>
         </div>
         <div class="col-lg-6">
           <img class="img-fluid rounded" src="{% static 'images/700x450.jpg' %}" alt="">
         </div>
       </div>
       <!-- /.row -->
-
       <hr>
 
       <!-- Call to Action Section -->

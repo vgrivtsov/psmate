@@ -25,7 +25,7 @@ import pymorphy2
 from pymorphy2 import units
 import pytils
 import re
-import docxtpl 
+import docxtpl
 import datetime
 import locale
 import pymorphy2
@@ -44,8 +44,8 @@ class OrgCreateView(FormView):
 
         if user:
             kwargs['user'] = user
-    
-        return kwargs  
+
+        return kwargs
 
     def form_valid(self, form):
 
@@ -72,27 +72,27 @@ class OrgReadView(View):
 
 
     def get(self, request, *args, **kwargs):
-        
+
         user = self.request.user
         company_id = self.kwargs['id']
-        
+
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
 
         if int(company_id) not in orgs:
-            raise Http404        
+            raise Http404
         else:
             company = Enterprises.objects.get(pk=company_id)
             departs = Departs.objects.filter(company_id=company_id)
             ois = Offinsts.objects.filter(company_id=company_id)
             for oi in ois:
                 oi.short = oi.name[:30]+'...' # truncate long JT name
-            
+
 
         return render(request, self.template_name, {'company' : company,
                                                     'departs' :departs,
                                                     'ois' :ois
-                                                    })  
+                                                    })
 
 
 class OrgUpdateView(UpdateView):
@@ -108,32 +108,32 @@ class OrgUpdateView(UpdateView):
 
 
     def get(self, request, *args, **kwargs):
-        
+
         self.object = self.get_object()
-    
+
         return super(OrgUpdateView, self).get(request, *args, **kwargs)
-    
-    
+
+
     def post(self, request, *args, **kwargs):
-        
+
         self.object = self.get_object()
-    
-        
+
+
         return super(OrgUpdateView, self).post(request, *args, **kwargs)
 
 
     def get_success_url(self):
         company_id = self.kwargs['id']
-        return reverse_lazy('organization-profile', kwargs={'id': company_id})    
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})
 
 
     def get_form_kwargs(self):
-        
+
         kwargs = super(OrgUpdateView, self).get_form_kwargs()
         company_id = self.kwargs['id']
         user = self.request.user
-        
-        # check if company belongs auth user 
+
+        # check if company belongs auth user
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
 
@@ -144,40 +144,40 @@ class OrgUpdateView(UpdateView):
 
         if user:
             kwargs['user'] = user
-    
-    
-        return kwargs  
+
+
+        return kwargs
 
 
     def form_valid(self, form):
-        
+
         self.object = self.get_object()
         return super(OrgUpdateView, self).form_valid(form)
-    
-    
+
+
 
 class OrgDeleteView(DeleteView):
-    
+
     template_name = "companyservices/enterprises_confirm_delete.html"
     success_url = "/cabinet/"
 
 
     def get_object(self, queryset=None):
-        
+
         obj = Enterprises.objects.get(pk=self.kwargs['id'])
         return obj
 
 
     def get(self, request, *args, **kwargs):
-        
+
         user = self.request.user
         company_id = self.kwargs['id']
-        
+
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
 
         if int(company_id) not in orgs:
-            raise Http404        
+            raise Http404
         else:
             company = Enterprises.objects.get(pk=company_id)
 
@@ -185,42 +185,42 @@ class OrgDeleteView(DeleteView):
 
 
     def get_queryset(self):
-        
+
         user = self.request.user
         company_id =  self.kwargs['id']
 
 
-        # check if company belongs auth user 
+        # check if company belongs auth user
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
-    
+
         if int(company_id) not in orgs:
             raise Http404
         else:
             return Enterprises.objects.get(pk=company_id)
-            
+
 
     def delete(self, request, *args, **kwargs):
         obj = self.get_object()
         messages.success(request, "Организация %s была удалена" % obj.e_name)
-        return super(OrgDeleteView, self).delete(request, *args, **kwargs)      
+        return super(OrgDeleteView, self).delete(request, *args, **kwargs)
 
 
 ################ DEPARTS VIEWS ###################################################
 
-    
+
 class DepartCreateView(FormView):
     form_class = DepartCreateForm
     template_name = "companyservices/departregform.html"
 
 
     def get_form_kwargs(self):
-        
+
         kwargs = super(DepartCreateView, self).get_form_kwargs()
         company_id = self.kwargs['id']
         user = self.request.user
-        
-        # check if company belongs auth user 
+
+        # check if company belongs auth user
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
 
@@ -231,11 +231,11 @@ class DepartCreateView(FormView):
 
         if user:
             kwargs['user'] = user
-    
-    
-        return kwargs  
 
-        
+
+        return kwargs
+
+
     def form_valid(self, form):
 
         # create company
@@ -246,7 +246,7 @@ class DepartCreateView(FormView):
         cheef_fam = self.request.POST['cheef_fam']
         cheef_name = self.request.POST['cheef_name']
         cheef_otch = self.request.POST['cheef_otch']
-        phone = self.request.POST['phone']        
+        phone = self.request.POST['phone']
         #company_id = self.company_id
 
         # call base class method
@@ -255,49 +255,49 @@ class DepartCreateView(FormView):
 
     def get_success_url(self):
         company_id = self.kwargs['id']
-        return reverse_lazy('organization-profile', kwargs={'id': company_id})  
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})
 
 
 class DepartUpdateView(UpdateView):
-    
+
     form_class = DepartUpdateForm
     template_name = 'companyservices/departsettings.html'
     model = Departs
 
 
     def get_object(self, queryset=None):
-        
+
         obj = Departs.objects.get(id=self.kwargs['pk'])
         return obj
-   
+
 
     def get(self, request, *args, **kwargs):
-        
+
         self.object = self.get_object()
-    
+
         return super(DepartUpdateView, self).get(request, *args, **kwargs)
-    
-    
+
+
     def post(self, request, *args, **kwargs):
-        
+
         self.object = self.get_object()
-    
-        
+
+
         return super(DepartUpdateView, self).post(request, *args, **kwargs)
 
 
     def get_success_url(self):
         company_id = self.kwargs['id']
-        return reverse_lazy('organization-profile', kwargs={'id': company_id})    
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})
 
 
     def get_form_kwargs(self):
-        
+
         kwargs = super(DepartUpdateView, self).get_form_kwargs()
         company_id = self.kwargs['id']
         user = self.request.user
-        
-        # check if company belongs auth user 
+
+        # check if company belongs auth user
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
 
@@ -308,9 +308,9 @@ class DepartUpdateView(UpdateView):
 
         if user:
             kwargs['user'] = user
-    
-    
-        return kwargs   
+
+
+        return kwargs
 
 
     def form_valid(self, form):
@@ -319,53 +319,53 @@ class DepartUpdateView(UpdateView):
 
 
 class DepartDeleteView(DeleteView):
-    
+
     template_name = "companyservices/departs_confirm_delete.html"
 
 
     def get(self, request, *args, **kwargs):
-        
+
         user = self.request.user
         company_id = self.kwargs['id']
         dep_id =  self.kwargs['pk']
-        
+
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
 
         if int(company_id) not in orgs:
-            raise Http404        
+            raise Http404
         else:
             company = Enterprises.objects.get(pk=company_id)
             department = Departs.objects.filter(id=dep_id)[0]
 
-        return render(request, self.template_name, {'company' : company, 'department' : department }) 
+        return render(request, self.template_name, {'company' : company, 'department' : department })
 
 
     def get_queryset(self):
-        
+
         user = self.request.user
         company_id =  self.kwargs['id']
         dep_id =  self.kwargs['pk']
 
-        # check if company belongs auth user 
+        # check if company belongs auth user
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
-    
+
         if int(company_id) not in orgs:
             raise Http404
         else:
             return Departs.objects.filter(id=dep_id)
-            
+
 
     def delete(self, request, *args, **kwargs):
         obj = self.get_object()
         messages.success(request, "Подразделение %s было удалено" % obj.name)
-        return super(DepartDeleteView, self).delete(request, *args, **kwargs)      
+        return super(DepartDeleteView, self).delete(request, *args, **kwargs)
 
 
     def get_success_url(self):
         company_id = self.kwargs['id']
-        return reverse_lazy('organization-profile', kwargs={'id': company_id})  
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})
 
 ################### OFFICIAL INSTRUCTIONS VIEW ########################3
 
@@ -376,32 +376,32 @@ class OIsearchJTView(ShowJTlist): # overriding ShowJTlist from psmate.apps.servi
 
     def get_context_data(self, **kwargs):
         context = super(OIsearchJTView, self).get_context_data(**kwargs)
-        
+
         companyid = self.kwargs['id']
-        departid = self.kwargs['pk']        
+        departid = self.kwargs['pk']
         company = Enterprises.objects.get(id=companyid)
-        department = Departs.objects.get(id=departid)        
+        department = Departs.objects.get(id=departid)
         context['cmpd'] =  {'company' : company, 'department' : department}
-        
-        return context    
+
+        return context
 
 
 class OIJTDetailsView(JTDetailsView):
 
     template_name = "companyservices/jobtitle-details.html"
     model = Jobtitles
-    
+
     def get(self, request, *args, **kwargs):
-        
+
         jt_slug =  self.kwargs['slug']
 
         companyid = self.kwargs['id']
-        departid = self.kwargs['pk']        
+        departid = self.kwargs['pk']
         company = Enterprises.objects.get(id=companyid)
         department = Departs.objects.get(id=departid)
 
         cmpd = {'company' : company, 'department' : department}
-        
+
         if jt_slug:
 
             jt = Jobtitles.objects.filter(slug=jt_slug)
@@ -412,7 +412,7 @@ class OIJTDetailsView(JTDetailsView):
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
             tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
-            
+
             otrasl = ps[0].otraslid
 
             jtresult = {'id' : jt[0].id,
@@ -432,36 +432,36 @@ class OIJTDetailsView(JTDetailsView):
                         'tfs' : tfs,
 
                         }
-                
+
             return render(request, self.template_name, {'jtresult': jtresult, 'cmpd': cmpd })
 
-    
+
 class OICreateView(ListView):
- 
+
     template_name = "companyservices/official-instructions-new.html"
     model = Jobtitles
 
     def get(self, request,  *args, **kwargs):
-        
+
         data =  self.kwargs['slug']
         docx =  self.kwargs['docx']
 
         companyid = self.kwargs['id']
-        departid = self.kwargs['pk']        
+        departid = self.kwargs['pk']
         company = Enterprises.objects.get(id=companyid)
         department = Departs.objects.get(id=departid)
 
         cmpd0 = {'company' : company, 'department' : department}
 
         if data != None:
-            
+
             morph = pymorphy2.MorphAnalyzer()
             pos_list = ['NOUN', 'ADJF', 'ADJS', 'PRTF', 'PRTS']  # Chast' rechi & padezh
-            
+
             jt = Jobtitles.objects.filter(slug=data)
-            
+
             ######### company-department data #######################################
-            
+
             company = Enterprises.objects.get(id=companyid)
             department = Departs.objects.get(id=departid)
 
@@ -471,57 +471,57 @@ class OICreateView(ListView):
             e_fam_ul = company.e_fam_ul
             e_name_ul = company.e_name_ul
             e_otch_ul = company.e_otch_ul
-            
+
             depname = department.name
             cheef = department.cheef
             cheef_name = department.cheef_name
             cheef_otch = department.cheef_otch
             cheef_fam = department.cheef_fam
-                        
+
             ### roditelny, datelny padezhi ###
-            
+
             # CEO to padezhi
             director_gent = []
-            director_datv = []            
-            
+            director_datv = []
+
             for w in e_director.split(' '): # split CEO pozition
                 capmarker = False
-                if not w.islower() and not w.isupper(): # check if word is capitalized                    
+                if not w.islower() and not w.isupper(): # check if word is capitalized
                     capmarker = True
-                
+
                 cleared_director = morph.parse(w)[0]
 
                 if cleared_director.tag.POS in pos_list and cleared_director.tag.case == 'nomn': # check if word is single noun
-            
+
                     e_dir_gent = cleared_director.inflect({'gent'}).word
                     e_dir_datv = cleared_director.inflect({'datv'}).word
-                          
+
                     director_gent.append(e_dir_gent.capitalize() if capmarker == True else e_dir_gent )
                     director_datv.append(e_dir_datv.capitalize() if capmarker == True else e_dir_datv)
                 else:
                     director_gent.append(w.capitalize() if capmarker == True else w)
                     director_datv.append(w.capitalize() if capmarker == True else w)
-                    
+
 
             e_director_gent = ' '.join(director_gent)
             e_director_datv = ' '.join(director_datv)
 
             # Cheef to padezhi
             cheef_datv = []
-            
+
             for w in cheef.split(' '): # split CEO pozition
                 capmarker = False
-                if not w.islower() and not w.isupper(): # check if word is capitalized                    
+                if not w.islower() and not w.isupper(): # check if word is capitalized
                     capmarker = True
-                
+
                 cleared_cheef = morph.parse(w)[0]
 
-                if cleared_cheef.tag.POS in pos_list and cleared_cheef.tag.case == 'nomn': # check if word is single noun            
-                    d_cheef_datv = cleared_cheef.inflect({'datv'}).word                          
+                if cleared_cheef.tag.POS in pos_list and cleared_cheef.tag.case == 'nomn': # check if word is single noun
+                    d_cheef_datv = cleared_cheef.inflect({'datv'}).word
                     cheef_datv.append(d_cheef_datv.capitalize() if capmarker == True else d_cheef_datv)
                 else:
                     cheef_datv.append(w.capitalize() if capmarker == True else w)
-                    
+
 
             d_cheef_datv = ' '.join(cheef_datv)
 
@@ -529,7 +529,7 @@ class OICreateView(ListView):
                       'e_op_form' : e_op_form,
                       'e_director' : e_director,
                       'e_fam_ul' : e_fam_ul,
-                      'e_name_ul' : e_name_ul, 
+                      'e_name_ul' : e_name_ul,
                       'e_otch_ul' : e_otch_ul,
                       'e_director_gent' : e_director_gent,
                       'e_director_datv' : e_director_datv,
@@ -540,16 +540,16 @@ class OICreateView(ListView):
                       'cheef_fam' : cheef_fam,
                       'd_cheef_datv' : d_cheef_datv
                     }
-            
+
             ##### nowdate in roditelny padezh(need for docx generation)##
 
             m = pymorphy2.MorphAnalyzer()
             locale.setlocale(locale.LC_TIME, "ru_RU.UTF-8")
             today = datetime.datetime.now().strftime("%d %B %Y").lower()
-            
-            today, month, year = today.split(' ')            
+
+            today, month, year = today.split(' ')
             nmonth = m.parse(month)[0].inflect({'gent'}).word
-            
+
 
             ######### general data #######################################
 
@@ -558,22 +558,22 @@ class OICreateView(ListView):
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
-            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)          
+            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
             otrasl = ps[0].otraslid
 
             generaldatas = []
-                        
+
             #make jobtitle Roditelny padezh
 
             jt_rod = []
-                   
+
             #cut non need padezh string beetween '( )'
             pattern = re.compile("[\(\[].*?[\)\]]")
             if re.findall(pattern, jt[0].jobtitle):
                 cuttedstring = re.findall(pattern, jt[0].jobtitle)[0]
             else:
                 cuttedstring = ''
-            
+
             cleared_jt = re.sub("[\(\[].*?[\)\]]", "", jt[0].jobtitle)
 
             for i in cleared_jt.split(' '):
@@ -581,29 +581,29 @@ class OICreateView(ListView):
                 if p.tag.POS in pos_list and p.tag.case == 'nomn': # Chast' rechi & padezh
 
                     if p.inflect({'gent'}) :
-                        
+
                         changed_word = p.inflect({'sing', 'gent'}).word
                         if changed_word == 'риска-менеджера':
                             changed_word = 'риск-менеджера'
                         if changed_word == 'бренда-менеджера':
-                            changed_word = 'бренд-менеджера'                        
+                            changed_word = 'бренд-менеджера'
                         if changed_word == 'брэнда-менеджера':
                             changed_word = 'брэнд-менеджера'
                         if changed_word == 'чокерноя':
-                            changed_word = 'чокерной'                            
+                            changed_word = 'чокерной'
 
-                        jt_rod.append(changed_word)                    
+                        jt_rod.append(changed_word)
                     else:
-                        
+
                         jt_rod.append(i)
                 else:
                     jt_rod.append(i)
 
             jobtitlerod = ' '.join(jt_rod) + ' '+cuttedstring
-            
+
             generaldatas = {
                     'slug' : data,
-                    
+
                     'jobtitleid' : jt[0].id,
                     'jobtitle' : jt[0].jobtitle,
                     'jobtitlerod' : jobtitlerod,
@@ -622,17 +622,17 @@ class OICreateView(ListView):
                     'tfs' : tfs,
                     'today' : today,
                     'month': nmonth,
-                    'year' :year                    
+                    'year' :year
                     }
-            
+
             ######### requirements #######################################
-            
+
             laresult = []
             nkresult = []
             rsresult = []
-            ocresult = []            
+            ocresult = []
             tfresult = []
-            
+
             for tf in tfs: # select TF only for selected jobtitle
 
                 la_get_raw = Tf_la.objects.filter(tf_id=tf.id)
@@ -644,15 +644,15 @@ class OICreateView(ListView):
 
                 for la in la_get_raw:
                     laresult.append({'id' : la.id, 'laboraction' : la.laboraction})
-                    
+
                 for nk in nk_get_raw:
                     nkresult.append({'id' : nk.id, 'necessaryknowledge' : nk.requiredskill}) # !!!Swap with RS becouse rosmintrud edition!!!
-                    
+
                 for rs in rs_get_raw:
-                    rsresult.append({'id' : rs.id, 'requiredskill' : rs.necessaryknowledge}) #  # !!!Swap with NK becouse rosmintrud edition!!!                     
-                    
+                    rsresult.append({'id' : rs.id, 'requiredskill' : rs.necessaryknowledge}) #  # !!!Swap with NK becouse rosmintrud edition!!!
+
                 for oc in oc_get_raw:
-                    ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})  
+                    ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})
 
             requirements = {'tf' : tfresult,
                             'laboractions' : laresult,
@@ -666,16 +666,16 @@ class OICreateView(ListView):
                             'requirements' : requirements,
                             'cmpd' : cmpd,
                             'cmpd0' : cmpd0 }
-                
+
                 media_root = settings.MEDIA_ROOT
                 doc = docxtpl.DocxTemplate(media_root+ '/doctemplates/oitemplate.docx')
                 doc.render(context)
 
                 response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
                 response['Content-Disposition'] = 'attachment; filename=%s.docx' % re.sub(r'-\d+$', '', generaldatas['slug'])
-                
+
                 doc.save(response)
-                
+
                 return response
                 #return redirect(reverse_lazy("org-official-instructions", id=(companyid), pk=(departid), slug=(data) ))
 
@@ -689,24 +689,69 @@ class OICreateView(ListView):
 class OISaveView(FormView):
     form_class = OICreateForm
     template_name = "companyservices/official-instructions-new.html"
-    
+
     def form_valid(self, form):
         form.save()
-    
+
         name = self.request.POST['name']
         slug = self.request.POST['slug']
         jt = self.request.POST['jt']
         company = self.request.POST['company']
         departs = self.request.POST['departs']
-        
+
         return super(OISaveView, self).form_valid(form)
-    
+
     def get_success_url(self):
 
         messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
         return reverse_lazy('org-official-instructions', kwargs={'id': self.kwargs['id'],
-                            'pk': self.kwargs['pk'],'slug': self.kwargs['slug'],}) 
-    
+                            'pk': self.kwargs['pk'],'slug': self.kwargs['slug'],})
 
 
-    
+class OIDeleteView(DeleteView):
+
+    #template_name = "companyservices/departs_confirm_delete.html"
+
+    def get(self, request, *args, **kwargs):
+
+        user = self.request.user
+        company_id = self.kwargs['id']
+        dep_id =  self.kwargs['pk']
+
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+
+        if int(company_id) not in orgs:
+            raise Http404
+        else:
+            company = Enterprises.objects.get(pk=company_id)
+            department = Departs.objects.filter(id=dep_id)[0]
+
+        return render(request, self.template_name, {'company' : company, 'department' : department })
+
+
+    def get_queryset(self):
+
+        user = self.request.user
+        company_id =  self.kwargs['id']
+        dep_id =  self.kwargs['pk']
+
+        # check if company belongs auth user
+        get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
+        orgs = [x.id for x in get_all_orgs]
+
+        if int(company_id) not in orgs:
+            raise Http404
+        else:
+            return Departs.objects.filter(id=dep_id)
+
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(request, "Подразделение %s было удалено" % obj.name)
+        return super(DepartDeleteView, self).delete(request, *args, **kwargs)
+
+
+    def get_success_url(self):
+        company_id = self.kwargs['id']
+        return reverse_lazy('organization-profile', kwargs={'id': company_id})

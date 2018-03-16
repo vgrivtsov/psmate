@@ -83,11 +83,10 @@ class SearchPSView(FormView):
 ###CV generator###
 
 
-class CvEditView(LoginRequiredMixin, UpdateView):
+class CvEditView(UpdateView):
 
     template_name = 'services/generator-cv-resume.html'
     form_class = CvGenForm
-
     model = User
     # success_url = None
 
@@ -95,17 +94,17 @@ class CvEditView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
 
         user = self.request.user
+        if not user.is_anonymous :
+            if user.profiles.fl_tlph_mob == None: # if user not set settings
+                user.profiles.fl_tlph_mob = ''
+            if user.profiles.fl_otch == None:
+                user.profiles.fl_otch = ''
+            if user.profiles.fl_pd_date == None:
+                user.profiles.fl_pd_date = ''
+            if user.profiles.fl_adress_real == None:
+                user.profiles.fl_adress_real = ''
 
-        if user.profiles.fl_tlph_mob == None: # if user not set settings
-            user.profiles.fl_tlph_mob = ''
-        if user.profiles.fl_otch == None:
-            user.profiles.fl_otch = ''
-        if user.profiles.fl_pd_date == None:
-            user.profiles.fl_pd_date = ''
-        if user.profiles.fl_adress_real == None:
-            user.profiles.fl_adress_real = ''
-
-        return user
+            return user
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -247,73 +246,74 @@ class CvPresentView(ListView):
         udata = super(CvPresentView, self).get_context_data(**kwargs)
         user = self.request.user
 
-        if user.profiles.fl_tlph_mob == None: # if user not set settings
-            user.profiles.fl_tlph_mob = ''
-        if user.profiles.fl_otch == None:
-            user.profiles.fl_otch = ''
-        if user.profiles.fl_pd_date == None:
-            user.profiles.fl_pd_date = ''
-        if user.profiles.fl_adress_real == None:
-            user.profiles.fl_adress_real = ''
+        if not user.is_anonymous :
+            if user.profiles.fl_tlph_mob == None: # if user not set settings
+                user.profiles.fl_tlph_mob = ''
+            if user.profiles.fl_otch == None:
+                user.profiles.fl_otch = ''
+            if user.profiles.fl_pd_date == None:
+                user.profiles.fl_pd_date = ''
+            if user.profiles.fl_adress_real == None:
+                user.profiles.fl_adress_real = ''
 
-        cv =user.profiles.resume # get resume - JSONb field
+            cv =user.profiles.resume # get resume - JSONb field
 
-        cvcleared = []
+            cvcleared = []
 
-        key,value = 'selected', True
-        for i in cv:
+            key,value = 'selected', True
+            for i in cv:
 
-            quali = []
+                quali = []
 
-            for s in i['Quali'] :
+                for s in i['Quali'] :
 
-                tf_arr = []
-                la_arr = []
-                rs_arr = []
-                nk_arr = []
-                oc_arr = []
-                # found and append only selected competences in cv
-                for tf in s['FL_cv_TF']:
+                    tf_arr = []
+                    la_arr = []
+                    rs_arr = []
+                    nk_arr = []
+                    oc_arr = []
+                    # found and append only selected competences in cv
+                    for tf in s['FL_cv_TF']:
 
-                    if key in tf and value == tf[key]:
-                        tf_arr.append({'nametf' : tf['nametf'], 'codetf' : tf['codetf']})
-                        # append if tf_arr != []
+                        if key in tf and value == tf[key]:
+                            tf_arr.append({'nametf' : tf['nametf'], 'codetf' : tf['codetf']})
+                            # append if tf_arr != []
 
-                    for la in tf['laboractions'] :
-                        if key in la and value == la[key]:
-                            la_arr.append({'laboraction' : la['laboraction']})
+                        for la in tf['laboractions'] :
+                            if key in la and value == la[key]:
+                                la_arr.append({'laboraction' : la['laboraction']})
 
-                    for rs in tf['requiredskills'] :
-                        if key in rs and value == rs[key]:
-                            rs_arr.append({'requiredskill' : rs['requiredskill']})
+                        for rs in tf['requiredskills'] :
+                            if key in rs and value == rs[key]:
+                                rs_arr.append({'requiredskill' : rs['requiredskill']})
 
-                    for nk in tf['necessaryknowledges'] :
-                        if key in nk and value == nk[key]:
-                            nk_arr.append({'necessaryknowledge' : nk['necessaryknowledge']})
+                        for nk in tf['necessaryknowledges'] :
+                            if key in nk and value == nk[key]:
+                                nk_arr.append({'necessaryknowledge' : nk['necessaryknowledge']})
 
-                    for oc in tf['othercharacteristics'] :
-                        if key in oc and value == oc[key]:
-                            oc_arr.append({'othercharacteristic' : oc['othercharacteristic']})
+                        for oc in tf['othercharacteristics'] :
+                            if key in oc and value == oc[key]:
+                                oc_arr.append({'othercharacteristic' : oc['othercharacteristic']})
 
-                quali.append({ 'PS' :s['FL_cv_PS'],
-                               'Otrasl' :s['FL_cv_Otrasl'],
-                               'tf' : tf_arr,
-                               'la' : la_arr,
-                               'rs' : rs_arr,
-                               'nk' : nk_arr,
-                               'oc' : oc_arr
-                            })
+                    quali.append({ 'PS' :s['FL_cv_PS'],
+                                   'Otrasl' :s['FL_cv_Otrasl'],
+                                   'tf' : tf_arr,
+                                   'la' : la_arr,
+                                   'rs' : rs_arr,
+                                   'nk' : nk_arr,
+                                   'oc' : oc_arr
+                                })
 
-            cvcleared.append(
-                            {'companyname' : i['FL_cv_companyName'],
-                            'startdate' :   i['FL_cv_WorkStartDate'],
-                            'enddate' :     i['FL_cv_WorkEndDate'],
-                            'keyskills' :    i['KeySkills'],
-                            'quali' : quali})
+                cvcleared.append(
+                                {'companyname' : i['FL_cv_companyName'],
+                                'startdate' :   i['FL_cv_WorkStartDate'],
+                                'enddate' :     i['FL_cv_WorkEndDate'],
+                                'keyskills' :    i['KeySkills'],
+                                'quali' : quali})
 
 
 
-        return {'cvcleared' :cvcleared}
+            return {'cvcleared' :cvcleared}
 
 
 ###Get competences - search from index.html###
