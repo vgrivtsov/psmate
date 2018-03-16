@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/companieslayout.html" %}
 
 {% load static %}
@@ -11,43 +11,19 @@
 
 {% block companyprofile %}
 <style>
- 
-.oiindepartcard{	
-	margin-top: 0;
-    margin-bottom: 1.0rem;
-    text-align: left;
-    height: 175px;
-    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-.oiindepartcard .fa{
-	position: relative;
-    font-size: 50px;
-}
-.oiindepartcard-topimage_header{
-padding: 10px;
 
-}
-a.oiindepartcard:hover, .oiindepartcard-topimage:hover {
-    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
-}
-.oiindepartcard-topimage a {
-    width: 100%;
-    height: 100%;
+.oi_icon {
+    color: black;
     display: block;
+    text-align: center;
+}
+.oi_text {
+    color: black;
+    display: block;
+    text-align: center;
+				line-height: 1.0;
 }
 
-}
-.oiindepartcard-topimage a {
-    border-bottom: none;
-    text-decoration: none;
-    color: #525c65;
-    transition: color 0.3s ease;
-}
- 
- 
- 
 </style>
 
 {% if company.regname_id == user.id %}
@@ -86,18 +62,16 @@ a.oiindepartcard:hover, .oiindepartcard-topimage:hover {
     </div>
   </div>
 </div>
- 
 <!--/.Card company info-->
 
+{% if departs%}
 <div class="py-5">
   <h4>Подразделения</h4>
 </div>
 
-
-
 <div id="Departs">
-{% if departs%} 
-<table id="tableDeparts" class="table table-striped"> 
+
+<table id="tableDeparts" class="table table-striped">
   <thead>
     <tr>
       <th>№</th>
@@ -108,45 +82,46 @@ a.oiindepartcard:hover, .oiindepartcard-topimage:hover {
     </tr>
   </thead>
   <tbody>
-  {% for dep in departs %}    
+  {% for dep in departs %}
     <tr id="depart_{{ forloop.counter }}" class="accordion-toggle" data-toggle="collapse" data-parent="#Departs" data-target=".docsDepart_{{ forloop.counter }}">
-      <th scope="row">{{ forloop.counter }}.</th>
+      <td scope="row">{{ forloop.counter }}.</td>
       <td>{{dep.name}}</td>
       <td>{{dep.cheef}}</td>
       <td>{{dep.cheef_name|first|capfirst}}. {{dep.cheef_otch|first|capfirst}}. {{dep.cheef_fam|capfirst}}</td>
-      <td>{{dep.phone}}</td>      
+      <td>{{dep.phone}}</td>
       <td align="right"><a class="btn btn-warning btn-sm" href="{% url 'editdepart' company.id dep.id %}">Изменить</a></td>
       <td><i class="indicator fa fa-chevron-up pull-right"></i></td>
     </tr>
     <tr>
-     <td colspan="3" class="hiddenRow">
+     <td colspan="7">
        <div class="accordion-body collapse docsDepart_{{ forloop.counter }}" id="depaccordion_{{ forloop.counter }}">
-         {% if ois%}
+        {% if ois%}
 	       <div class="row">
-          {% for oi in ois %} {% if oi.departs_id == dep.id %}
-	           <div class="col-md-2">
-              <a href="{% url 'org-official-instructions' company.id oi.departs_id oi.slug%}">
-	               <div class="oiindepartcard oiindepartcard-topimage" style="background-color: #2b579a">                                    
-                   <div class="oiindepartcard-topimage_header" style="color:white">
-                     <center ><i class="fa fa-file-word-o" ></i> </center>
-                     <small>Должностная инструкция</small>
-                     {% if oi.name|length > 30 %} <!--truncate long JT name-->
-                      <small data-toggle="tooltip" data-placement="right" title="{{oi.name}}">{{oi.short|capfirst}}</small>
-                     {% else %}
-                      <small>{{oi.name|capfirst}}</small>
-                     {% endif %}                               
-                   </div>                              
-                </div>
-              </a>
-            </div>
-          {% endif %}{% endfor %}
-        </div>                         
-          {% endif %} 
-          <div class="row">
-           <a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a>
-          </div>  
+        {% for oi in ois %} {% if oi.departs_id == dep.id %}
+	        <div class="col-md-1 py-2 mx-3">
+	         <a href="{% url 'org-official-instructions' company.id oi.departs_id oi.slug%}">
+            <div data-toggle="tooltip" data-placement="right" title="{{oi.name}}">
+              <div class="oi_icon">
+                <i class="fa fa-file-word-o fa-3x" style="color:#2b579a"></i>
+              </div>
+              <div class="oi_text">
+              {% if oi.name|length > 30 %} <!--truncate long JT name-->
+                {{oi.short|capfirst}}
+              {% else %}
+                {{oi.name|capfirst}}
+              {% endif %}
+              </div>
+           </div>
+          </a>
          </div>
-       </td>
+        {% endif %}{% endfor %}
+								</div>
+								{% endif %}
+     			<div>
+          <a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a>
+         </div>
+							</div>
+     </td>
     </tr>
 <script>
 $('#depaccordion_{{ forloop.counter }}').on('shown.bs.collapse', function () {
@@ -156,11 +131,13 @@ $('#depaccordion_{{ forloop.counter }}').on('hidden.bs.collapse', function () {
     $("#depart_{{ forloop.counter }} i.indicator").removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up");
 });
 </script>
-  {% endfor %}      
+  {% endfor %}<!-- ./{for dep in departs-->
   </tbody>
 </table>
+
+ </div>
 {% endif %}
- </div> 
+
 {% if departs|length < 2 %}
   <a class="btn btn-mdb-color btn-sm waves-effect" href="{% url 'registerdepart' company.id%}">Добавить подразделение</a>
   {% else %}
@@ -175,5 +152,3 @@ $('#depaccordion_{{ forloop.counter }}').on('hidden.bs.collapse', function () {
   </div>
 {% endif %}
 {% endblock %}
-
-

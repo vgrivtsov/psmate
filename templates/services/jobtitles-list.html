@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
@@ -17,10 +17,10 @@
       <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
         <form method="get" action='/search-jobtitles/{{ search }}'>
           <div class="form-row">
-            <div class="col-12 col-md-9 mb-2 mb-md-0">        
+            <div class="col-12 col-md-9 mb-2 mb-md-0">
               <input type="text" class="form-control form-control-lg" id="search" name="search" value="" required>
                <label for="search" class="">поиск по ключевому слову</label>
-            </div>            
+            </div>
             <div class="col-12 col-md-3">
               <input type="submit" class="btn btn-mdb-color"
               value="Показать">
@@ -30,29 +30,29 @@
       </div>
     </div>
 </header>
-
+{% if jtresult %}
 <section class="section jobtitlelist">
 
 	<div class="jobtitlelist-contents">
-	
+
 			  <div class="jobtitlelist-item">
 			  	<!-- Headings -->
 			  	<ul class="m-0 p-0">
 			  		<li class="headings">
 			  			<div class="jobtitleitem">Должность</div>
-        
+
         <div class="otraslicon"></div>
-        
+
 			  			<div class="otraslitem">Отрасль</div>
-        
+
 			  			<div class="nameotfitem">Обобщенная трудовая функция</div>
-        
+
         <div class="profstandartitem">Профстандарт</div>
-        
+
 			  		</li>
 
                {% for jt in jtresult  %}
-               
+
 			  		<li class="jobtitlelist-details">
                   <a href="/competences/{{jt.slug}}">
 			  			<div class="block">
@@ -60,36 +60,36 @@
 					  		<div class="jobtitleitem">
 					  			<span class="jobtitleitem">{{ jt.jobtitle }}</span>
 					  		</div>
-                     
+
 					  		<div class="otraslitem">
-                        
+
                         <small class="otraslitem">{{ jt.otraslname }}</small>
                      </div>
-                     
+
 					  		<div class="otraslicon">
 					  			<i class="{{ jt.otraslicon }} fa-2x"></i>
-					  		</div>                     
-                     
+					  		</div>
+
 					  		<div class="nameotfitem">{{ jt.nameotf }}</div>
-         
+
          <div class="profstandartitem"><center>{{ jt.psregnum }}</center></div>
-         
+
 			  			</div>
                   </a>
             	</li>
-               
-               {% endfor %}  
+
+               {% endfor %}
 			  	</ul>
-			  
+
 			</div>
-        
+
 
 	</div>
 
 
  {% if is_paginated %}
   {{get_params}}
- 
+
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
@@ -99,10 +99,10 @@
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                
-                    <a href="{% url 'search-jobtitles' %}?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>               
-                
-                
+
+                    <a href="{% url 'search-jobtitles' %}?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>
+
+
                    <!-- <a href="?page={{ page_obj.next_page_number }}" class="next">Вперёд &rarr;</a>-->
                 {% endif %}
             </span>
@@ -111,7 +111,7 @@
 
 
 </section >
-
+{% endif %}
 <script>
    jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
@@ -122,5 +122,4 @@
 
 </div>
 </html>
-{% endblock %}  
-
+{% endblock %}
