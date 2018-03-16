@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     
     # path('change-password/', auth_views.PasswordChangeView.as_view()),
-    url(r'^register/$', views.RegisterFormView.as_view(), name='register'),
+    # url(r'^register/$', views.RegisterFormView.as_view(), name='register'),
     url(r'^cabinet/$', views.UserCabinetView.as_view(),  name='cabinet'),
     url(r'^settings/$',views.UserSettingsView.as_view(), name='settings'),
      

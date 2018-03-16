@@ -79,7 +79,11 @@
 
           <li class="nav-item btn-group">
               <a class="nav-link dropdown-toggle" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if not user.first_name %}
+                {{ user.email }}
+                {% else %}
                 {{ user.last_name }} {{ user.first_name }}
+                {% endif %}
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCab">
                 <a class="dropdown-item" href="/cabinet/">Личный кабинет</a>
@@ -131,7 +135,7 @@
       <li>
         <!-- Register -->
         <div>
-          <a class="btn btn-mdb-color btn-md align-middle" href="{% url 'register' %}">Регистрация</a>
+          <a class="btn btn-mdb-color btn-md align-middle" href="{% url 'account_signup' %}">Регистрация</a>
         </div>          
       </li>
 

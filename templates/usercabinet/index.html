@@ -4,92 +4,68 @@
 
 {% load static %}
 {% block cabinet %}
-  
 
 <div class="container" style="min-height: 100vh;">
-    
 
-          <div class="row">
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
-             <a href="{% url 'settings' %}">
-              <div class="card h-100 card-usercab " >
-                <div class="card-body">
-                  <div class="clearfix">
-                    <i class="fa fa-gear float-right"></i>
-                    <p class="card-text text-dark">Персональные настройки</p>
-                  </div>
-                <h4 class="card-title"> {{ user.first_name|first|capfirst}}. {{ user.profiles.fl_otch|first|capfirst }}. {{ user.last_name|capfirst }}</h4>
-                 {% if user.profiles.fl_pd_date %}  
-                <h5>{{ user.profiles.fl_pd_date }}</h5>
-                {% endif %}
-                <div class="flex-row">
-                    <h6>{{ user.profiles.fl_tlph_mob }}</h6>
-                    <h6>{{ user.email }}</h6>
+<a href="{% url 'settings' %}">
+ <div class="card card-usercab col-md-5" >
+   <div class="card-body">
+     <div class="clearfix">
+       <i class="fa fa-user float-right"></i>
+       <p class="card-text text-dark">Личные данные</p>
+     </div>
+     {% if user.first_name %}
+     <h4 class="card-title"> {{ user.first_name|default:""|first|capfirst}}. {{ user.profiles.fl_otch|default:""|first|capfirst }}. {{ user.last_name|default:""|capfirst }}
+     </h4>
+     {% endif %}
+   <h5>{{ user.profiles.fl_pd_date|default_if_none:"" }}</h5>
+   <div class="flex-row">
+    <h6>{{ user.profiles.fl_tlph_mob|default_if_none:"" }}</h6>
+    <h6>{{ user.email }}</h6>
+   </div>
+   </div>
+ </div>
+</a>
 
-                </div>                  
-                  
-                  
-                </div>
-              </div>
-             </a> 
-            </div>
-            
- {% if user.profiles.resume %}              
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
-              <div class="card h-100 card-usercab ">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <a href="{% url 'generator-cv-resume' %}">
-                     <i class="fa fa-pencil float-right"></i>
-                    </a>
-                      <p class="card-text text-dark">Резюме</p>
-                  </div>
-                  {% for quali in user.profiles.resume %}
-                  {% for qq in quali.Quali %}
-                    <h6 class="card-subtitle mb-4">{{qq.FL_cv_PS.jobtitle}}</h6>
-                  {% endfor %}
-                  {% endfor %}                  
-                  <div class="row">
-                    <div class="col">
-                     <a class="btn btn-outline-mdb-color btn-block waves-effect" href="{% url 'presentation-cv-resume' %}">перейти к резюме</a>
-                    </div>
-                  </div>  
-                </div>
-              </div>
-            </div>
-            
-{% else %}            
- 
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
-              <div class="card card-usercab">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <i class="fa fa-book float-right"></i>                    
-                  </div>
-                  <h4 class="card-title font-weight-normal text-secondary">Еще нет резюме</h4>
-                  <div class="row">
-                      <div class="col">
-                          <a class="btn btn-outline-presentation-cv-resume btn-block waves-effect" href="{% url 'generator-cv-resume' %}">Создать резюме</a>
-                      </div>
-                  </div>  
-                </div>
-              </div>
-            </div> 
-            
-            
- {% endif %}  
-          </div>
+ {% if user.profiles.resume %}
+<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
+  <div class="card h-100 card-usercab ">
+    <div class="card-body">
+      <div class="clearfix">
+        <a href="{% url 'generator-cv-resume' %}">
+         <i class="fa fa-pencil float-right"></i>
+        </a>
+          <p class="card-text text-dark">Резюме</p>
+      </div>
+      {% for quali in user.profiles.resume %}
+      {% for qq in quali.Quali %}
+        <h6 class="card-subtitle mb-4">{{qq.FL_cv_PS.jobtitle}}</h6>
+      {% endfor %}
+      {% endfor %}
+      <div class="row">
+        <div class="col">
+         <a class="btn btn-outline-mdb-color btn-block" href="{% url 'presentation-cv-resume' %}">перейти к резюме</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+
+<div>
+  <a class="btn btn-outline-mdb-color btn-sm my-4" href="{% url 'generator-cv-resume' %}">Создать резюме</a>
+</div>
+ {% endif %}
 
 
 {% if companies %}
 
-<h4 class="py-3"><span class="badge mdb-color ">Зарегестрированные организации</span></h4> 
+<h4 class="py-3"><span class="badge mdb-color ">Зарегестрированные организации</span></h4>
 
 
 <div class="row">
-<!--<div id="accordion" role="tablist" aria-multiselectable="true">-->
 {% for company in companies %}
-
 
 <!--Card company info-->
 <div class="col">
@@ -99,24 +75,19 @@
       <h6>{{company.e_op_form}} «{{company.e_name}}»</h5>
     </div>
   <div class="card-body" >
-   {{company.e_director}} {{company.e_name_ul|first|capfirst}}. {{company.e_otch_ul|first|capfirst}}. {{company.e_fam_ul|capfirst}}
-  </div>                
-    </a>                
+   {{company.e_director}} {{company.e_name_ul|default:""|first|capfirst}}. {{company.e_otch_ul|default:""|first|capfirst}}. {{company.e_fam_ul|default:""|capfirst}}
   </div>
- 
+    </a>
+  </div>
 </div>
 <!--/.Card company info-->
-
 {% endfor %}
-
 </div>
-
 {% endif %}
 
-
 <div class="py-3">
-{% if companies|length <= 2 %} 
-  <a type="button" class="btn btn-sm btn-mdb-color" href="% url 'registercompany' %}">Добавить организацию</a>
+{% if companies|length <= 2 %}
+  <a type="button" class="btn btn-sm btn-mdb-color" href="{% url 'registercompany' %}">Создать организацию</a>
   {% else %}
   <p class="font-italic text-muted ">Достигнут лимит на создание организаций</p>
   {% endif %}
@@ -125,39 +96,6 @@
 
 
 </div> <!--./container-->
-<!--
-
-
-  <div class="card">
-   <a {% if forloop.counter == 1 %}  {% else %}  class="collapsed" {% endif %}  data-toggle="collapse" data-parent="#accordion"
-           href="#company_{{ forloop.counter }}" aria-expanded="true" aria-controls="company_{{ forloop.counter }}">
-    <div class="card-header" role="tab" id="headingOne">
-      <h5 class="mb-0">
-
-          {{company.e_name}}
-        
-      </h5>
-    </div>
-   </a>
-    <div id="company_{{ forloop.counter }}" {% if forloop.counter == 1 %} class="collapse show" {% else %} class="collapse" {% endif %} role="tabpanel" aria-labelledby="heading_{{ forloop.counter }}">
-      <div class="card-block">
-       «{{company.e_op_form}}» {{company.e_name}}, {{company.e_director}}
-       {{ company.e_name_ul|first|capfirst }}. {{ company.e_otch_ul|first|capfirst }}. {{ company.e_fam_ul|capfirst }}
-      <a class="btn btn-md align-middle btn-outline-success" href="/organization-profile/{{company.id}}"><i class="fa fa-sign-in" aria-hidden="true"></i>
-Войти</a>
-      <a class="btn btn-md align-middle btn-outline-info" href="/organization-settings/{{company.id}}"><i class="fa fa-pencil" aria-hidden="true"></i>
-Настройки</a>
-      </div>
-    </div>
-  </div>-->
-
-
-
-<!--</div row>-->
-
-
-
-
 
 
 {% endblock %}
