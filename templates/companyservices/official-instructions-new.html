@@ -15,28 +15,28 @@
 <style>
 
 .ofinstructions li {
-    
+
     list-style-type: none;
    }
 .ofinstructions li:before {
     padding-left:2em;
-    content: "- "; 
+    content: "- ";
   /* white-space:pre;*/
    }
-   
+
 .ofinstructions2 li {
-    
+
     list-style-type: none;
    }
-  
+
 .laboractions li {
-    
+
     list-style-type: none;
    }
 .tfs li {
-    
+
     list-style-type: none;
-   }   
+   }
 
 .tooltip-inner {
   background-color: #31b0d5 !important;
@@ -114,9 +114,9 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
      1.1. Настоящая должностная инструкция
-определяет функциональные, должностные 
+определяет функциональные, должностные
 обязанности, права и ответственность
 {{generaldatas.jobtitlerod|lower}} подразделения «{{cmpd.depname}}»
  (далее - {{generaldatas.jobtitle|lower}}) {{cmpd.e_op_form}} «{{cmpd.e_name}}» (далее Учреждение).
@@ -140,10 +140,8 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% for workexp in generaldatas.reqworkexperiences %}
 <div  class="ofinstructions">
   <li>{{workexp}};</li>
-</div> 
+</div>
 {% endfor %}
-{% else %}
-.
 {% endif %}
 
 {% if generaldatas.specialconditions %}
@@ -151,16 +149,14 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% for speconds in generaldatas.specialconditions %}
 <div  class="ofinstructions2">
   <li>{{speconds}};</li>
-</div> 
+</div>
 {% endfor %}
-{% else %}
-.
 {% endif %}
 </div>
 
 <div style="margin-bottom: 0in" >
 
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
      1.3. {{generaldatas.jobtitle}} должен знать:
 </p>
 {% for nk in requirements.necessaryknowledges %}
@@ -169,7 +165,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </div>
 {% endfor %}
 
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
      1.4. {{generaldatas.jobtitle}} должен уметь:
 </p>
 {% for rs in requirements.requiredskills %}
@@ -181,7 +177,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </div>
 
 <div align="right" >
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
      1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
 {{cmpd.e_director_gent}} Учреждения в соответствии с
@@ -246,46 +242,46 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 <div style="margin-bottom: 0in" align="right">
 
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.1. Запрашивать и получать необходимую
 информацию, а так же материалы и документы,
 относящиеся к вопросам деятельности
 {{generaldatas.jobtitlerod|lower}}.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.2.   Повышать квалификацию, проходить
 переподготовку (переквалификацию).
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.3. Вступать во взаимоотношения с
 подразделениями сторонних учреждений
 и организаций для решения вопросов,
 входящих в компетенцию {{generaldatas.jobtitlerod|lower}}.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.4. Принимать участие в обсуждении
 вопросов, входящих в его функциональные
 обязанности.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.5. Вносить предложения и замечания
 по вопросам улучшения деятельности на
 порученном участке работы.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.6.  Обращаться в соответствующие
 органы местного самоуправления или в
 суд для разрешения споров, возникающих
 при исполнении функциональных
 обязанностей.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.7. Пользоваться информационными
 материалами и нормативно-правовыми
 документами, необходимыми для исполнения
 своих должностных обязанностей;
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     4.8. Проходить в установленном порядке
 аттестацию.
 </p>
@@ -306,16 +302,16 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 	<b>{{generaldatas.jobtitle}} несет ответственность
 за:
 	</b>
- 
+
 <div style="margin-bottom: 0in" align="right">
- 
+
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     5.1. Неисполнение (ненадлежащее
 исполнение) своих функциональных
 обязанностей.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     5.2. Невыполнение распоряжений и
 поручений {{cmpd.e_director_gent|lower}} Учреждения.
 </p>
@@ -332,13 +328,13 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 и техники безопасности, установленных
 в Учреждении.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     5.5. Причинение материального
 ущерба в пределах, установленных
 действующим законодательством Российской
 Федерации.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     5.6. Разглашение сведений, ставших
 известными в связи с исполнением
 должностных обязанностей.
@@ -356,7 +352,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify">       
+<p class="western" style="margin-bottom: 0in" align="justify">
     Настоящая должностная инструкция разработана в соответствии с положениями
 (требованиями) Трудового кодекса Российской Федерации от 30.12.2001 г. № 197 ФЗ (ТК РФ)
 (с изменениями и дополнениями), профессионального стандарта «{{generaldatas.nameps}}»
@@ -378,8 +374,8 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
        <input class="btn btn-mdb-color btn-sm" type="submit" value="Сохранить в подразделении">
    </form>
 </div>
-<a class="btn btn-info btn-sm" align="right" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}">Скачать в формате MS Word</a> 
- 
+<a class="btn btn-info btn-sm" align="right" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}">Скачать в формате MS Word</a>
+
 </div>
 
 
