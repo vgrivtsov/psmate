@@ -380,6 +380,7 @@ class ShowJTlist(ListView):
             for jt in jt_get:
 
                 ps = Psinfo.objects.filter(id=jt.ps_id)
+                gtf = Gtfinfo.objects.get(id=jt.gtf_id)
 
                 otrasl = ps[0].otraslid
                 ### Slug save
@@ -389,6 +390,8 @@ class ShowJTlist(ListView):
                 jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
                                  'slug' : jt.slug,
                                  # 'pspurposekind' : ps.pspurposekind,
+                                 'levelofquali' : gtf.levelofquali,
+                                 'codeotf' : gtf.codeotf,
                                  'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
                                  'otraslname' : otrasl.name,
                                  'otraslicon' : otrasl.icon

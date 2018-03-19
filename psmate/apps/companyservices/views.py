@@ -412,12 +412,15 @@ class OIJTDetailsView(JTDetailsView):
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
             tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            gtf = Gtfinfo.objects.get(id=jt[0].gtf_id)
 
             otrasl = ps[0].otraslid
 
             jtresult = {'id' : jt[0].id,
                         'slug' : jt[0].slug,
                         'jobtitle' : jt[0].jobtitle,
+                        'levelofquali' : gtf.levelofquali,
+                        'codeotf' : gtf.codeotf,
                         'nameotf' : jt[0].nameotf,
                         'pspurposekind' : ps[0].pspurposekind,
                         'nameps' : ps[0].nameps,
@@ -445,8 +448,7 @@ class OICreateView(ListView):
 
         data =  self.kwargs['slug']
         docx =  self.kwargs['docx']
-        tfsid = self.request.GET.getlist('tfids')
-        print(tfsid)
+        tfsid = [int(x) for x in self.request.GET.getlist('tfids')]
 
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']
@@ -560,7 +562,7 @@ class OICreateView(ListView):
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
-            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            #tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
             otrasl = ps[0].otraslid
 
             generaldatas = []
@@ -605,7 +607,6 @@ class OICreateView(ListView):
 
             generaldatas = {
                     'slug' : data,
-
                     'jobtitleid' : jt[0].id,
                     'jobtitle' : jt[0].jobtitle,
                     'jobtitlerod' : jobtitlerod,
@@ -621,7 +622,6 @@ class OICreateView(ListView):
                     'reqworkexperiences' : reqworkexperiences,
                     'specialconditions' : specialconditions,
                     'othercharacts' : othercharacts,
-                    'tfs' : tfs,
                     'today' : today,
                     'month': nmonth,
                     'year' :year
@@ -635,12 +635,13 @@ class OICreateView(ListView):
             ocresult = []
             tfresult = []
 
-            for tf in tfs: # select TF only for selected jobtitle
+            for tfid in tfsid: # select TF only for selected jobtitle
 
-                la_get_raw = Tf_la.objects.filter(tf_id=tf.id)
-                nk_get_raw = Tf_rs.objects.filter(tf_id=tf.id)
-                rs_get_raw = Tf_nk.objects.filter(tf_id=tf.id)
-                oc_get_raw = Tf_oc.objects.filter(tf_id=tf.id)
+                tf = Tfinfo.objects.get(id=tfid)
+                la_get_raw = Tf_la.objects.filter(tf_id=tfid)
+                nk_get_raw = Tf_rs.objects.filter(tf_id=tfid)
+                rs_get_raw = Tf_nk.objects.filter(tf_id=tfid)
+                oc_get_raw = Tf_oc.objects.filter(tf_id=tfid)
 
                 tfresult.append({'id' : tf.id, 'codetf' : tf.codetf, 'nametf' : tf.nametf})
 

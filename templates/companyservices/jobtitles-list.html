@@ -13,7 +13,7 @@
 <html lang="ru-RU">
 
 
-<div class=" py-5 px-5" style="min-height: 100vh">
+<div class=" py-5" style="min-height: 100vh">
 
 
 <header class="searchjobtitle text-white text-center">
@@ -43,47 +43,41 @@
 			  <div class="jobtitlelist-item">
 			  	<!-- Headings -->
 			  	<ul class="m-0 p-0">
-			  		<li class="headings">
-			  			<div class="jobtitleitem">Должность</div>
-
-        <div class="otraslicon"></div>
-
-			  			<div class="otraslitem">Отрасль</div>
-
-			  			<div class="nameotfitem">Обобщенная трудовая функция</div>
-
-        <div class="profstandartitem">Профстандарт</div>
-
+			  		<li class="headings row">
+			  			<div class="col-md-4">Должность</div>
+			  			<div class="col-md-4">Обобщенная трудовая функция</div>
+			  			<div class="col-md-1">Отрасль</div>
+        <div class="col-md-1"><center>Уровень квалификации</center></div>
+        <div class="col-md-2"><center>Профстандарт</center></div>
 			  		</li>
 
-               {% for jt in jtresult %}
-
+       {% for jt in jtresult %}
+       <!-- jobtitleitems -->
 			  		<li class="jobtitlelist-details">
-                  <a href="{% url 'org-competences' cmpd.company.id cmpd.department.id jt.slug %}">
-			  			<div class="block">
-			  				<!-- jobtitleitem -->
-					  		<div class="jobtitleitem">
-					  			<span class="jobtitleitem">{{ jt.jobtitle }}</span>
-					  		</div>
+         <a href="{% url 'org-competences' cmpd.company.id cmpd.department.id jt.slug %}">
+			  			   <div class="block row">
 
-					  		<div class="otraslitem">
+					  	   	<div class="col-md-4">
+					  	   		<span class="jobtitleitem">{{ jt.jobtitle }}</span>
+					  	   	</div>
 
-                        <small class="otraslitem">{{ jt.otraslname }}</small>
-                     </div>
+            <div class="col-md-4">{{ jt.nameotf }}</div>
 
-					  		<div class="otraslicon">
-					  			<i class="{{ jt.otraslicon }} fa-2x"></i>
-					  		</div>
+					  	   	<div class="col-md-1" data-placement="left" title="{{ jt.otraslname }}">
+               <center><i class="{{ jt.otraslicon }} fa-2x" ></i></center>
+            </div>
 
-					  		<div class="nameotfitem">{{ jt.nameotf }}</div>
+            <div class="col-md-1"><center>{{ jt.levelofquali }}</center></div>
+            <div class="col-md-2" data-toggle="tooltip" data-placement="left" title="{{ jt.nameps }}">
+             <center>{{ jt.psregnum }}</center>
+            </div>
 
-         <div class="profstandartitem"><center>{{ jt.psregnum }}</center></div>
 
-			  			</div>
-                  </a>
-            	</li>
+			  			   </div>
+         </a>
+       </li>
 
-               {% endfor %}
+      {% endfor %}
 			  	</ul>
 
 			</div>
