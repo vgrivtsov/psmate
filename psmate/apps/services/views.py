@@ -422,15 +422,20 @@ class JTDetailsView(ListView):
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
             tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            gtf = Gtfinfo.objects.get(id=jt[0].gtf_id)
 
             otrasl = ps[0].otraslid
 
             jtresult = {'id' : jt[0].id,
                         'slug' : jt[0].slug,
                         'jobtitle' : jt[0].jobtitle,
+                        'levelofquali' : gtf.levelofquali,
+                        'codeotf' : gtf.codeotf,
                         'nameotf' : jt[0].nameotf,
                         'pspurposekind' : ps[0].pspurposekind,
-                        'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum, 'psid' : ps[0].id,
+                        'nameps' : ps[0].nameps,
+                        'psregnum' : ps[0].psregnum,
+                        'psid' : ps[0].id,
                         'otraslname' : otrasl.name,
                         'otraslicon' : otrasl.icon,
                         'educationalreqs' : educationalreqs,
@@ -440,7 +445,6 @@ class JTDetailsView(ListView):
                         'tfs' : tfs,
 
                         }
-
 
             return render(request, self.template_name, {'jtresult': jtresult})
 
@@ -453,9 +457,10 @@ class OfficialInstructions(ListView):
 
     def get(self, request, *args, **kwargs):
 
-        t0 = time()
+        #t0 = time()
 
         data =  self.kwargs['slug']
+        tfsid = [int(x) for x in self.request.GET.getlist('tfids')]
 
         if data != None:
 
@@ -466,7 +471,7 @@ class OfficialInstructions(ListView):
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
-            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            #tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
 
             otrasl = ps[0].otraslid
 
@@ -491,11 +496,8 @@ class OfficialInstructions(ListView):
             pos_list = ['NOUN', 'ADJF', 'ADJS', 'PRTF', 'PRTS']
             case_list = []
 
-
             for i in cleared_jt.split(' '):
                 p = morph.parse(i)[0]
-                print(p)
-                print(p.inflect({'gent'}))
                 if p.tag.POS in pos_list and p.tag.case == 'nomn': # Chast' rechi & padezh
 
                     #print(jt_rod_word)
@@ -523,20 +525,22 @@ class OfficialInstructions(ListView):
             jobtitlerod = ' '.join(jt_rod) + ' '+cuttedstring
 
             generaldatas = {
-
+                    'slug' : data,
                     'jobtitleid' : jt[0].id,
                     'jobtitle' : jt[0].jobtitle,
                     'jobtitlerod' : jobtitlerod,
                     'nameotf' : jt[0].nameotf,
                     'pspurposekind' : ps[0].pspurposekind,
-                    'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                    'nameps' : ps[0].nameps,
+                    'psregnum' : ps[0].psregnum,
+                    'psordernum' : ps[0].psordernum,
+                    'psdateappr' : ps[0].psdateappr,
                     'otraslname' : otrasl.name,
                     'otraslicon' : otrasl.icon,
                     'educationalreqs' : educationalreqs,
                     'reqworkexperiences' : reqworkexperiences,
                     'specialconditions' : specialconditions,
                     'othercharacts' : othercharacts,
-                    'tfs' : tfs,
                     }
 
             laresult = []
@@ -545,13 +549,13 @@ class OfficialInstructions(ListView):
             ocresult = []
             tfresult = []
 
-            for tf in tfs: # select TF only for selected jobtitle
+            for tfid in tfsid: # select TF only for selected jobtitle
 
-                la_get_raw = Tf_la.objects.filter(tf_id=tf.id)
-                nk_get_raw = Tf_rs.objects.filter(tf_id=tf.id)
-                rs_get_raw = Tf_nk.objects.filter(tf_id=tf.id)
-                oc_get_raw = Tf_oc.objects.filter(tf_id=tf.id)
-
+                tf = Tfinfo.objects.get(id=tfid)
+                la_get_raw = Tf_la.objects.filter(tf_id=tfid).distinct()
+                nk_get_raw = Tf_rs.objects.filter(tf_id=tfid).distinct()
+                rs_get_raw = Tf_nk.objects.filter(tf_id=tfid).distinct()
+                oc_get_raw = Tf_oc.objects.filter(tf_id=tfid).distinct()
 
                 tfresult.append({'id' : tf.id, 'codetf' : tf.codetf, 'nametf' : tf.nametf})
 
@@ -567,16 +571,15 @@ class OfficialInstructions(ListView):
                 for oc in oc_get_raw:
                     ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})
 
-                # time test
-                t1 = time()
-                time_res = t1 - t0
-                #print(time_res)
+            ocresultnew = set( x['othercharacteristic'] for x in ocresult)
+
+
 
             requirements = {'tf' : tfresult,
                             'laboractions' : laresult,
                             'necessaryknowledges' : nkresult,
                             'requiredskills' : rsresult,
-                            'othercharacteristics' : ocresult,
+                            'othercharacteristics' : ocresultnew,
                             }
 
 

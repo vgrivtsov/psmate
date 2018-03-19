@@ -202,9 +202,22 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 {% for la in requirements.laboractions %}
 <div  class="laboractions">
-<li>3.{{ forloop.counter }}. {{la.laboraction}}.</li>
+  <li>3.{{ forloop.counter }}. {{la.laboraction}}.</li>
+  {% if forloop.last %}
+    {% if requirements.othercharacteristics %}
+      <li>  3.{{ forloop.counter|add:'1' }} Дополнительно:</li>
+          {% for oc in requirements.othercharacteristics %}
+             <div  class="ofinstructions">
+                <li>{{oc}};</li>
+             </div>
+          {% endfor %}
+    {% endif %}
+  {% endif %}
 </div>
+
 {% endfor %}
+
+
 
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
@@ -341,6 +354,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
+
 <div>
    <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
        {% csrf_token %}
@@ -350,10 +364,11 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
        <input type="hidden" name='slug' value='{{generaldatas.slug}}'>
        <input type="hidden" name='departs' value='{{cmpd0.department.id}}'>
        <input type="hidden" name='jt' value='{{generaldatas.jobtitleid}}'>
+       <input type="hidden" name='tfs' value='{% for tf in requirements.tf %}{{tf.id}}{% if not forloop.last %},{% else %}{% endif %}{% endfor %}'>
        <input class="btn btn-mdb-color btn-sm" type="submit" value="Сохранить в подразделении">
    </form>
 </div>
-<a class="btn btn-info btn-sm" align="right" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}">Скачать в формате MS Word</a>
+<a class="btn btn-info btn-sm" align="right" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">Скачать в формате MS Word</a>
 
 </div>
 

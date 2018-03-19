@@ -135,8 +135,6 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
   <li>{{workexp}};</li>
 </div>
 {% endfor %}
-{% else %}
-.
 {% endif %}
 
 </div>
@@ -214,8 +212,19 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 
 {% for la in requirements.laboractions %}
 <div  class="laboractions">
-<li>3.{{ forloop.counter }}. {{la.laboraction}}.</li>
+  <li>3.{{ forloop.counter }}. {{la.laboraction}}.</li>
+  {% if forloop.last %}
+    {% if requirements.othercharacteristics %}
+      <li>  3.{{ forloop.counter|add:'1' }} Дополнительно:</li>
+          {% for oc in requirements.othercharacteristics %}
+             <div  class="ofinstructions">
+                <li>{{oc}};</li>
+             </div>
+          {% endfor %}
+    {% endif %}
+  {% endif %}
 </div>
+
 {% endfor %}
 
 <p class="western" style="margin-bottom: 0in" align="center"><br>

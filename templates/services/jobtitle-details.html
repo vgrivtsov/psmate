@@ -85,35 +85,63 @@
 
 {% if jtresult.nameotf %}
 <ul  class="list-group px-4 my-3">
-    <li class="list-group-item listheader"><h5>Обобщенная трудовая функция<h5></li>
+    <li class="list-group-item listheader" ><h5>Обобщенная трудовая функция - {{jtresult.levelofquali}}й уровень квалификации (Код {{jtresult.codeotf}})<h5></li>
+    <li class="list-group-item" id="listitem">
        {{jtresult.nameotf}}
+    </li>
 </ul>
 {% endif %}
 
 
 {% if jtresult.tfs %}
+   <form>
+
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
+
 {% for item in jtresult.tfs %}
-    <li class="list-group-item" id="listitem">
-       {{item.nametf}}. Код: {{item.codetf}}
-    </li>
+  <li class="list-group-item" id="listitem">
+    <div class="checkbox checkbox-mdb-color">
+       <input id="checkbox{{item.id}}" type="checkbox" checked name="tfids" value="{{item.id}}" />
+    <label for="checkbox{{item.id}}">
+        {{item.nametf}}. Код: {{item.codetf}}
+    </label>
+    </div>
+  </li>
 {% endfor %}
 </ul>
+  </form>
 {% endif %}
-
-
-
-
 
 <!-- /.card 2 -->
 </div>
 
 <div class="py-3">
-   <a class="btn btn-lg btn-mdb-color btn-block" href="{% url 'official-instructions' jtresult.slug %}">Построить должностные инструкции</a>
- </div>
+   <a onclick="javascript:addtfsid()" id='offinst' class="btn btn-lg btn-mdb-color btn-block" href="{% url 'official-instructions' jtresult.slug %}?">Построить должностные инструкции</a>
+</div>
+
+<!--make refresh tfids if press back button-->
+<input type="hidden" id="refreshed" value="no">
+
 
 </div>
 <!-- /.container -->
+<script>
 
+
+//get from selected checkbox to button href
+function addtfsid() {
+  var tfids = $( "form" ).serialize();
+
+    $('#offinst').attr('href', function() {
+        return this.href + tfids ;
+    });
+
+    onload=function(){ // make refresh tfids if user press back button
+    var e=document.getElementById("refreshed");
+    if(e.value=="no")e.value="yes";
+    else{e.value="no";  history.pushState(); var tfids = $( "form" ).serialize();}
+    }
+}
+</script>
 {% endblock %}

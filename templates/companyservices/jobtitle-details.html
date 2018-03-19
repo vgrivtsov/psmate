@@ -124,9 +124,7 @@
 </div>
 
 <div class="py-3">
-
    <a onclick="javascript:addtfsid()" id='offinst' class="btn btn-lg btn-mdb-color btn-block" href="{% url 'org-official-instructions' cmpd.company.id cmpd.department.id jtresult.slug %}?">Построить должностные инструкции</a>
-
 </div>
 
 <!--make refresh tfids if press back button-->
@@ -146,10 +144,11 @@ function addtfsid() {
     $('#offinst').attr('href', function() {
         return this.href + tfids ;
     });
+
     onload=function(){ // make refresh tfids if user press back button
     var e=document.getElementById("refreshed");
     if(e.value=="no")e.value="yes";
-    else{e.value="no";var tfids = $( "form" ).serialize();}
+    else{e.value="no";  history.pushState(); var tfids = $( "form" ).serialize();}
     }
 }
 </script>

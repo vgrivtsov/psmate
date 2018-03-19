@@ -85,8 +85,14 @@ class OrgReadView(View):
             company = Enterprises.objects.get(pk=company_id)
             departs = Departs.objects.filter(company_id=company_id)
             ois = Offinsts.objects.filter(company_id=company_id)
+
             for oi in ois:
+
                 oi.short = oi.name[:30]+'...' # truncate long JT name
+                if oi.tfs:
+                    tfsnew = oi.tfs.split(",")
+                    oi.tfs = [int(x) for x in tfsnew]
+
 
 
         return render(request, self.template_name, {'company' : company,
@@ -449,7 +455,6 @@ class OICreateView(ListView):
         data =  self.kwargs['slug']
         docx =  self.kwargs['docx']
         tfsid = [int(x) for x in self.request.GET.getlist('tfids')]
-
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']
         company = Enterprises.objects.get(id=companyid)
@@ -558,10 +563,10 @@ class OICreateView(ListView):
             ######### general data #######################################
 
             ps = Psinfo.objects.filter(id=jt[0].ps_id)
-            educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
-            reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
-            specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
-            othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
+            educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id).distinct()
+            reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id).distinct()
+            specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id).distinct()
+            othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id).distinct()
             #tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
             otrasl = ps[0].otraslid
 
@@ -638,10 +643,10 @@ class OICreateView(ListView):
             for tfid in tfsid: # select TF only for selected jobtitle
 
                 tf = Tfinfo.objects.get(id=tfid)
-                la_get_raw = Tf_la.objects.filter(tf_id=tfid)
-                nk_get_raw = Tf_rs.objects.filter(tf_id=tfid)
-                rs_get_raw = Tf_nk.objects.filter(tf_id=tfid)
-                oc_get_raw = Tf_oc.objects.filter(tf_id=tfid)
+                la_get_raw = Tf_la.objects.filter(tf_id=tfid).distinct()
+                nk_get_raw = Tf_rs.objects.filter(tf_id=tfid).distinct()
+                rs_get_raw = Tf_nk.objects.filter(tf_id=tfid).distinct()
+                oc_get_raw = Tf_oc.objects.filter(tf_id=tfid).distinct()
 
                 tfresult.append({'id' : tf.id, 'codetf' : tf.codetf, 'nametf' : tf.nametf})
 
@@ -657,11 +662,13 @@ class OICreateView(ListView):
                 for oc in oc_get_raw:
                     ocresult.append({'id' : oc.id, 'othercharacteristic' : oc.othercharacteristic})
 
+            ocresultnew = set( x['othercharacteristic'] for x in ocresult)
+
             requirements = {'tf' : tfresult,
                             'laboractions' : laresult,
                             'necessaryknowledges' : nkresult,
                             'requiredskills' : rsresult,
-                            'othercharacteristics' : ocresult,
+                            'othercharacteristics' : ocresultnew,
                             }
 
             if docx == 'msword-document-download':
@@ -697,6 +704,7 @@ class OISaveView(FormView):
         form.save()
 
         name = self.request.POST['name']
+        tfs = self.request.POST['tfs']
         slug = self.request.POST['slug']
         jt = self.request.POST['jt']
         company = self.request.POST['company']

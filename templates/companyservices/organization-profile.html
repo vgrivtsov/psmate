@@ -99,7 +99,7 @@
 	       <div class="row">
         {% for oi in ois %} {% if oi.departs_id == dep.id %}
 	        <div class="col-md-1 py-2 mx-3">
-	         <a href="{% url 'org-official-instructions' company.id oi.departs_id oi.slug%}">
+	         <a href="{% url 'org-official-instructions' company.id oi.departs_id oi.slug%}?{% for tf in oi.tfs %}tfids={{tf}}&{% endfor %}">
             <div data-toggle="tooltip" data-placement="right" title="{{oi.name}}">
               <div class="oi_icon">
                 <i class="fa fa-file-word-o fa-3x" style="color:#2b579a"></i>
