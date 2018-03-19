@@ -107,14 +107,12 @@
     <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
 
 {% for item in jtresult.tfs %}
+<label for="checkbox{{item.id}}">
   <li class="list-group-item" id="listitem">
-    <div class="checkbox checkbox-mdb-color">
        <input id="checkbox{{item.id}}" type="checkbox" checked name="tfids" value="{{item.id}}" />
-    <label for="checkbox{{item.id}}">
         {{item.nametf}}. Код: {{item.codetf}}
-    </label>
-    </div>
   </li>
+</label>
 {% endfor %}
 </ul>
   </form>

@@ -500,7 +500,7 @@ class OICreateView(ListView):
 
                 cleared_director = morph.parse(w)[0]
 
-                if cleared_director.tag.POS in pos_list and cleared_director.tag.case == 'nomn': # check if word is single noun
+                if cleared_director.tag.POS in pos_list and cleared_director.tag.case == 'nomn' and cleared_director.tag.number == 'sing': # check if word is single noun
 
                     e_dir_gent = cleared_director.inflect({'gent'}).word
                     e_dir_datv = cleared_director.inflect({'datv'}).word
@@ -524,9 +524,11 @@ class OICreateView(ListView):
                     capmarker = True
 
                 cleared_cheef = morph.parse(w)[0]
+                print(cleared_cheef)
 
-                if cleared_cheef.tag.POS in pos_list and cleared_cheef.tag.case == 'nomn': # check if word is single noun
+                if cleared_cheef.tag.POS in pos_list and cleared_cheef.tag.case == 'nomn' and cleared_cheef.tag.number == 'sing': # check if word is single noun
                     d_cheef_datv = cleared_cheef.inflect({'datv'}).word
+
                     cheef_datv.append(d_cheef_datv.capitalize() if capmarker == True else d_cheef_datv)
                 else:
                     cheef_datv.append(w.capitalize() if capmarker == True else w)

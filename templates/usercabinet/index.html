@@ -7,28 +7,31 @@
 
 <div class="container" style="min-height: 100vh;">
 
-<a href="{% url 'settings' %}">
- <div class="card card-usercab col-md-5" >
-   <div class="card-body">
-     <div class="clearfix">
-       <i class="fa fa-user float-right"></i>
-       <p class="card-text text-dark">Личные данные</p>
-     </div>
-     {% if user.first_name %}
-     <h4 class="card-title"> {{ user.first_name|default:""|first|capfirst}}. {{ user.profiles.fl_otch|default:""|first|capfirst }}. {{ user.last_name|default:""|capfirst }}
-     </h4>
-     {% endif %}
-   <h5>{{ user.profiles.fl_pd_date|default_if_none:"" }}</h5>
-   <div class="flex-row">
-    <h6>{{ user.profiles.fl_tlph_mob|default_if_none:"" }}</h6>
-    <h6>{{ user.email }}</h6>
-   </div>
-   </div>
- </div>
-</a>
+<div class="row">
+ <a href="{% url 'settings' %}">
+  <div class="col-md-4">
+   <div class="card" >
+    <div class="card-body">
+      <div class="clearfix">
+        <i class="fa fa-user float-right"></i>
+        <p class="card-text text-dark">Личные данные</p>
+      </div>
+      {% if user.first_name %}
+      <h4 class="card-title"> {{ user.first_name|default:""|first|capfirst}}. {{ user.profiles.fl_otch|default:""|first|capfirst }}. {{ user.last_name|default:""|capfirst }}
+      </h4>
+      {% endif %}
+    <h5>{{ user.profiles.fl_pd_date|default_if_none:"" }}</h5>
+    <div class="flex-row">
+     <h6>{{ user.profiles.fl_tlph_mob|default_if_none:"" }}</h6>
+     <h6>{{ user.email }}</h6>
+    </div>
+    </div>
+  </div>
+ </a>
+</div>
 
  {% if user.profiles.resume %}
-<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4">
+<div class="col-md-4 ">
   <div class="card h-100 card-usercab ">
     <div class="card-body">
       <div class="clearfix">
@@ -38,37 +41,53 @@
           <p class="card-text text-dark">Резюме</p>
       </div>
       {% for quali in user.profiles.resume %}
-      {% for qq in quali.Quali %}
-        <h6 class="card-subtitle mb-4">{{qq.FL_cv_PS.jobtitle}}</h6>
+       {% if forloop.last %}
+        {% for qq in quali.Quali %}
+            <h6 class="card-subtitle mb-4">{{qq.FL_cv_PS.jobtitle}}</h6>
+        {% endfor %}
+       {% endif %}
       {% endfor %}
-      {% endfor %}
-      <div class="row">
-        <div class="col">
-         <a class="btn btn-outline-mdb-color btn-block" href="{% url 'presentation-cv-resume' %}">перейти к резюме</a>
-        </div>
-      </div>
+ </div>
+    <div class="card-footer">
+     <a class="btn btn-outline-mdb-color btn-block" href="{% url 'presentation-cv-resume' %}">перейти к резюме</a>
     </div>
   </div>
 </div>
 
+
 {% else %}
 
-<div>
-  <a class="btn btn-outline-mdb-color btn-sm my-4" href="{% url 'generator-cv-resume' %}">Создать резюме</a>
+<div class="col-md-4 ">
+  <div class="card text-center z-depth-2 h-100 card-usercab " style="background-color: #bdbdbd; border: dashed 3px white">
+    <div class="card-body">
+      <div class="clearfix">
+        <a href="{% url 'generator-cv-resume' %}">
+         <i class="fa fa-pencil float-right"></i>
+        </a>
+          <p class="card-text text-dark">Резюме</p>
+      </div>
+
+    </div>
+  <div  class="card-footer">
+    <a class="btn btn-amber btn-sm btn-block" href="{% url 'generator-cv-resume' %}">Создать резюме</a>
+  </div>
+  </div>
 </div>
- {% endif %}
+{% endif %}
+
+</div><!--</.row settings-cv>-->
 
 
-{% if companies %}
 
-<h4 class="py-3"><span class="badge mdb-color ">Зарегестрированные организации</span></h4>
+
+<h4 class="pt-5 pb-3"><span class="badge mdb-color ">Зарегестрированные организации</span></h4>
 
 
 <div class="row">
 {% for company in companies %}
 
 <!--Card company info-->
-<div class="col">
+<div class="col-md-4">
  <a href="{% url 'organization-profile' company.id %}">
   <div class="card h-100">
     <div class="card-title mx-2 my-1">
@@ -82,11 +101,68 @@
 </div>
 <!--/.Card company info-->
 {% endfor %}
+
+<!--Cycle for grey dotted cards-->
+
+{% if companies|length == 1 %}
+
+{% for x in '12' %}
+<div class="col-md-4">
+
+  <div class="card text-center z-depth-2 h-100" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
+    <div class="card-title mx-2 my-1">
+     Место для организации
+    </div>
+  <div class="card-body" >
+
+  </div>
+
+  </div>
 </div>
+{% endfor %}
+
+{% elif companies|length == 2 %}
+
+{% for x in '1' %}
+<div class="col-md-4">
+
+  <div class="card text-center z-depth-2 h-100" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
+    <div class="card-title mx-2 my-1">
+     Место для организации
+    </div>
+  <div class="card-body" >
+
+  </div>
+
+  </div>
+</div>
+{% endfor %}
+
+{% elif companies|length == 0 %}
+
+{% for x in '123' %}
+<div class="col-md-4">
+
+  <div class="card text-center z-depth-2 h-100" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
+    <div class="card-title mx-2 my-1">
+     Место для организации
+    </div>
+  <div class="card-body" >
+
+  </div>
+
+  </div>
+</div>
+{% endfor %}
+
+</div>
+
 {% endif %}
 
+
+<!--/.Cycle for grey dotted cards-->
 <div class="py-3">
-{% if companies|length <= 2 %}
+{% if companies|length <= 3 %}
   <a type="button" class="btn btn-sm btn-mdb-color" href="{% url 'registercompany' %}">Создать организацию</a>
   {% else %}
   <p class="font-italic text-muted ">Достигнут лимит на создание организаций</p>

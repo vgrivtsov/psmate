@@ -159,7 +159,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="justify">
      1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
-{{cmpd.e_director_gent}} Учреждения в соответствии с
+{{cmpd.e_director_gent|lower}} Учреждения в соответствии с
 действующим законодательством Российской
 Федерации.
 </p>
@@ -360,7 +360,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
        {% csrf_token %}
        {{ form.as_p}}
        <input type="hidden" name='company' value='{{cmpd0.company.id}}'>
-       <input type="hidden" name='name' value='{{generaldatas.jobtitlerod|lower}}'>
+       <input type="hidden" name='name' value='{{generaldatas.jobtitle|lower}}'>
        <input type="hidden" name='slug' value='{{generaldatas.slug}}'>
        <input type="hidden" name='departs' value='{{cmpd0.department.id}}'>
        <input type="hidden" name='jt' value='{{generaldatas.jobtitleid}}'>
