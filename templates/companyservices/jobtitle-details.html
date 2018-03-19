@@ -14,7 +14,7 @@
 
 
 <!-- Page Content -->
-<div class="container py-5 jobtitlesdetails">
+<div class="container py-5 jobtitlesdetails" >
 <!-- /.card 1 -->
   <div class="card  my-3 jobtitle">
         <div class="card-body mx-3">
@@ -100,28 +100,67 @@
 
 
 {% if jtresult.tfs %}
+   <form>
+
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
 {% for item in jtresult.tfs %}
     <li class="list-group-item" id="listitem">
-       {{item.nametf}}. Код: {{item.codetf}}
+     <label class="checkbox" >
+       <input type="checkbox" checked name="tfids" value="{{item.id}}" />{{item.nametf}}. Код: {{item.codetf}}
+     </label>
     </li>
 {% endfor %}
 </ul>
+  </form>
 {% endif %}
-
-
-
-
 
 <!-- /.card 2 -->
 </div>
 
 <div class="py-3">
-   <a class="btn btn-lg btn-mdb-color btn-block" href="{% url 'org-official-instructions' cmpd.company.id cmpd.department.id jtresult.slug %}">Построить должностные инструкции</a>
- </div>
+
+   <a onclick="javascript:addtfsid()" id='offinst' class="btn btn-lg btn-mdb-color btn-block" href="{% url 'org-official-instructions' cmpd.company.id cmpd.department.id jtresult.slug %}?">Построить должностные инструкции</a>
+
+</div>
+
+<!--make refresh tfids if press back button-->
+<input type="hidden" id="refreshed" value="no">
+
 
 </div>
 <!-- /.container -->
+
+
+<script>
+
+
+
+
+//get from selected checkbox to button href
+  function addtfsid() {
+    var tfids = $( "form" ).serialize();
+
+      $('#offinst').attr('href', function() {
+          return this.href + tfids ;
+      });
+      onload=function(){ // make refresh tfids if user press back button
+      var e=document.getElementById("refreshed");
+      if(e.value=="no")e.value="yes";
+      else{e.value="no";var tfids = $( "form" ).serialize();}
+      }
+
+
+
+}
+
+
+
+</script>
+
+
+
+
+
 
 {% endblock %}

@@ -445,6 +445,8 @@ class OICreateView(ListView):
 
         data =  self.kwargs['slug']
         docx =  self.kwargs['docx']
+        tfsid = self.request.GET.getlist('tfids')
+        print(tfsid)
 
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']
