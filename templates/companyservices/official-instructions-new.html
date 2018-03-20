@@ -356,7 +356,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 {%if stop_paidactivdate is not True %}
 
-{% if ois|length < 700 %}
+{% if ois|length < 300 %}
 
 <div>
    <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
@@ -372,7 +372,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
    </form>
 </div>
 {% else %}
-<p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций</p>
+<p class="font-italic text-muted">Достигнут лимит на сохранение должностных инструкций, пожалуйста обратитесь в техподдержку.</p>
 {% endif %}
 
 {% else %}
@@ -393,7 +393,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
    </form>
 </div>
 {% else %}
-<p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций</p>
+<p class="font-italic text-muted">Достигнут лимит на сохранение должностных инструкций</p>
 
 {% endif %}
 

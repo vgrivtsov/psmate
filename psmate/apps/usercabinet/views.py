@@ -9,7 +9,7 @@ from psmate.apps.usercabinet.forms import ProfileSettingsForm
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView, ListView, View, UpdateView
+from django.views.generic import FormView, ListView, View, UpdateView, TemplateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
@@ -146,3 +146,15 @@ class UserSettingsView(UpdateView):
     def form_valid(self, form):
         self.object = self.get_object()
         return super(UserSettingsView, self).form_valid(form)
+
+
+class PricingView(TemplateView):
+
+    template_name = 'pricing.html'
+    model = User
+
+    def get(self, request, *args, **kwargs):
+
+       # user = self.request.user
+
+        return render(request, self.template_name)
