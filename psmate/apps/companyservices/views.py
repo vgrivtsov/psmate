@@ -75,7 +75,6 @@ class OrgReadView(View):
     def get(self, request, *args, **kwargs):
 
         user = self.request.user
-        user = self.request.user
         paidactivdate = request.user.profiles.paidactivdate
 
         if paidactivdate:
@@ -488,6 +487,19 @@ class OICreateView(ListView):
         company = Enterprises.objects.get(id=companyid)
         department = Departs.objects.get(id=departid)
 
+        ois = Offinsts.objects.filter(departs_id=departid)
+        ois_len = len(ois)
+        user = self.request.user
+        paidactivdate = request.user.profiles.paidactivdate
+
+        if paidactivdate:
+            datenow = datetime.now().date()
+
+            if (paidactivdate - datenow).days + 1 < 0:
+                stop_paidactivdate = True
+            else: stop_paidactivdate = False
+
+
         cmpd0 = {'company' : company, 'department' : department}
 
         if data != None:
@@ -723,7 +735,9 @@ class OICreateView(ListView):
                 return render(request, self.template_name, {'generaldatas': generaldatas,
                                                         'requirements' : requirements,
                                                         'cmpd' : cmpd,
-                                                        'cmpd0' : cmpd0
+                                                        'cmpd0' : cmpd0,
+                                                        'stop_paidactivdate' : stop_paidactivdate,
+                                                        'ois_len' : ois_len
                                                         })
 
 class OISaveView(FormView):

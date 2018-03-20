@@ -83,12 +83,11 @@ class UserCabinetView(View):
             if (paidactivdate - datenow).days + 1 < 0:
                 stop_paidactivdate = True
             else: stop_paidactivdate = False
-            print(stop_paidactivdate)
 
-            if (paidactivdate - datenow).days + 1 > 0:
-                balance = paidactivdate - datenow
-            else:
-                balance = timedelta(0)
+            # if (paidactivdate - datenow).days + 1 > 0:
+            #     balance = paidactivdate - datenow
+            # else:
+            #     balance = timedelta(0)
 
             # print('balance', balance)
             # new_paidactivdate = datenow + m + balance

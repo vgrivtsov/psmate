@@ -354,6 +354,9 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
+{%if stop_paidactivdate is not True %}
+
+{% if ois|length < 700 %}
 
 <div>
    <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
@@ -368,6 +371,35 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
        <input class="btn btn-mdb-color btn-sm" type="submit" value="Сохранить в подразделении">
    </form>
 </div>
+{% else %}
+<p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций</p>
+{% endif %}
+
+{% else %}
+
+{% if ois_len == 0 %}
+
+<div>
+   <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
+       {% csrf_token %}
+       {{ form.as_p}}
+       <input type="hidden" name='company' value='{{cmpd0.company.id}}'>
+       <input type="hidden" name='name' value='{{generaldatas.jobtitle|lower}}'>
+       <input type="hidden" name='slug' value='{{generaldatas.slug}}'>
+       <input type="hidden" name='departs' value='{{cmpd0.department.id}}'>
+       <input type="hidden" name='jt' value='{{generaldatas.jobtitleid}}'>
+       <input type="hidden" name='tfs' value='{% for tf in requirements.tf %}{{tf.id}}{% if not forloop.last %},{% else %}{% endif %}{% endfor %}'>
+       <input class="btn btn-mdb-color btn-sm" type="submit" value="Сохранить в подразделении">
+   </form>
+</div>
+{% else %}
+<p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций</p>
+
+{% endif %}
+
+{% endif %}
+
+
 <a class="btn btn-info btn-sm" align="right" href="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">Скачать в формате MS Word</a>
 
 </div>
