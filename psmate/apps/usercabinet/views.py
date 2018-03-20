@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 
 from psmate.models import Enterprises
-
+from datetime import datetime, timedelta
 
 # class RegisterFormView(FormView):
 #     form_class = UserRegisterForm
@@ -52,7 +52,6 @@ class LoginFormView(FormView):
         return super(LoginFormView, self).form_valid(form)
 
 
-
 class LogoutView(View):
     def get(self, request):
 
@@ -60,7 +59,6 @@ class LogoutView(View):
 
         # redirect to  index.html after logout
         return HttpResponseRedirect("/")
-
 
 
 class UserCabinetView(View):
@@ -71,12 +69,37 @@ class UserCabinetView(View):
     def get(self, request, *args, **kwargs):
 
         user = self.request.user
-        companies = Enterprises.objects.filter(regname_id=user.id)
+        paidactivdate = request.user.profiles.paidactivdate
+
+        if paidactivdate:
+            #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
+            datenow = datetime.now().date()
+
+            # m= timedelta(days=31)
+            # m3 = timedelta(days=93)
+            # y = timedelta(days=366)
+            #print(m, m3, y)
+
+            if (paidactivdate - datenow).days + 1 < 0:
+                stop_paidactivdate = True
+            else: stop_paidactivdate = False
+            print(stop_paidactivdate)
+
+            if (paidactivdate - datenow).days + 1 > 0:
+                balance = paidactivdate - datenow
+            else:
+                balance = timedelta(0)
+
+            # print('balance', balance)
+            # new_paidactivdate = datenow + m + balance
+            # print(new_paidactivdate)
+
+            companies = Enterprises.objects.filter(regname_id=user.id)
 
         return render(request, self.template_name, {'user': user,
                                                     'companies' :companies,
-
-                                                        })
+                                                    'stop_paidactivdate' :stop_paidactivdate
+                                                    })
 
 
 class UserSettingsView(UpdateView):

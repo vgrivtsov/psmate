@@ -162,13 +162,29 @@
 
 <!--/.Cycle for grey dotted cards-->
 <div class="py-3">
-{% if companies|length <= 3 %}
+
+{%if stop_paidactivdate is not True %}
+
+{% if companies|length < 3 %}
   <a type="button" class="btn btn-sm btn-mdb-color" href="{% url 'registercompany' %}">Создать организацию</a>
   {% else %}
   <p class="font-italic text-muted ">Достигнут лимит на создание организаций</p>
   {% endif %}
 </div>
 
+
+{% else %}
+
+{% if companies|length == 0 %}
+  <a type="button" class="btn btn-sm btn-mdb-color" href="{% url 'registercompany' %}">Создать организацию</a>
+  {% else %}
+  <p class="font-italic text-muted ">Достигнут лимит на создание организаций</p>
+  {% endif %}
+</div>
+
+</div>
+
+{% endif %}
 
 
 </div> <!--./container-->

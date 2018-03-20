@@ -20,16 +20,17 @@ from django.contrib import messages
 
 from psmate.models import *
 
+from datetime import datetime, timedelta
 from operator import itemgetter
 import pymorphy2
 from pymorphy2 import units
 import pytils
 import re
 import docxtpl
-import datetime
 import locale
 import pymorphy2
 import io
+
 
 ################ ORGANIZATIONS VIEWS ###################################################
 
@@ -74,6 +75,32 @@ class OrgReadView(View):
     def get(self, request, *args, **kwargs):
 
         user = self.request.user
+        user = self.request.user
+        paidactivdate = request.user.profiles.paidactivdate
+
+        if paidactivdate:
+            #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
+            datenow = datetime.now().date()
+
+            # m= timedelta(days=31)
+            # m3 = timedelta(days=93)
+            # y = timedelta(days=366)
+            #print(m, m3, y)
+
+            if (paidactivdate - datenow).days + 1 < 0:
+                stop_paidactivdate = True
+            else: stop_paidactivdate = False
+            print(stop_paidactivdate)
+
+            if (paidactivdate - datenow).days + 1 > 0:
+                balance = paidactivdate - datenow
+            else:
+                balance = timedelta(0)
+
+            # print('balance', balance)
+            # new_paidactivdate = datenow + m + balance
+            # print(new_paidactivdate)
+
         company_id = self.kwargs['id']
 
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
@@ -97,7 +124,8 @@ class OrgReadView(View):
 
         return render(request, self.template_name, {'company' : company,
                                                     'departs' :departs,
-                                                    'ois' :ois
+                                                    'ois' :ois,
+                                                    'stop_paidactivdate' :stop_paidactivdate
                                                     })
 
 
@@ -556,7 +584,7 @@ class OICreateView(ListView):
 
             m = pymorphy2.MorphAnalyzer()
             locale.setlocale(locale.LC_TIME, "ru_RU.UTF-8")
-            today = datetime.datetime.now().strftime("%d %B %Y").lower()
+            today = datetime.now().strftime("%d %B %Y").lower()
 
             today, month, year = today.split(' ')
             nmonth = m.parse(month)[0].inflect({'gent'}).word

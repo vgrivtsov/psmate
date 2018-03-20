@@ -117,8 +117,25 @@
         {% endif %}{% endfor %}
 								</div>
 								{% endif %}
-     			<div>
-          <a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a>
+     			<div> <!--OI create button-->
+         {%if stop_paidactivdate is not True %}
+
+         {% if ois|length < 700 %}
+           <a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a>
+           {% else %}
+           <p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций, пожалуйста обратитесь в техподдержку.</p>
+         {% endif %}
+
+         {% else %}
+
+         {% if ois|length == 0 %}
+         <a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a>
+         {% else %}
+         <p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций</p>
+         {% endif %}
+
+         {% endif %} <!-- if stop_paidactivdate is not True -->
+
          </div>
 							</div>
      </td>
@@ -138,13 +155,28 @@ $('#depaccordion_{{ forloop.counter }}').on('hidden.bs.collapse', function () {
  </div>
 {% endif %}
 
-{% if departs|length < 2 %}
+{%if stop_paidactivdate is not True %}
+
+{% if departs|length < 100 %}
+  <a class="btn btn-mdb-color btn-sm waves-effect" href="{% url 'registerdepart' company.id%}">Добавить подразделение</a>
+  {% else %}
+  <p class="font-italic text-muted">Достигнут лимит на создание подразделений в организации «{{company.e_op_form}}» {{company.e_name}}, пожалуйста обратитесь в техподдержку.</p>
+{% endif %}
+
+{% else %}
+
+{% if departs|length == 0 %}
   <a class="btn btn-mdb-color btn-sm waves-effect" href="{% url 'registerdepart' company.id%}">Добавить подразделение</a>
   {% else %}
   <p class="font-italic text-muted">Достигнут лимит на создание подразделений в организации «{{company.e_op_form}}» {{company.e_name}}</p>
 {% endif %}
 
-{% else %}
+
+{% endif %} <!--if stop_paidactivdate is not True -->
+
+
+
+{% else %} <!--./ if company.regname_id == user.id -->
   <div class="container-fluid py-5 card text-center z-depth-2">
    <div class="card-body">
     <h5>У вас нет такой зарегестрированой организации</h5> {{company.regname_id}}
