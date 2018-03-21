@@ -20,18 +20,16 @@
   </div>
   {% endif %}
 
-<div class="py-3">
+<div class="pt-2">
 
   <nav class="breadcrumb">
     {% block breadcrumbs %} <a class="breadcrumb-item" href="/cabinet/">Личный кабинет</a> {% endblock %}
   </nav>
-
-<div class="container-fluid" style="min-height: 100vh;">
-
+</div>
   {% block cabinet %}
   {% endblock %}
 
-</div>
+
 {% else %}
 <div class="container-fluid  py-5" style="min-height: 100vh;">
   <div class="container-fluid py-5 card text-center z-depth-2"  >
@@ -43,7 +41,7 @@
 {% endif %}
 
 
-</div>
+
 
 
 

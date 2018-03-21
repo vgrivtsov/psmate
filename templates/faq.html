@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+{% extends "layouts/layout.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<style>
+.faq .accordion-block #accordion .card, .faq .accordion-block #accordionTwo .card {
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+
+.faq .accordion-block #accordion .card .card-header, .faq .accordion-block #accordionTwo .card .card-header {
+  background: #fff;
+  padding: 0;
+}
+
+.faq .accordion-block #accordion .card .card-header h5 a, .faq .accordion-block #accordionTwo .card .card-header h5 a {
+  font-weight: 400;
+  color: #45526e;
+}
+
+.faq .accordion-block #accordion .card .card-header h5 a span, .faq .accordion-block #accordionTwo .card .card-header h5 a span {
+  padding: 20px;
+  border-right: 1px solid #e5e5e5;
+  margin-right: 20px;
+}
+
+.faq .accordion-block #accordion .card .card-body, .faq .accordion-block #accordionTwo .card .card-body {
+  color: #848484;
+  padding: 15px 20px;
+}
+
+.faq .accordion-block #accordion .card .collapse.show + .card-header h5 a, .faq .accordion-block #accordionTwo .card .collapse.show + .card-header h5 a {
+  color: #45526e;
+}
+
+</style>
+
+
+<!--=========================
+=            FAQ            =
+==========================-->
+
+<section class="section faq py-5" style="min-height: 100vh;">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<h3 style="color:#45526e">Справочная информация<span class="alternate"></span></h3>
+					<p style="color:#45526e">Справочная информация по терминам профессиональных стандартов и сервисам ПрофНавигатора.</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="accordion-block">
+					<div id="accordion">
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseOne">
+							      <span class="fa fa-plus-circle"></span>Профессиональный стандарт
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseOne" class="collapse show" data-parent="#accordion">
+							  <div class="card-body">
+							    Профессиональный стандарт – характеристика квалификации, необходимой работнику для осуществления определенного вида профессиональной деятельности, в том числе выполнения определенной трудовой функции (ст. 195.1 Трудового кодекса Российской Федерации (далее – Кодекс)).
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseTwo">
+							      <span class="fa fa-plus-circle"></span>Квалификация
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseTwo" class="collapse" data-parent="#accordion">
+							  <div class="card-body">
+							    Квалификация – уровень знаний, умений, профессиональных навыков и опыта работы работника (ст. 195.1 Кодекса).
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseThree">
+							      <span class="fa fa-plus-circle"></span>Обобщенная трудовая функция
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseThree" class="collapse" data-parent="#accordion">
+							  <div class="card-body">
+							    Обобщенная трудовая функция – совокупность связанных между собой трудовых функций, сложившаяся в результате разделения труда в конкретном производственном или бизнес-процессе (приказ Минтруда России № 170н).
+                  Каждая обобщенная трудовая функция описывает профессиональную деятельность, которая может быть выполнена одним работником (в большинстве организаций, где реализуется данный вид профессиональной деятельности).
+                  При формировании должностной инструкции работника в конкретной организации может быть использован не весь набор трудовых функций в обобщенной трудовой функции или же набор трудовых функций может быть расширен исходя из специфики выполняемой работы. Допускается использовать несколько обобщенных трудовых функций, при этом требования к квалификации работника определяются по более высокому уровню квалификации.
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseFour">
+							      <span class="fa fa-plus-circle"></span>Трудовая функция
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseFour" class="collapse" data-parent="#accordion">
+							  <div class="card-body">
+							    Трудовая функция – система трудовых действий в рамках обобщенной трудовой функции (приказ Минтруда России № 170н);
+                  В Кодексе (ст. 57) трудовая функция определяется как
+«работа по должности в соответствии со штатным расписанием, профессии,  специальности  с  указанием  квалификации»,  а  также  как
+«конкретный вид поручаемой работнику работы», таким образом, первая часть определения соответствует обобщенной трудовой функции, а вторая – трудовой функции в профессиональном стандарте.
+Характеристики конкретных трудовых функций содержат описание трудовых действий, необходимых умений и знаний и др.
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseFive">
+							      <span class="fa fa-plus-circle"></span>Поиск профстандарта в ПрофНавигаторе
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseFive" class="collapse" data-parent="#accordion">
+							  <div class="card-body">
+							    <li>Выберите вкладку <strong>Cервисы</strong> пункт <strong>Найти профстандарт</strong></li>
+                  <li>Введите в строке автопоиска интересующее слово из названия профстандарта.</li>
+                  <li>Нажмите кнопку <strong>показать профстандарт</strong></li>
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="accordion-block">
+					<div id="accordionTwo">
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseSix">
+							      <span class="fa fa-plus-circle"></span>Поиск должности в ПрофНавигаторе
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseSix" class="collapse" data-parent="#accordionTwo">
+							  <div class="card-body">
+							    <li>Из поиска <strong>Квалификационный справочник должностей</strong> или из пункта <strong>Cервисы</strong> навигационной панели, пункт <strong>Справочник должностей</strong>
+                  введите интересующую должность.</li>
+                  <li>В списке результатов выберите подходящую пару <strong>Должность</strong> - <strong>Обобщенная трудовая функция</strong>
+                  Обратите внимание, что название должностей может совпадать в разных профстандартах. В колонке <strong>Профстандарт</strong> указан номер профстандарта.</li>
+                  <li>Наведите курсор на него для получения названия в всплывающей подсказке.</li>
+                  <li>Выберете из списка инетресующую должность для получения основной информации.</li>
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseSeven">
+							      <span class="fa fa-plus-circle"></span>Должностная инструкция в ПрофНавигаторе
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseSeven" class="collapse" data-parent="#accordionTwo">
+							  <div class="card-body">
+                 <li>Найдите должность с помощью <strong>Справочника дложностей</strong></li>
+                 <li>Выберите соотвествующие трудовые функции(по умолчанию выбраны все)</li>
+                 <li>Нажмите кнопку <strong>Построить должностные инструкции</strong></li>
+                 <li>Исправьте в шапке названия организации, подразделения и пр. - в тексте будут отображаться на введенные(в именительном падеже)</li>
+                 <li>Для дополнительных возможностей см. раздел <strong>Для зарегестрированных пользователей</strong></li>
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseEight">
+							      <span class="fa fa-plus-circle"></span>Для зарегестрированных пользователей
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseEight" class="collapse" data-parent="#accordionTwo">
+							  <div class="card-body">
+                 <p><strong>Построение должностных инструкций для зарегестрированных пользвателей</strong></p>
+                 <li>Зайдите в <strong>Личный кабинет</strong></li>
+
+                 <li>Зарегестрируйте <strong>Организацию</strong></li>
+                 <li>Зайдите в созданную <strong>Организацию</strong></li>
+                 <li>Создайте <strong>Подразделение</strong></li>
+                 <li>Добавьте должностную инструкцию для соотвествующего <strong>Подразделения</strong> кнопкой <strong>Добавить должностную инструкцию</strong> </li>
+                 <li>Найдите должность с помощью <strong>Справочника дложностей</strong></li>
+                 <li>Выберите соотвествующие трудовые функции(по умолчанию выбраны все)</li>
+                 <li>Нажмите кнопку <strong>Построить должностные инструкции</strong></li>
+                 <li>Должностная инструкци сгенерируется в соответствии с настройками организации и подразделения, в правильных падежах по тексту документа.</li>
+                 <li>Сохраните должностную инструкцию в подразделении для будущей работы с ней</li>
+                 <li>Скачайте должностную инструкцию в формате MS Word (.docx)</li>
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseNine">
+							      <span class="fa fa-plus-circle"></span>Создание резюме
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseNine" class="collapse" data-parent="#accordionTwo">
+							  <div class="card-body">
+                  В разделе <strong>Конструктор резюме</strong> можно создать резюме в терминах профстандарта.
+                  Для этого:
+							    <li>Выберете в навигационной панели <strong>Конструктор резюме</strong></li>
+                  <li>Добавьте место работы</li>
+                  <li>Нажмите кнопку <strong>Добавить квалификацию</strong></li>
+                  <li>Выберите отрасль</li>
+                  <li>В строке автопоиска введите должность или номер профстандарта или название профстандарта </strong></li>
+                  <li>Нажмите <strong>Выбрать трудовые функции</strong></li>
+                  <li>Будут предложены все трудовые функции профстандарта. Цветом выделены трудовые функции соответсвуюущей обобщенной трудовой функции.</li>
+                  <li>Выберите трудовые функции и соотвествующие компетенции</li>
+                  <li>Добавьте квалификацию или место работы по желанию.</li>
+							  </div>
+							</div>
+						</div>
+						<!-- Collapse -->
+						<div class="card">
+							<!-- Collapse Header -->
+							<div class="card-header" id="headingOne">
+							  <h5 class="mb-0">
+							    <a data-toggle="collapse" href="#collapseTen">
+							      <span class="fa fa-plus-circle"></span>Рекомендации по обучению
+							    </a>
+							  </h5>
+							</div>
+							<!-- Collapse Body -->
+							<div id="collapseTen" class="collapse" data-parent="#accordionTwo">
+							  <div class="card-body">
+                  В разработке
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!--====  End of FAQ  ====-->
+
+{% endblock %}

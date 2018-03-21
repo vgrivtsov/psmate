@@ -11,7 +11,6 @@
 {% block companyprofile %}
 
 
-
 <!-- Page Content -->
 <div class="container py-5 jobtitlesdetails" >
 <!-- /.card 1 -->
@@ -108,12 +107,25 @@
 
 {% for item in jtresult.tfs %}
 <label for="checkbox{{item.id}}">
-  <li class="list-group-item" id="listitem">
+  <li class="list-group-item mdb-color lighten-5" id="listitem">
        <input id="checkbox{{item.id}}" type="checkbox" checked name="tfids" value="{{item.id}}" />
         {{item.nametf}}. Код: {{item.codetf}}
   </li>
 </label>
+
 {% endfor %}
+
+<script>
+
+$("input[type='checkbox']").change(function(){
+    if($(this).is(":checked")){
+        $(this).parent().addClass("mdb-color lighten-5");
+    }else{
+        $(this).parent().removeClass("mdb-color lighten-5");
+    }
+});
+</script>
+
 </ul>
   </form>
 {% endif %}
@@ -149,6 +161,8 @@ function addtfsid() {
     else{e.value="no";  history.pushState(); var tfids = $( "form" ).serialize();}
     }
 }
+
+
 </script>
 
 {% endblock %}
