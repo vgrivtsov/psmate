@@ -75,6 +75,7 @@ class OrgReadView(View):
     def get(self, request, *args, **kwargs):
 
         user = self.request.user
+        paidactivdate = request.user.profiles.paidactivdate
         stop_paidactivdate = True
 
         if paidactivdate:
