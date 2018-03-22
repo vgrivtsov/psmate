@@ -5,12 +5,12 @@
 {% load static %}
 {% block cabinet %}
 
-<div class="container py-5" style="min-height: 100vh;">
+<div class="container py-5 usercabinet" style="min-height: 100vh;">
 
 <div class="row">
  <a href="{% url 'settings' %}">
   <div class="col-md-4">
-   <div class="card" >
+   <div class="card h-100 card-usercab" >
     <div class="card-body">
       <div class="clearfix">
         <i class="fa fa-user float-right"></i>
@@ -89,7 +89,7 @@
 <!--Card company info-->
 <div class="col-md-4">
  <a href="{% url 'organization-profile' company.id %}">
-  <div class="card h-100">
+  <div class="card h-100 orgcard">
     <div class="card-title mx-2 my-1">
       <h6>{{company.e_op_form}} «{{company.e_name}}»</h5>
     </div>
@@ -109,13 +109,11 @@
 {% for x in '12' %}
 <div class="col-md-4">
 
-  <div class="card text-center z-depth-2 h-100" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
-    <div class="card-title mx-2 my-1">
-     Место для организации
-    </div>
-  <div class="card-body" >
+  <div class="card orgcard z-depth-2 h-100 align-items-center" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
+<!--    <div class="card-title mx-2 my-1 ">
 
-  </div>
+    </div>-->
+  <div class="card-body text-center" >Место для организации</div>
 
   </div>
 </div>
@@ -126,13 +124,11 @@
 {% for x in '1' %}
 <div class="col-md-4">
 
-  <div class="card text-center z-depth-2 h-100" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
-    <div class="card-title mx-2 my-1">
-     Место для организации
-    </div>
-  <div class="card-body" >
+  <div class="card orgcard  z-depth-2 h-100 align-items-center" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
+<!--    <div class="card-title mx-2 my-1 ">
 
-  </div>
+    </div>-->
+  <div class="card-body text-center " >Место для организации</div>
 
   </div>
 </div>
@@ -143,15 +139,14 @@
 {% for x in '123' %}
 <div class="col-md-4">
 
-  <div class="card text-center z-depth-2 h-100" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
-    <div class="card-title mx-2 my-1">
-     Место для организации
-    </div>
-  <div class="card-body" >
+  <div class="card orgcard z-depth-2 h-100 align-items-center" style="background-color: #bdbdbd; border: dashed 3px white; height: 500px;">
+<!--    <div class="card-title mx-2 my-1">
+
+    </div>-->
+  <div class="card-body text-center " >Место для организации</div>
 
   </div>
 
-  </div>
 </div>
 {% endfor %}
 
