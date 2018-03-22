@@ -76,6 +76,9 @@ class UserCabinetView(View):
 
         user = self.request.user
         paidactivdate = request.user.profiles.paidactivdate
+        companies = Enterprises.objects.filter(regname_id=user.id)
+
+        stop_paidactivdate = True
 
         if paidactivdate:
             #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
@@ -86,9 +89,9 @@ class UserCabinetView(View):
             # y = timedelta(days=366)
             #print(m, m3, y)
 
-            if (paidactivdate - datenow).days + 1 < 0:
-                stop_paidactivdate = True
-            else: stop_paidactivdate = False
+            if (paidactivdate - datenow).days + 1 > 0:
+                stop_paidactivdate = False
+
 
             # if (paidactivdate - datenow).days + 1 > 0:
             #     balance = paidactivdate - datenow
@@ -99,7 +102,7 @@ class UserCabinetView(View):
             # new_paidactivdate = datenow + m + balance
             # print(new_paidactivdate)
 
-            companies = Enterprises.objects.filter(regname_id=user.id)
+
 
         return render(request, self.template_name, {'user': user,
                                                     'companies' :companies,
