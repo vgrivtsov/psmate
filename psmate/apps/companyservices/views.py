@@ -75,7 +75,7 @@ class OrgReadView(View):
     def get(self, request, *args, **kwargs):
 
         user = self.request.user
-        paidactivdate = request.user.profiles.paidactivdate
+        stop_paidactivdate = True
 
         if paidactivdate:
             #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
@@ -86,15 +86,14 @@ class OrgReadView(View):
             # y = timedelta(days=366)
             #print(m, m3, y)
 
-            if (paidactivdate - datenow).days + 1 < 0:
-                stop_paidactivdate = True
-            else: stop_paidactivdate = False
-            print(stop_paidactivdate)
-
             if (paidactivdate - datenow).days + 1 > 0:
-                balance = paidactivdate - datenow
-            else:
-                balance = timedelta(0)
+                stop_paidactivdate = False
+
+
+            # if (paidactivdate - datenow).days + 1 > 0:
+            #     balance = paidactivdate - datenow
+            # else:
+            #     balance = timedelta(0)
 
             # print('balance', balance)
             # new_paidactivdate = datenow + m + balance
@@ -492,12 +491,29 @@ class OICreateView(ListView):
         user = self.request.user
         paidactivdate = request.user.profiles.paidactivdate
 
+        stop_paidactivdate = True
+
         if paidactivdate:
+            #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
             datenow = datetime.now().date()
 
-            if (paidactivdate - datenow).days + 1 < 0:
-                stop_paidactivdate = True
-            else: stop_paidactivdate = False
+            # m= timedelta(days=31)
+            # m3 = timedelta(days=93)
+            # y = timedelta(days=366)
+            #print(m, m3, y)
+
+            if (paidactivdate - datenow).days + 1 > 0:
+                stop_paidactivdate = False
+
+
+            # if (paidactivdate - datenow).days + 1 > 0:
+            #     balance = paidactivdate - datenow
+            # else:
+            #     balance = timedelta(0)
+
+            # print('balance', balance)
+            # new_paidactivdate = datenow + m + balance
+            # print(new_paidactivdate)
 
 
         cmpd0 = {'company' : company, 'department' : department}
