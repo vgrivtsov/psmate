@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+{% extends "layouts/cabinetlayout.html" %}
+{% load envelope_tags crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<style>
+textarea{
+
+  height:200px;
+  min-height:200px;
+  max-height:200px;
+}
+</style>
+
+
+<div style=" background-color: #f5f5f5;">
+
+<section class="container contact-form py-5" style="min-height: 100vh;">
+  			<div class="section-title">
+					<h3>Отправьте нам сообщение</h3>
+				</div>
+<form action="{% url 'envelope-contact' %}" method="post">
+    {% csrf_token %}
+    {% antispam_fields %}
+    {% crispy form %}
+</form>
+</section>
+
+<!--====  End of FAQ  ====-->
+
+{% endblock %}

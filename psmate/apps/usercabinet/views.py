@@ -17,6 +17,12 @@ from django.forms import inlineformset_factory
 from psmate.models import Enterprises
 from datetime import datetime, timedelta
 
+from braces.views import FormMessagesMixin
+from envelope.views import ContactView
+
+from django.utils.translation import ugettext_lazy as _
+
+from .forms import MyContactForm
 # class RegisterFormView(FormView):
 #     form_class = UserRegisterForm
 #     template_name = "regform.html"
@@ -158,3 +164,8 @@ class PricingView(TemplateView):
        # user = self.request.user
 
         return render(request, self.template_name)
+
+class MyContactView(FormMessagesMixin, ContactView):
+    form_invalid_message = _(u"There was an error in the contact form.")
+    form_valid_message = _(u"Thank you for your message.")
+    form_class = MyContactForm
