@@ -68,7 +68,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 </p>
 
 <p class="western" style="margin-bottom: 0in" align="justify">
-     1.1. Настоящая должностная инструкция
+    1.1. Настоящая должностная инструкция
 определяет функциональные, должностные
 обязанности, права и ответственность
 {{generaldatas.jobtitlerod}} подразделения «<span ng-bind-html="depart"></span>»
@@ -77,8 +77,8 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 
 <div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <span contenteditable="true" >
-<p class="western" style="margin-bottom: 0in" align="justify">	1.2.
-На должность {{generaldatas.jobtitlerod}} назначается
+<p class="western" style="margin-bottom: 0in" align="justify">
+	   1.2. На должность {{generaldatas.jobtitlerod}} назначается
 лицо, удовлетворяющее следующим требованиям к образованию и обучению:
 </p>
 {% for education in generaldatas.educationalreqs %}
@@ -96,13 +96,22 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 {% endfor %}
 {% endif %}
 
+{% if generaldatas.specialconditions %}
+   <p class="western" style="margin-bottom: 0in" align="justify">Особые условия допуска к работе {{generaldatas.jobtitlerod}}:</p>
+{% for speconds in generaldatas.specialconditions %}
+<div  class="ofinstructions">
+  <li>{{speconds}};</li>
+</div>
+{% endfor %}
+{% endif %}
+
 </div>
 
 <div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <span contenteditable="true" >
 
 <p class="western" style="margin-bottom: 0in" align="justify">
-     1.3. {{generaldatas.jobtitle}} должен знать:
+    1.3. {{generaldatas.jobtitle}} должен знать:
 </p>
 {% for nk in requirements.necessaryknowledges %}
 <div  class="ofinstructions">
@@ -111,7 +120,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 {% endfor %}
 
 <p class="western" style="margin-bottom: 0in" align="justify">
-     1.4. {{generaldatas.jobtitle}} должен уметь:
+    1.4. {{generaldatas.jobtitle}} должен уметь:
 </p>
 {% for rs in requirements.requiredskills %}
 <div  class="ofinstructions">
@@ -123,7 +132,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 
 <div class="ofhead 15" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <p class="western" style="margin-bottom: 0in" align="justify">
-     1.5. {{generaldatas.jobtitle}} назначается на должность
+    1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
 <span contenteditable="true" ng-bind-html="ceo"></span> Учреждения в соответствии с
 действующим законодательством Российской
@@ -230,7 +239,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
 порученном участке работы.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
-    4.6.  Обращаться в соответствующие
+    4.6. Обращаться в соответствующие
 органы местного самоуправления или в
 суд для разрешения споров, возникающих
 при исполнении функциональных
@@ -240,7 +249,7 @@ _______________<span contenteditable="true" data-directive ng-model="director" >
     4.7. Пользоваться информационными
 материалами и нормативно-правовыми
 документами, необходимыми для исполнения
-своих должностных обязанностей;
+своих должностных обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
     4.8. Проходить в установленном порядке

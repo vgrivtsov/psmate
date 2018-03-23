@@ -15,6 +15,6 @@ urlpatterns = [
     url(r'^cabinet/$', views.UserCabinetView.as_view(),  name='cabinet'),
     url(r'^settings/$',views.UserSettingsView.as_view(), name='settings'),
     url(r'^pricing/$',views.PricingView.as_view(), name='pricing'),
-    url(r'^contacts/', ContactView.as_view(form_class=MyContactForm)),
+    url(r'^contacts/', ContactView.as_view(form_class=MyContactForm), name='contacts'),
 
 ]

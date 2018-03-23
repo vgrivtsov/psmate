@@ -646,7 +646,8 @@ class OICreateView(ListView):
 
             for i in cleared_jt.split(' '):
                 p = morph.parse(i)[0]
-                if p.tag.POS in pos_list and p.tag.case == 'nomn': # Chast' rechi & padezh
+                print(p)
+                if p.tag.POS in pos_list and p.tag.case == 'nomn' and p.tag.number == 'sing': # Chast' rechi & padezh
 
                     if p.inflect({'gent'}) :
 
@@ -659,6 +660,8 @@ class OICreateView(ListView):
                             changed_word = 'брэнд-менеджера'
                         if changed_word == 'чокерноя':
                             changed_word = 'чокерной'
+                        if changed_word == 'поварова':
+                            changed_word = 'поваров'
 
                         jt_rod.append(changed_word)
                     else:

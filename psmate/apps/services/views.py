@@ -347,7 +347,7 @@ class SearchJT(FormView):
 
     def form_valid(self, form):
         jobtitle = form.cleaned_data.get('jobtitle')
-
+        print(jobtitle)
         return redirect('search-jobtitles', jobtitle)
 
 
@@ -371,9 +371,13 @@ class ShowJTlist(ListView):
 
         search_data = self.request.GET.get('search', None)
 
+
         jtresult = []
 
         if search_data:
+
+            search_data = search_data.strip()
+            search_data = ' '.join(search_data.split())
 
             jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
 
@@ -498,7 +502,7 @@ class OfficialInstructions(ListView):
 
             for i in cleared_jt.split(' '):
                 p = morph.parse(i)[0]
-                if p.tag.POS in pos_list and p.tag.case == 'nomn': # Chast' rechi & padezh
+                if p.tag.POS in pos_list and p.tag.case == 'nomn' and p.tag.number == 'sing': # Chast' rechi & padezh
 
                     #print(jt_rod_word)
                     if p.inflect({'gent'}) :
@@ -510,6 +514,8 @@ class OfficialInstructions(ListView):
                             changed_word = 'бренд-менеджера'
                         if changed_word == 'брэнда-менеджера':
                             changed_word = 'брэнд-менеджера'
+                        if changed_word == 'поварова':
+                            changed_word = 'поваров'
 
                         jt_rod.append(changed_word)
 

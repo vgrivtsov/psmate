@@ -163,6 +163,15 @@
     {% endfor %}
 {% endif %}
 
+  <!--Messages-->
+  {% if messages %}
+  <div class="alert alert-success">
+      {% for m in messages %}
+         {{ m }}
+      {% endfor %}
+  </div>
+  {% endif %}
+
 </body>
 
 <!--====  End of Navigation Section  ====-->
@@ -206,7 +215,7 @@
             <div class="col-md-6">Штурман в океане профессиональных стандартов</div>
 
               <div class="col-md-6 text-right">
-                <a class="col" href="/conacts/" >Контакты</a>
+                <a class="col" href="{% url 'contacts' %}" >Обратная связь</a>
                 <a class="col" href="/about/">О проекте</a>
                 <a class="col" href="/agreement/">Соглашение на обработку персональных данных</a>
              </div>
