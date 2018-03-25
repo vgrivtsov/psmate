@@ -14,20 +14,14 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
   
     });
 
-
     app.controller('ResumeItems', function($scope, $http, GetCV) {
 
-
-    //$scope.cvitems =[];
-    //
     GetCV.then(function (cv) {
 
         $scope.cvitems = cv
     
     $scope.items = [];
-    
-    
-    
+
     //---.put last data from db to input---
     //---for each cv items get data values---
     angular.forEach($scope.cvitems, function(cvitem) {
@@ -82,7 +76,6 @@ var app = angular.module('resume_form', ['ui.bootstrap', 'angular.filter',
 
         $scope.items.find(item => item.id === itemid).Quali.splice(index, 1);
     };    
-    
     
     
 $scope.getitems = function(){
@@ -141,7 +134,6 @@ console.log($scope.items)
     }).then(function SelectPS(response) {
 
         $scope.selectps[qualiid] = response.data;
-       //console.log(response.data)
      
     }, function PSerror(response) {
         $scope.selectps = response.statusText;
@@ -157,15 +149,13 @@ console.log($scope.items)
     	params: {psvars: [selectedPS, selectedJT]}
       
     }).then(function SelectCompt(response) {
-    
-        //$scope.selectcompt[qualiid] = response.data;
+
         $scope.items.find(item => item.id === itemid).Quali.find(quali => quali.id === qualiid).FL_cv_TF = response.data;
         
     }, function Comptterror(response) {
         $scope.selectcompt = response.statusText;
     });
     }
-
   
 });
 });

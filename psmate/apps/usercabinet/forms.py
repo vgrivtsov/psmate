@@ -68,9 +68,8 @@ class ProfileSettingsForm(ModelForm):
 
 
 class MyContactForm(ContactForm):
+
     def __init__(self, *args, **kwargs):
         super(MyContactForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit', css_class='btn-outline-mdb-color btn-md'))
-
-

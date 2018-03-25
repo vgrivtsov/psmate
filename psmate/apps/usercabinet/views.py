@@ -13,8 +13,10 @@ from django.views.generic import FormView, ListView, View, UpdateView, TemplateV
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
+from django.contrib import messages
 
-from psmate.models import Enterprises
+
+from psmate.models import Enterprises, Orders
 from datetime import datetime, timedelta
 
 from braces.views import FormMessagesMixin
@@ -23,6 +25,12 @@ from envelope.views import ContactView
 from django.utils.translation import ugettext_lazy as _
 
 from .forms import MyContactForm
+
+from django_robokassa.forms import RobokassaForm
+from django.shortcuts import get_object_or_404, render
+
+from datetime import datetime, timedelta
+
 # class RegisterFormView(FormView):
 #     form_class = UserRegisterForm
 #     template_name = "regform.html"
@@ -168,7 +176,107 @@ class PricingView(TemplateView):
 
         return render(request, self.template_name)
 
+
 class MyContactView(FormMessagesMixin, ContactView):
     form_invalid_message = _(u"There was an error in the contact form.")
     form_valid_message = _(u"Thank you for your message.")
     form_class = MyContactForm
+
+
+# class MakeOrder(View):
+#
+#     success_url = "/purchase/"
+#     model = Orders
+#
+#     def get_context_data(self, request, *args, **kwargs):
+#
+#         user = self.request.user
+#         purchase_name = self.kwargs['purchase_name']
+#
+#         if purchase_name == '1month':
+#             name = 'Оплата за 1 месяц использования сервиса ПрофНавигатор'
+#             out_summ = 600
+#
+#         elif purchase_name == '3month':
+#             name = 'Оплата за 3 месяца использования сервиса ПрофНавигатор'
+#             out_summ = 1500
+#
+#         elif purchase_name == '12month':
+#             name = 'Оплата за год использования сервиса ПрофНавигатор'
+#             out_summ = 4800
+#
+#         else:
+#             messages.error(request, "Ошибка - неверная сумма")
+#             return reverse_lazy('pricing')
+#
+#
+#         order = Orders.objects.create(user_id=user.id, name=name, out_summ=out_summ)
+#
+#         return super(MakeOrder, self).get_context_data(**kwargs)
+
+
+
+class RobokassaView(FormView):
+
+    template_name = 'robokassa/pay_with_robokassa.html'
+    form_class = RobokassaForm
+    models= Orders
+
+    def dispatch(self, *args, **kwargs):
+        return super(RobokassaView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+
+        user = self.request.user
+
+        purchase_name = self.kwargs['purchase_name']
+        print(user, purchase_name)
+
+        if purchase_name == '600':
+            order_name = 'Оплата за 1 месяц использования сервиса ПрофНавигатор'
+            out_summ = 560.75
+            period = '3 месяца'
+            commission = 600- 560.75
+
+        elif purchase_name == '1500':
+            order_name = 'Оплата за 3 месяца использования сервиса ПрофНавигатор'
+            out_summ = 1401.87
+            period = '1 месяц'
+            commission = 1500- 1401.87
+
+        elif purchase_name == '4800':
+            order_name = 'Оплата за год использования сервиса ПрофНавигатор'
+            out_summ = 4485.98
+            period = '1 год'
+            commission = 4800 - 4485.98
+
+        else:
+            messages.error(request, "Ошибка - неверная сумма")
+            return reverse_lazy('pricing')
+
+
+        order = Orders.objects.create(user_id=user.id, name=order_name, out_summ=out_summ, created_at=datetime.now())
+
+        #print(purchase_name, order.id, out_summ, user.email, datetime.now().date())
+
+
+        generaldata = { 'purchase_name' : purchase_name,
+                       'ordernum' : order.id,
+                       'period' : period,
+                       'commission' : commission,
+                       'out_summ' : out_summ,
+
+                       }
+
+        form = RobokassaForm(initial={
+                   'IncCurrLabel' : 'BankCard',
+                   'OutSum': out_summ,
+                   'InvId': order.id,
+                   'Desc': order_name,
+                   'Email': user.email,
+                   # 'IncCurrLabel': '',
+                   # 'Culture': 'ru'
+               })
+
+        return render(request, self.template_name, {'form': form, 'generaldata' : generaldata})
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+{% extends "layouts/cabinetlayout.html" %}
+
+{% load static %}
+{% block cabinet %}
+
+
+<style>
+
+</style>
+
+
+<section class="section robokassaform" style="min-height: 100vh;">
+	<div class="container">
+
+    <div class="row">
+        <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <address>
+                        <strong>ПрофНавигатор</strong>
+                    </address>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <p>
+                        <em>«{% now "j" %}» {% now "E" %} {% now "Y" %} г.</em>
+                    </p>
+                    <p>
+                        <em>Заказ №: {{generaldata.ordernum}}</em>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <h2>Получение доступа</h2>
+                </div>
+                </span>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th class="text-center">Цена</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-md-8"><em>Получение доступа к сервисам на {{generaldata.period}}</em></td>
+                            <td class="col-md-1 text-center">{{generaldata.out_summ}} <span><i class="fa fa-rouble"></i></span></td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-8"><em>Комиссия Робокассы </em></td>
+                            <td class="col-md-1 text-center">{{generaldata.commission}} <span><i class="fa fa-rouble"></i></span></td>
+                        </tr>
+                        <tr >
+                            <td colspan="2" class="text-right"><h4><strong>Итого: {{generaldata.purchase_name}} <i class="fa fa-rouble"></strong></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+ <form action="{{ form.target }}" method="POST">
+    <p>{{ form.as_p }}</p>
+    <p><input type="submit" class="btn btn-amber btn-lg btn-block" value="Оплатить"></p>
+</form>
+       </td>
+            </div>
+        </div>
+
+	</div>
+</section>
+
+
+{% endblock %}

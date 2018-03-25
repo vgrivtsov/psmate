@@ -1,0 +1,84 @@
+
+.searchjobtitle input[type=text] + label {
+             color: #45526e;
+        }
+.searchjobtitle input[type=text] {
+             color: #45526e;
+        }
+
+.searchjobtitle input[type=text]:focus:not([readonly]) + label {
+             color: #45526e;
+        }
+
+.jobtitlelist .jobtitlelist-contents {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 5px;
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul {
+  margin-bottom: 0;
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li {
+  list-style: none;
+}
+
+/*.jobtitlelist .jobtitlelist-contents .jobtitlelist-item ul li div {
+  display: inline-block;
+
+}*/
+
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.headings {
+  padding: 22px 30px;
+  background: #45526e;
+
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.headings div {
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details {
+  border-bottom: 1px solid;
+
+  border-right: 1px solid;
+  border-color: #e5e5e5;
+
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block {
+  padding: 10px 40px;
+  background: #fff;
+  width: 100%;
+  transition: .2s ease-in;
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block div {
+  color: #222222;
+  font-family: "Montserrat", sans-serif;
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block div i {
+  font-size: 1.1875em;
+  color: #c7c8c9;
+}
+
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block div span.jobtitleitem {
+  margin-left: 5px;
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block:hover {
+  box-shadow: 0px 0px 30px 0px rgba(11, 29, 66, 0.15);
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+.jobtitlelist .jobtitlelist-contents .jobtitlelist-item li.jobtitlelist-details .block:hover span.jobtitleitem {
+  color: #ff6f00 ;
+}
