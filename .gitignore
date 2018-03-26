@@ -11,4 +11,5 @@ models*
 /static
 /psmate/settings
 /psmate/migrations
+/psmate/static
 
