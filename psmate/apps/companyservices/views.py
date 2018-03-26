@@ -79,26 +79,11 @@ class OrgReadView(View):
         stop_paidactivdate = True
 
         if paidactivdate:
-            #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
             datenow = datetime.now().date()
-
-            # m= timedelta(days=31)
-            # m3 = timedelta(days=93)
-            # y = timedelta(days=366)
-            #print(m, m3, y)
 
             if (paidactivdate - datenow).days + 1 > 0:
                 stop_paidactivdate = False
 
-
-            # if (paidactivdate - datenow).days + 1 > 0:
-            #     balance = paidactivdate - datenow
-            # else:
-            #     balance = timedelta(0)
-
-            # print('balance', balance)
-            # new_paidactivdate = datenow + m + balance
-            # print(new_paidactivdate)
 
         company_id = self.kwargs['id']
 
@@ -497,12 +482,7 @@ class OICreateView(FormView):
 
         data =  self.kwargs['slug']
         docx =  self.kwargs['docx']
-
-        # if self.kwargs['tfids']:
-        #     tfsid = self.kwargs['tfids']
-        # else:
         tfsid = [int(x) for x in self.request.GET.getlist('tfids')]
-
 
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']
@@ -517,27 +497,10 @@ class OICreateView(FormView):
         stop_paidactivdate = True
 
         if paidactivdate:
-            #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
             datenow = datetime.now().date()
-
-            # m= timedelta(days=31)
-            # m3 = timedelta(days=93)
-            # y = timedelta(days=366)
-            #print(m, m3, y)
 
             if (paidactivdate - datenow).days + 1 > 0:
                 stop_paidactivdate = False
-
-
-            # if (paidactivdate - datenow).days + 1 > 0:
-            #     balance = paidactivdate - datenow
-            # else:
-            #     balance = timedelta(0)
-
-            # print('balance', balance)
-            # new_paidactivdate = datenow + m + balance
-            # print(new_paidactivdate)
-
 
         cmpd0 = {'company' : company, 'department' : department}
 
@@ -793,31 +756,6 @@ class OICreateView(FormView):
         messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
         return reverse_lazy('org-official-instructions', kwargs={'id': self.kwargs['id'],
                             'pk': self.kwargs['pk'],'slug': self.kwargs['slug']}) + '?' + str_url_params
-
-
-
-# class OISaveView(FormView):
-#     form_class = OICreateForm
-#     template_name = "companyservices/official-instructions-new.html"
-#
-#     def form_valid(self, form):
-#         form.save()
-#
-#         name = self.request.POST['name']
-#         tfs = self.request.POST['tfs']
-#         slug = self.request.POST['slug']
-#         jt = self.request.POST['jt']
-#         company = self.request.POST['company']
-#         departs = self.request.POST['departs']
-#         messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
-#         return super(OISaveView, self).form_valid(form)
-#
-#
-#     def get_success_url(self):
-#
-#         messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
-#         return reverse_lazy('org-official-instructions', kwargs={'id': self.kwargs['id'],
-#                             'pk': self.kwargs['pk'],'slug': self.kwargs['slug'], 'tfids' : self.request.POST['tfs']})
 
 
 class OIDeleteView(DeleteView):

@@ -33,24 +33,6 @@ from django.shortcuts import get_object_or_404, render
 
 from datetime import datetime, timedelta
 
-# class RegisterFormView(FormView):
-#     form_class = UserRegisterForm
-#     template_name = "regform.html"
-#     success_url = "/settings/"
-#
-#     def form_valid(self, form):
-#         # create user
-#         form.save()
-#         # get email-password
-#         email = self.request.POST['email']
-#         password = self.request.POST['password1']
-#         #authenticate user then login
-#         user = authenticate(username=email, password=password)
-#         login(self.request, user)
-#
-#         # call base class method
-#         return super(RegisterFormView, self).form_valid(form)
-
 
 class LoginFormView(FormView):
     form_class = AuthenticationForm
@@ -91,26 +73,11 @@ class UserCabinetView(View):
         stop_paidactivdate = True
 
         if paidactivdate:
-            #paidactivdate = datetime.strptime( paidactivdate, "%Y-%m-%d" )
             datenow = datetime.now().date()
-
-            # m= timedelta(days=31)
-            # m3 = timedelta(days=93)
-            # y = timedelta(days=366)
-            #print(m, m3, y)
 
             if (paidactivdate - datenow).days + 1 > 0:
                 stop_paidactivdate = False
 
-
-            # if (paidactivdate - datenow).days + 1 > 0:
-            #     balance = paidactivdate - datenow
-            # else:
-            #     balance = timedelta(0)
-
-            # print('balance', balance)
-            # new_paidactivdate = datenow + m + balance
-            # print(new_paidactivdate)
 
 
 
@@ -185,39 +152,6 @@ class MyContactView(FormMessagesMixin, ContactView):
     form_class = MyContactForm
 
 
-# class MakeOrder(View):
-#
-#     success_url = "/purchase/"
-#     model = Orders
-#
-#     def get_context_data(self, request, *args, **kwargs):
-#
-#         user = self.request.user
-#         purchase_name = self.kwargs['purchase_name']
-#
-#         if purchase_name == '1month':
-#             name = 'Оплата за 1 месяц использования сервиса ПрофНавигатор'
-#             out_summ = 600
-#
-#         elif purchase_name == '3month':
-#             name = 'Оплата за 3 месяца использования сервиса ПрофНавигатор'
-#             out_summ = 1500
-#
-#         elif purchase_name == '12month':
-#             name = 'Оплата за год использования сервиса ПрофНавигатор'
-#             out_summ = 4800
-#
-#         else:
-#             messages.error(request, "Ошибка - неверная сумма")
-#             return reverse_lazy('pricing')
-#
-#
-#         order = Orders.objects.create(user_id=user.id, name=name, out_summ=out_summ)
-#
-#         return super(MakeOrder, self).get_context_data(**kwargs)
-
-
-
 class RobokassaView(FormView):
 
     template_name = 'robokassa/pay_with_robokassa.html'
@@ -258,9 +192,6 @@ class RobokassaView(FormView):
 
 
         order = Orders.objects.create(user_id=user.id, name=order_name, out_summ=out_summ, created_at=datetime.now())
-
-        #print(purchase_name, order.id, out_summ, user.email, datetime.now().date())
-
 
         generaldata = { 'purchase_name' : purchase_name,
                        'ordernum' : order.id,
@@ -306,7 +237,7 @@ class RobocassaSuccessView(View):
 
 
         if profile.paidactivdate:
-            datenow = datetime.now().date() 
+            datenow = datetime.now().date()
 
             if (profile.paidactivdate - datenow).days + 1 > 0:
                 balance = profile.paidactivdate - datenow
@@ -323,4 +254,3 @@ class RobocassaSuccessView(View):
         order.save()
 
     result_received.connect(payment_received)
-
