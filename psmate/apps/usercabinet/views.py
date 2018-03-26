@@ -171,13 +171,13 @@ class RobokassaView(FormView):
         if purchase_name == '600':
             order_name = 'Оплата за 1 месяц использования сервиса ПрофНавигатор'
             out_summ = 560.75
-            period = '3 месяца'
+            period = '1 месяц'
             commission = 600- 560.75
 
         elif purchase_name == '1500':
             order_name = 'Оплата за 3 месяца использования сервиса ПрофНавигатор'
             out_summ = 1401.87
-            period = '1 месяц'
+            period = '3 месяца'
             commission = 1500- 1401.87
 
         elif purchase_name == '4800':
