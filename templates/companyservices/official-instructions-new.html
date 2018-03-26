@@ -324,7 +324,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% if ois|length < 300 %}
 
 <div>
-   <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
+   <form method='post' action="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">
        {% csrf_token %}
        {{ form.as_p}}
        <input type="hidden" name='company' value='{{cmpd0.company.id}}'>
@@ -345,7 +345,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% if ois_len == 0 %}
 
 <div>
-   <form method='post' action="{% url 'org-official-instructions-save' cmpd0.company.id cmpd0.department.id generaldatas.slug %}">
+   <form method='post' action="{% url 'org-official-instructions' cmpd0.company.id cmpd0.department.id generaldatas.slug %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">
        {% csrf_token %}
        {{ form.as_p}}
        <input type="hidden" name='company' value='{{cmpd0.company.id}}'>

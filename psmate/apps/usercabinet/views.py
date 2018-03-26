@@ -16,7 +16,7 @@ from django.forms import inlineformset_factory
 from django.contrib import messages
 
 
-from psmate.models import Enterprises, Orders
+from psmate.models import Enterprises, Orders, Profiles
 from datetime import datetime, timedelta
 
 from braces.views import FormMessagesMixin
@@ -27,6 +27,8 @@ from django.utils.translation import ugettext_lazy as _
 from .forms import MyContactForm
 
 from django_robokassa.forms import RobokassaForm
+from django_robokassa.signals import result_received
+
 from django.shortcuts import get_object_or_404, render
 
 from datetime import datetime, timedelta
@@ -274,9 +276,51 @@ class RobokassaView(FormView):
                    'InvId': order.id,
                    'Desc': order_name,
                    'Email': user.email,
-                   # 'IncCurrLabel': '',
+                   'user_id': user.id,
                    # 'Culture': 'ru'
                })
 
         return render(request, self.template_name, {'form': form, 'generaldata' : generaldata})
+
+class RobocassaSuccessView(View):
+
+    template_name = 'robokassa/success.html'
+
+    def dispatch(self, *args, **kwargs):
+        return super(RobokassaSuccessView, self).dispatch(*args, **kwargs)
+
+    def payment_received(sender, **kwargs):
+        order = Orders.objects.get(id=kwargs['InvId'])
+        order.status = 'paid'
+        order.save()
+        profile = Profiles.objects.get(user_id=kwargs['extra']['user_id'])
+
+        if order.name == 'Оплата за 1 месяц использования сервиса ПрофНавигатор':
+            active_period = timedelta(days=31)
+
+        if order.name == 'Оплата за 3 месяца использования сервиса ПрофНавигатор':
+            active_period = timedelta(days=93)
+
+        if order.name == 'Оплата за год использования сервиса ПрофНавигатор':
+            active_period = timedelta(days=366)
+
+
+        if profile.paidactivdate:
+            datenow = datetime.now().date() 
+
+            if (profile.paidactivdate - datenow).days + 1 > 0:
+                balance = profile.paidactivdate - datenow
+            else:
+                balance = timedelta(0)
+
+            profile.paidactivdate = datenow + active_period + balance
+        else:
+            profile.paidactivdate = order.created_at
+        profile.save()
+
+        order.status = 'paid'
+
+        order.save()
+
+    result_received.connect(payment_received)
 

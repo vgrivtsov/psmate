@@ -5,7 +5,7 @@ except ImportError:
     from django.core.urlresolvers import reverse_lazy
 
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import FormView, ListView, View, UpdateView, DeleteView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
@@ -472,16 +472,38 @@ class OIJTDetailsView(JTDetailsView):
             return render(request, self.template_name, {'jtresult': jtresult, 'cmpd': cmpd })
 
 
-class OICreateView(ListView):
+class OICreateView(FormView):
 
+    form_class = OICreateForm
     template_name = "companyservices/official-instructions-new.html"
     model = Jobtitles
+    success_url = "org-official-instructions"
+
+    def form_valid(self, form):
+        form.save()
+
+        name = self.request.POST['name']
+        tfs = self.request.POST['tfs']
+        slug = self.request.POST['slug']
+        jt = self.request.POST['jt']
+        company = self.request.POST['company']
+        departs = self.request.POST['departs']
+        messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
+        return super(OICreateView, self).form_valid(form)
+
+
 
     def get(self, request,  *args, **kwargs):
 
         data =  self.kwargs['slug']
         docx =  self.kwargs['docx']
+
+        # if self.kwargs['tfids']:
+        #     tfsid = self.kwargs['tfids']
+        # else:
         tfsid = [int(x) for x in self.request.GET.getlist('tfids')]
+
+
         companyid = self.kwargs['id']
         departid = self.kwargs['pk']
         company = Enterprises.objects.get(id=companyid)
@@ -760,27 +782,42 @@ class OICreateView(ListView):
                                                         'ois_len' : ois_len
                                                         })
 
-class OISaveView(FormView):
-    form_class = OICreateForm
-    template_name = "companyservices/official-instructions-new.html"
-
-    def form_valid(self, form):
-        form.save()
-
-        name = self.request.POST['name']
-        tfs = self.request.POST['tfs']
-        slug = self.request.POST['slug']
-        jt = self.request.POST['jt']
-        company = self.request.POST['company']
-        departs = self.request.POST['departs']
-
-        return super(OISaveView, self).form_valid(form)
-
+    #
     def get_success_url(self):
+
+        print(self.request.POST['tfs'])
+        url_params = [ 'tfids=%s' % x for x in self.request.GET.getlist('tfids') ]
+        str_url_params = '&'.join(url_params)
+        print(str_url_params)
 
         messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
         return reverse_lazy('org-official-instructions', kwargs={'id': self.kwargs['id'],
-                            'pk': self.kwargs['pk'],'slug': self.kwargs['slug'],})
+                            'pk': self.kwargs['pk'],'slug': self.kwargs['slug']}) + '?' + str_url_params
+
+
+
+# class OISaveView(FormView):
+#     form_class = OICreateForm
+#     template_name = "companyservices/official-instructions-new.html"
+#
+#     def form_valid(self, form):
+#         form.save()
+#
+#         name = self.request.POST['name']
+#         tfs = self.request.POST['tfs']
+#         slug = self.request.POST['slug']
+#         jt = self.request.POST['jt']
+#         company = self.request.POST['company']
+#         departs = self.request.POST['departs']
+#         messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
+#         return super(OISaveView, self).form_valid(form)
+#
+#
+#     def get_success_url(self):
+#
+#         messages.success(self.request, "Должностная инструкция %s была сохранена " % self.request.POST['name'])
+#         return reverse_lazy('org-official-instructions', kwargs={'id': self.kwargs['id'],
+#                             'pk': self.kwargs['pk'],'slug': self.kwargs['slug'], 'tfids' : self.request.POST['tfs']})
 
 
 class OIDeleteView(DeleteView):
