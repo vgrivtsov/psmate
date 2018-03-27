@@ -33,7 +33,7 @@ urlpatterns = [
     path('account_logout', auth_views.LogoutView.as_view(template_name='layouts/layout.html'), name='account_logout'),
     url(r'^mongolia/', admin.site.urls),
     # url(r'^$', TemplateView.as_view(template_name='index.html')),account_signup
-    url(r'^agreement/$', TemplateView.as_view(template_name='agreement.html')),
+    url(r'^agreement/$', TemplateView.as_view(template_name='agreement.html'), name='agreement'),
     url(r'^faq/', TemplateView.as_view(template_name='faq.html'), name='faq'),
     url(r'^about/', TemplateView.as_view(template_name='about.html'), name='about'),
     url(r'^contacts/', include('envelope.urls')),
