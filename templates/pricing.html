@@ -5,137 +5,11 @@
 {% load static %}
 {% block cabinet %}
 
-
-<style>
-.pricing .pricing-item {
-  border: 1px solid #e5e5e5;
-
-}
-}
-
-@media (max-width: 991px) {
-  .pricing .pricing-item {
-    margin-bottom: 30px;
-  }
-}
-.pricing .pricing-item .pricing-heading {
-  padding: 20px 40px 30px 40px;
-  background: #fafafa;
-  border-bottom: 1px solid #e5e5e5;
-}
-.pricing .pricing-item .pricing-heading .title h6 {
-  text-transform: uppercase;
-  font-weight: 400;
-  line-height: 50px;
-  border-bottom: 1px solid #e5e5e5;
-}
-.pricing .pricing-item .pricing-heading .price {
-  margin-top: 28px;
-}
-.pricing .pricing-item .pricing-heading .price h2 {
-  font-size: 3.625rem;
-  font-weight: 400;
-  margin-bottom: 0px;
-}
-.pricing .pricing-item .pricing-heading .price h2 span {
-  font-size: 1.5625rem;
-}
-.pricing .pricing-item .pricing-body {
-  padding: 45px 40px;
-  min-height: 430px;
-}
-.pricing .pricing-item .pricing-body ul.feature-list li {
-  list-style: none;
-}
-.pricing .pricing-item .pricing-body ul.feature-list li p span {
-  margin-right: 15px;
-}
-.pricing .pricing-item .pricing-body ul.feature-list li p span.available {
-  color: #ff80ab;
-}
-.pricing .pricing-item .pricing-body ul.feature-list li p span.unavailable {
-  color: #d2d2d2;
-}
-.pricing .pricing-item .pricing-body ul.feature-list li:not(:last-child) {
-  margin-bottom: 15px;
-}
-.pricing .pricing-item .pricing-footer {
-  padding-bottom: 40px;
-}
-.pricing .pricing-item.featured {
-  border: none;
-  box-shadow: 0px 0px 30px 0px rgba(11, 29, 66, 0.15);
-}
-.pricing .pricing-item.featured .pricing-heading {
-  background: #ff80ab;
-  border-bottom: 1px solid #ff80ab;
-}
-.pricing .pricing-item.featured .pricing-heading .title h6 {
-  color: #fff;
-  border-bottom: 1px solid #f8bbd0;
-}
-.pricing .pricing-item.featured .pricing-heading .price {
-  margin-top: 28px;
-}
-.pricing .pricing-item.featured .pricing-heading .price h2 {
-  color: #fff;
-  font-size: 3.625rem;
-  margin-bottom: 0px;
-}
-.pricing .pricing-item.featured .pricing-heading .price h2 span {
-  font-size: 1.5625rem;
-}
-.pricing .pricing-item.featured .pricing-heading .price p {
-  color: #fff;
-}
-.pricing.two .pricing-item {
-  border: 1px solid #e5e5e5;
-  overflow: hidden;
-}
-@media (max-width: 991px) {
-  .pricing.two .pricing-item {
-    margin-bottom: 30px;
-  }
-}
-.pricing.two .pricing-item .pricing-heading {
-  position: relative;
-  margin-bottom: 10px;
-}
-.pricing.two .pricing-item .pricing-heading .title h6 {
-  position: relative;
-}
-.pricing.two .pricing-item .pricing-heading .price {
-  position: relative;
-}
-.pricing.two .pricing-item .pricing-heading:before {
-  content: '';
-  position: absolute;
-  bottom: -25%;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 64px 500px 0 0;
-  border-color: #fafafa transparent transparent transparent;
-}
-.pricing.two .pricing-item .pricing-body {
-  padding: 70px 40px 45px;
-}
-.pricing.two .pricing-item .pricing-body ul.feature-list li p span.available {
-  color: #ff80ab;
-}
-.pricing.two .pricing-item.featured .pricing-heading:before {
-  border-color: #ff80ab transparent transparent transparent;
-}
-</style>
-
-
-
 <!--===================================
 =            Pricing Table            =
 ====================================-->
 
-<section class="section pricing">
+<section class="section pricing"  style="min-height: 100vh;">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -149,6 +23,7 @@
 			<div class="col-lg-4 col-md-6">
 				<!-- Pricing Item -->
 				<div class="pricing-item featured">
+          <a href="{% url 'purchase' purchase_name='600' %}">
 					<div class="pricing-heading">
 						<!-- Title -->
 						<div class="title">
@@ -160,23 +35,13 @@
 							<!--<p>/Person</p>-->
 						</div>
 					</div>
-					<div class="pricing-body">
-						<!-- Feature List -->
-						<ul class="feature-list m-0 p-0">
-							<li><p><span class="fa fa-check-circle available"></span>Создание нескольких организаций</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Сохранение должностных инструкций по подразделенииям</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Скачивание должностных инструкций в формате MS Word</p></li>
-						</ul>
-
-					</div>
-					<div class="pricing-footer text-center">
-						<a href="{% url 'purchase' purchase_name='600' %}" class="btn btn-pink">получить доступ</a>
-					</div>
+          </a>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<!-- Pricing Item -->
 				<div class="pricing-item featured">
+         <a href="{% url 'purchase' purchase_name='1500' %}">
 					<div class="pricing-heading">
 						<!-- Title -->
 						<div class="title">
@@ -188,21 +53,13 @@
 							<!--<p>/Person</p>-->
 						</div>
 					</div>
-					<div class="pricing-body">
-						<ul class="feature-list m-0 p-0">
-							<li><p><span class="fa fa-check-circle available"></span>Создание нескольких организаций</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Сохранение должностных инструкций по подразделенииям</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Скачивание должностных инструкций в формате MS Word</p></li>
-						</ul>
-					</div>
-					<div class="pricing-footer text-center">
-						<a href="{% url 'purchase' purchase_name='1500' %}" class="btn btn-pink">получить доступ</a>
-					</div>
+         </a>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6 m-auto">
 				<!-- Pricing Item -->
 				<div class="pricing-item featured">
+          <a href="{% url 'purchase' purchase_name='4800' %}">
 					<div class="pricing-heading">
 						<!-- Title -->
 						<div class="title">
@@ -214,21 +71,7 @@
 							<!--<p>/Person</p>-->
 						</div>
 					</div>
-					<div class="pricing-body">
-						<!-- Feature List -->
-						<ul class="feature-list m-0 p-0">
-						<ul class="feature-list m-0 p-0">
-							<li><p><span class="fa fa-check-circle available"></span>Создание нескольких организаций</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Сохранение должностных инструкций по подразделенииям</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Скачивание должностных инструкций в формате MS Word</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Возможность использования своих шаблонов должностных инструкций</p></li>
-							<li><p><span class="fa fa-check-circle available"></span>Возможность кастомизации профилей организаций</p></li>
-						</ul>
-						</ul>
-					</div>
-					<div class="pricing-footer text-center">
-						<a href="{% url 'purchase' purchase_name='4800' %}" class="btn btn-pink">получить доступ</a>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>
