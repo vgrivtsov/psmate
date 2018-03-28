@@ -2,18 +2,13 @@
 {% load static %}
 {% load socialaccount %}
 
-
 <html lang="ru-RU">
-
   <head>
-
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="yandex-verification" content="293a51677b9f802f" />
 
     <title>ПрофНавигатор</title>
-
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/tether.min.css' %}">
@@ -25,11 +20,8 @@
     <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/qualinfo.css' %}">
     <link rel="stylesheet" href="{% static 'css/jobtitleslist.css' %}">
-
   </head>
-
   <body>
-
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {
@@ -66,35 +58,27 @@
 
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light grey lighten-4">
-
     <!-- Navbar brand -->
     <a class="navbar-brand" href="/">ПрофНавигатор</a>
-
     <!-- Collapse button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainnavbar" aria-controls="mainnavbar"
         aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="mainnavbar">
-
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="/">На главную <span class="sr-only">(current)</span></a>
             </li>
-
             <li class="nav-item">
                  <a class="nav-link" href="{% url 'faq' %}">Помощь</a>
             </li>
-
             <!-- Dropdown -->
             <li class="nav-item btn-group">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сервисы</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item " href="{% url 'search-profstandart' %}">Найти профстандарт</a>
-
                 <a class="dropdown-item" href="{% url 'generator-cv-resume' %}">Конструктор резюме</a>
-
                 <a class="dropdown-item nav-link" href="{% url 'search-jobtitles' %}">Справочник должностей</a>
                 <a class="dropdown-item nav-link disabled" href="/education-recomendations/">Рекомендации по обучению</a>
                 </div>
@@ -102,13 +86,10 @@
             <li class="nav-item">
                  <a class="nav-link" href="{% url 'news' %}">Новости</a>
             </li>
-
         </ul>
         <!-- Links -->
-
 		<ul class="nav navbar-nav navbar-right ml-auto">
       {% if user.is_authenticated %}
-
           <li class="nav-item btn-group">
               <a class="nav-link dropdown-toggle" id="navbarDropdownCab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {% if not user.first_name %}
@@ -123,7 +104,6 @@
                 <a class="dropdown-item" href="{% url 'account_logout' %}">Выход</a>
               </div>
           </li>
-
       {% else %}
       <!-- Login -->
 			<li class="nav-item ">
@@ -131,21 +111,15 @@
            Вход
            <span class="caret"></span>
          </a>
-
 				<ul class="dropdown-menu form-wrapper">
 					<li>
 						 <form class="form-horizontal" id="loginfrom" name="loginform" action="{% url 'account_login' %}" method="post">
               {% csrf_token %}
-              {% if next %}
-                <input type="hidden" name="next" value="{{ next }}" />
-
-              {% endif %}
 							<p class="hint-text">Войти с помощью аккаунтов</p>
 							<div class="form-group social-btn clearfix">
 								<a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary"><i class="fa fa-facebook"></i></a>
                 <a href="{% provider_login_url 'vk' method='oauth2' %}" class="btn btn-info"><i class="fa fa-vk"></i></a>
 								<a href="{% provider_login_url 'google' method='oauth2' %}" class="btn btn-danger"><i class="fa fa-google"></i></a>
-
 							</div>
 							<div class="or-seperator"><b>или</b></div>
 							<div class="form-group">
@@ -158,8 +132,6 @@
               <div class="form-group">
              <button type="submit" class="btn btn-amber btn-md float-right">Войти</button>
               </div>
-
-
 						</form>
 					</li>
 				</ul>
@@ -170,12 +142,9 @@
           <a class="btn btn-mdb-color btn-md align-middle" href="{% url 'account_signup' %}">Регистрация</a>
         </div>
       </li>
-
      {% endif %}
-
 		</ul>
     </div>
-
 </nav>
 {% if form.errors %}
     {% for field in form %}
@@ -191,7 +160,6 @@
         </div>
     {% endfor %}
 {% endif %}
-
   <!--Messages-->
   {% if messages %}
   <div class="alert alert-success">
@@ -200,36 +168,26 @@
       {% endfor %}
   </div>
   {% endif %}
-
 </body>
-
 <!--====  End of Navigation Section  ====-->
-
     <!-- Scripts -->
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
-
     <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
-
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/ui-bootstrap-tpls-3.0.0.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/typeahead-focus.js' %}"></script> <!--focus for ui-bootstrap dropdown-->
-
     <script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/datepicker-ru.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.validate.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-sanitize.min.js' %}"></script>
-
     <script type="text/javascript" src="{% static 'js/resumeedit.js' %}"></script>
-
-
   {% block content %}
   {% endblock %}
-
   <!-- Footer -->
 <footer class="bg-dark text-white mt-4">
     <div class="container-fluid py-3">
@@ -242,18 +200,14 @@
         </div>
         <div class="row">
             <div class="col-md-6">Штурман в океане профессиональных стандартов</div>
-
               <div class="col-md-6 text-right">
                 <a class="col" href="{% url 'contacts' %}" >Обратная связь</a>
                 <a class="col" href="{% url 'about' %}">О проекте</a>
                 <a class="col" href="{% url 'agreement' %}">Соглашение на обработку персональных данных</a>
              </div>
-
             <div class="col-md-3"></div>
             <div class="col-md-3 text-right small align-self-end">©2018 qualinfo.ru</div>
         </div>
     </div>
 </footer>
-
-
 </html>

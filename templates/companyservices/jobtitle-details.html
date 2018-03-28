@@ -88,7 +88,7 @@
 </ul>
 {% endif %}
 {% if jtresult.tfs %}
-   <form>
+   <form class="tfslist">
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
 {% for item in jtresult.tfs %}
@@ -123,7 +123,7 @@ $("input[type='checkbox']").change(function(){
 <script>
 //get from selected checkbox to button href
 function addtfsid() {
-  var tfids = $( "form" ).serialize();
+  var tfids = $( ".tfslist" ).serialize();
 
     $('#offinst').attr('href', function() {
         return this.href + tfids ;
@@ -132,9 +132,10 @@ function addtfsid() {
     onload=function(){ // make refresh tfids if user press back button
     var e=document.getElementById("refreshed");
     if(e.value=="no")e.value="yes";
-    else{e.value="no";  history.pushState(); var tfids = $( "form" ).serialize();}
+    else{e.value="no";  history.pushState(); var tfids = $( ".tfslist" ).serialize();}
     }
 }
+
 </script>
 
 {% endblock %}
