@@ -4,56 +4,20 @@
 {% load static %}
 {% load widget_tweaks %}
 
-
 {% block breadcrumbs %}
 {{ block.super }} <a class="breadcrumb-item" href="/presentation-cv-resume/">Резюме</a><a class="breadcrumb-item" href="/generator-cv-resume/">Генератор резюме</a>
+{% endblock %}
+
+{% block head %}
+<title>Создание резюме</title>
 {% endblock %}
 
 
 {% block cabinet %}
 
-<style>
+<script type="text/javascript" async  src="{% static 'js/resumeedit.js' %}"></script>
 
-.remove {
-  text-align: right;
-
-}
-
-.modal-tf {
-  width: auto;
-  margin: auto;
-}
-
-#scrollable-dropdown-menu .dropdown-menu {
-    max-height: 250px;
-    overflow-y: auto;
-    white-space: normal;
-
-
-}
-
-#removequali {position:absolute; top:5px; right:5px;}
-
-.overlay-x{
-  position:absolute;
-  top:10px;
-  right:10px;
-  cursor:pointer;
-}
-#scrollable-dropdown-menu{
-  position:relative;
-}
-
-
-.ui-datepicker-calendar {
-  display: none;
-
-}​
-
-.form-control.purpletext {
-    color: blue ;
-}
-</style>
+<section class="cvgen">
 
 <div class="container cvgen" style="min-height: 100vh; overflow-y: hidden;">
 
@@ -64,20 +28,17 @@
 
 <div class="form-group py-3" >
 
-
 <!--Panel-->
 
-<div class="card card-body">
-    <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
-    <h5>{{ user.profiles.fl_pd_date }}</h5>
-    <p class="card-text">{{ user.profiles.fl_adress_real }}</p>
-    <div class="flex-row">
-        <h6>{{ user.profiles.fl_tlph_mob }}</h6>
-        <h6>{{ user.email }}</h6>
-
-    </div>
-
-</div>
+  <div class="card card-body">
+      <h4 class="card-title">{{ user.last_name }} {{ user.first_name }} {{ user.profiles.fl_otch }}</h4>
+      <h5>{{ user.profiles.fl_pd_date }}</h5>
+      <p class="card-text">{{ user.profiles.fl_adress_real }}</p>
+      <div class="flex-row">
+          <h6>{{ user.profiles.fl_tlph_mob }}</h6>
+          <h6>{{ user.email }}</h6>
+      </div>
+  </div>
 
 </div>
 
@@ -735,5 +696,5 @@ $('.datepicker').datepicker({
 </div>
 </div>
 </div>
-
+</section>
 {% endblock %}

@@ -1,40 +1,27 @@
-<!DOCTYPE html>
-
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block head %}
+<title>Найти профстандарт</title>
+{% endblock %}
+
 {% block content %}
-
-
-
 <div ng-app="ps_search" ng-controller="ps_search_ctrl" style="min-height: 100vh; overflow-y: hidden;">
-
 <div class="container py-5 md-form " >
-
-
 <h6 class="mb-0">Поиск по ключевому слову</h6>
 
 
  <form method="get" action=''>
-
   {% for field in form %}
     <div class="form-group">
-
       {% render_field field class="form-control form-control-lg rounded-0" %}
-
     </div>
-
   {% endfor %}
-
    <input type="submit" class="btn btn-mdb-color btn-block" value="Показать профстандарт">
-
 </form>
-
-
 </div>
-
 <div class="container py-5" ng-show="{{ngshow}}" id="showps" ng-cloak>
-
    <table width=100%>
    <tr>
    </td>
@@ -54,8 +41,6 @@
    <td>
    </td>
    </tr>
-
-
    </table>
    <table width=100%>
         <tr height="20"></tr>
@@ -83,7 +68,6 @@
 		</TR>
         </table>
         <table>
-
    <tr>
    <td>
       <FONT FACE="Times New Roman, serif"><FONT SIZE=4><B>Общие сведения</B></FONT></FONT>
@@ -257,7 +241,6 @@
      {% endfor %}
 
 	</TBODY>
-
 	<TBODY>
 		<TR VALIGN=TOP>
 			<TD COLSPAN=3 WIDTH=14% HEIGHT=13 STYLE="border-top: 1px solid; border-bottom: none; border-left: none; border-right: none; padding: 0in">
@@ -358,11 +341,8 @@
 			(подуровень) квалификации</FONT></FONT></CENTER>
 		</TD>
 	</TR>
-
    {% for x in mixed_tf_otf %}
-
    <TR>
-
  		<TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none;">
 			<P><center><p>{{ x.0.codeotf }}</p><BR></center></P>
 		</TD>
@@ -372,11 +352,9 @@
 			</P>
 		</TD>
 
-        		<TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none;">
+  <TD ROWSPAN="{{ x.1|length }}" STYLE="border: 1px solid; border-top: none; border-right: none;">
 			<P><center><p>{{ x.0.levelofquali }}</p><BR></center></P>
 		</TD>
-
-
 	   <TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
 	   	<P><p>{{ x.1.0.nametf }}</p></P>
 	   </TD>
@@ -386,13 +364,10 @@
 	   <TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
 	   	<P><center><p>{{ x.1.0.subquali }}</p></center></P>
 	   </TD>
-
 	</TR>
 
       {% for tf in x.1|slice:"1:" %}
-
            <TR>
-
 	        	<TD WIDTH=42% STYLE="border: 1px solid; border-top: none; border-right: none; padding-left: 10px; padding-right: 10px;">
 	        		<P><p>{{ tf.nametf }}</p></P>
 	        	</TD>
@@ -402,20 +377,14 @@
 	        	<TD WIDTH=4% STYLE="border: 1px solid; border-top: none;">
 	        		<P><center><p>{{ tf.subquali }}</p></center></P>
 	        	</TD>
-
 	        </TR>
-
       {% endfor %}
-
    {% endfor %}
-
 </TABLE>
-
 <TABLE>
 <P STYLE="margin-bottom: 0.14in"><TABLE DIR="LTR" ALIGN=LEFT WIDTH=100% HSPACE=4 CELLPADDING=7 CELLSPACING=0>
 	<COL WIDTH=13*>
 	<COL WIDTH=243*>
-
 	<TBODY>
 		<TR>
 			<TD COLSPAN=2 WIDTH=100% HEIGHT=41 STYLE="border: none; padding: 0in">
@@ -432,9 +401,7 @@
 			</TD>
 		</TR>
 	</TBODY>
-
 	<TBODY>
-
 		<TR>
 			<TD COLSPAN=2 WIDTH=100% HEIGHT=44 STYLE="border: 1px solid; padding: 10px">
 				<FONT FACE="Times New Roman, serif"><FONT SIZE=3>{{ psinfo.responsibledeveloper }}</FONT></FONT>
@@ -451,10 +418,10 @@
 
 </div>
 <!--/container-->
-</div> <!--/angfular app-->
+</div>
 
+<!--angfular app-->
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-
 
 <script>
 angular.module("ps_search",[]).controller("ps_search_ctrl",function($scope){});

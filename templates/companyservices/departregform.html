@@ -9,6 +9,9 @@
 {{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' form.company_id %}">Организация: «{{form.company_form}}» {{form.company_name}}</a>
 {% endblock %}
 
+{% block head %}
+<title>Создание подразделения</title>
+{% endblock %}
 
 {% block companyprofile %}
 

@@ -1,127 +1,48 @@
 <!DOCTYPE html>
-    
+
 {% extends "layouts/layout.html" %}
 {% load static %}
+
+{% block head %}
+<title>Новости</title>
+{% endblock %}
+
 {% block content %}
 
-<style>
-.img-card-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.img-card-wrapper:after {
-  content: '';
-  display: block;
-  padding-top: 100%;
-}
-
-.img-card-wrapper  img {
-  width: auto;
-  height: 100%;
-  max-width: none;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-
-   -webkit-filter: grayscale(100%);
-   -moz-filter: grayscale(100%);
-   filter: grayscale(100%);
-   transition: all 0.5s ease;
-  
-}
-
-.img-card-wrapper img:hover {
-   -webkit-filter: grayscale(0%);
-   -moz-filter: grayscale(0%);
-   filter: grayscale(0%);
-}
-
-
-
-a:link {color: black;}      /* unvisited link */
-a:visited {color: black;}   /* visited link */
-a:active {color: black;}    /* selected link */
-
-
-
-.previous {
-     text-decoration: none;
-    display: inline-block;
-    padding: 8px 16px; 
-    background-color: #f1f1f1;
-    color: black;
-}
-
-.next {
-    text-decoration: none;
-    display: inline-block;
-    padding: 8px 16px;  
-    background-color: #f1f1f1;
-    color: white;
-}
-
-.next:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.previous:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-/*news link hover*/
-
-
-.newslink {
-  -webkit-transition: color .5s linear;
-  -moz-transition: color .5s linear;
-  -ms-transition: color .5s linear;
-  -o-transition: color .5s linear;
-  transition: color .5s linear;
-}
- 
-.newslink:hover { color: #0099CC; }
-
-
-
-
-</style>
-
+<
+<section class="newssection">
     <!-- Page Content -->
     <div class="container" style="min-height: 100vh;">
 
       <h1 class="mt-4 mb-3">Новости </h1>
 
       <!-- Blog Post -->
-    
+
       <div class="row">
      {% for n in articles %}
         <div class="col-lg-4 col-sm-6 py-3 news-item">
-          
+
           <div class="card h-100" >
               <div class="img-card-wrapper ">
                 <a href="/news/{{ n.slug}}">
                   <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt="">
-                </a>  
+                </a>
               </div>
-            
+
             <div class="card-body" >
               <p class="card-title">
                 <a href="/news/{{ n.slug}}" class="newslink">{{ n.title }}</a>
               </p>
-              
+
               <p class="card-text line-clamp" >{{ n.created_at }}</p>
             </div>
           </div>
         </div>
       {% endfor %}
-       </div>    
+       </div>
 
  {% if is_paginated %}
- 
+
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
@@ -139,6 +60,6 @@ a:active {color: black;}    /* selected link */
 
 </div>
   <!-- /.container -->
+</section>
 
-
-{% endblock %}  
+{% endblock %}

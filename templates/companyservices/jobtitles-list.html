@@ -8,9 +8,14 @@
 {{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' cmpd.company.id %}">Организация: «{{cmpd.company.e_op_form}}» {{cmpd.company.e_name}}</a>
 <a class="breadcrumb-item"></a>подразделение «{{cmpd.department.name}}» / Поиск должности </a>
 {% endblock %}
+
+{% block head %}
+<title>Поиск должности в профстандартах</title>
+{% endblock %}
+
 {% block companyprofile %}
 
-<html lang="ru-RU">
+
 <div class=" py-5" style="min-height: 100vh">
 <header class="searchjobtitle text-white text-center">
   <div class="overlay"></div>
@@ -97,5 +102,5 @@
 </script>
 
 </div>
-</html>
+
 {% endblock %}

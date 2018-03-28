@@ -3,7 +3,13 @@
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block head %}
+<title>{{ jtresult.jobtitle }}</title>
+{% endblock %}
+
 {% block content %}
+
 
 <!-- Page Content -->
 <div class="container py-5 jobtitlesdetails">

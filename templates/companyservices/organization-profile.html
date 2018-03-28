@@ -9,6 +9,12 @@
 {{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' company.id %}">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
 {% endblock %}
 
+{% if company.regname_id == user.id %}
+{% block head %}
+<title>«{{company.e_op_form}}» {{company.e_name}}</title>
+{% endblock %}
+{% endif %}
+
 {% block companyprofile %}
 <style>
 

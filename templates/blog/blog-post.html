@@ -3,6 +3,11 @@
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block head %}
+<title>{{ object.title }}</title>
+{% endblock %}
+
 {% block content %}
 {% autoescape off %}
 
@@ -15,28 +20,19 @@
     <p class="font-italic text-muted">Источник: <a href="{{object.url}}" rel="nofollow">{{object.url}}</a></p>
   </div>
 
-  <h1 class="mt-4 mb-3">{{ object.title }}
-
-  </h1>
+  <h1 class="mt-4 mb-3">{{ object.title }}</h1>
 
   <div class="row">
-
     <!-- Post Content Column -->
     <div class="col-lg-8">
-
       <!-- Preview Image -->
       <img class="img-fluid rounded" src="{{ object.image.url }}" alt="">
-
       <hr>
-
       <!-- Date/Time -->
       <p>{{object.created_at}}</p>
-
       <hr>
-
       <!-- Post Content -->
       {{object.text}}
-
     </div>
 
   </div>

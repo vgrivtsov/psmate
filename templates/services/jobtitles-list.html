@@ -1,15 +1,15 @@
-<!DOCTYPE html>
 
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block head %}
+<title>Поиск должности в профстандартах</title>
+{% endblock %}
+
 {% block content %}
 
-<html lang="ru-RU">
-
-
 <div class=" py-5 px-5" style="min-height: 100vh">
-
 
 <header class="searchjobtitle text-white text-center">
   <div class="overlay"></div>
@@ -106,5 +106,5 @@
 </script>
 
 </div>
-</html>
+
 {% endblock %}

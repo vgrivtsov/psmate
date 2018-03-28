@@ -9,6 +9,10 @@
 {{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' company.id %}">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
 {% endblock %}
 
+{% block head %}
+<title>Удаление подразделения {{ department.name }}</title>
+{% endblock %}
+
 {% block companyprofile %}
 
 <div class="container-fluid py-5 card text-center z-depth-2">

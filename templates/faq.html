@@ -3,41 +3,12 @@
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block head %}
+<title>Справочная информация</title>
+{% endblock %}
+
 {% block content %}
-
-
-<style>
-.faq .accordion-block #accordion .card, .faq .accordion-block #accordionTwo .card {
-  border-radius: 0;
-  margin-bottom: 20px;
-}
-
-.faq .accordion-block #accordion .card .card-header, .faq .accordion-block #accordionTwo .card .card-header {
-  background: #fff;
-  padding: 0;
-}
-
-.faq .accordion-block #accordion .card .card-header h5 a, .faq .accordion-block #accordionTwo .card .card-header h5 a {
-  font-weight: 400;
-  color: #45526e;
-}
-
-.faq .accordion-block #accordion .card .card-header h5 a span, .faq .accordion-block #accordionTwo .card .card-header h5 a span {
-  padding: 20px;
-  border-right: 1px solid #e5e5e5;
-  margin-right: 20px;
-}
-
-.faq .accordion-block #accordion .card .card-body, .faq .accordion-block #accordionTwo .card .card-body {
-  color: #848484;
-  padding: 15px 20px;
-}
-
-.faq .accordion-block #accordion .card .collapse.show + .card-header h5 a, .faq .accordion-block #accordionTwo .card .collapse.show + .card-header h5 a {
-  color: #45526e;
-}
-
-</style>
 
 
 <!--=========================

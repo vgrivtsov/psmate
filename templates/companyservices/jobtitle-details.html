@@ -8,6 +8,12 @@
 {{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' cmpd.company.id %}">Организация: «{{cmpd.company.e_op_form}}» {{cmpd.company.e_name}}</a>
 <a class="breadcrumb-item"></a>подразделение «{{cmpd.department.name}}» / {{ jtresult.jobtitle }}</a>
 {% endblock %}
+
+{% block head %}
+<title>{{ jtresult.jobtitle }}</title>
+{% endblock %}
+
+
 {% block companyprofile %}
 
 

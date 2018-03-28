@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="yandex-verification" content="293a51677b9f802f" />
 
-    <title>ПрофНавигатор</title>
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/tether.min.css' %}">
@@ -20,8 +19,9 @@
     <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/qualinfo.css' %}">
     <link rel="stylesheet" href="{% static 'css/jobtitleslist.css' %}">
-  </head>
-  <body>
+  {% block head %}
+  {% endblock %}
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {
@@ -52,6 +52,7 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/48157346" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+  </head>
 <!--========================================
 =            Navigation Section            =
 =========================================-->
@@ -168,9 +169,10 @@
       {% endfor %}
   </div>
   {% endif %}
-</body>
+
 <!--====  End of Navigation Section  ====-->
-    <!-- Scripts -->
+
+<body>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
@@ -185,9 +187,14 @@
     <script type="text/javascript" src="{% static 'js/datepicker-ru.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.validate.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-sanitize.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/resumeedit.js' %}"></script>
+
+<!--====  Main content  ====-->
   {% block content %}
   {% endblock %}
+<!--==== FIN Main content ====-->
+
+</body>
+
   <!-- Footer -->
 <footer class="bg-dark text-white mt-4">
     <div class="container-fluid py-3">
@@ -210,4 +217,5 @@
         </div>
     </div>
 </footer>
+
 </html>

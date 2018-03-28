@@ -10,6 +10,11 @@
 {{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' form.company_id %}">Организация: «{{form.company_form}}» {{form.company_name}}</a> <a class="breadcrumb-item" href="/organization-settings/{{form.company_id}}/">Настройки</a>
 {% endblock %}
 
+{% block head %}
+<title>Настройки «{{form.company_form}}» {{form.company_name}}</title>
+{% endblock %}
+
+
 {% block cabinet %}
 
 {% if user.is_authenticated %}
@@ -30,22 +35,17 @@
                    {% for field in form %}
                      <div class="form-group">
                        {{ field.label_tag }}
-
                        {% render_field field class="form-control form-control-lg rounded-0" %}
-
                      </div>
-
                    {% endfor %}
                    <div class="d-flex justify-content-end">
                      <div class="p-2"><input type="reset" class="btn btn-outline-mdb-color" onclick='location.href="{% url 'cabinet' %}";' value="Отмена"></div>
                      <div class="p-2"><input type="submit" class="btn btn-mdb-color" value="Сохранить"></div>
                      <div class="ml-auto p-2"><a class="btn btn-danger" href="{% url 'organization-remove' form.company_id %}">Удалить</a></div>
                    </div>
-
                  </form>
                 </div>
                 <!--/card-block-->
-
             <!--/row-->
            </div>
         </div>
@@ -54,7 +54,6 @@
     <!--/row-->
 </div>
 <!--/container-->
-
 
 {% else %}
 

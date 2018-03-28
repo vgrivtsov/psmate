@@ -1,11 +1,12 @@
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block head %}
+<title>Должностная инструкция {{generaldatas.jobtitlerod}}</title>
+{% endblock %}
+
 {% block content %}
-<style>
-
-
-</style>
 
 <div class= "offinstructions" ng-app="offinstructions" ng-controller="ctrl">
 
