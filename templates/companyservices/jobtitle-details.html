@@ -16,9 +16,7 @@
 <!-- /.card 1 -->
   <div class="card  my-3 jobtitle">
         <div class="card-body mx-3">
-
             <center><h3 class="card-title font-weight-normal">{{ jtresult.jobtitle }}</h3></center>
-
           </div>
    <a href="/search-profstandart/?nameps={{jtresult.psid}}">
     <div class="card-footer text-muted mdb-color white-text">
@@ -33,17 +31,14 @@
     </div>
    </a>
   </div> <!-- /.card 1 -->
-
 <!-- /.card 2 -->
   <div class="card px-2 my-3 py-3 jobtitlecard">
-
 <ul class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Основная цель вида профессиональной деятельности<h5></li>
     <li class="list-group-item" id="listitem">
        {{ jtresult.pspurposekind }}
     </li>
 </ul>
-
 {% if jtresult.educationalreqs %}
 <ul class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Требования к образованию и обучению<h5></li>
@@ -54,7 +49,6 @@
 {% endfor %}
 </ul>
 {% endif %}
-
 {% if jtresult.reqworkexperiences %}
 <ul  class="list-group px-4 my-3">
         <li class="list-group-item listheader"><h5>Требования к опыту практической работы<h5></li>
@@ -65,7 +59,6 @@
 {% endfor %}
 </ul>
 {% endif %}
-
 {% if jtresult.specialconditions %}
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Особые условия допуска к работе<h5></li>
@@ -76,7 +69,6 @@
 {% endfor %}
 </ul>
 {% endif %}
-
 {% if jtresult.othercharacts %}
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Другое<h5></li>
@@ -87,8 +79,6 @@
 {% endfor %}
 </ul>
 {% endif %}
-
-
 {% if jtresult.nameotf %}
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader" ><h5>Обобщенная трудовая функция - {{jtresult.levelofquali}}й уровень квалификации (Код {{jtresult.codeotf}})<h5></li>
@@ -97,14 +87,10 @@
     </li>
 </ul>
 {% endif %}
-
-
 {% if jtresult.tfs %}
    <form>
-
 <ul  class="list-group px-4 my-3">
     <li class="list-group-item listheader"><h5>Трудовые функции<h5></li>
-
 {% for item in jtresult.tfs %}
 <label for="checkbox{{item.id}}">
   <li class="list-group-item mdb-color lighten-5" id="listitem">
@@ -112,11 +98,8 @@
         {{item.nametf}}. Код: {{item.codetf}}
   </li>
 </label>
-
 {% endfor %}
-
 <script>
-
 $("input[type='checkbox']").change(function(){
     if($(this).is(":checked")){
         $(this).parent().addClass("mdb-color lighten-5");
@@ -125,28 +108,19 @@ $("input[type='checkbox']").change(function(){
     }
 });
 </script>
-
 </ul>
   </form>
 {% endif %}
-
 <!-- /.card 2 -->
 </div>
-
 <div class="py-3">
-   <a onclick="javascript:addtfsid()" id='offinst' class="btn btn-lg btn-mdb-color btn-block" href="{% url 'org-official-instructions' cmpd.company.id cmpd.department.id jtresult.slug %}?">Построить должностные инструкции</a>
+   <a onclick="javascript:addtfsid()" id='offinst' class="btn btn-lg btn-mdb-color btn-block" href="{% url 'org-official-instructions' cmpd.company.id cmpd.department.id jtresult.slug %}?">{{ jtresult.jobtitle }} - должностная инструкциия</a>
 </div>
-
 <!--make refresh tfids if press back button-->
 <input type="hidden" id="refreshed" value="no">
-
-
 </div>
 <!-- /.container -->
-
 <script>
-
-
 //get from selected checkbox to button href
 function addtfsid() {
   var tfids = $( "form" ).serialize();
@@ -161,8 +135,6 @@ function addtfsid() {
     else{e.value="no";  history.pushState(); var tfids = $( "form" ).serialize();}
     }
 }
-
-
 </script>
 
 {% endblock %}

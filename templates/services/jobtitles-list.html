@@ -31,13 +31,15 @@
       </div>
     </div>
 </header>
+
+
 {% if jtresult %}
-<section class="section jobtitlelist">
+  {% if jtresult.0.jtrandom %}
+  <h4>10 случайных должностей:</h4>
+  {% endif %}
 
 <section class="section jobtitlelist">
-
 	<div class="jobtitlelist-contents">
-
 			  <div class="jobtitlelist-item">
 			  	<!-- Headings -->
 			  	<ul class="m-0 p-0">
@@ -68,22 +70,15 @@
             <div class="col-md-2" data-toggle="tooltip" data-placement="left" title="{{ jt.nameps }}">
              <center>{{ jt.psregnum }}</center>
             </div>
-
-
 			  			   </div>
          </a>
        </li>
-
-
           {% endfor %}
 			  	</ul>
 			</div>
 	</div>
-
-
  {% if is_paginated %}
   {{get_params}}
-
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
@@ -93,11 +88,7 @@
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-
                     <a href="{% url 'search-jobtitles' %}?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>
-
-
-                   <!-- <a href="?page={{ page_obj.next_page_number }}" class="next">Вперёд &rarr;</a>-->
                 {% endif %}
             </span>
         </div>

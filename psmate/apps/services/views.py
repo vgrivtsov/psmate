@@ -21,7 +21,7 @@ from operator import itemgetter
 import pymorphy2
 from pymorphy2 import units
 import re
-
+import random
 import pytils
 
 ### Search PS ###
@@ -403,7 +403,36 @@ class ShowJTlist(ListView):
                     )
 
             return sorted(jtresult, key=itemgetter('jobtitle'))
-        return sorted(jtresult, key=itemgetter('jobtitle'))
+
+        else:
+
+            num_jt =  Jobtitles.objects.all().count() # all entities of jobtitles
+            rand_entities = random.sample(range(num_jt), 10)
+            random_jt = Jobtitles.objects.filter(id__in=rand_entities)
+
+            for jt in random_jt:
+
+                ps = Psinfo.objects.filter(id=jt.ps_id)
+                gtf = Gtfinfo.objects.get(id=jt.gtf_id)
+
+                otrasl = ps[0].otraslid
+                ### Slug save
+                jt.slug = pytils.translit.slugify(jt.jobtitle) + '-' + str(jt.id)
+                jt.save()
+                ###
+                jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
+                                 'slug' : jt.slug,
+                                 # 'pspurposekind' : ps.pspurposekind,
+                                 'levelofquali' : gtf.levelofquali,
+                                 'codeotf' : gtf.codeotf,
+                                 'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
+                                 'otraslname' : otrasl.name,
+                                 'otraslicon' : otrasl.icon,
+                                 'jtrandom' : True,
+                                 },
+                    )
+
+            return sorted(jtresult, key=itemgetter('jobtitle'))
 
 
 

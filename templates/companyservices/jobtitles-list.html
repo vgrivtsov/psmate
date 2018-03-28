@@ -11,11 +11,7 @@
 {% block companyprofile %}
 
 <html lang="ru-RU">
-
-
 <div class=" py-5" style="min-height: 100vh">
-
-
 <header class="searchjobtitle text-white text-center">
   <div class="overlay"></div>
     <div class="row">
@@ -36,10 +32,11 @@
     </div>
 </header>
 {% if jtresult %}
+  {% if jtresult.0.jtrandom %}
+  <h4>10 случайных должностей:</h4>
+  {% endif %}
 <section class="section jobtitlelist">
-
 	<div class="jobtitlelist-contents">
-
 			  <div class="jobtitlelist-item">
 			  	<!-- Headings -->
 			  	<ul class="m-0 p-0">
@@ -48,47 +45,33 @@
 			  			<div class="col-md-4">Обобщенная трудовая функция</div>
 			  			<div class="col-md-1">Отрасль</div>
         <div class="col-md-1"><center>Уровень квалификации</center></div>
-        <div class="col-md-2"><center>Профстандарт</center></div>
-			  		</li>
+        <div class="col-md-2"><center>Профстандарт</center></div>			  		</li>
 
        {% for jt in jtresult %}
        <!-- jobtitleitems -->
 			  		<li class="jobtitlelist-details">
          <a href="{% url 'org-competences' cmpd.company.id cmpd.department.id jt.slug %}">
 			  			   <div class="block row">
-
 					  	   	<div class="col-md-4">
 					  	   		<span class="jobtitleitem">{{ jt.jobtitle }}</span>
 					  	   	</div>
-
             <div class="col-md-4">{{ jt.nameotf }}</div>
-
 					  	   	<div class="col-md-1" data-placement="left" title="{{ jt.otraslname }}">
                <center><i class="{{ jt.otraslicon }} fa-2x" ></i></center>
             </div>
-
             <div class="col-md-1"><center>{{ jt.levelofquali }}</center></div>
             <div class="col-md-2" data-toggle="tooltip" data-placement="left" title="{{ jt.nameps }}">
              <center>{{ jt.psregnum }}</center>
             </div>
-
-
 			  			   </div>
          </a>
        </li>
-
       {% endfor %}
 			  	</ul>
-
 			</div>
-
-
 	</div>
-
-
  {% if is_paginated %}
   {{get_params}}
-
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
@@ -98,18 +81,13 @@
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-
                     <a href="{% url 'org-search-jobtitles' cmpd.company.id cmpd.department.id %}?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}"class="next" >Вперёд &rarr;</a>
-
                 {% endif %}
             </span>
         </div>
     {% endif %}
-
-
 </section >
 {% endif %}
-
 <script>
    jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
