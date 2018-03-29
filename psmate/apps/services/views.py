@@ -371,6 +371,30 @@ class ShowJTlist(ListView):
 
         search_data = self.request.GET.get('search', None)
 
+        ### Generate xml sitemap for jt links ###
+#         jt_get = Jobtitles.objects.all()
+#         url_count = 0
+#         with open ('sitemap.xml', 'a') as sitemap:
+#             print('write xml')
+#             for jt in jt_get:
+#                 jt_slug = pytils.translit.slugify(jt.jobtitle) + '-' + str(jt.id)
+#
+#                 sitemap.write("""<url>
+#     <loc>https://qualinfo.ru/competences/%s/</loc>
+#     <lastmod>2018-03-28</lastmod>
+#     <changefreq>monthly</changefreq>
+#     <priority>0.6</priority>
+# </url>
+# <url>
+#     <loc>https://qualinfo.ru/official-instructions/%s/</loc>
+#     <lastmod>2018-03-28</lastmod>
+#     <changefreq>monthly</changefreq>
+#     <priority>0.6</priority>
+# </url>
+# """ % (jt_slug, jt_slug ))
+#
+#                 url_count +=2
+#         print(url_count)
 
         jtresult = []
 
@@ -494,6 +518,7 @@ class OfficialInstructions(ListView):
 
         data =  self.kwargs['slug']
         tfsid = [int(x) for x in self.request.GET.getlist('tfids')]
+        print('tfsid', tfsid)
 
         if data != None:
 
@@ -504,7 +529,9 @@ class OfficialInstructions(ListView):
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
-            #tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            if not tfsid:
+                tfsid = [x.id for x in tfs]
 
             otrasl = ps[0].otraslid
 

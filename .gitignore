@@ -5,7 +5,7 @@ test*
 uwsgi_params*
 .env
 models*
-
+sitemap.xml
 /predata
 /psmate/media
 /static
