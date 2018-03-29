@@ -517,8 +517,7 @@ class OfficialInstructions(ListView):
         #t0 = time()
 
         data =  self.kwargs['slug']
-        tfsid = [int(x) for x in self.request.GET.getlist('tfids')]
-        print('tfsid', tfsid)
+        tfsid = [int(x) for x in self.request.GET.getlist('tfids')] # tf id's from url get whish user check from jt tf checkbox
 
         if data != None:
 
@@ -529,8 +528,9 @@ class OfficialInstructions(ListView):
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
-            tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
+            # if user go to url without parameters
             if not tfsid:
+                tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
                 tfsid = [x.id for x in tfs]
 
             otrasl = ps[0].otraslid
