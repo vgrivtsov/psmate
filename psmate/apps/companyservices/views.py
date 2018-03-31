@@ -760,13 +760,13 @@ class OICreateView(FormView):
 
 class OIDeleteView(DeleteView):
 
-    #template_name = "companyservices/departs_confirm_delete.html"
+    template_name = "companyservices/oi_confirm_delete.html"
 
     def get(self, request, *args, **kwargs):
 
         user = self.request.user
         company_id = self.kwargs['id']
-        dep_id =  self.kwargs['pk']
+        oi_id =  self.kwargs['pk']
 
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
         orgs = [x.id for x in get_all_orgs]
@@ -775,16 +775,16 @@ class OIDeleteView(DeleteView):
             raise Http404
         else:
             company = Enterprises.objects.get(pk=company_id)
-            department = Departs.objects.filter(id=dep_id)[0]
+            offinst = Offinsts.objects.get(id=oi_id)
 
-        return render(request, self.template_name, {'company' : company, 'department' : department })
+        return render(request, self.template_name, {'company' : company, 'offinst' : offinst })
 
 
     def get_queryset(self):
 
         user = self.request.user
-        company_id =  self.kwargs['id']
-        dep_id =  self.kwargs['pk']
+        company_id = self.kwargs['id']
+        oi_id =  self.kwargs['pk']
 
         # check if company belongs auth user
         get_all_orgs = Enterprises.objects.filter(regname_id=user.id)
@@ -793,13 +793,13 @@ class OIDeleteView(DeleteView):
         if int(company_id) not in orgs:
             raise Http404
         else:
-            return Departs.objects.filter(id=dep_id)
+            return Offinsts.objects.filter(id=oi_id)
 
 
     def delete(self, request, *args, **kwargs):
         obj = self.get_object()
-        messages.success(request, "Подразделение %s было удалено" % obj.name)
-        return super(DepartDeleteView, self).delete(request, *args, **kwargs)
+        messages.success(request, "Должностная инструкция %s была удалена" % obj.name)
+        return super(OIDeleteView, self).delete(request, *args, **kwargs)
 
 
     def get_success_url(self):

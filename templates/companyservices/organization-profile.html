@@ -31,9 +31,20 @@
 				line-height: 1.0;
 }
 
+ .hover-btn  {
+     position: absolute;
+     right: 15px;
+     display: none;
+  }
+
+  .row :hover  .hover-btn {
+     display: block;
+
+  }
 </style>
 
 {% if company.regname_id == user.id %}
+
 <!--Card company info-->
 <div class="col-4 mb-4">
   <div class="card">
@@ -106,6 +117,12 @@
 	       <div class="row">
         {% for oi in ois %} {% if oi.departs_id == dep.id %}
 	        <div class="col-md-1 py-2 mx-3">
+
+             <a class="close hover-btn" href="{% url 'removeoi' company.id oi.id %}">
+               <span aria-hidden="true">×</span>
+               <span class="sr-only">Удалить</span>
+             </a>
+
 	         <a href="{% url 'org-official-instructions' company.id oi.departs_id oi.slug%}?{% for tf in oi.tfs %}tfids={{tf}}&{% endfor %}">
             <div data-toggle="tooltip" data-placement="right" title="{{oi.name}}">
               <div class="oi_icon">
@@ -121,6 +138,7 @@
            </div>
           </a>
          </div>
+
         {% endif %}{% endfor %}
 								</div>
 								{% endif %}

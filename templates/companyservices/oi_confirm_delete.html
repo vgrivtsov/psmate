@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% extends "layouts/companieslayout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block breadcrumbs %}
+{{ block.super }} <a class="breadcrumb-item" href="{% url 'organization-profile' company.id %}">Организация: «{{company.e_op_form}}» {{company.e_name}}</a>
+{% endblock %}
+
+{% block head %}
+<title>Удаление подразделения {{ department.name }}</title>
+<meta name="description" content="Удаление должностной инструкции {{ offinst.name }}" />
+{% endblock %}
+
+{% block companyprofile %}
+
+<div class="container-fluid py-5 card text-center z-depth-2">
+<form action="" method="post">
+    <h6>Удалить должностную инструкцию {{ offinst.name|capfirst }}?</h6>{% csrf_token %}
+    <input class="btn btn-outline-mdb-color btn-md" type="submit" value="Удалить"/>
+    <button onclick="window.history.back();" class="btn btn-mdb-color btn-md" type="button">Отмена</button>
+</form>
+</div>
+
+
+
+{% endblock %}
