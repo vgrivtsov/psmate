@@ -73,9 +73,9 @@ class UserCabinetView(View):
         stop_paidactivdate = True
 
         if paidactivdate:
-            datenow = datetime.now()
+            datenow = datetime.now().date()
 
-            if (paidactivdate - datenow) + 1 > 0:
+            if (paidactivdate - datenow).days + 1 > 0:
                 stop_paidactivdate = False
 
 
@@ -247,7 +247,7 @@ class RobocassaSuccessView(View):
         if profile.paidactivdate:
             datenow = datetime.now().date()
 
-            if (profile.paidactivdate - datenow) > 0:
+            if (profile.paidactivdate - datenow).days + 1 > 0:
                 balance = profile.paidactivdate - datenow
             else:
                 balance = timedelta(0)
