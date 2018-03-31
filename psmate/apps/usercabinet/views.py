@@ -73,9 +73,9 @@ class UserCabinetView(View):
         stop_paidactivdate = True
 
         if paidactivdate:
-            datenow = datetime.now().date()
+            datenow = datetime.now()
 
-            if (paidactivdate - datenow).days + 1 > 0:
+            if (paidactivdate - datenow) + 1 > 0:
                 stop_paidactivdate = False
 
 
@@ -166,9 +166,14 @@ class RobokassaView(FormView):
         user = self.request.user
 
         purchase_name = self.kwargs['purchase_name']
-        print(user, purchase_name)
 
-        if purchase_name == '600':
+        if purchase_name == '100':
+            order_name = 'Оплата за 1 день использования сервиса ПрофНавигатор'
+            out_summ = 93.46
+            period = '1 день'
+            commission = 100- 93.46
+
+        elif purchase_name == '600':
             order_name = 'Оплата за 1 месяц использования сервиса ПрофНавигатор'
             out_summ = 560.75
             period = '1 месяц'
@@ -226,6 +231,9 @@ class RobocassaSuccessView(View):
         order.save()
         profile = Profiles.objects.get(user_id=kwargs['extra']['user_id'])
 
+        if order.name == 'Оплата за 1 день использования сервиса ПрофНавигатор':
+            active_period = timedelta(days=1)
+
         if order.name == 'Оплата за 1 месяц использования сервиса ПрофНавигатор':
             active_period = timedelta(days=31)
 
@@ -239,7 +247,7 @@ class RobocassaSuccessView(View):
         if profile.paidactivdate:
             datenow = datetime.now().date()
 
-            if (profile.paidactivdate - datenow).days + 1 > 0:
+            if (profile.paidactivdate - datenow) > 0:
                 balance = profile.paidactivdate - datenow
             else:
                 balance = timedelta(0)
