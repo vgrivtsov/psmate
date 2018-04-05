@@ -156,7 +156,7 @@
          {% if ois|length == 0 %}
          <a class="btn btn-mdb-color btn-sm" href="{% url 'org-search-jobtitles' company.id dep.id %}?search=''">Добавить должностную инструкцию</a>
          {% else %}
-         <p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций. <a class="text-info" href="{% url 'pricing' %}">Получить полный доступ</a></p></p>
+         <p class="font-italic text-muted">Достигнут лимит на создание должностных инструкций. <a class="text-info" href="{% url 'pricing' %}">Получить полный доступ</a></p>
          {% endif %}
 
          {% endif %} <!-- if stop_paidactivdate is not True -->
