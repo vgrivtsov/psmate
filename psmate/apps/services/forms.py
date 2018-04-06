@@ -4,7 +4,7 @@ from psmate.models import *
 from django.contrib.auth.models import User
 
 class SearchPsForm(forms.ModelForm):
-    
+
     class Meta:
         model = Psinfo
         fields = ['nameps']
@@ -16,33 +16,11 @@ class SearchPsForm(forms.ModelForm):
                                                 #autfocus
                                                 'autofocus':'autofocus',
                                                 # Only trigger autocompletion after 2 characters have been typed
-                                                #'data-minimum-input-length': 2,                                                
-        
-                                            },                                 
+                                                #'data-minimum-input-length': 2,
+
+                                            },
                                             )
                 }
-        
-# 
-# class SearchJtForm(forms.ModelForm):
-#     
-#     class Meta:
-#         model = Jobtitles
-#         fields = ['jobtitle']
-#         widgets = {
-#             'jobtitle': autocomplete.Select2('jt-autocomplete',
-#                                                 attrs={
-#                                                 # Set some placeholder
-#                                                  #'data-placeholder': 'Введите слово из названия ПС',
-#                                                 #autfocus
-#                                                 'autofocus':'autofocus',
-#                                                 # Only trigger autocompletion after 2 characters have been typed
-#                                                 #'data-minimum-input-length': 2,                                                
-#         
-#                                             },                                 
-#                                             )
-#                 }
-#         
-#
 
 
 class CvGenForm(forms.ModelForm):
@@ -51,7 +29,7 @@ class CvGenForm(forms.ModelForm):
 
 
     class Meta:
-        
+
         model = User
         fields = ('resume', )
 
@@ -70,12 +48,10 @@ class CvGenForm(forms.ModelForm):
 
 
 class GetJTlistForm(forms.ModelForm):
-    
+
     jobtitle = forms.CharField(max_length=250, required=True)
 
     class Meta:
-        
+
         model = Jobtitles
         fields = ('jobtitle', )
-
-

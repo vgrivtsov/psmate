@@ -24,6 +24,7 @@ import re
 import random
 import pytils
 
+
 ### Search PS ###
 
 class SearchPsAuto(autocomplete.Select2QuerySetView):
@@ -318,28 +319,22 @@ class CvPresentView(ListView):
 
 ###Get competences - search from index.html###
 
+### Load Jobtitles for autocomplete  ###
+class AutoLoadJT(View):
 
-###Autocompete###
-# class SearchJtAuto(autocomplete.Select2QuerySetView):
-#      def get_queryset(self):
-#
-#         qs = Jobtitles.objects.all()
-#
-#         if self.q:
-#
-#
-#             qs = qs.filter(jobtitle__icontains=self.q) # icontains - Case-insensitive
-#
-#
-#         return qs
-#
-#
-#
-# class SearchJtView(FormView):
-#     model = Jobtitles
-#     form_class = SearchJtForm
-#     template_name = 'index.html'
-#     success_url = None
+    def get(self, request, *args, **kwargs):
+
+        data = self.request.GET.get('search', None)
+
+        if data != None:
+
+            jts = Jobtitles.objects.filter(jobtitle__icontains=data)[:10]
+            jtresult = []
+            for jt in jts:
+                jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle})
+
+            return JsonResponse(jtresult, safe=False)
+
 
 class SearchJT(FormView):
     template_name = 'index.html'

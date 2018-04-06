@@ -23,8 +23,8 @@
             <form method="get" action="{% url 'search-jobtitles' %}{{ jt }}"
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="text" class="form-control form-control-lg" id="search" name="search" value="">
-                   <label for="search" class="">поиск по ключевому слову</label>
+                  <input type="text" class="form-control form-control-lg" id="jtsearch" name="search" value="">
+                   <label for="search" class=""></label>
                 </div>
                 <div class="col-12 col-md-3">
                   <input type="submit" class="btn btn-lg btn-unique"
@@ -36,6 +36,37 @@
         </div>
       </div>
     </header>
+
+<script>
+$("#jtsearch").autocomplete({
+	minLength: 3,
+ delay: 500,
+
+	source: function(req, add){
+		var search=$("#jtsearch").val();
+		$.ajax({
+			url: '/jt-autocomplete/',
+   async: true,
+			dataType: 'json',
+			type: 'GET',
+			data: {'search': search,},
+			success: function(data){
+				var suggestions=[];
+
+				$.each(data, function(index, object){
+					suggestions.push(object.jobtitle);
+				});
+
+				add(suggestions);
+
+			},
+			error: function(){
+				alert("Error!");
+			}
+		});
+	}
+});
+</script>
     <!-- Page Content -->
     <div class="container mainindex">
       <!-- News Section -->
