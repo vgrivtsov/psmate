@@ -643,10 +643,13 @@ class OICreateView(FormView):
                             changed_word = 'бренд-менеджера'
                         if changed_word == 'брэнда-менеджера':
                             changed_word = 'брэнд-менеджера'
-                        if changed_word == 'чокерноя':
-                            changed_word = 'чокерной'
                         if changed_word == 'поварова':
                             changed_word = 'поваров'
+                        if changed_word == 'котлова':
+                            changed_word = 'котлов'
+                        if changed_word == 'чокерноя':
+                            changed_word = 'чокерной'
+
 
                         jt_rod.append(changed_word)
                     else:

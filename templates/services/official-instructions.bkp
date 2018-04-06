@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<section class= "offinstructions">
+<div class= "offinstructions" ng-app="offinstructions" ng-controller="ctrl">
 
 <div class="container py-5" style="min-height: 100vh;">
 
@@ -19,20 +19,22 @@
 </p>
 <p class="western" style="margin-bottom: 0in" align="right"></p>
 
-<div style="margin-bottom: 0in" align="right" >
-Генеральный директор ООО
+
+<div class="ofhead varceo" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" data-directive ng-model="ceo" ></span><span>&nbsp;</span>
 </div>
 
-<div style="margin-bottom: 0in" align="right" >
-«Учреждение»
-</div>
-
-<div style="margin-bottom: 0in" align="right">
-_______________ Иванов И.П.
+<div class="ofhead varorganization" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" data-directive ng-model="organization" ></span><span>&nbsp;</span>
 </div>
 
 
-<div class="ofhead vardate" style="margin-bottom: 0in" align="right" style="margin-bottom: 0in" align="right" >
+<div class="ofhead vardirector" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+_______________<span contenteditable="true" data-directive ng-model="director" ></span><span>&nbsp;</span>
+</div>
+
+
+<div class="ofhead vardate" style="margin-bottom: 0in" align="right" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <span contenteditable="true">
 «{% now "j" %}» {% now "E" %} {% now "Y" %} г.
 </span>
@@ -52,28 +54,29 @@ _______________ Иванов И.П.
 {{generaldatas.jobtitlerod}}
 </div>
 <!--change angular value departament -->
-<div style="margin-bottom: 0in; font-weight: 400;" align="center">
-     подразделения «Новые технологии»
+<div id="depart"    class="ofhead depart" style="margin-bottom: 0in; font-weight: 400;"
+     align="center" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+     подразделения «<span contenteditable="true" data-directive ng-model="depart" ></span>»<span>&nbsp;</span>
 </div>
+
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
-<p class="western" style="margin-bottom: 0in" align="center"><b>1. Общие положения
+<p class="western" style="margin-bottom: 0in" align="center"><b>1.
+Общие положения
 	</b>
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
 <p class="western" style="margin-bottom: 0in" align="justify">
     1.1. Настоящая должностная инструкция
 определяет функциональные, должностные
 обязанности, права и ответственность
-{{generaldatas.jobtitlerod|lower}} подразделения «Новые технологии»
- (далее - {{generaldatas.jobtitle|lower}}) ООО «Учреждение» (далее Учреждение).
+{{generaldatas.jobtitlerod}} подразделения «<span ng-bind-html="depart"></span>»
+ (далее - {{generaldatas.jobtitle|lower}}) <span ng-bind-html="organization"></span> (далее Учреждение).
 </p>
 
-
-<div style="margin-bottom: 0in">
-
+<div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
 <p class="western" style="margin-bottom: 0in" align="justify">
 	   1.2. На должность {{generaldatas.jobtitlerod}} назначается
 лицо, удовлетворяющее следующим требованиям к образованию и обучению:
@@ -101,9 +104,11 @@ _______________ Иванов И.П.
 </div>
 {% endfor %}
 {% endif %}
+
 </div>
 
-<div style="margin-bottom: 0in" >
+<div class="ofhead other_req" style="margin-bottom: 0in" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
 
 <p class="western" style="margin-bottom: 0in" align="justify">
     1.3. {{generaldatas.jobtitle}} должен знать:
@@ -125,21 +130,22 @@ _______________ Иванов И.П.
 
 </div>
 
-<div align="right" >
+<div class="ofhead 15" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <p class="western" style="margin-bottom: 0in" align="justify">
     1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
-генерального директора Учреждения в соответствии с
+<span contenteditable="true" ng-bind-html="ceo"></span> Учреждения в соответствии с
 действующим законодательством Российской
 Федерации.
 </p>
 </div>
 
-<div align="right" >
+<div class="ofhead 16" align="right" data-html="true" data-toggle="tooltip" role="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
 <p class="western" style="margin-bottom: 0in" align="justify">	1.6.
-{{generaldatas.jobtitle}} подчиняется генеральному директору Учреждения
+{{generaldatas.jobtitle}} подчиняется <span contenteditable="true" ng-bind-html="ceo"></span> Учреждения
 и начальнику подразделения
-«Новые технологии»
+«<span contenteditable="true" data-directive ng-model="depart"></span>»
+<span>&nbsp;</span>
 </p>
 </div>
 
@@ -149,9 +155,11 @@ _______________ Иванов И.П.
 <p class="western" style="margin-bottom: 0in" align="center"><b>2.
 Трудовые функции
 	</b>
+</p>
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
+
 
 {% for tf in requirements.tf %}
 <div  class="tfs">
@@ -165,8 +173,8 @@ _______________ Иванов И.П.
 <p class="western" style="margin-bottom: 0in" align="center"><b>3.
 Должностные обязанности
 	</b>
-
 </p>
+
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
@@ -186,7 +194,6 @@ _______________ Иванов И.П.
 </div>
 
 {% endfor %}
-
 <p class="western" style="margin-bottom: 0in" align="center"><br></p>
 <a class="btn btn-outline-mdb-color btn-block" href="{% url 'competences' generaldatas.slug %}">Изменить трудовые функции</a>
 <p class="western" style="margin-bottom: 0in" align="center"><br></p>
@@ -194,14 +201,16 @@ _______________ Иванов И.П.
 <p class="western" style="margin-bottom: 0in" align="center"><b>4.
 Права
 	</b>
-
+</p>
 <p class="western" style="margin-bottom: 0in" align="center"><br>
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><b>	{{generaldatas.jobtitle}}
 имеет право:
 	</b>
+</p>
 
-<div style="margin-bottom: 0in" align="right">
+<div class="ofhead o" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
 
 <p class="western" style="margin-bottom: 0in" align="justify">
     4.1. Запрашивать и получать необходимую
@@ -237,22 +246,22 @@ _______________ Иванов И.П.
 обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
-    4.7. Пользоваться информационными материалами и нормативно-правовыми документами, необходимыми для исполнения своих должностных обязанностей.
+    4.7. Пользоваться информационными
+материалами и нормативно-правовыми
+документами, необходимыми для исполнения
+своих должностных обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
     4.8. Проходить в установленном порядке
 аттестацию.
 </p>
-
+</span>
+<span>&nbsp;</span>
 </div>
-
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
 
 <p class="western" style="margin-bottom: 0in" align="center"><b>5.
 Ответственность
 	</b>
-
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
@@ -261,7 +270,8 @@ _______________ Иванов И.П.
 за:
 	</b>
 
-<div style="margin-bottom: 0in" align="right">
+<div class="ofhead o" style="margin-bottom: 0in" align="right" data-html="true" data-toggle="tooltip" data-placement="right" title="<i class='fa fa-pencil'></i>">
+<span contenteditable="true" >
 
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
@@ -270,8 +280,8 @@ _______________ Иванов И.П.
 обязанностей.
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
-    5.2. Невыполнение распоряжений и
-поручений генерального директора Учреждения.
+    <span>5.2. Невыполнение распоряжений и
+поручений</span> <span ng-bind-html="ceo"></span>  Учреждения.
 </p>
 <p class="western" style="margin-bottom: 0in;" align="justify">
 	5.3. Недостоверную
@@ -306,6 +316,8 @@ _______________ Иванов И.П.
 материальной, административной,
 гражданской и уголовной ответственности.
 </p>
+</span>
+<span>&nbsp;</span>
 </div>
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
@@ -317,13 +329,74 @@ _______________ Иванов И.П.
 утвержденного приказом Министерства труда и социальной защиты Российской Федерации от {{generaldatas.psdateappr}} № {{generaldatas.psordernum}}
 и иных нормативно–правовых актов, регулирующих трудовые отношения.
 </p>
-<p class="western" style="margin-bottom: 0in" align="justify"><br>
-</p>
 
 </div>
 
 
-</section>
+</div><!--Ngapp-->
 
+
+<script>
+
+ $(document).ready(function() {
+  //initializing tooltip
+  $('[data-toggle="tooltip"]').tooltip({
+    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+});
+});
+
+//angular.module('offinstructions', []).config(function($interpolateProvider){
+//    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+//});
+
+var app = angular.module("offinstructions", ["ngSanitize"]).config(function($interpolateProvider){
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('ctrl', ['$scope', '$sanitize', function($scope, $sanitize) {
+    $scope.depart = 'Новые технологии';
+    $scope.depart = $sanitize($scope.depart);
+    $scope.organization = '«Учреждение»'
+    $scope.organization = $sanitize($scope.organization);
+    $scope.director = 'И.О. Фамилия'
+    $scope.director = $sanitize($scope.director);
+    $scope.ceo = 'Генеральный директор'
+    $scope.ceo = $sanitize($scope.ceo);
+
+
+}]);
+
+app.directive("directive", function() {
+	return {
+        restrict: "A",
+        require: "ngModel",
+        link: function(scope, element, attrs, ngModel) {
+
+            function read() {
+                // view -> model
+                var html = element.html();
+                html = html.replace(/&nbsp;/g, "\u00a0");
+                ngModel.$setViewValue(html);
+
+            }
+            // model -> view
+            ngModel.$render = function() {
+                element.html(ngModel.$viewValue || "");
+            };
+
+            element.bind("blur", function() {
+                scope.$apply(read);
+            });
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    this.blur();
+                    event.preventDefault();
+                }
+            });
+        }
+	};
+});
+
+</script>
 
 {% endblock %}
