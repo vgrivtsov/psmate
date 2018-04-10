@@ -713,19 +713,22 @@ class OfficialInstructions(ListView):
                      # try-except for non possible plural
                     if rand_plursing == 'plur':
                         try:
-                            first_word = randomchoise_first.inflect({ rand_plursing, 'ADJF'}).word
+                            first_word = randomchoise_first.inflect({ rand_plursing}).word
                             second_word = randomchoise_sec.inflect({rand_plursing}).word
                         except:
                             pass
                     else:
-                        first_word = randomchoise_first.inflect({ rand_kind, 'ADJF' }).word
+                        first_word = randomchoise_first.inflect({ rand_kind}).word
                         second_word = randomchoise_sec.inflect({rand_plursing}).word
 
                     result = first_word.capitalize() + ' ' + second_word
                     e_d_arr.append(result)
                 return e_d_arr
 
-            e_name, depname = gen_company_data(all_words)[:2]
+            e_name_x, depname = gen_company_data(all_words)[:2]
+            e_name_arr = e_name_x.split(" ")
+            e_name = e_name_arr[0][:random.randint(3, 4)] + e_name_arr[1]
+            #e_name_arr[0][:random.randint(2, len(e_name_arr[0])) ] + e_name_arr[1][:random.randint(2, len(e_name_arr[1]))]
 
             cmpd = {  'e_name' : e_name,
                       'e_fam_ul' : e_fam_ul,
