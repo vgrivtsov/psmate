@@ -24,11 +24,11 @@
 </div>
 
 <div style="margin-bottom: 0in" align="right" >
-«Учреждение»
+«{{cmpd.e_name}}»
 </div>
 
 <div style="margin-bottom: 0in" align="right">
-_______________ Иванов И.П.
+_______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfirst}}. {{cmpd.e_fam_ul|capfirst}}
 </div>
 
 
@@ -53,7 +53,7 @@ _______________ Иванов И.П.
 </div>
 <!--change angular value departament -->
 <div style="margin-bottom: 0in; font-weight: 400;" align="center">
-     подразделения «Новые технологии»
+     подразделения «{{cmpd.depname}}»
 </div>
 
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
@@ -67,8 +67,8 @@ _______________ Иванов И.П.
     1.1. Настоящая должностная инструкция
 определяет функциональные, должностные
 обязанности, права и ответственность
-{{generaldatas.jobtitlerod|lower}} подразделения «Новые технологии»
- (далее - {{generaldatas.jobtitle|lower}}) ООО «Учреждение» (далее Учреждение).
+{{generaldatas.jobtitlerod|lower}} подразделения «{{cmpd.depname}}»
+ (далее - {{generaldatas.jobtitle|lower}}) ООО «{{cmpd.e_name}}» (далее Учреждение).
 </p>
 
 
@@ -139,7 +139,7 @@ _______________ Иванов И.П.
 <p class="western" style="margin-bottom: 0in" align="justify">	1.6.
 {{generaldatas.jobtitle}} подчиняется генеральному директору Учреждения
 и начальнику подразделения
-«Новые технологии»
+«{{cmpd.depname}}»
 </p>
 </div>
 

@@ -19,10 +19,11 @@ from time import time
 from operator import itemgetter
 
 import pymorphy2
-from pymorphy2 import units
+#from pymorphy2 import units
 import re
 import random
 import pytils
+from faker import Faker
 
 
 ### Search PS ###
@@ -636,7 +637,90 @@ class OfficialInstructions(ListView):
             ocresultnew = set( x['othercharacteristic'] for x in ocresult)
 
 
+#### FAKE COMPANY DATA ###
 
+            fake = Faker('ru_RU')
+            e_fam_ul, e_name_ul, e_otch_ul = fake.name().split(" ")
+
+            def get_init_words(attr, arr):
+                init_words = [ x[attr] for x in arr]
+                raw_words = []
+                for sentense in init_words:
+                    cleared = re.sub(r'[^\w]', ' ', sentense)
+                    splitted = cleared.strip().split(" ")
+
+                    raw_words += splitted
+                cleared_from_empty = [x.lower() for x in raw_words if not x == '']
+                return cleared_from_empty
+
+            all_words = (get_init_words('laboraction', laresult) +
+                         get_init_words('necessaryknowledge', nkresult) +
+                         get_init_words('requiredskill', rsresult) +
+                         get_init_words('othercharacteristic', ocresult) +
+                         get_init_words('nametf', tfresult)
+                         )
+
+
+            def gen_company_data(word_arr):
+                e_d_arr = [] # for result data
+                nouns = []
+                adjective = []
+                participle = []
+
+                for k in word_arr:
+                    init_word = morph.parse(k)[0]
+                    if init_word.tag.POS == 'NOUN':
+                        nouns.append(init_word.normalized)
+                    if init_word.tag.POS == 'ADJF':
+                        adjective.append(init_word.normalized)
+                    if init_word.tag.POS == 'PRTF':
+                        participle.append(init_word.normalized)
+
+                plur_singl = ['plur','sing']
+                kind = ['masc','femn','neut']
+                t_or_f = [True, False]
+
+                for x in range(2):
+                    rand_plursing = random.choice(plur_singl)
+                    rand_kind = random.choice(kind)
+                    randombit = random.choice(t_or_f)
+                    a_or_p = adjective
+                    ptrf_hak = 'ADJF'
+
+                    if randombit: #  adjective or participle
+                        a_or_p = participle
+                        ptrf_hak = 'PRTF'
+
+                    nouns_x = [a for a in nouns if a.tag.gender == rand_kind]
+
+                    randomchoise_first = random.choice(a_or_p)
+                    randomchoise_sec =   random.choice(nouns_x)
+
+                     # try-except for non possible plural
+                    if rand_plursing == 'plur':
+                        try:
+                            first_word = randomchoise_first.inflect({ rand_plursing, ptrf_hak}).word
+                            second_word = randomchoise_sec.inflect({rand_plursing}).word
+                        except:
+                            pass
+                    else:
+                        first_word = randomchoise_first.inflect({ rand_kind, ptrf_hak }).word
+                        second_word = randomchoise_sec.inflect({rand_plursing}).word
+
+                    result = first_word.capitalize() + ' ' + second_word
+                    e_d_arr.append(result)
+                return e_d_arr
+
+            e_name, depname = gen_company_data(all_words)
+
+            cmpd = {  'e_name' : e_name,
+                      'e_fam_ul' : e_fam_ul,
+                      'e_name_ul' : e_name_ul,
+                      'e_otch_ul' : e_otch_ul,
+                      'depname' : depname,
+                    }
+
+##########################
             requirements = {'tf' : tfresult,
                             'laboractions' : laresult,
                             'necessaryknowledges' : nkresult,
@@ -648,5 +732,6 @@ class OfficialInstructions(ListView):
 
 
             return render(request, self.template_name, {'generaldatas': generaldatas,
-                                                        'requirements' : requirements
+                                                        'requirements' : requirements,
+                                                        'cmpd' :cmpd
                                                         })
