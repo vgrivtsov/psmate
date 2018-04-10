@@ -679,7 +679,7 @@ class OfficialInstructions(ListView):
                 e_d_arr = [] # for result data
                 nouns = []
                 adjective = []
-                participle = []
+                # participle = []
 
                 for k in word_arr:
                     init_word = morph.parse(k)[0]
@@ -687,38 +687,38 @@ class OfficialInstructions(ListView):
                         nouns.append(init_word.normalized)
                     if init_word.tag.POS == 'ADJF':
                         adjective.append(init_word.normalized)
-                    if init_word.tag.POS == 'PRTF':
-                        participle.append(init_word.normalized)
+                    # if init_word.tag.POS == 'PRTF':
+                    #     participle.append(init_word.normalized)
 
                 plur_singl = ['plur','sing']
                 kind = ['masc','femn','neut']
-                t_or_f = [True, False]
+                # t_or_f = [True, False]
 
                 for x in range(2):
                     rand_plursing = random.choice(plur_singl)
                     rand_kind = random.choice(kind)
-                    randombit = random.choice(t_or_f)
-                    a_or_p = adjective
-                    ptrf_hak = 'ADJF'
+                    # randombit = random.choice(t_or_f)
+                    # a_or_p = adjective
+                    # ptrf_hak = 'ADJF'
 
-                    if randombit: #  adjective or participle
-                        a_or_p = participle
-                        ptrf_hak = 'PRTF'
+                    # if randombit: #  adjective or participle
+                    #     a_or_p = participle
+                    #     ptrf_hak = 'PRTF'
 
                     nouns_x = [a for a in nouns if a.tag.gender == rand_kind]
 
-                    randomchoise_first = random.choice(a_or_p)
+                    randomchoise_first = random.choice(adjective)
                     randomchoise_sec =   random.choice(nouns_x)
 
                      # try-except for non possible plural
                     if rand_plursing == 'plur':
                         try:
-                            first_word = randomchoise_first.inflect({ rand_plursing, ptrf_hak}).word
+                            first_word = randomchoise_first.inflect({ rand_plursing, 'ADJF'}).word
                             second_word = randomchoise_sec.inflect({rand_plursing}).word
                         except:
                             pass
                     else:
-                        first_word = randomchoise_first.inflect({ rand_kind, ptrf_hak }).word
+                        first_word = randomchoise_first.inflect({ rand_kind, 'ADJF' }).word
                         second_word = randomchoise_sec.inflect({rand_plursing}).word
 
                     result = first_word.capitalize() + ' ' + second_word
