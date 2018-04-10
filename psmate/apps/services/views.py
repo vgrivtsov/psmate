@@ -639,11 +639,19 @@ class OfficialInstructions(ListView):
 
 #### FAKE COMPANY DATA ###
 
+
+
+
+
             fake = Faker('ru_RU')
             e_fam_ul, e_name_ul, e_otch_ul = fake.name().split(" ")[-3:]
 
             def get_init_words(attr, arr):
-                init_words = [ x[attr] for x in arr]
+                try:
+                    init_words = [ x[attr] for x in arr]
+                except TypeError: # for requarements
+                    init_words = arr.values_list(attr, flat=True)
+
                 raw_words = []
                 for sentense in init_words:
                     cleared = re.sub(r'[^\w]', ' ', sentense)
@@ -653,13 +661,18 @@ class OfficialInstructions(ListView):
                 cleared_from_empty = [x.lower() for x in raw_words if not x == '']
                 return cleared_from_empty
 
-            all_words = (get_init_words('laboraction', laresult) +
-                         get_init_words('necessaryknowledge', nkresult) +
-                         get_init_words('requiredskill', rsresult) +
-                         get_init_words('othercharacteristic', ocresult) +
-                         get_init_words('nametf', tfresult)
-                         )
+            all_words =(get_init_words('laboraction', laresult) +
+                        get_init_words('necessaryknowledge', nkresult) +
+                        get_init_words('requiredskill', rsresult) +
+                        get_init_words('othercharacteristic', ocresult) +
+                        get_init_words('nametf', tfresult) +
+                        get_init_words('educationalrequirement', educationalreqs) +
+                        get_init_words('requirementsworkexperience', reqworkexperiences) +
+                        get_init_words('othercharacteristic', othercharacts) +
+                        get_init_words('specialconditionforadmissiontowork', specialconditions)
+                        )
 
+            #print(get_init_words('educationalrequirement', educationalreqs))
 
             def gen_company_data(word_arr):
                 e_d_arr = [] # for result data
