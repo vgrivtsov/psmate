@@ -640,7 +640,7 @@ class OfficialInstructions(ListView):
 #### FAKE COMPANY DATA ###
 
             fake = Faker('ru_RU')
-            e_fam_ul, e_name_ul, e_otch_ul = fake.name().split(" ")
+            e_fam_ul, e_name_ul, e_otch_ul = fake.name().split(" ")[-3:]
 
             def get_init_words(attr, arr):
                 init_words = [ x[attr] for x in arr]
