@@ -596,6 +596,7 @@ class OfficialInstructions(ListView):
                     'pspurposekind' : ps[0].pspurposekind,
                     'nameps' : ps[0].nameps,
                     'psregnum' : ps[0].psregnum,
+                    'ps_id' : ps[0].id,
                     'psordernum' : ps[0].psordernum,
                     'psdateappr' : ps[0].psdateappr,
                     'otraslname' : otrasl.name,
@@ -639,10 +640,6 @@ class OfficialInstructions(ListView):
 
 #### FAKE COMPANY DATA ###
 
-
-
-
-
             fake = Faker('ru_RU')
             e_fam_ul, e_name_ul, e_otch_ul = fake.name().split(" ")[-3:]
 
@@ -671,8 +668,12 @@ class OfficialInstructions(ListView):
                         get_init_words('othercharacteristic', othercharacts) +
                         get_init_words('specialconditionforadmissiontowork', specialconditions)
                         )
+            # for _ in range(1000):
+            #     print(get_init_words('educationalrequirement', educationalreqs),
+            #           get_init_words('requirementsworkexperience', reqworkexperiences),
+            #           get_init_words('othercharacteristic', othercharacts),
+            #           get_init_words('specialconditionforadmissiontowork', specialconditions))
 
-            #print(get_init_words('educationalrequirement', educationalreqs))
 
             def gen_company_data(word_arr):
                 e_d_arr = [] # for result data
@@ -724,7 +725,7 @@ class OfficialInstructions(ListView):
                     e_d_arr.append(result)
                 return e_d_arr
 
-            e_name, depname = gen_company_data(all_words)
+            e_name, depname = gen_company_data(all_words)[:2]
 
             cmpd = {  'e_name' : e_name,
                       'e_fam_ul' : e_fam_ul,
