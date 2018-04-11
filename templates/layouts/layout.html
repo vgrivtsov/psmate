@@ -10,12 +10,8 @@
 
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/tether.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
-    <link rel="stylesheet" href="{% static 'css/ui-bootstrap-3.0.0-csp.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/datepicker.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/qualinfo.css' %}">
   {% block head %}
@@ -192,23 +188,16 @@
 <body>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/angular-filter.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/ui-bootstrap-tpls-3.0.0.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/typeahead-focus.js' %}"></script> <!--focus for ui-bootstrap dropdown-->
-    <script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/datepicker-ru.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.validate.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/angular-sanitize.min.js' %}"></script>
+
 
 <!--====  Main content  ====-->
   {% block content %}
   {% endblock %}
 <!--==== FIN Main content ====-->
+
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 
 </body>
 

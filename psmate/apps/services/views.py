@@ -644,11 +644,8 @@ class OfficialInstructions(ListView):
             e_fam_ul, e_name_ul, e_otch_ul = fake.name().split(" ")[-3:]
 
             def get_init_words(attr, arr):
-                try:
-                    init_words = [ x[attr] for x in arr]
-                except TypeError: # for requarements
-                    init_words = arr.values_list(attr, flat=True)
 
+                init_words = [ x[attr] for x in arr]
                 raw_words = []
                 for sentense in init_words:
                     cleared = re.sub(r'[^\w]', ' ', sentense)
@@ -656,30 +653,20 @@ class OfficialInstructions(ListView):
 
                     raw_words += splitted
                 cleared_from_empty = [x.lower() for x in raw_words if not x == '']
+
                 return cleared_from_empty
 
             all_words =(get_init_words('laboraction', laresult) +
                         get_init_words('necessaryknowledge', nkresult) +
                         get_init_words('requiredskill', rsresult) +
                         get_init_words('othercharacteristic', ocresult) +
-                        get_init_words('nametf', tfresult) +
-                        get_init_words('educationalrequirement', educationalreqs) +
-                        get_init_words('requirementsworkexperience', reqworkexperiences) +
-                        get_init_words('othercharacteristic', othercharacts) +
-                        get_init_words('specialconditionforadmissiontowork', specialconditions)
+                        get_init_words('nametf', tfresult)
                         )
-            # for _ in range(1000):
-            #     print(get_init_words('educationalrequirement', educationalreqs),
-            #           get_init_words('requirementsworkexperience', reqworkexperiences),
-            #           get_init_words('othercharacteristic', othercharacts),
-            #           get_init_words('specialconditionforadmissiontowork', specialconditions))
-
 
             def gen_company_data(word_arr):
                 e_d_arr = [] # for result data
                 nouns = []
                 adjective = []
-                # participle = []
 
                 for k in word_arr:
                     init_word = morph.parse(k)[0]
@@ -687,23 +674,13 @@ class OfficialInstructions(ListView):
                         nouns.append(init_word.normalized)
                     if init_word.tag.POS == 'ADJF':
                         adjective.append(init_word.normalized)
-                    # if init_word.tag.POS == 'PRTF':
-                    #     participle.append(init_word.normalized)
 
                 plur_singl = ['plur','sing']
                 kind = ['masc','femn','neut']
-                # t_or_f = [True, False]
 
                 for x in range(2):
                     rand_plursing = random.choice(plur_singl)
                     rand_kind = random.choice(kind)
-                    # randombit = random.choice(t_or_f)
-                    # a_or_p = adjective
-                    # ptrf_hak = 'ADJF'
-
-                    # if randombit: #  adjective or participle
-                    #     a_or_p = participle
-                    #     ptrf_hak = 'PRTF'
 
                     nouns_x = [a for a in nouns if a.tag.gender == rand_kind]
 
@@ -711,17 +688,21 @@ class OfficialInstructions(ListView):
                     randomchoise_sec =   random.choice(nouns_x)
 
                      # try-except for non possible plural
-                    if rand_plursing == 'plur':
-                        try:
+                    try:
+                        if rand_plursing == 'plur':
                             first_word = randomchoise_first.inflect({ rand_plursing}).word
                             second_word = randomchoise_sec.inflect({rand_plursing}).word
-                        except:
-                            pass
-                    else:
-                        first_word = randomchoise_first.inflect({ rand_kind}).word
-                        second_word = randomchoise_sec.inflect({rand_plursing}).word
 
-                    result = first_word.capitalize() + ' ' + second_word
+                        else:
+                            first_word = randomchoise_first.inflect({ rand_kind}).word
+                            second_word = randomchoise_sec.inflect({rand_plursing}).word
+
+                        result = first_word.capitalize() + ' ' + second_word
+
+                    except:
+
+                        result = fake.company()
+
                     e_d_arr.append(result)
                 return e_d_arr
 
@@ -744,9 +725,6 @@ class OfficialInstructions(ListView):
                             'requiredskills' : rsresult,
                             'othercharacteristics' : ocresultnew,
                             }
-
-
-
 
             return render(request, self.template_name, {'generaldatas': generaldatas,
                                                         'requirements' : requirements,
