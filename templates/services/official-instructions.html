@@ -14,9 +14,9 @@
 <div class="alert alert-secondary" role="alert">
   Внимание! Настоящая должностная инструкция создана для обобщенной трудовой функции: <b><em>{{generaldatas.nameotf}}</em></b>
 		из <a href="/search-profstandart/?nameps={{generaldatas.ps_id}}" data-toggle="tooltip" data-placement="bottom"
-		title="{{generaldatas.nameps}}"><b><em>профстандарта № {{generaldatas.psregnum}}</em></b></a>.
+		title="{{generaldatas.nameps}}" rel="nofollow"><b><em>профстандарта № {{generaldatas.psregnum}}</em></b></a>.
 		Существование других обобщенных трудовых функций {{generaldatas.jobtitlerod}} проверьте с помощью поиска:
-		<a href="/search-jobtitles/?search={{generaldatas.jobtitle}}"><b><em>{{generaldatas.jobtitle}}</em></b></a>
+		<a href="/search-jobtitles/?search={{generaldatas.jobtitle}}" rel="nofollow"><b><em>{{generaldatas.jobtitle}}</em></b></a>
 </div>
 
 <div class="container py-5" style="min-height: 100vh;">
@@ -196,7 +196,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 {% endfor %}
 
 <p class="western" style="margin-bottom: 0in" align="center"><br></p>
-<a class="btn btn-outline-mdb-color btn-block" href="{% url 'competences' generaldatas.slug %}">Изменить трудовые функции</a>
+<a class="btn btn-outline-mdb-color btn-block" href="{% url 'competences' generaldatas.slug %}" rel="nofollow">Изменить трудовые функции</a>
 <p class="western" style="margin-bottom: 0in" align="center"><br></p>
 
 <p class="western" style="margin-bottom: 0in" align="center"><b>4.
