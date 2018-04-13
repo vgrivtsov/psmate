@@ -23,9 +23,8 @@ import pymorphy2
 import re
 import random
 import pytils
-from faker import Faker
-
-
+from mimesis import Business, Person
+from mimesis.builtins import RussiaSpecProvider
 ### Search PS ###
 
 class SearchPsAuto(autocomplete.Select2QuerySetView):
@@ -639,9 +638,12 @@ class OfficialInstructions(ListView):
 
 
 #### FAKE COMPANY DATA ###
-
-            fake = Faker('ru_RU')
-            e_fam_ul, e_name_ul, e_otch_ul = fake.name().split(" ")[-3:]
+            person = Person('ru')
+            full_name = person.full_name()
+            ruspec = RussiaSpecProvider()
+            e_otch_ul = ruspec.patronymic()
+            print(full_name)
+            e_name_ul, e_fam_ul = full_name.split(" ")[-2:]
 
             def get_init_words(attr, arr):
 
@@ -663,8 +665,8 @@ class OfficialInstructions(ListView):
                         get_init_words('nametf', tfresult)
                         )
 
-            def gen_company_data(word_arr):
-                e_d_arr = [] # for result data
+            def gen_depname_data(word_arr):
+
                 nouns = []
                 adjective = []
 
@@ -678,38 +680,27 @@ class OfficialInstructions(ListView):
                 plur_singl = ['plur','sing']
                 kind = ['masc','femn','neut']
 
-                for x in range(2):
-                    rand_plursing = random.choice(plur_singl)
-                    rand_kind = random.choice(kind)
+                rand_plursing = random.choice(plur_singl)
+                rand_kind = random.choice(kind)
 
-                    nouns_x = [a for a in nouns if a.tag.gender == rand_kind]
+                nouns_x = [a for a in nouns if a.tag.gender == rand_kind]
 
-                    randomchoise_first = random.choice(adjective)
-                    randomchoise_sec =   random.choice(nouns_x)
+                randomchoise_first = random.choice(adjective)
+                randomchoise_sec =   random.choice(nouns_x)
 
-                     # try-except for non possible plural
-                    try:
-                        if rand_plursing == 'plur':
-                            first_word = randomchoise_first.inflect({ rand_plursing}).word
-                            second_word = randomchoise_sec.inflect({rand_plursing}).word
+                if rand_plursing == 'plur':
+                    first_word = randomchoise_first.inflect({ rand_plursing}).word
+                    second_word = randomchoise_sec.inflect({rand_plursing}).word
 
-                        else:
-                            first_word = randomchoise_first.inflect({ rand_kind}).word
-                            second_word = randomchoise_sec.inflect({rand_plursing}).word
+                else:
+                    first_word = randomchoise_first.inflect({ rand_kind}).word
+                    second_word = randomchoise_sec.inflect({rand_plursing}).word
 
-                        result = first_word.capitalize() + ' ' + second_word
+                return first_word.capitalize() + ' ' + second_word
 
-                    except:
-
-                        result = fake.company()
-
-                    e_d_arr.append(result)
-                return e_d_arr
-
-            e_name_x, depname = gen_company_data(all_words)[:2]
-            e_name_arr = e_name_x.split(" ")
-            e_name = e_name_arr[0][:random.randint(3, 4)] + e_name_arr[1]
-            #e_name_arr[0][:random.randint(2, len(e_name_arr[0])) ] + e_name_arr[1][:random.randint(2, len(e_name_arr[1]))]
+            business = Business('ru')
+            e_name =  business.company()
+            depname = gen_depname_data(all_words)
 
             cmpd = {  'e_name' : e_name,
                       'e_fam_ul' : e_fam_ul,
