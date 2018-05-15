@@ -571,7 +571,8 @@ class OfficialInstructions(ListView):
                             changed_word = 'котлов'
                         if changed_word == 'чокерноя':
                             changed_word = 'чокерной'
-
+                        if changed_word == 'игрового':
+                            changed_word = 'игровой'
 
                         jt_rod.append(changed_word)
 
@@ -642,7 +643,6 @@ class OfficialInstructions(ListView):
             full_name = person.full_name()
             ruspec = RussiaSpecProvider()
             e_otch_ul = ruspec.patronymic()
-            print(full_name)
             e_name_ul, e_fam_ul = full_name.split(" ")[-2:]
 
             def get_init_words(attr, arr):

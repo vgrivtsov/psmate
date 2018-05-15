@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 {% extends "layouts/layout.html" %}
 {% load static %}
 {% load widget_tweaks %}
@@ -20,7 +18,7 @@
             <h2 class="mb-5">Квалификационный справочник должностей</h2>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
-            <form method="get" action="{% url 'search-jobtitles' %}{{ jt }}"
+            <form method="get" action="{% url 'search-jobtitles' %}{{ jt }}">
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
                   <input type="text" class="form-control form-control-lg" id="jtsearch" name="search" value="">
@@ -117,8 +115,7 @@ $("#jtsearch").autocomplete({
           <div class="card h-100">
             <h4 class="card-header">Должностные инструкции</h4>
             <div class="card-body">
-              <p class="card-text">Справочник должностей из реестра профессиональных стандартов. Инофрмация о требованиях и компетенциях.
-              Автоматическое построение должностной инструкции. Скачивание должностной инструкции в формате MS Word(необходима авторизация)</p>
+              <p class="card-text">Типовые должностные инструкции с учетом требований, определенных профстандартом. Возможность произвольного выбора трудовых функций и должностных обязанностей.</p>
             </div>
             <div class="card-footer">
               <a href="{% url 'search-jobtitles' %}" class="btn btn-mdb-color">Перейти</a>
@@ -127,12 +124,12 @@ $("#jtsearch").autocomplete({
         </div>
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
-            <h4 class="card-header">Конструктор резюме</h4>
+            <h4 class="card-header">Справочник должностей</h4>
             <div class="card-body">
-              <p class="card-text">Позволяет сконструировать резюме в рамках выбранного профстандарта с необходимыми компетенциями. Конструктор резюме доступен в личном кабинете после авторизации </p>
+              <p class="card-text">Поиск информации о должности в соответствии с профстандартом</p>
             </div>
             <div class="card-footer">
-              <a href="{% url 'generator-cv-resume' %}" class="btn btn-mdb-color">Перейти</a>
+              <a href="{% url 'search-jobtitles' %}" class="btn btn-mdb-color">Перейти</a>
             </div>
           </div>
         </div>
@@ -148,15 +145,13 @@ $("#jtsearch").autocomplete({
             <li><strong>Получить информацию о должности в редакции профстандарта</strong></li>
             <li><strong>Сгенерировать должностную инструкцию с учетом требований профстандарта</strong></li>
             <li>Получить информацию из существующих профстандартов</li>
-            <li>Составить резюме в терминах профстандарта</li>
-            <li>Посмотреть рекомендации по обучению желаемой квалификации</li>
             <li>Оставаться в курсе новостей внедрения профстандартов</li>
           </ul>
-          <p>ПрофНавигатор использует современные алгоритмы обработки данных и самые свежие данные с сайтов:</p>
+<!--          <p>ПрофНавигатор использует современные алгоритмы обработки данных и самые свежие данные с сайтов:</p>
           <ul>
             <li>Министерство труда и социальной защиты</li>
             <li>Российское образование. Федеральный образовательный портал</li>
-          </ul>
+          </ul>-->
         </div>
         <div class="col-lg-6">
           <img class="img-fluid rounded" src="{% static 'images/700x450.jpg' %}" alt="">
