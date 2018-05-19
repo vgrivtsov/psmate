@@ -330,6 +330,11 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 </div>
 
+<div>
+<a class="btn btn-info btn-sm" align="right" href="{% url 'official-instructions' generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">Скачать в формате MS Word</a>
+
+</div>
+
 
 </section>
 

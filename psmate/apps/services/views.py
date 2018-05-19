@@ -4,10 +4,13 @@ except ImportError:
     from django.core.urlresolvers import reverse_lazy
 
 import json
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView, ListView, View, UpdateView
 from dal import autocomplete
 from psmate.models import *
+from psmate.apps.services.apps import OIApp
 from psmate.apps.services.forms import SearchPsForm, CvGenForm, GetJTlistForm
 ###
 from django.contrib.auth.models import User
@@ -18,13 +21,14 @@ from time import time
 
 from operator import itemgetter
 
-import pymorphy2
+
 #from pymorphy2 import units
+
 import re
-import random
+# import random
 import pytils
-from mimesis import Business, Person
-from mimesis.builtins import RussiaSpecProvider
+import docxtpl
+
 ### Search PS ###
 
 class SearchPsAuto(autocomplete.Select2QuerySetView):
@@ -512,6 +516,7 @@ class OfficialInstructions(ListView):
         #t0 = time()
 
         data =  self.kwargs['slug']
+        docx =  self.kwargs['docx']
         tfsid = [int(x) for x in self.request.GET.getlist('tfids')] # tf id's from url get whish user check from jt tf checkbox
 
         if data != None:
@@ -531,61 +536,10 @@ class OfficialInstructions(ListView):
             otrasl = ps[0].otraslid
 
             generaldatas = []
+            # make JObtitle in rod padezh
+            oi_app = OIApp()
+            jobtitlerod = oi_app.make_jobtitlerod(jt[0].jobtitle)
 
-            #make jobtitle Roditelny paezh
-
-            jt_rod = []
-            morph = pymorphy2.MorphAnalyzer()
-
-            #cut non need padezh string beenween '( )'
-            pattern = re.compile("[\(\[].*?[\)\]]")
-            if re.findall(pattern, jt[0].jobtitle):
-                cuttedstring = re.findall(pattern, jt[0].jobtitle)[0]
-            else:
-                cuttedstring = ''
-
-            cleared_jt = re.sub("[\(\[].*?[\)\]]", "", jt[0].jobtitle)
-
-           # print(cuttedstring)
-
-            pos_list = ['NOUN', 'ADJF', 'ADJS', 'PRTF', 'PRTS']
-            case_list = []
-
-            for i in cleared_jt.split(' '):
-                p = morph.parse(i)[0]
-                if p.tag.POS in pos_list and p.tag.case == 'nomn' and p.tag.number == 'sing': # Chast' rechi & padezh
-
-                    #print(jt_rod_word)
-                    if p.inflect({'gent'}) :
-
-                        changed_word = p.inflect({'sing', 'gent'}).word
-                        if changed_word == 'риска-менеджера':
-                            changed_word = 'риск-менеджера'
-                        if changed_word == 'бренда-менеджера':
-                            changed_word = 'бренд-менеджера'
-                        if changed_word == 'брэнда-менеджера':
-                            changed_word = 'брэнд-менеджера'
-                        if changed_word == 'поварова':
-                            changed_word = 'поваров'
-                        if changed_word == 'котлова':
-                            changed_word = 'котлов'
-                        if changed_word == 'чокерноя':
-                            changed_word = 'чокерной'
-                        if changed_word == 'игрового':
-                            changed_word = 'игровой'
-
-                        jt_rod.append(changed_word)
-
-                    else:
-
-                        jt_rod.append(i)
-
-                else:
-                    jt_rod.append(i)
-
-
-           # print(jt_rod)
-            jobtitlerod = ' '.join(jt_rod) + ' '+cuttedstring
 
             generaldatas = {
                     'slug' : data,
@@ -637,77 +591,8 @@ class OfficialInstructions(ListView):
 
             ocresultnew = set( x['othercharacteristic'] for x in ocresult)
 
-
-#### FAKE COMPANY DATA ###
-            person = Person('ru')
-            full_name = person.full_name()
-            ruspec = RussiaSpecProvider()
-            e_otch_ul = ruspec.patronymic()
-            e_name_ul, e_fam_ul = full_name.split(" ")[-2:]
-
-            def get_init_words(attr, arr):
-
-                init_words = [ x[attr] for x in arr]
-                raw_words = []
-                for sentense in init_words:
-                    cleared = re.sub(r'[^\w]', ' ', sentense)
-                    splitted = cleared.strip().split(" ")
-
-                    raw_words += splitted
-                cleared_from_empty = [x.lower() for x in raw_words if not x == '']
-
-                return cleared_from_empty
-
-            all_words =(get_init_words('laboraction', laresult) +
-                        get_init_words('necessaryknowledge', nkresult) +
-                        get_init_words('requiredskill', rsresult) +
-                        get_init_words('othercharacteristic', ocresult) +
-                        get_init_words('nametf', tfresult)
-                        )
-
-            def gen_depname_data(word_arr):
-
-                nouns = []
-                adjective = []
-
-                for k in word_arr:
-                    init_word = morph.parse(k)[0]
-                    if init_word.tag.POS == 'NOUN':
-                        nouns.append(init_word.normalized)
-                    if init_word.tag.POS == 'ADJF':
-                        adjective.append(init_word.normalized)
-
-                plur_singl = ['plur','sing']
-                kind = ['masc','femn','neut']
-
-                rand_plursing = random.choice(plur_singl)
-                rand_kind = random.choice(kind)
-
-                nouns_x = [a for a in nouns if a.tag.gender == rand_kind]
-
-                randomchoise_first = random.choice(adjective)
-                randomchoise_sec =   random.choice(nouns_x)
-
-                if rand_plursing == 'plur':
-                    first_word = randomchoise_first.inflect({ rand_plursing}).word
-                    second_word = randomchoise_sec.inflect({rand_plursing}).word
-
-                else:
-                    first_word = randomchoise_first.inflect({ rand_kind}).word
-                    second_word = randomchoise_sec.inflect({rand_plursing}).word
-
-                return first_word.capitalize() + ' ' + second_word
-
-            business = Business('ru')
-            e_name =  business.company()
-            depname = gen_depname_data(all_words)
-
-            cmpd = {  'e_name' : e_name,
-                      'e_fam_ul' : e_fam_ul,
-                      'e_name_ul' : e_name_ul,
-                      'e_otch_ul' : e_otch_ul,
-                      'depname' : depname,
-                    }
+            # get company data
+            cmpd = oi_app.fake_cmpd(laresult, nkresult, rsresult, ocresult, tfresult)
 
 ##########################
             requirements = {'tf' : tfresult,
@@ -717,7 +602,28 @@ class OfficialInstructions(ListView):
                             'othercharacteristics' : ocresultnew,
                             }
 
-            return render(request, self.template_name, {'generaldatas': generaldatas,
-                                                        'requirements' : requirements,
-                                                        'cmpd' :cmpd
-                                                        })
+
+            ### Doc download part ###
+            if docx == 'msword-document-download':
+                context = { 'generaldatas': generaldatas,
+                            'requirements' : requirements,
+                            'cmpd' : cmpd
+                          }
+
+                media_root = settings.MEDIA_ROOT
+                doc = docxtpl.DocxTemplate(media_root+ '/doctemplates/oitemplate.docx')
+                doc.render(context)
+
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                response['Content-Disposition'] = 'attachment; filename=%s.docx' % re.sub(r'-\d+$', '', generaldatas['slug'])
+
+                doc.save(response)
+
+                return response
+                #return redirect(reverse_lazy("org-official-instructions", id=(companyid), pk=(departid), slug=(data) ))
+            else:
+
+                return render(request, self.template_name, {'generaldatas': generaldatas,
+                                                            'requirements' : requirements,
+                                                            'cmpd' :cmpd
+                                                            })

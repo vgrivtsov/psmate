@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^jt-autocomplete/$', views.AutoLoadJT.as_view(), name='jt-autocomplete'),
     url(r'^search-jobtitles/$', views.ShowJTlist.as_view(), name='search-jobtitles'),
     url(r'^competences/(?P<slug>[\w-]+)/$', views.JTDetailsView.as_view(), name='competences'),
-    url(r'^official-instructions/(?P<slug>[\w-]+)/$', views.OfficialInstructions.as_view(), name='official-instructions'),
+    url(r'^official-instructions/(?P<slug>[\w-]+)/(?:(?P<docx>[\w-]+)/)?$', views.OfficialInstructions.as_view(), name='official-instructions'),
+
 
 ]

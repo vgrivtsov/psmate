@@ -720,7 +720,7 @@ class OICreateView(FormView):
                             'requiredskills' : rsresult,
                             'othercharacteristics' : ocresultnew,
                             }
-
+            ### Doc download part ###
             if docx == 'msword-document-download':
                 context = { 'generaldatas': generaldatas,
                             'requirements' : requirements,
