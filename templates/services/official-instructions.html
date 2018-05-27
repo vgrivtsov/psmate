@@ -28,11 +28,11 @@
 <p class="western" style="margin-bottom: 0in" align="right"></p>
 
 <div style="margin-bottom: 0in" align="right" >
-Генеральный директор ООО
+{{cmpd.e_director}} {{cmpd.e_op_form}}
 </div>
 
 <div style="margin-bottom: 0in" align="right" >
-{{cmpd.e_name}}
+«{{cmpd.e_name}}»
 </div>
 
 <div style="margin-bottom: 0in" align="right">
@@ -137,7 +137,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="justify">
     1.5. {{generaldatas.jobtitle}} назначается на должность
 и освобождается от должности приказом
-генерального директора Учреждения в соответствии с
+{{cmpd.e_director_gent|lower}} Учреждения в соответствии с
 действующим законодательством Российской
 Федерации.
 </p>
@@ -145,8 +145,8 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 <div align="right" >
 <p class="western" style="margin-bottom: 0in" align="justify">	1.6.
-{{generaldatas.jobtitle}} подчиняется генеральному директору Учреждения
-и начальнику подразделения
+{{generaldatas.jobtitle}} подчиняется {{cmpd.e_director_datv|lower}} Учреждения
+и {{cmpd.d_cheef_datv|lower}} подразделения
 «{{cmpd.depname}}»
 </p>
 </div>
@@ -279,7 +279,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </p>
 <p class="western" style="margin-bottom: 0in" align="justify">
     5.2. Невыполнение распоряжений и
-поручений генерального директора Учреждения.
+поручений {{cmpd.e_director_gent|lower}} Учреждения.
 </p>
 <p class="western" style="margin-bottom: 0in;" align="justify">
 	5.3. Недостоверную
@@ -332,9 +332,62 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 <div>
 <a class="btn btn-info btn-sm" align="right" href="{% url 'official-instructions' generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">Скачать в формате MS Word</a>
-
 </div>
 
+
+<script>
+ Share = {
+	vkontakte: function(purl, ptitle, pimg, text) {
+		url  = 'http://vkontakte.ru/share.php?';
+		url += 'url='          + encodeURIComponent(purl);
+		url += '&title='       + encodeURIComponent(ptitle);
+		url += '&description=' + encodeURIComponent(text);
+		url += '&image='       + encodeURIComponent(pimg);
+		url += '&noparse=true';
+		Share.popup(url);
+	},
+	odnoklassniki: function(purl, title) {
+		url  = 'https://connect.ok.ru/offer';
+		url += '?url='    + encodeURIComponent(purl);
+  url += '&title='  + encodeURIComponent(title);
+		Share.popup(url);
+	},
+	facebook: function(purl, ptitle, pimg, text) {
+		url  = 'http://www.facebook.com/sharer.php?s=100';
+		url += '&p[title]='     + encodeURIComponent(ptitle);
+		url += '&p[summary]='   + encodeURIComponent(text);
+		url += '&p[url]='       + encodeURIComponent(purl);
+		url += '&p[images][0]=' + encodeURIComponent(pimg);
+		Share.popup(url);
+	},
+	twitter: function(purl, ptitle) {
+		url  = 'http://twitter.com/share?';
+		url += 'text='      + encodeURIComponent(ptitle);
+		url += '&url='      + encodeURIComponent(purl);
+		url += '&counturl=' + encodeURIComponent(purl);
+		Share.popup(url);
+	},
+	mailru: function(purl, ptitle, pimg, text) {
+		url  = 'http://connect.mail.ru/share?';
+		url += 'url='          + encodeURIComponent(purl);
+		url += '&title='       + encodeURIComponent(ptitle);
+		url += '&description=' + encodeURIComponent(text);
+		url += '&imageurl='    + encodeURIComponent(pimg);
+		Share.popup(url)
+	},
+
+	popup: function(url) {
+		window.open(url,'','toolbar=0,status=0,width=626,height=436');
+	}
+};
+
+</script>
+
+<a class="btn btn-outline-info" onclick="Share.vkontakte('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}','IMG_PATH','DESC')"><i class="fa fa-vk"></i> Вконтакте</a>
+<a class="btn btn-outline-primary" onclick="Share.facebook('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-facebook"></i> Фейсбук</a>
+<a class="btn btn-outline-primary" onclick="Share.mailru('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-at"></i> Мой Мир@mail.ru</a>
+<a class="btn btn-outline-warning" onclick="Share.odnoklassniki('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-odnoklassniki"></i> Одноклассники</a>
+<a class="btn btn-outline-primary" onclick="Share.twitter('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-twitter"></i> Твиттер</a>
 
 </section>
 

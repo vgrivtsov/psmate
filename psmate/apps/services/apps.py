@@ -1,10 +1,13 @@
 from django.apps import AppConfig
 
 import pymorphy2
+import locale
 import re
 import random
+from datetime import datetime
 from mimesis import Business, Person
 from mimesis.builtins import RussiaSpecProvider
+
 
 
 class ServicesConfig(AppConfig):
@@ -14,10 +17,9 @@ class ServicesConfig(AppConfig):
 class OIApp:
 
     def __init__(self):
-        #self.jt0 = jt0
+
         self.morph = pymorphy2.MorphAnalyzer()
 
-    # morph = pymorphy2.MorphAnalyzer()
 
     def make_jobtitlerod(self, jt0):
         #make jobtitle Roditelny paezh
@@ -136,14 +138,54 @@ class OIApp:
             return first_word.capitalize() + ' ' + second_word
 
         business = Business('ru')
-        e_name =  business.company()
+        e_name =  business.company().replace('«', '').replace('»', '')
         depname = gen_depname_data(all_words)
+        e_op_form = business.company_type(abbr=True)
+        e_director = 'Генеральный директор'
+        e_director_gent = 'Генерального директора'
+        e_director_datv = 'Генеральному директору'
+        cheef = 'Начальник'
+        cheef_name = 'Иванов'
+        cheef_otch = 'Иван'
+        cheef_fam = 'Петрович'
+        d_cheef_datv = 'Начальнику'
+
+
 
         cmpd = {  'e_name' : e_name,
+                  'e_op_form' : e_op_form,
+                  'e_director' : e_director,
                   'e_fam_ul' : e_fam_ul,
                   'e_name_ul' : e_name_ul,
                   'e_otch_ul' : e_otch_ul,
+                  'e_director_gent' : e_director_gent,
+                  'e_director_datv' : e_director_datv,
                   'depname' : depname,
-                }
+                  'cheef' : cheef,
+                  'cheef_name' : cheef_name,
+                  'cheef_otch' : cheef_otch,
+                  'cheef_fam' : cheef_fam,
+                  'd_cheef_datv' : d_cheef_datv
+               }
 
         return cmpd
+
+
+    def nowdate_rod(self):
+
+        locale.setlocale(locale.LC_TIME, "ru_RU.UTF-8")
+        today = datetime.now().strftime("%d %B %Y").lower()
+
+        today, month, year = today.split(' ')
+
+        rod_month = self.morph.parse(month)[0].inflect({'gent'}).word
+
+        rod_nowdate = {'today' : today,
+                'rod_month' : rod_month,
+                'year' : year
+               }
+
+        return rod_nowdate
+
+
+

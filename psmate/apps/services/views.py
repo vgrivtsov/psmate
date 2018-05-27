@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.views.generic import FormView, ListView, View, UpdateView
 from dal import autocomplete
 from psmate.models import *
-from psmate.apps.services.apps import OIApp
+from psmate.apps.services.apps import OIApp # import Official Instruction create app
 from psmate.apps.services.forms import SearchPsForm, CvGenForm, GetJTlistForm
 ###
 from django.contrib.auth.models import User
@@ -25,9 +25,11 @@ from operator import itemgetter
 #from pymorphy2 import units
 
 import re
-# import random
+import random
 import pytils
 import docxtpl
+
+
 
 ### Search PS ###
 
@@ -316,8 +318,6 @@ class CvPresentView(ListView):
                                 'keyskills' :    i['KeySkills'],
                                 'quali' : quali})
 
-
-
             return {'cvcleared' :cvcleared}
 
 
@@ -536,10 +536,13 @@ class OfficialInstructions(ListView):
             otrasl = ps[0].otraslid
 
             generaldatas = []
+
             # make JObtitle in rod padezh
             oi_app = OIApp()
             jobtitlerod = oi_app.make_jobtitlerod(jt[0].jobtitle)
 
+            ##### nowdate in roditelny padezh(need for docx generation)##
+            rod_nowdate = oi_app.nowdate_rod()
 
             generaldatas = {
                     'slug' : data,
@@ -559,6 +562,9 @@ class OfficialInstructions(ListView):
                     'reqworkexperiences' : reqworkexperiences,
                     'specialconditions' : specialconditions,
                     'othercharacts' : othercharacts,
+                    'today' : rod_nowdate['today'],
+                    'month': rod_nowdate['rod_month'],
+                    'year' :rod_nowdate['year']
                     }
 
             laresult = []
