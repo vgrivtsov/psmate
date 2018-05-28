@@ -47,6 +47,7 @@ class OIApp:
                 if p.inflect({'gent'}) :
 
                     changed_word = p.inflect({'sing', 'gent'}).word
+                    #print(changed_word)
                     if changed_word == 'риска-менеджера':
                         changed_word = 'риск-менеджера'
                     if changed_word == 'бренда-менеджера':
@@ -61,6 +62,8 @@ class OIApp:
                         changed_word = 'чокерной'
                     if changed_word == 'игрового':
                         changed_word = 'игровой'
+                    if changed_word == 'аса':
+                        changed_word = 'АС'
 
                     jt_rod.append(changed_word)
 
@@ -186,6 +189,3 @@ class OIApp:
                }
 
         return rod_nowdate
-
-
-
