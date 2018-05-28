@@ -330,7 +330,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 
 <div class="py-2">
-<a class="btn btn-info btn-block" align="right" href="{% url 'official-instructions' generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">Скачать в формате MS Word</a>
+<a class="btn btn-info btn-block" align="right" href="{% url 'official-instructions' generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}" onclick="yaCounter48157346.reachGoal('MS_DOWNLD'); return true;">Скачать в формате MS Word</a>
 </div>
 
 <script>
@@ -383,11 +383,11 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 <h5 class="py-3"><em>Поделиться должностной инструкцией в соцсетях:</em></h5>
 <div class="text-center">
-<a class="btn btn-outline-info" onclick="Share.vkontakte('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}','IMG_PATH','DESC')"><i class="fa fa-vk"></i> Вконтакте</a>
-<a class="btn btn-outline-primary" onclick="Share.facebook('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-facebook"></i> Фейсбук</a>
-<a class="btn btn-outline-primary" onclick="Share.mailru('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-at"></i> Мой Мир@mail.ru</a>
-<a class="btn btn-outline-warning" onclick="Share.odnoklassniki('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}')"><i class="fa fa-odnoklassniki"></i> Одноклассники</a>
-<a class="btn btn-outline-primary" onclick="Share.twitter('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}')"><i class="fa fa-twitter"></i> Твиттер</a>
+<a class="btn btn-outline-info" onclick="Share.vkontakte('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}','IMG_PATH','DESC');yaCounter48157346.reachGoal('VK_SHARE'); return true;"><i class="fa fa-vk"></i> Вконтакте</a>
+<a class="btn btn-outline-primary" onclick="Share.facebook('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}');yaCounter48157346.reachGoal('FB_SHARE'); return true;"><i class="fa fa-facebook"></i> Фейсбук</a>
+<a class="btn btn-outline-primary" onclick="Share.mailru('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}');yaCounter48157346.reachGoal('MM_SHARE'); return true;"><i class="fa fa-at"></i> Мой Мир@mail.ru</a>
+<a class="btn btn-outline-warning" onclick="Share.odnoklassniki('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}');yaCounter48157346.reachGoal('OK_SHARE'); return true;"><i class="fa fa-odnoklassniki"></i> Одноклассники</a>
+<a class="btn btn-outline-primary" onclick="Share.twitter('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция по профстандарту {{generaldatas.jobtitlerod}}');yaCounter48157346.reachGoal('TW_SHARE'); return true;"><i class="fa fa-twitter"></i> Твиттер</a>
 </div>
 
 
