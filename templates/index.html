@@ -67,39 +67,11 @@ $("#jtsearch").autocomplete({
 </script>
     <!-- Page Content -->
     <div class="container mainindex">
-      <!-- News Section -->
-      <h2 class="my-4">Новости</h2>
 
-      <div class="row">
-        {% for n in news %}
-
-        <div class="col-lg-4 col-sm-6 news-item">
-          <div class="card h-100" >
-
-                <div class="img-card-wrapper ">
-                  <a href="{% url 'news' %}{{ n.slug}}">
-                  <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt=""></a>
-                </div>
-            <div class="card-body" >
-              <p class="card-title">
-                <a href="{% url 'news' %}{{ n.slug}}">{{ n.title }}</a>
-              </p>
-
-              <!--<p class="card-text line-clamp" >{{ n.short }}</p>-->
-            </div>
-          </div>
-        </div>
-
-         {% endfor %}
-        <div class="col-md-12 py-3">
-          <a class="btn btn-lg btn-mdb-color btn-block" href="{% url 'news' %}">Перейти ко всем новостям в ленте</a>
-        </div>
-      </div>
-      <!-- /.row -->
-      <h1 class="my-4">Работа с профстандартами</h1>
+     <!-- <h1 class="my-4">Работа с профстандартами</h1>-->
 
       <!-- Marketing Icons Section -->
-      <div class="row">
+      <div class="row py-5">
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
             <h4 class="card-header">Профстандарты</h4>
@@ -136,6 +108,37 @@ $("#jtsearch").autocomplete({
       </div>
       <!-- /.row -->
 
+
+      <!-- News Section -->
+      <h2 class="my-4">Новости</h2>
+
+      <div class="row">
+        {% for n in news %}
+
+        <div class="col-lg-4 col-sm-6 news-item">
+          <div class="card h-100" >
+
+                <div class="img-card-wrapper ">
+                  <a href="{% url 'news' %}{{ n.slug}}">
+                  <img class="card-img-top img-fluid" src="{{ n.image.url }}" alt=""></a>
+                </div>
+            <div class="card-body" >
+              <p class="card-title">
+                <a href="{% url 'news' %}{{ n.slug}}">{{ n.title }}</a>
+              </p>
+
+              <!--<p class="card-text line-clamp" >{{ n.short }}</p>-->
+            </div>
+          </div>
+        </div>
+
+         {% endfor %}
+        <div class="col-md-12 py-3">
+          <a class="btn btn-lg btn-mdb-color btn-block" href="{% url 'news' %}">Перейти ко всем новостям в ленте</a>
+        </div>
+      </div>
+      <!-- /.row -->
+
       <!-- Features Section -->
       <div class="row">
         <div class="col-lg-6">
@@ -165,9 +168,9 @@ $("#jtsearch").autocomplete({
         <div class="col-md-8">
           <p>ПрофНавигатор - помощник в области внедрения профстандартов.</p> <!--Используйте регистрацию для доступа к сервисам генератора резюме.-->
         </div>
-        <div class="col-md-4">
+<!--        <div class="col-md-4">
           <a class="btn btn-lg btn-amber btn-block" href="{% url 'account_signup' %}">Зарегестрироваться</a>
-        </div>
+        </div>-->
       </div>
 
     </div>

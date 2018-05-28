@@ -328,12 +328,10 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 <p class="western" style="margin-bottom: 0in" align="justify"><br>
 </p>
 
-</div>
 
-<div>
-<a class="btn btn-info btn-sm" align="right" href="{% url 'official-instructions' generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">Скачать в формате MS Word</a>
+<div class="py-2">
+<a class="btn btn-info btn-block" align="right" href="{% url 'official-instructions' generaldatas.slug 'msword-document-download' %}?{% for tf in requirements.tf %}tfids={{tf.id}}&{% endfor %}">Скачать в формате MS Word</a>
 </div>
-
 
 <script>
  Share = {
@@ -383,11 +381,23 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 </script>
 
+<h5 class="py-3"><em>Поделиться должностной инструкцией в соцсетях:</em></h5>
+<div class="text-center">
 <a class="btn btn-outline-info" onclick="Share.vkontakte('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}','IMG_PATH','DESC')"><i class="fa fa-vk"></i> Вконтакте</a>
 <a class="btn btn-outline-primary" onclick="Share.facebook('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-facebook"></i> Фейсбук</a>
 <a class="btn btn-outline-primary" onclick="Share.mailru('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}','IMG_PATH','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-at"></i> Мой Мир@mail.ru</a>
 <a class="btn btn-outline-warning" onclick="Share.odnoklassniki('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-odnoklassniki"></i> Одноклассники</a>
 <a class="btn btn-outline-primary" onclick="Share.twitter('https://qualinfo.ru{{ request.get_full_path }}','Должностная инструкция {{generaldatas.jobtitlerod}}')"><i class="fa fa-twitter"></i> Твиттер</a>
+</div>
+
+
+
+
+</div>
+
+
+
+
 
 </section>
 
