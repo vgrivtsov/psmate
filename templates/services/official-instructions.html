@@ -11,12 +11,20 @@
 
 <section class= "offinstructions">
 
-<div class="alert alert-secondary" role="alert">
-  Внимание! Настоящая должностная инструкция создана для обобщенной трудовой функции: <b><em>{{generaldatas.nameotf}}</em></b>
+<div class=" tfs alert alert-secondary" role="alert">
+  Должностная инструкция создана для обобщенной трудовой функции: <b><em>{{generaldatas.nameotf}}</em></b>
 		из <a href="/search-profstandart/?nameps={{generaldatas.ps_id}}" data-toggle="tooltip" data-placement="bottom"
-		title="{{generaldatas.nameps}}" rel="nofollow"><b><em>профстандарта № {{generaldatas.psregnum}}</em></b></a>.
-		Существование других обобщенных трудовых функций {{generaldatas.jobtitlerod}} проверьте с помощью поиска:
-		<a href="/search-jobtitles/?search={{generaldatas.jobtitle}}" rel="nofollow"><b><em>{{generaldatas.jobtitle}}</em></b></a>
+		title="{{generaldatas.nameps}}" rel="nofollow"><b><em>профстандарта № {{generaldatas.psregnum}} ({{generaldatas.nameps}})</em></b></a>.
+  {% if generaldatas.gtfs %}
+    Другие обобщенные трудовые функции для данной должности:
+    {% for g in generaldatas.gtfs %}
+      <li><em><a href="/official-instructions/{{g.slug}}/?" rel="nofollow"> {{g.nameotf}}</a></em></li>
+    {% endfor %}
+  {% endif %}
+
+
+<!--		Существование других обобщенных трудовых функций {{generaldatas.jobtitlerod}} проверьте с помощью поиска:
+		<a href="/search-jobtitles/?search={{generaldatas.jobtitle}}" rel="nofollow"><b><em>{{generaldatas.jobtitle}}</em></b></a>-->
 </div>
 
 <div class="container py-5" style="min-height: 100vh;">

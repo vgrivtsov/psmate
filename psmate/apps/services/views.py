@@ -526,12 +526,15 @@ class OfficialInstructions(ListView):
         if data != None:
 
             jt = Jobtitles.objects.filter(slug=data)
+            print(jt[0].jobtitle)
 
             ps = Psinfo.objects.filter(id=jt[0].ps_id)
             educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
+            gtfs = Jobtitles.objects.filter(jobtitle=jt[0].jobtitle).filter(ps_id=jt[0].ps_id).exclude(nameotf=jt[0].nameotf)
+
             # if user go to url without parameters
             if not tfsid:
                 tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
@@ -554,6 +557,7 @@ class OfficialInstructions(ListView):
                     'jobtitle' : jt[0].jobtitle,
                     'jobtitlerod' : jobtitlerod,
                     'nameotf' : jt[0].nameotf,
+                    'gtfs':gtfs,
                     'pspurposekind' : ps[0].pspurposekind,
                     'nameps' : ps[0].nameps,
                     'psregnum' : ps[0].psregnum,
