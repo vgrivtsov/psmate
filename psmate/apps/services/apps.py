@@ -64,6 +64,8 @@ class OIApp:
                         changed_word = 'игровой'
                     if changed_word == 'аса':
                         changed_word = 'АС'
+                    if changed_word == 'татуажи':
+                        changed_word = 'татуажа'
 
                     jt_rod.append(changed_word)
 
