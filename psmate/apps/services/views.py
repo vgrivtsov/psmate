@@ -5,6 +5,7 @@ except ImportError:
 
 import json
 from django.conf import settings
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView, ListView, View, UpdateView
@@ -403,6 +404,8 @@ class ShowJTlist(ListView):
             search_data = ' '.join(search_data.split())
 
             jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
+            if not jt_get:
+                messages.warning(self.request, "Должность <b>%s</b> не найдена, уточните запрос" % search_data)
 
             for jt in jt_get:
 
@@ -424,6 +427,7 @@ class ShowJTlist(ListView):
                                  'otraslicon' : otrasl.icon
                                  },
                     )
+
 
             return sorted(jtresult, key=itemgetter('jobtitle'))
 
