@@ -41,12 +41,14 @@ class OIApp:
 
         for i in cleared_jt.split(' '):
             p = self.morph.parse(i)[0]
-            if p.tag.POS in pos_list and p.tag.case == 'nomn' and p.tag.number == 'sing': # Chast' rechi & padezh
+            print(p, p.tag.POS, p.tag.case)
+            if p.tag.POS in pos_list and p.tag.case == 'nomn' or p.tag.case == 'loct' and p.tag.number == 'sing': # Chast' rechi & padezh
 
                 #print(jt_rod_word)
                 if p.inflect({'gent'}) :
 
                     changed_word = p.inflect({'sing', 'gent'}).word
+                    print(changed_word)
                     #print(changed_word)
                     if changed_word == 'риска-менеджера':
                         changed_word = 'риск-менеджера'
@@ -72,6 +74,10 @@ class OIApp:
                         changed_word = 'леса'
                     if changed_word == 'судовой':
                         changed_word = 'судового'
+                    if changed_word == 'щелокова':
+                        changed_word = 'щелоков'
+                    if changed_word == 'банки':
+                        changed_word = 'банка'
 
                     jt_rod.append(changed_word)
 
