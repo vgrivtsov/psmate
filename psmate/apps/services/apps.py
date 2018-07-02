@@ -78,6 +78,8 @@ class OIApp:
                         changed_word = 'щелоков'
                     if changed_word == 'банки':
                         changed_word = 'банка'
+                    if changed_word == 'страховой':
+                        changed_word = 'страхового'
 
                     jt_rod.append(changed_word)
 

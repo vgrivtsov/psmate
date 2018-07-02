@@ -514,7 +514,6 @@ class OfficialInstructions(ListView):
     template_name = 'services/official-instructions.html'
     model = Jobtitles
 
-
     def get(self, request, *args, **kwargs):
 
         #t0 = time()
@@ -526,7 +525,6 @@ class OfficialInstructions(ListView):
         if data != None:
 
             jt = Jobtitles.objects.filter(slug=data)
-            print(jt[0].jobtitle)
 
             ps = Psinfo.objects.filter(id=jt[0].ps_id)
             educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
@@ -544,18 +542,16 @@ class OfficialInstructions(ListView):
 
             generaldatas = []
 
-            # make JObtitle in rod padezh
             oi_app = OIApp()
-            jobtitlerod = oi_app.make_jobtitlerod(jt[0].jobtitle)
-
             ##### nowdate in roditelny padezh(need for docx generation)##
+
             rod_nowdate = oi_app.nowdate_rod()
 
             generaldatas = {
                     'slug' : data,
                     'jobtitleid' : jt[0].id,
                     'jobtitle' : jt[0].jobtitle,
-                    'jobtitlerod' : jobtitlerod,
+                    'jobtitlerod' : jt[0].jobtitle_rod,
                     'nameotf' : jt[0].nameotf,
                     'gtfs':gtfs,
                     'pspurposekind' : ps[0].pspurposekind,
