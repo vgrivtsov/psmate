@@ -48,38 +48,9 @@ class OIApp:
                 if p.inflect({'gent'}) :
 
                     changed_word = p.inflect({'sing', 'gent'}).word
-                    print(changed_word)
-                    #print(changed_word)
+
                     if changed_word == 'риска-менеджера':
                         changed_word = 'риск-менеджера'
-                    if changed_word == 'бренда-менеджера':
-                        changed_word = 'бренд-менеджера'
-                    if changed_word == 'брэнда-менеджера':
-                        changed_word = 'брэнд-менеджера'
-                    if changed_word == 'поварова':
-                        changed_word = 'поваров'
-                    if changed_word == 'котлова':
-                        changed_word = 'котлов'
-                    if changed_word == 'чокерноя':
-                        changed_word = 'чокерной'
-                    if changed_word == 'игрового':
-                        changed_word = 'игровой'
-                    if changed_word == 'аса':
-                        changed_word = 'АС'
-                    if changed_word == 'татуажи':
-                        changed_word = 'татуажа'
-                    if changed_word == 'секретарь':
-                        changed_word = 'секретаря'
-                    if changed_word == 'лесы':
-                        changed_word = 'леса'
-                    if changed_word == 'судовой':
-                        changed_word = 'судового'
-                    if changed_word == 'щелокова':
-                        changed_word = 'щелоков'
-                    if changed_word == 'банки':
-                        changed_word = 'банка'
-                    if changed_word == 'страховой':
-                        changed_word = 'страхового'
 
                     jt_rod.append(changed_word)
 

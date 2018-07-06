@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView, ListView, View, UpdateView
+from django.contrib.postgres.search import TrigramSimilarity
 from dal import autocomplete
 from psmate.models import *
 from psmate.apps.services.apps import OIApp # import Official Instruction create app
@@ -333,7 +334,12 @@ class AutoLoadJT(View):
 
         if data != None:
 
-            jts = Jobtitles.objects.filter(jobtitle__icontains=data).distinct('jobtitle')[:10]
+            #jts = Jobtitles.objects.filter(jobtitle__icontains=data).distinct('jobtitle')[:10]
+
+            jts = Jobtitles.objects.annotate(
+                similarity=TrigramSimilarity('jobtitle', data),).filter(
+                similarity__gt=0.3).order_by('-similarity')
+
             jtresult = []
             for jt in jts:
                 jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle})
@@ -347,7 +353,7 @@ class SearchJT(FormView):
 
     def form_valid(self, form):
         jobtitle = form.cleaned_data.get('jobtitle')
-        print(jobtitle)
+
         return redirect('search-jobtitles', jobtitle)
 
 
@@ -403,7 +409,10 @@ class ShowJTlist(ListView):
             search_data = search_data.strip()
             search_data = ' '.join(search_data.split())
 
-            jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
+            #jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
+            jt_get = Jobtitles.objects.annotate(
+                similarity=TrigramSimilarity('jobtitle', search_data),).filter(
+                similarity__gt=0.3).order_by('-similarity')
             if not jt_get:
                 messages.warning(self.request, "Должность <b>%s</b> не найдена, уточните запрос" % search_data)
 
