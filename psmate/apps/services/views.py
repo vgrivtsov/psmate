@@ -409,10 +409,10 @@ class ShowJTlist(ListView):
             search_data = search_data.strip()
             search_data = ' '.join(search_data.split())
 
-            #jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
-            jt_get = Jobtitles.objects.annotate(
-                similarity=TrigramSimilarity('jobtitle', search_data),).filter(
-                similarity__gt=0.15)#.order_by('-similarity')
+            jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
+            # jt_get = Jobtitles.objects.annotate(
+            #     similarity=TrigramSimilarity('jobtitle', search_data),).filter(
+            #     similarity__gt=0.15)#.order_by('-similarity')
             if not jt_get:
                 messages.warning(self.request, "Должность <b>%s</b> не найдена, уточните запрос" % search_data)
 
