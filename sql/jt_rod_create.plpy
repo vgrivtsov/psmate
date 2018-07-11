@@ -1,0 +1,97 @@
+CREATE OR REPLACE FUNCTION jt_rod_create (jt0 text)
+  RETURNS text
+AS $$
+import pymorphy2
+import re
+morph = pymorphy2.MorphAnalyzer()
+
+#make jobtitle Roditelny paezh
+
+jt_rod = []
+
+#cut non need padezh string beenween '( )'
+pattern = re.compile("[\(\[].*?[\)\]]")
+if re.findall(pattern, jt0):
+    cuttedstring = re.findall(pattern, jt0)[0]
+else:
+    cuttedstring = ''
+
+cleared_jt = re.sub("[\(\[].*?[\)\]]", "", jt0)
+
+pos_list = ['NOUN', 'ADJF', 'ADJS', 'PRTF', 'PRTS']
+case_list = []
+
+for i in cleared_jt.split(' '):
+    p = morph.parse(i)[0]
+    if p.tag.POS in pos_list and p.tag.case == 'nomn' or p.tag.case == 'loct' and p.tag.number == 'sing': # Chast' rechi & padezh
+
+        if p.inflect({'gent'}) :
+            try:   
+                changed_word = p.inflect({'sing', 'gent'}).word
+                
+                if changed_word == 'риска-менеджера':
+                    changed_word = 'риск-менеджера'
+                if changed_word == 'бренда-менеджера':
+                    changed_word = 'бренд-менеджера'
+                if changed_word == 'брэнда-менеджера':
+                    changed_word = 'брэнд-менеджера'
+                if changed_word == 'поварова':
+                    changed_word = 'поваров'
+                if changed_word == 'котлова':
+                    changed_word = 'котлов'
+                if changed_word == 'чокерноя':
+                    changed_word = 'чокерной'
+                if changed_word == 'игрового':
+                    changed_word = 'игровой'
+                if changed_word == 'аса':
+                    changed_word = 'АС'
+                if changed_word == 'татуажи':
+                    changed_word = 'татуажа'
+                if changed_word == 'секретарь':
+                    changed_word = 'секретаря'
+                if changed_word == 'лесы':
+                    changed_word = 'леса'
+                if changed_word == 'судовой':
+                    changed_word = 'судового'
+                if changed_word == 'щелокова':
+                    changed_word = 'щелоков'
+                if changed_word == 'банки':
+                    changed_word = 'банка'
+                if changed_word == 'страховой':
+                    changed_word = 'страхового'
+                
+                jt_rod.append(changed_word)
+            except:
+                pass
+        else:
+
+            jt_rod.append(i)
+
+    else:
+        jt_rod.append(i)
+
+jobtitlerod = ' '.join(jt_rod) + ' '+cuttedstring
+
+return jobtitlerod
+ 
+$$ LANGUAGE plpython3u;
+
+---------------------------------
+UPDATE psmate_jobtitles A
+SET jobtitle_rod = jt_rod_create(B.jobtitle)
+FROM psmate_jobtitles B
+WHERE A.id = B.id;
+
+---------------------------------
+UPDATE psmate_jobtitles A
+SET jobtitle_rod = 'четвертого электромеханика'
+WHERE jobtitle_rod = 'четвертого эkектромеханика'
+--FROM psmate_jobtitles B
+--WHERE A.id = B.id;
+
+---------------------------------
+UPDATE psmate_jobtitles
+SET jobtitle_rod = REPLACE(jobtitle_rod, 'газы', 'газа')
+--WHERE jobtitle_rod like 'газы%%'
+
+

@@ -338,7 +338,7 @@ class AutoLoadJT(View):
 
             jts = Jobtitles.objects.annotate(
                 similarity=TrigramSimilarity('jobtitle', data),).filter(
-                similarity__gt=0.3).order_by('-similarity')
+                similarity__gt=0.15).distinct('jobtitle')[:10]
 
             jtresult = []
             for jt in jts:
@@ -412,7 +412,7 @@ class ShowJTlist(ListView):
             #jt_get = Jobtitles.objects.filter(jobtitle__icontains=search_data).distinct('id')
             jt_get = Jobtitles.objects.annotate(
                 similarity=TrigramSimilarity('jobtitle', search_data),).filter(
-                similarity__gt=0.3).order_by('-similarity')
+                similarity__gt=0.15)#.order_by('-similarity')
             if not jt_get:
                 messages.warning(self.request, "Должность <b>%s</b> не найдена, уточните запрос" % search_data)
 
