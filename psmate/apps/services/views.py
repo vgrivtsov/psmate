@@ -21,7 +21,7 @@ from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from time import time
 
-from operator import itemgetter
+from operator import itemgetter, attrgetter
 
 
 #from pymorphy2 import units
@@ -364,13 +364,13 @@ class ShowJTlist(ListView):
     context_object_name = "jtresult"
     queryset = ''
 
-    paginate_by = 25
+   #paginate_by = 100
 
     def get_paginate_by(self, queryset):
-            """
-            Paginate by specified value in querystring, or use default class property value.
-            """
-            return self.request.GET.get('paginate_by', self.paginate_by)
+        """
+        Paginate by specified value in querystring, or use default class property value.
+        """
+        return self.request.GET.get('paginate_by', self.paginate_by)
 
 
     def get_queryset(self,  *args, **kwargs):
@@ -422,10 +422,13 @@ class ShowJTlist(ListView):
                 gtf = Gtfinfo.objects.get(id=jt.gtf_id)
 
                 otrasl = ps[0].otraslid
+
+
                 ### Slug save
                 jt.slug = pytils.translit.slugify(jt.jobtitle) + '-' + str(jt.id)
                 jt.save()
                 ###
+
                 jtresult.append({'id' : jt.id, 'jobtitle' : jt.jobtitle, 'nameotf' : jt.nameotf,
                                  'slug' : jt.slug,
                                  # 'pspurposekind' : ps.pspurposekind,
@@ -433,13 +436,12 @@ class ShowJTlist(ListView):
                                  'codeotf' : gtf.codeotf,
                                  'nameps' : ps[0].nameps, 'psregnum' : ps[0].psregnum,
                                  'otraslname' : otrasl.name,
-                                 'otraslicon' : otrasl.icon
+                                 'otraslicon' : otrasl.icon,
                                  },
                     )
 
 
             return sorted(jtresult, key=itemgetter('jobtitle'))
-
         else:
 
             num_jt =  Jobtitles.objects.all().count() # all entities of jobtitles
@@ -471,6 +473,15 @@ class ShowJTlist(ListView):
             return sorted(jtresult, key=itemgetter('jobtitle'))
 
 
+    def get_context_data(self, **kwargs):
+        # otrasl list create for dropdown-otrasl template filter
+        context = super(ShowJTlist, self).get_context_data(**kwargs)
+        otraslist_raw = [i['otraslname'] for i in context['jtresult']]
+        otraslist = sorted(list(set(otraslist_raw)))
+
+        context['otraslist'] =  {'ol' : otraslist}
+
+        return context
 
 class JTDetailsView(ListView):
 

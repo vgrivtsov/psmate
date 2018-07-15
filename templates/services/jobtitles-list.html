@@ -10,6 +10,14 @@
 
 {% block content %}
 
+
+<style>
+
+/* .show {
+  display: block !important;
+}*/
+</style>
+
 <div class=" py-5 px-5" style="min-height: 100vh">
 
 <header class="searchjobtitle text-white text-center">
@@ -64,6 +72,43 @@ $("#jtsearch").autocomplete({
 });
 </script>
 
+<small>Фильтр по отрасли</small>
+<select  class="form-control" id="otrasl-filter">
+  <option value="All">Все отрасли</option>
+  {% for ot in otraslist.ol %}
+   <option value="{{ot}}">{{ot}}</option>
+  {% endfor %}
+</select>
+
+
+
+<script>
+ //Filter otrasl
+$('select#otrasl-filter').change(function() {
+	var filterValue = $(this).val();
+ filterList(filterValue);
+});
+
+// Otrasl filter function
+function filterList(value) {
+	var list = $(".jobtitlelist-details");
+
+	$(list).hide();
+
+	if (value == "All") {
+		$(".jobtitlelist").find(".jobtitlelist-details").each(function (i) {
+			$(this).show();
+		});
+	} else {
+
+
+		$(".jobtitlelist").find('li[name="'+ value +'"]').each(function (i) {
+   $(this).show();
+   console.log(this);
+		});
+	}
+}
+</script>
 
 {% if jtresult %}
   {% if jtresult.0.jtrandom %}
@@ -82,9 +127,9 @@ $("#jtsearch").autocomplete({
         <div class="col-md-1"><center>Уровень квалификации</center></div>
         <div class="col-md-2"><center>Профстандарт</center></div>
 			  		</li>
-            {% for jt in jtresult  %}
+            {% for jt in jtresult %}
 
-			  		<li class="jobtitlelist-details">
+			  		<li class="jobtitlelist-details" name="{{ jt.otraslname }}">
         <a href="/competences/{{jt.slug}}">
 				  			   <div class="block row">
 
@@ -109,7 +154,9 @@ $("#jtsearch").autocomplete({
 			  	</ul>
 			</div>
 	</div>
+
  {% if is_paginated %}
+
   {{get_params}}
         <div class="pagination">
             <span class="page-links">
