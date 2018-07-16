@@ -41,36 +41,7 @@
     </div>
 </header>
 
-<script>
-$("#jtsearch").autocomplete({
-	minLength: 3,
- delay: 500,
 
-	source: function(req, add){
-		var search=$("#jtsearch").val();
-		$.ajax({
-			url: '/jt-autocomplete/',
-   async: true,
-			dataType: 'json',
-			type: 'GET',
-			data: {'search': search,},
-			success: function(data){
-				var suggestions=[];
-
-				$.each(data, function(index, object){
-					suggestions.push(object.jobtitle);
-				});
-
-				add(suggestions);
-
-			},
-			error: function(){
-				alert("Error!");
-			}
-		});
-	}
-});
-</script>
 
 <small>Фильтр по отрасли</small>
 <select  class="form-control" id="otrasl-filter">
@@ -81,34 +52,10 @@ $("#jtsearch").autocomplete({
 </select>
 
 
+<!--==== JS scripts ====-->
+<script type="text/javascript" src="{% static 'js/jt_autocomplete.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filter_otrasl.js' %}"></script>
 
-<script>
- //Filter otrasl
-$('select#otrasl-filter').change(function() {
-	var filterValue = $(this).val();
- filterList(filterValue);
-});
-
-// Otrasl filter function
-function filterList(value) {
-	var list = $(".jobtitlelist-details");
-
-	$(list).hide();
-
-	if (value == "All") {
-		$(".jobtitlelist").find(".jobtitlelist-details").each(function (i) {
-			$(this).show();
-		});
-	} else {
-
-
-		$(".jobtitlelist").find('li[name="'+ value +'"]').each(function (i) {
-   $(this).show();
-   console.log(this);
-		});
-	}
-}
-</script>
 
 {% if jtresult %}
   {% if jtresult.0.jtrandom %}
