@@ -9,31 +9,33 @@
 
 {% block content %}
 
-   <!-- Scripts -->
-    <header class="masthead text-center ">
+
+    <header class="masthead text-center " style="min-height: 100vh">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h2 class="mb-5">Квалификационный справочник должностей</h2>
-          </div>
+<!--          <div class="col-xl-12 mx-auto">
+            <h2 class="mb-5" style="font-family:'Monotype Corsiva', sans-serif;">Квалификационный справочник должностей</h2>
+          </div>-->
+
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
             <form method="get" action="{% url 'search-jobtitles' %}{{ jt }}">
-              <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="search" class="form-control form-control-lg" id="jtsearch" name="search" value="">
-                   <label for="search" class=""></label>
-                </div>
-                <div class="col-12 col-md-3">
-                  <input type="submit" class="btn btn-lg btn-unique"
-                  value="Найти">
-                </div>
-              </div>
+      <div class="input-group">
+        <input type="search" class="input-ol form-control" id="jtsearch" name="search" value="" style="border-bottom: 1px solid #880e4f;"/>
+        <span class="input-group-btn">
+          <button class="btn btn-outline-unique btn-unique rounded" type="submit" aria-label="Search">
+            <i class="fa fa-search" aria-hidden="true"></i>
+           </button>
+         </span>
+      </div>
             </form>
           </div>
         </div>
       </div>
     </header>
+
+
+
 
 <!--==== JS scripts ====-->
 <script type="text/javascript" src="{% static 'js/jt_autocomplete.js' %}"></script>

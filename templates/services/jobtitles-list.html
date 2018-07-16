@@ -26,21 +26,21 @@
       <div class="col-md-10 col-lg-8 col-xl-7 mx-auto md-form">
        <h2 class="mb-5">Квалификационный справочник должностей</h2>
         <form method="get" action="{% url 'search-jobtitles' %}{{ search }}">
-          <div class="form-row">
-            <div class="col-12 col-md-9 mb-2 mb-md-0">
-              <input type="text" class="form-control form-control-lg" id="jtsearch" name="search" value="">
-               <label for="search" class=""></label>
-            </div>
-            <div class="col-12 col-md-3">
-              <input type="submit" class="btn btn-mdb-color"
-              value="Найти">
-            </div>
-          </div>
+      <div class="input-group">
+        <input type="search" class="input-ol form-control" id="jtsearch" name="search" value="" style="border-bottom: 1px solid #45526e;"/>
+        <span class="input-group-btn">
+          <button class="btn btn-outline-unique btn-unique rounded" type="submit" aria-label="Search">
+            <i class="fa fa-search" aria-hidden="true"></i>
+           </button>
+         </span>
+      </div>
         </form>
       </div>
     </div>
 </header>
 
+
+{% if jtresult %}
 
 
 <small>Фильтр по отрасли</small>
@@ -51,16 +51,12 @@
   {% endfor %}
 </select>
 
-
-<!--==== JS scripts ====-->
-<script type="text/javascript" src="{% static 'js/jt_autocomplete.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/filter_otrasl.js' %}"></script>
-
-
-{% if jtresult %}
   {% if jtresult.0.jtrandom %}
 <!--  <h4>10 случайных должностей:</h4>-->
   {% endif %}
+
+
+
 
 <section class="jobtitlelist">
 	<div class="jobtitlelist-contents">
@@ -123,6 +119,8 @@
 
 </section >
 {% endif %}
+
+<!--==== JS scripts ====-->
 <script>
    jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
@@ -130,6 +128,11 @@
     });
 });
 </script>
+
+
+<script type="text/javascript" src="{% static 'js/jt_autocomplete.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filter_otrasl.js' %}"></script>
+
 
 </div>
 
