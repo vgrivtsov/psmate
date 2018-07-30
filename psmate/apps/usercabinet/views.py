@@ -152,71 +152,71 @@ class MyContactView(FormMessagesMixin, ContactView):
     form_class = MyContactForm
 
 
-class RobokassaView(FormView):
-
-    template_name = 'robokassa/pay_with_robokassa.html'
-    form_class = RobokassaForm
-    models= Orders
-
-    def dispatch(self, *args, **kwargs):
-        return super(RobokassaView, self).dispatch(*args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-
-        user = self.request.user
-
-        purchase_name = self.kwargs['purchase_name']
-
-        if purchase_name == '100':
-            order_name = 'Оплата за 1 день использования сервиса ПрофНавигатор'
-            out_summ = 93.46
-            period = '1 день'
-            commission = 100- 93.46
-
-        elif purchase_name == '600':
-            order_name = 'Оплата за 1 месяц использования сервиса ПрофНавигатор'
-            out_summ = 560.75
-            period = '1 месяц'
-            commission = 600- 560.75
-
-        elif purchase_name == '1500':
-            order_name = 'Оплата за 3 месяца использования сервиса ПрофНавигатор'
-            out_summ = 1401.87
-            period = '3 месяца'
-            commission = 1500- 1401.87
-
-        elif purchase_name == '4800':
-            order_name = 'Оплата за год использования сервиса ПрофНавигатор'
-            out_summ = 4485.98
-            period = '1 год'
-            commission = 4800 - 4485.98
-
-        else:
-            messages.error(request, "Ошибка - неверная сумма")
-            return reverse_lazy('pricing')
-
-
-        order = Orders.objects.create(user_id=user.id, name=order_name, out_summ=out_summ, created_at=datetime.now())
-
-        generaldata = { 'purchase_name' : purchase_name,
-                       'ordernum' : order.id,
-                       'period' : period,
-                       'commission' : commission,
-                       'out_summ' : out_summ,
-
-                       }
-
-        form = RobokassaForm(initial={
-                   'IncCurrLabel' : 'BankCard',
-                   'OutSum': out_summ,
-                   'InvId': order.id,
-                   'Desc': order_name,
-                   'Email': user.email,
-                   'user_id': user.id,
-                   # 'Culture': 'ru'
-               })
-
-        return render(request, self.template_name, {'form': form, 'generaldata' : generaldata})
+# class RobokassaView(FormView):
+#
+#     template_name = 'robokassa/pay_with_robokassa.html'
+#     form_class = RobokassaForm
+#     models= Orders
+#
+#     def dispatch(self, *args, **kwargs):
+#         return super(RobokassaView, self).dispatch(*args, **kwargs)
+#
+#     def get(self, request, *args, **kwargs):
+#
+#         user = self.request.user
+#
+#         purchase_name = self.kwargs['purchase_name']
+#
+#         if purchase_name == '100':
+#             order_name = 'Оплата за 1 день использования сервиса ПрофНавигатор'
+#             out_summ = 93.46
+#             period = '1 день'
+#             commission = 100- 93.46
+#
+#         elif purchase_name == '600':
+#             order_name = 'Оплата за 1 месяц использования сервиса ПрофНавигатор'
+#             out_summ = 560.75
+#             period = '1 месяц'
+#             commission = 600- 560.75
+#
+#         elif purchase_name == '1500':
+#             order_name = 'Оплата за 3 месяца использования сервиса ПрофНавигатор'
+#             out_summ = 1401.87
+#             period = '3 месяца'
+#             commission = 1500- 1401.87
+#
+#         elif purchase_name == '4800':
+#             order_name = 'Оплата за год использования сервиса ПрофНавигатор'
+#             out_summ = 4485.98
+#             period = '1 год'
+#             commission = 4800 - 4485.98
+#
+#         else:
+#             messages.error(request, "Ошибка - неверная сумма")
+#             return reverse_lazy('pricing')
+#
+#
+#         order = Orders.objects.create(user_id=user.id, name=order_name, out_summ=out_summ, created_at=datetime.now())
+#
+#         generaldata = { 'purchase_name' : purchase_name,
+#                        'ordernum' : order.id,
+#                        'period' : period,
+#                        'commission' : commission,
+#                        'out_summ' : out_summ,
+#
+#                        }
+#
+#         form = RobokassaForm(initial={
+#                    'IncCurrLabel' : 'BankCard',
+#                    'OutSum': out_summ,
+#                    'InvId': order.id,
+#                    'Desc': order_name,
+#                    'Email': user.email,
+#                    'user_id': user.id,
+#                    # 'Culture': 'ru'
+#                })
+#
+#         return render(request, self.template_name, {'form': form, 'generaldata' : generaldata})
 
 # class RobocassaSuccessView(View):
 #
