@@ -26,8 +26,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from .forms import MyContactForm
 
-from django_robokassa.forms import RobokassaForm
-from django_robokassa.signals import result_received
+# from django_robokassa.forms import RobokassaForm
+# from django_robokassa.signals import result_received
 
 from django.shortcuts import get_object_or_404, render
 
@@ -87,51 +87,51 @@ class UserCabinetView(View):
                                                     })
 
 
-class UserSettingsView(UpdateView):
-    form_class = ProfileSettingsForm
-    template_name = 'usercabinet/settings.html'
-    model = User
-    success_url = "/cabinet/"
-
-    def dispatch(self, *args, **kwargs):
-        return super(UserSettingsView, self).dispatch(*args, **kwargs)
-
-    def get_object(self, queryset=None):
-
-        user = self.request.user
-
-        return user
-
-
-    def get(self, request, *args, **kwargs):
-
-        self.object = self.get_object()
-
-        return super(UserSettingsView, self).get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-
-        self.object = self.get_object()
-
-
-        return super(UserSettingsView, self).post(request, *args, **kwargs)
-
-    def get_success_url(self):
-        return reverse_lazy('cabinet')
-
-    def get_form_kwargs(self):
-        kwargs = super(UserSettingsView, self).get_form_kwargs()
-        user = self.request.user
-
-        if user:
-            kwargs['user'] = user
-
-        return kwargs
-
-
-    def form_valid(self, form):
-        self.object = self.get_object()
-        return super(UserSettingsView, self).form_valid(form)
+# class UserSettingsView(UpdateView):
+#     form_class = ProfileSettingsForm
+#     template_name = 'usercabinet/settings.html'
+#     model = User
+#     success_url = "/cabinet/"
+#
+#     def dispatch(self, *args, **kwargs):
+#         return super(UserSettingsView, self).dispatch(*args, **kwargs)
+#
+#     def get_object(self, queryset=None):
+#
+#         user = self.request.user
+#
+#         return user
+#
+#
+#     def get(self, request, *args, **kwargs):
+#
+#         self.object = self.get_object()
+#
+#         return super(UserSettingsView, self).get(request, *args, **kwargs)
+#
+#     def post(self, request, *args, **kwargs):
+#
+#         self.object = self.get_object()
+#
+#
+#         return super(UserSettingsView, self).post(request, *args, **kwargs)
+#
+#     def get_success_url(self):
+#         return reverse_lazy('cabinet')
+#
+#     def get_form_kwargs(self):
+#         kwargs = super(UserSettingsView, self).get_form_kwargs()
+#         user = self.request.user
+#
+#         if user:
+#             kwargs['user'] = user
+#
+#         return kwargs
+#
+#
+#     def form_valid(self, form):
+#         self.object = self.get_object()
+#         return super(UserSettingsView, self).form_valid(form)
 
 
 class PricingView(TemplateView):
@@ -218,47 +218,47 @@ class RobokassaView(FormView):
 
         return render(request, self.template_name, {'form': form, 'generaldata' : generaldata})
 
-class RobocassaSuccessView(View):
-
-    template_name = 'robokassa/success.html'
-
-    def dispatch(self, *args, **kwargs):
-        return super(RobokassaSuccessView, self).dispatch(*args, **kwargs)
-
-    def payment_received(sender, **kwargs):
-        order = Orders.objects.get(id=kwargs['InvId'])
-        order.status = 'paid'
-        order.save()
-        profile = Profiles.objects.get(user_id=kwargs['extra']['user_id'])
-
-        if order.name == 'Оплата за 1 день использования сервиса ПрофНавигатор':
-            active_period = timedelta(days=1)
-
-        if order.name == 'Оплата за 1 месяц использования сервиса ПрофНавигатор':
-            active_period = timedelta(days=31)
-
-        if order.name == 'Оплата за 3 месяца использования сервиса ПрофНавигатор':
-            active_period = timedelta(days=93)
-
-        if order.name == 'Оплата за год использования сервиса ПрофНавигатор':
-            active_period = timedelta(days=366)
-
-
-        if profile.paidactivdate:
-            datenow = datetime.now().date()
-
-            if (profile.paidactivdate - datenow).days + 1 > 0:
-                balance = profile.paidactivdate - datenow
-            else:
-                balance = timedelta(0)
-
-            profile.paidactivdate = datenow + active_period + balance
-        else:
-            profile.paidactivdate = order.created_at
-        profile.save()
-
-        order.status = 'paid'
-
-        order.save()
-
-    result_received.connect(payment_received)
+# class RobocassaSuccessView(View):
+#
+#     template_name = 'robokassa/success.html'
+#
+#     def dispatch(self, *args, **kwargs):
+#         return super(RobokassaSuccessView, self).dispatch(*args, **kwargs)
+#
+#     def payment_received(sender, **kwargs):
+#         order = Orders.objects.get(id=kwargs['InvId'])
+#         order.status = 'paid'
+#         order.save()
+#         profile = Profiles.objects.get(user_id=kwargs['extra']['user_id'])
+#
+#         if order.name == 'Оплата за 1 день использования сервиса ПрофНавигатор':
+#             active_period = timedelta(days=1)
+#
+#         if order.name == 'Оплата за 1 месяц использования сервиса ПрофНавигатор':
+#             active_period = timedelta(days=31)
+#
+#         if order.name == 'Оплата за 3 месяца использования сервиса ПрофНавигатор':
+#             active_period = timedelta(days=93)
+#
+#         if order.name == 'Оплата за год использования сервиса ПрофНавигатор':
+#             active_period = timedelta(days=366)
+#
+#
+#         if profile.paidactivdate:
+#             datenow = datetime.now().date()
+#
+#             if (profile.paidactivdate - datenow).days + 1 > 0:
+#                 balance = profile.paidactivdate - datenow
+#             else:
+#                 balance = timedelta(0)
+#
+#             profile.paidactivdate = datenow + active_period + balance
+#         else:
+#             profile.paidactivdate = order.created_at
+#         profile.save()
+#
+#         order.status = 'paid'
+#
+#         order.save()
+#
+#     result_received.connect(payment_received)
