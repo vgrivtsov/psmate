@@ -14,10 +14,10 @@ urlpatterns = [
     # url(r'^register/$', views.RegisterFormView.as_view(), name='register'),
     url(r'^cabinet/$', views.UserCabinetView.as_view(),  name='cabinet'),
     url(r'^settings/$',views.UserSettingsView.as_view(), name='settings'),
-    url(r'^pricing/$',views.PricingView.as_view(), name='pricing'),
+    #url(r'^pricing/$',views.PricingView.as_view(), name='pricing'),
     url(r'^contacts/', ContactView.as_view(form_class=MyContactForm), name='contacts'),
     # url(r'^makeorder/(?P<purchase_name>[\w-]+)/$', views.MakeOrder.as_view(), name='makeorder'),
-    url(r'^purchase/(?P<purchase_name>[\w-]+)/$', views.RobokassaView.as_view(), name='purchase'),
-    url(r'^robokassa/', include('django_robokassa.urls')),
+    #url(r'^purchase/(?P<purchase_name>[\w-]+)/$', views.RobokassaView.as_view(), name='purchase'),
+    #url(r'^robokassa/', include('django_robokassa.urls')),
 
 ]
