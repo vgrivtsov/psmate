@@ -87,51 +87,51 @@ class UserCabinetView(View):
                                                     })
 
 
-# class UserSettingsView(UpdateView):
-#     form_class = ProfileSettingsForm
-#     template_name = 'usercabinet/settings.html'
-#     model = User
-#     success_url = "/cabinet/"
-#
-#     def dispatch(self, *args, **kwargs):
-#         return super(UserSettingsView, self).dispatch(*args, **kwargs)
-#
-#     def get_object(self, queryset=None):
-#
-#         user = self.request.user
-#
-#         return user
-#
-#
-#     def get(self, request, *args, **kwargs):
-#
-#         self.object = self.get_object()
-#
-#         return super(UserSettingsView, self).get(request, *args, **kwargs)
-#
-#     def post(self, request, *args, **kwargs):
-#
-#         self.object = self.get_object()
-#
-#
-#         return super(UserSettingsView, self).post(request, *args, **kwargs)
-#
-#     def get_success_url(self):
-#         return reverse_lazy('cabinet')
-#
-#     def get_form_kwargs(self):
-#         kwargs = super(UserSettingsView, self).get_form_kwargs()
-#         user = self.request.user
-#
-#         if user:
-#             kwargs['user'] = user
-#
-#         return kwargs
-#
-#
-#     def form_valid(self, form):
-#         self.object = self.get_object()
-#         return super(UserSettingsView, self).form_valid(form)
+class UserSettingsView(UpdateView):
+    form_class = ProfileSettingsForm
+    template_name = 'usercabinet/settings.html'
+    model = User
+    success_url = "/cabinet/"
+
+    def dispatch(self, *args, **kwargs):
+        return super(UserSettingsView, self).dispatch(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+
+        user = self.request.user
+
+        return user
+
+
+    def get(self, request, *args, **kwargs):
+
+        self.object = self.get_object()
+
+        return super(UserSettingsView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+
+        self.object = self.get_object()
+
+
+        return super(UserSettingsView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('cabinet')
+
+    def get_form_kwargs(self):
+        kwargs = super(UserSettingsView, self).get_form_kwargs()
+        user = self.request.user
+
+        if user:
+            kwargs['user'] = user
+
+        return kwargs
+
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        return super(UserSettingsView, self).form_valid(form)
 
 
 class PricingView(TemplateView):
