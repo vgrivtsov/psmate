@@ -11,13 +11,6 @@
 {% block content %}
 
 
-<style>
-
-/* .show {
-  display: block !important;
-}*/
-</style>
-
 <div class=" py-5 px-5" style="min-height: 100vh">
 
 <header class="searchjobtitle text-white text-center">
@@ -39,9 +32,7 @@
     </div>
 </header>
 
-
 {% if jtresult %}
-
 
 <small>Фильтр по отрасли</small>
 <select  class="form-control" id="otrasl-filter">
@@ -55,10 +46,8 @@
 <!--  <h4>10 случайных должностей:</h4>-->
   {% endif %}
 
-
-
-
 <section class="jobtitlelist">
+
 	<div class="jobtitlelist-contents">
 			  <div class="jobtitlelist-item">
 			  	<!-- Headings -->
@@ -115,10 +104,9 @@
             </span>
         </div>
     {% endif %}
-
-
 </section >
 {% endif %}
+
 
 <!--==== JS scripts ====-->
 <script>
@@ -129,10 +117,8 @@
 });
 </script>
 
-
 <script type="text/javascript" src="{% static 'js/jt_autocomplete.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/filter_otrasl.js' %}"></script>
-
 
 </div>
 
