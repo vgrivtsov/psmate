@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^', include('psmate.apps.resume.urls')),
     url(r'^', include('psmate.apps.services.urls')),
     url(r'^', include('psmate.apps.blog.urls')),
+    url(r'^', include('psmate.apps.test_lt.urls')), # NEED TO DELETE
     url(r'^', include('psmate.apps.companyservices.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 

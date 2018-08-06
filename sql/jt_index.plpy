@@ -1,7 +1,7 @@
+CREATE EXTENSION pg_trgm;
+
 CREATE INDEX jobtitles_trgm_idx ON psmate_jobtitles
   USING gin ( jobtitle gin_trgm_ops);
-
-
 
 CREATE INDEX jobtitles_trgm_idx ON psmate_jobtitles 
 USING gin ( ((jobtitle || ' ' || nameotf)) gin_trgm_ops);

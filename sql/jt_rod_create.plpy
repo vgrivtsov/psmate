@@ -5,7 +5,7 @@ import pymorphy2
 import re
 morph = pymorphy2.MorphAnalyzer()
 
-#make jobtitle Roditelny paezh
+#make jobtitle Roditelny padezh
 
 jt_rod = []
 
@@ -76,22 +76,26 @@ return jobtitlerod
  
 $$ LANGUAGE plpython3u;
 
----------------------------------
-UPDATE psmate_jobtitles A
-SET jobtitle_rod = jt_rod_create(B.jobtitle)
-FROM psmate_jobtitles B
-WHERE A.id = B.id;
+-------CREATE-SLUG-------------------------
 
----------------------------------
-UPDATE psmate_jobtitles A
-SET jobtitle_rod = 'четвертого электромеханика'
-WHERE jobtitle_rod = 'четвертого эkектромеханика'
---FROM psmate_jobtitles B
---WHERE A.id = B.id;
+CREATE OR REPLACE FUNCTION jt_slug_create (jt0 text, jtid integer)
+  RETURNS text
+AS $$
+import pytils
+import re
 
----------------------------------
-UPDATE psmate_jobtitles
-SET jobtitle_rod = REPLACE(jobtitle_rod, 'газы', 'газа')
---WHERE jobtitle_rod like 'газы%%'
+pattern = re.compile("[\(\[].*?[\)\]]")
+if re.findall(pattern, jt0):
+    cuttedstring = re.findall(pattern, jt0)[0]
+else:
+    cuttedstring = ''
+
+cleared_jt = re.sub("[\(\[].*?[\)\]]", "", jt0)
+
+jobtitleslug = pytils.translit.slugify(cleared_jt) + '-' + str(jtid)
+
+return jobtitleslug
+ 
+$$ LANGUAGE plpython3u;
 
 
