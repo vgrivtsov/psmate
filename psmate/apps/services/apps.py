@@ -84,48 +84,34 @@ class OIApp:
 
                 raw_words += splitted
             cleared_from_empty = [x.lower() for x in raw_words if not x == '']
-
-            return cleared_from_empty
-
-        all_words =(get_init_words('laboraction', laresult) +
-                    get_init_words('necessaryknowledge', nkresult) +
-                    get_init_words('requiredskill', rsresult) +
-                    get_init_words('othercharacteristic', ocresult) +
-                    get_init_words('nametf', tfresult)
-                    )
-
-        def gen_depname_data(word_arr):
-
-            nouns = []
             adjective = []
-
-            for k in word_arr:
-                init_word = self.morph.parse(k)[0]
-                if init_word.tag.POS == 'NOUN':
-                    nouns.append(init_word.normalized)
+            for word in cleared_from_empty:
+                init_word = self.morph.parse(word)[0]
                 if init_word.tag.POS == 'ADJF':
                     adjective.append(init_word.normalized)
 
-            plur_singl = ['plur','sing']
-            kind = ['masc','femn','neut']
 
-            rand_plursing = random.choice(plur_singl)
-            rand_kind = random.choice(kind)
+            if adjective == []:
+                return [self.morph.parse('Новые')[0],]
 
-            nouns_x = [a for a in nouns if a.tag.gender == rand_kind]
+            return adjective
 
-            randomchoise_first = random.choice(adjective)
-            randomchoise_sec =   random.choice(nouns_x)
+        all_words =(get_init_words('laboraction', laresult) +
+                    get_init_words('necessaryknowledge', nkresult) +
+                    get_init_words('nametf', tfresult)
+                    )
+        #print(all_words)
 
-            if rand_plursing == 'plur':
-                first_word = randomchoise_first.inflect({ rand_plursing}).word
-                second_word = randomchoise_sec.inflect({rand_plursing}).word
+        def gen_depname_data(word_arr):
 
-            else:
-                first_word = randomchoise_first.inflect({ rand_kind}).word
-                second_word = randomchoise_sec.inflect({rand_plursing}).word
+            word_list = ['технологии', 'связи', 'исследования', 'компетенции']
+            randomchoise_first = random.choice(word_arr)
+            randomchoise_second = random.choice(word_list)
 
-            return first_word.capitalize() + ' ' + second_word
+            first_word = randomchoise_first.inflect({'plur'}).word
+
+
+            return first_word.capitalize() + ' ' +  randomchoise_second
 
         business = Business('ru')
         e_name =  business.company().replace('«', '').replace('»', '')
