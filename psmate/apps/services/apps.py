@@ -66,13 +66,40 @@ class OIApp:
         return jobtitlerod
 
 
-    def fake_cmpd(self, laresult, nkresult, rsresult, ocresult, tfresult):
-#### FAKE COMPANY DATA ###
-        person = Person('ru')
-        full_name = person.full_name()
-        ruspec = RussiaSpecProvider()
-        e_otch_ul = ruspec.patronymic()
-        e_name_ul, e_fam_ul = full_name.split(" ")[-2:]
+    def fake_cmpd(self, ps, okz, laresult, nkresult, rsresult, ocresult, tfresult):
+        #### FAKE COMPANY DATA ###
+        # person = Person('ru')
+        # full_name = person.full_name()
+        # ruspec = RussiaSpecProvider()
+        # e_otch_ul = ruspec.patronymic()
+        # e_name_ul, e_fam_ul = full_name.split(" ")[-2:]
+        ##########################
+
+        #check if jobtitle CEO
+        codeokz = okz[0].codeokz
+        ceo = False
+        if codeokz[0] == "1":
+            ceo = True
+
+        developer = (ps[0].responsibledeveloper).split(",")[0]
+        head = ps[0].head
+        headname = ps[0].headname
+        e_fam_ul, e_name_ul, e_otch_ul = 'Пушкин','Александр','Сергеевич'
+        if headname:
+            e_fam_ul, e_name_ul, e_otch_ul = headname.split(" ")
+
+        e_director = 'Генеральный директор'
+        e_director_gent = 'Генерального директора'
+        e_director_datv = 'Генеральному директору'
+
+        if head:
+            e_director = head
+            head_split = head.split(" ")
+            e_director_gent = [self.morph.parse(w)[0].inflect({'gent'}).word for w in head_split]
+            e_director_gent = " ".join(e_director_gent)
+            e_director_datv = [self.morph.parse(w)[0].inflect({'datv'}).word for w in head_split]
+            e_director_datv = " ".join(e_director_datv)
+
 
         def get_init_words(attr, arr):
 
@@ -100,7 +127,6 @@ class OIApp:
                     get_init_words('necessaryknowledge', nkresult) +
                     get_init_words('nametf', tfresult)
                     )
-        #print(all_words)
 
         def gen_depname_data(word_arr):
 
@@ -114,22 +140,19 @@ class OIApp:
             return first_word.capitalize() + ' ' +  randomchoise_second
 
         business = Business('ru')
-        e_name =  business.company().replace('«', '').replace('»', '')
+        # e_name =  business.company().replace('«', '').replace('»', '') # for fake data
+        e_name = developer
         depname = gen_depname_data(all_words)
-        e_op_form = business.company_type(abbr=True)
-        e_director = 'Генеральный директор'
-        e_director_gent = 'Генерального директора'
-        e_director_datv = 'Генеральному директору'
+        # e_op_form = business.company_type(abbr=True) # fake data
+
         cheef = 'Начальник'
         cheef_name = 'Иванов'
         cheef_otch = 'Иван'
         cheef_fam = 'Петрович'
         d_cheef_datv = 'Начальнику'
 
-
-
         cmpd = {  'e_name' : e_name,
-                  'e_op_form' : e_op_form,
+                  # 'e_op_form' : e_op_form,
                   'e_director' : e_director,
                   'e_fam_ul' : e_fam_ul,
                   'e_name_ul' : e_name_ul,
@@ -141,7 +164,8 @@ class OIApp:
                   'cheef_name' : cheef_name,
                   'cheef_otch' : cheef_otch,
                   'cheef_fam' : cheef_fam,
-                  'd_cheef_datv' : d_cheef_datv
+                  'd_cheef_datv' : d_cheef_datv,
+                  'ceo': ceo
                }
 
         return cmpd

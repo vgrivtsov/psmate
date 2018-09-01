@@ -503,6 +503,9 @@ class JTDetailsView(ListView):
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
             tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
             gtf = Gtfinfo.objects.get(id=jt[0].gtf_id)
+            okz = Okz.objects.filter(gtf_id=jt[0].gtf_id).distinct()
+            codeokz = okz[0].codeokz
+
 
             otrasl = ps[0].otraslid
 
@@ -547,11 +550,14 @@ class OfficialInstructions(ListView):
             jt = Jobtitles.objects.filter(slug=data)
 
             ps = Psinfo.objects.filter(id=jt[0].ps_id)
+
             educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
             gtfs = Jobtitles.objects.filter(jobtitle=jt[0].jobtitle).filter(ps_id=jt[0].ps_id).exclude(nameotf=jt[0].nameotf)
+            okz = Okz.objects.filter(gtf_id=jt[0].gtf_id).distinct()
+
 
             # if user go to url without parameters
             if not tfsid:
@@ -622,7 +628,7 @@ class OfficialInstructions(ListView):
             ocresultnew = set( x['othercharacteristic'] for x in ocresult)
 
             # get company data
-            cmpd = oi_app.fake_cmpd(laresult, nkresult, rsresult, ocresult, tfresult)
+            cmpd = oi_app.fake_cmpd(ps, okz, laresult, nkresult, rsresult, ocresult, tfresult)
 
 ##########################
             requirements = {'tf' : tfresult,

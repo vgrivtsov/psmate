@@ -36,11 +36,11 @@
 <p class="western" style="margin-bottom: 0in" align="right"></p>
 
 <div style="margin-bottom: 0in" align="right" >
-{{cmpd.e_director}} {{cmpd.e_op_form}}
+{{cmpd.e_director}} <!--{{cmpd.e_op_form}}-->
 </div>
 
 <div style="margin-bottom: 0in" align="right" >
-«{{cmpd.e_name}}»
+{{cmpd.e_name}}
 </div>
 
 <div style="margin-bottom: 0in" align="right">
@@ -50,7 +50,8 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 
 <div class="ofhead vardate" style="margin-bottom: 0in" align="right" style="margin-bottom: 0in" align="right" >
 <span contenteditable="true">
-«{% now "j" %}» {% now "E" %} {% now "Y" %} г.
+{{generaldatas.psdateappr}}
+<!--«{% now "j" %}» {% now "E" %} {% now "Y" %} г.-->
 </span>
 </div>
 
@@ -84,7 +85,7 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 определяет функциональные, должностные
 обязанности, права и ответственность
 {{generaldatas.jobtitlerod}} подразделения «{{cmpd.depname}}»
- (далее - {{generaldatas.jobtitle}}) ООО «{{cmpd.e_name}}» (далее Учреждение).
+ (далее - {{generaldatas.jobtitle}}) {{cmpd.e_name}} (далее Учреждение).
 </p>
 
 
