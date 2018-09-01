@@ -75,13 +75,38 @@ class OIApp:
         # e_name_ul, e_fam_ul = full_name.split(" ")[-2:]
         ##########################
 
+        def morph_items(sentence): # get GENT + DATV from sentence
+            arr_split = sentence.split(" ")
+            datv = []
+            gent = []
+            for item in arr_split:
+                parsed = self.morph.parse(item)[0]
+                g = parsed.inflect({'gent'})
+                d = parsed.inflect({'datv'})
+
+                if g:
+                    gent.append(g.word)
+                    datv.append(d.word)
+                else:
+                    gent.append(item)
+                    datv.append(item)
+
+            gent_join = " ".join(gent)
+            datv_join = " ".join(datv)
+
+            return {'gent' : gent_join, 'datv' : datv_join}
+
         #check if jobtitle CEO
         codeokz = okz[0].codeokz
         ceo = False
         if codeokz[0] == "1":
             ceo = True
 
-        developer = (ps[0].responsibledeveloper).split(",")[0]
+        responsibledeveloper = ps[0].responsibledeveloper
+        developer = "The Enfield Cycle Company Limited"
+        if responsibledeveloper:
+            developer = responsibledeveloper.split(",")[0]
+
         head = ps[0].head
         headname = ps[0].headname
         e_fam_ul, e_name_ul, e_otch_ul = 'Пушкин','Александр','Сергеевич'
@@ -94,11 +119,9 @@ class OIApp:
 
         if head:
             e_director = head
-            head_split = head.split(" ")
-            e_director_gent = [self.morph.parse(w)[0].inflect({'gent'}).word for w in head_split]
-            e_director_gent = " ".join(e_director_gent)
-            e_director_datv = [self.morph.parse(w)[0].inflect({'datv'}).word for w in head_split]
-            e_director_datv = " ".join(e_director_datv)
+            morph_item = morph_items(head)
+            e_director_gent = morph_item['gent']
+            e_director_datv = morph_item['datv']
 
 
         def get_init_words(attr, arr):
@@ -116,7 +139,6 @@ class OIApp:
                 init_word = self.morph.parse(word)[0]
                 if init_word.tag.POS == 'ADJF':
                     adjective.append(init_word.normalized)
-
 
             if adjective == []:
                 return [self.morph.parse('Новые')[0],]
