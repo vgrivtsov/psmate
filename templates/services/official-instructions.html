@@ -81,12 +81,15 @@ _______________ {{cmpd.e_name_ul|first|capfirst}}. {{cmpd.e_otch_ul|first|capfir
 </p>
 
 <p class="western" style="margin-bottom: 0in" align="justify">
-    1.1. Настоящая должностная инструкция
+    1.1.{% if generaldatas.codeokz.0 == '1' %}
+{{generaldatas.jobtitle}} относится к категории руководителей.
+{% endif %} Настоящая должностная инструкция
 определяет функциональные, должностные
 обязанности, права и ответственность
 {{generaldatas.jobtitlerod}} подразделения «{{cmpd.depname}}»
  (далее - {{generaldatas.jobtitle}}) {{cmpd.e_name}} (далее Учреждение).
 </p>
+
 
 
 <div style="margin-bottom: 0in">

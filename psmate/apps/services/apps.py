@@ -145,21 +145,18 @@ class OIApp:
 
             return adjective
 
-        all_words =(get_init_words('laboraction', laresult) +
-                    get_init_words('necessaryknowledge', nkresult) +
+        all_words =(
                     get_init_words('nametf', tfresult)
                     )
 
         def gen_depname_data(word_arr):
 
-            word_list = ['технологии', 'связи', 'исследования', 'компетенции']
-            randomchoise_first = random.choice(word_arr)
-            randomchoise_second = random.choice(word_list)
+            randomchoise_first = word_arr[0]#random.choice(word_arr)
 
             first_word = randomchoise_first.inflect({'plur'}).word
 
 
-            return first_word.capitalize() + ' ' +  randomchoise_second
+            return first_word.capitalize() + ' технологии'
 
         business = Business('ru')
         # e_name =  business.company().replace('«', '').replace('»', '') # for fake data

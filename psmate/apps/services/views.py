@@ -505,8 +505,6 @@ class JTDetailsView(ListView):
             gtf = Gtfinfo.objects.get(id=jt[0].gtf_id)
             okz = Okz.objects.filter(gtf_id=jt[0].gtf_id).distinct()
             codeokz = okz[0].codeokz
-
-
             otrasl = ps[0].otraslid
 
             jtresult = {'id' : jt[0].id,
@@ -526,7 +524,8 @@ class JTDetailsView(ListView):
                         'specialconditions' : specialconditions,
                         'othercharacts' : othercharacts,
                         'tfs' : tfs,
-
+                        'codeokz' : okz[0].codeokz,
+                        'nameokz' : okz[0].nameokz,
                         }
 
             return render(request, self.template_name, {'jtresult': jtresult})
@@ -557,7 +556,6 @@ class OfficialInstructions(ListView):
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
             gtfs = Jobtitles.objects.filter(jobtitle=jt[0].jobtitle).filter(ps_id=jt[0].ps_id).exclude(nameotf=jt[0].nameotf)
             okz = Okz.objects.filter(gtf_id=jt[0].gtf_id).distinct()
-
 
             # if user go to url without parameters
             if not tfsid:
@@ -594,7 +592,9 @@ class OfficialInstructions(ListView):
                     'othercharacts' : othercharacts,
                     'today' : rod_nowdate['today'],
                     'month': rod_nowdate['rod_month'],
-                    'year' :rod_nowdate['year']
+                    'year' :rod_nowdate['year'],
+                    'codeokz' : okz[0].codeokz,
+                    'nameokz' : okz[0].nameokz,
                     }
 
             laresult = []
