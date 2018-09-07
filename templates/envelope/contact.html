@@ -23,11 +23,12 @@ textarea{
   			<div class="section-title">
 					<h3>Отправьте нам сообщение</h3>
 				</div>
-<form action="{% url 'envelope-contact' %}" method="post">
+        
+<!-- <form action="{% url 'envelope-contact' %}" method="post">
     {% csrf_token %}
     {% antispam_fields %}
     {% crispy form %}
-</form>
+</form> -->
 </section>
 
 <!--====  End of FAQ  ====-->

@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^agreement/$', TemplateView.as_view(template_name='agreement.html'), name='agreement'),
     url(r'^faq/', TemplateView.as_view(template_name='faq.html'), name='faq'),
     url(r'^about/', TemplateView.as_view(template_name='about.html'), name='about'),
-    url(r'^contacts/', include('envelope.urls')),
+    # url(r'^contacts/', include('envelope.urls')),
     url(r'^', include('psmate.apps.usercabinet.urls')),
     url(r'^', include('psmate.apps.resume.urls')),
     url(r'^', include('psmate.apps.services.urls')),
