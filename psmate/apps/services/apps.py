@@ -111,7 +111,11 @@ class OIApp:
         headname = ps[0].headname
         e_fam_ul, e_name_ul, e_otch_ul = 'Пушкин','Александр','Сергеевич'
         if headname:
-            e_fam_ul, e_name_ul, e_otch_ul = headname.split(" ")
+            try:
+                e_fam_ul, e_name_ul, e_otch_ul = headname.split(" ")
+            except:
+                e_fam_ul, e_name_ul, e_otch_ul = 'Пушкин','Александр','Сергеевич'
+            
 
         e_director = 'Генеральный директор'
         e_director_gent = 'Генерального директора'
