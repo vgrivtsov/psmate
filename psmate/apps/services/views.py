@@ -495,7 +495,6 @@ class JTDetailsView(ListView):
         if jt_slug:
 
             jt = Jobtitles.objects.filter(slug=jt_slug)
-
             ps = Psinfo.objects.filter(id=jt[0].ps_id)
             educationalreqs = Educationalreqs.objects.filter(gtf_id=jt[0].gtf_id)
             reqworkexperiences = Reqworkexperiences.objects.filter(gtf_id=jt[0].gtf_id)
@@ -504,7 +503,16 @@ class JTDetailsView(ListView):
             tfs = Tfinfo.objects.filter(gtf_id=jt[0].gtf_id)
             gtf = Gtfinfo.objects.get(id=jt[0].gtf_id)
             okz = Okz.objects.filter(gtf_id=jt[0].gtf_id).distinct()
-            codeokz = okz[0].codeokz
+            try:
+                codeokz = okz[0].codeokz
+            except:
+                codeokz = "Не указан"
+                pass
+            try:
+                nameokz = okz[0].nameokz
+            except:
+                nameokz = "Не указан"
+
             otrasl = ps[0].otraslid
 
             jtresult = {'id' : jt[0].id,
@@ -524,8 +532,8 @@ class JTDetailsView(ListView):
                         'specialconditions' : specialconditions,
                         'othercharacts' : othercharacts,
                         'tfs' : tfs,
-                        'codeokz' : okz[0].codeokz,
-                        'nameokz' : okz[0].nameokz,
+                        'codeokz' : codeokz,
+                        'nameokz' : nameokz,
                         }
 
             return render(request, self.template_name, {'jtresult': jtresult})
@@ -555,7 +563,14 @@ class OfficialInstructions(ListView):
             specialconditions = Specialconditions.objects.filter(gtf_id=jt[0].gtf_id)
             othercharacts = Othercharacts.objects.filter(gtf_id=jt[0].gtf_id)
             gtfs = Jobtitles.objects.filter(jobtitle=jt[0].jobtitle).filter(ps_id=jt[0].ps_id).exclude(nameotf=jt[0].nameotf)
-            okz = Okz.objects.filter(gtf_id=jt[0].gtf_id).distinct()
+            try:
+                okz = Okz.objects.filter(gtf_id=jt[0].gtf_id).distinct()
+                codeokz = okz[0].codeok
+                nameokz = okz[0].nameokz
+            except:
+                okz = "Не указан"
+                codeokz = "Не указан"
+                nameokz = "Не указан"
 
             # if user go to url without parameters
             if not tfsid:
@@ -593,8 +608,8 @@ class OfficialInstructions(ListView):
                     'today' : rod_nowdate['today'],
                     'month': rod_nowdate['rod_month'],
                     'year' :rod_nowdate['year'],
-                    'codeokz' : okz[0].codeokz,
-                    'nameokz' : okz[0].nameokz,
+                    'codeokz' : codeokz,
+                    'nameokz' : nameokz,
                     }
 
             laresult = []

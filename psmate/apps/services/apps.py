@@ -97,7 +97,10 @@ class OIApp:
             return {'gent' : gent_join, 'datv' : datv_join}
 
         #check if jobtitle CEO
-        codeokz = okz[0].codeokz
+        try:
+            codeokz = okz[0].codeokz
+        except:
+            codeokz = "Не указан"
         ceo = False
         if codeokz[0] == "1":
             ceo = True
@@ -115,7 +118,7 @@ class OIApp:
                 e_fam_ul, e_name_ul, e_otch_ul = headname.split(" ")
             except:
                 e_fam_ul, e_name_ul, e_otch_ul = 'Пушкин','Александр','Сергеевич'
-            
+
 
         e_director = 'Генеральный директор'
         e_director_gent = 'Генерального директора'
