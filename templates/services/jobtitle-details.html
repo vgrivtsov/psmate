@@ -136,13 +136,6 @@ $("input[type='checkbox']").change(function(){
 <!-- /.card 2 -->
 </div>
 
-<div class="py-3">
-   <a onclick="javascript:addtfsid()" id='offinst' class="btn btn-lg btn-mdb-color btn-block" href="{% url 'official-instructions' jtresult.slug %}?"> {{ jtresult.jobtitle }} - должностная инструкциия</a>
-</div>
-
-<!--make refresh tfids if press back button-->
-<input type="hidden" id="refreshed" value="no">
-
 <!-- Yandex.RTB R-A-351618-1 -->
 <div id="yandex_rtb_R-A-351618-1"></div>
 <script type="text/javascript">
@@ -164,6 +157,12 @@ $("input[type='checkbox']").change(function(){
     })(this, this.document, "yandexContextAsyncCallbacks");
 </script>
 
+<div class="py-3">
+   <a onclick="javascript:addtfsid()" id='offinst' class="btn btn-lg btn-mdb-color btn-block" href="{% url 'official-instructions' jtresult.slug %}?"> {{ jtresult.jobtitle }} - должностная инструкциия</a>
+</div>
+
+<!--make refresh tfids if press back button-->
+<input type="hidden" id="refreshed" value="no">
 
 </div>
 <!-- /.container -->
